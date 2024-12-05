@@ -44,12 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseProcessor.cs" />
+    <Compile Include="BatchJobV2.cs" />
     <Compile Include="BatchJob.cs" />
+    <Compile Include="BusinessAccess\FileProcessor.cs" />
+    <Compile Include="BusinessAccess\StockProcessor.cs" />
+    <Compile Include="DataAccess\StoreDAL.cs" />
+    <Compile Include="FileTypes.cs" />
+    <Compile Include="Interfaces\IFileProcessor.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\EmployeeDTO.cs" />
+    <Compile Include="Models\FileStatus.cs" />
+    <Compile Include="Models\ProductMasterModel.cs" />
+    <Compile Include="Models\StockBO.cs" />
     <Compile Include="Models\StoreModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StoreProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
