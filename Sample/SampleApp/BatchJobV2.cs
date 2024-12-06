@@ -44,21 +44,27 @@ namespace SampleApp
                 }
 
                 //Get the storefile path from the directory
-                string storeFilePath = GetStoreFileNames(storeDirectoryPath, FileTypes.Store);
+                string storeFilePath = GetFileNameByFileType(storeDirectoryPath, FileTypes.Store);
                 //Initiate store file processing by using store processor
                 new StoreProcessor(storeFilePath).Process();
+
+                //Stock file processing
+                string stockFilePath = GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
+                var stockProcessor = new StockProcessor(stockFilePath, store.StoreId);
+                stockProcessor.Process();
+
             }
             Console.Read();
         }
 
-        private static string GetStoreFileNames(string storeDirectoryPath, FileTypes fileType)
+        private static string GetFileNameByFileType(string storeDirectoryPath, FileTypes fileType)
         {
-            string[] storeFolderFiles = Directory.GetFiles(storeDirectoryPath);
+            string[] storeLevelFiles = Directory.GetFiles(storeDirectoryPath);
             string startwithvalue = string.Empty;
             switch(fileType)
             {
                 case FileTypes.Store:
-                    startwithvalue = "store_";break;
+                    startwithvalue = "stores_";break;
 
                 case FileTypes.Stock:
                     startwithvalue = "stock_"; break;
@@ -68,7 +74,7 @@ namespace SampleApp
 
             }
 
-            foreach (string file in storeFolderFiles)
+            foreach (string file in storeLevelFiles)
             {
                 if (Path.GetFileNameWithoutExtension(file).Trim().ToLower().StartsWith(startwithvalue))
                 {

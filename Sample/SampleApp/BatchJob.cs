@@ -25,7 +25,7 @@ namespace SampleApp
             rSCConnectionString = ConfigurationManager.ConnectionStrings["iConnectRSCConnectionString"].ToString();
         }
 
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             //Step-1 : Source Information (Shared Location)
             //Destination Information ( SQL SERVER DATABASE)

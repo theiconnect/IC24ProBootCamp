@@ -16,7 +16,7 @@ namespace SampleApp
         private bool isValidFile { get; set; }
         private string FailReason { get; set; }
         private string FilePath { get; set; }
-        private string DirName { get { return Path.GetDirectoryName(FilePath); } }
+        private string DirName { get { return Path.GetFileName(Path.GetDirectoryName(FilePath)); } }
         private string[] FileContent { get; set; }
         private StoreModel StoreModel { get; set; }
         public StoreProcessor(string filePath)
@@ -104,6 +104,7 @@ namespace SampleApp
         private void PrepareStoreObject()
         {
             string[] data = FileContent[1].Split(',');
+            StoreModel = new StoreModel();
             StoreModel.StoreCode = data[1];
             StoreModel.StoreName = data[2];
             StoreModel.Location = data[3];

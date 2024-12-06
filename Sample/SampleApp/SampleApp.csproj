@@ -59,6 +59,7 @@
     <Compile Include="Models\StockBO.cs" />
     <Compile Include="Models\StoreModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockProcessor.cs" />
     <Compile Include="StoreProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
