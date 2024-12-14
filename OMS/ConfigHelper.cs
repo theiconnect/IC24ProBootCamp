@@ -9,12 +9,12 @@ namespace OMS
 {
     internal class ConfigHelper
     {
-        protected static string rootFolderPath { get; set; }
+        protected static string RootFolderPath { get; set; }
         protected static string ExcelConnString { get; set; }
         static ConfigHelper()
         {
 
-            rootFolderPath = ConfigurationManager.AppSettings["RootFolder"];
+            RootFolderPath = ConfigurationManager.AppSettings["RootFolder"];
             ExcelConnString = ConfigurationManager.AppSettings["ExcelConnectionString"];
         }
     }
@@ -22,7 +22,7 @@ namespace OMS
     internal class DBHelper
     {
         protected static string oMSConnectionString { get; set; }
-
+                               
         static DBHelper()
         {
             oMSConnectionString = ConfigurationManager.ConnectionStrings["iConnectOMSConnectionString"].ToString();

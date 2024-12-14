@@ -93,15 +93,28 @@ namespace OMS
 
             prepareWareHouseObject();
 
-            using(SqlConnection conn=new SqlConnection(oMSConnectionString))
+            try
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand($"Update warehouse Set warehouseName = '{wareHouseModel.WareHouseName}', Location = '{wareHouseModel.Location}', ManagerName= '{wareHouseModel.ManagerName}', ContactNo = '{wareHouseModel.ContactNumber}' where WareHouseCode = '{wareHouseModel.WareHouseCode}'", conn))
+                using (SqlConnection conn = new SqlConnection(oMSConnectionString))
                 {
+                    conn.Open();
 
-                    cmd.ExecuteNonQuery();
+                    using (SqlCommand cmd = new SqlCommand($"UpdateWarehousesData", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@WareHouseCode", wareHouseModel.WareHouseCode);
+                        cmd.Parameters.AddWithValue("@WareHouseName", wareHouseModel.WareHouseName);
+                        cmd.Parameters.AddWithValue("@Location", wareHouseModel.Location);
+                        cmd.Parameters.AddWithValue("@ManagerName", wareHouseModel.ManagerName);
+                        cmd.Parameters.AddWithValue("@ContactNO", wareHouseModel.ContactNumber);
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
                 }
-                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
         private void prepareWareHouseObject()
@@ -122,7 +135,7 @@ namespace OMS
         //validate file
         //push file
 
-        public static List<WareHouseModel> getAllWareHouses()
+        public static List<WareHouseModel> GetAllWareHouses()
         {
             var wareHouses = new List<WareHouseModel>();
             SqlConnection i = null;
@@ -131,9 +144,10 @@ namespace OMS
                 using (i = new SqlConnection(oMSConnectionString))
                 {
 
-                    using (var cmd = new SqlCommand(DBConstants.GET_ALL_WAREHOUSES, i))
+                    using (var cmd = new SqlCommand("GetAllWareHouseData", i))
                     {
                         i.Open();
+                        cmd.CommandType= CommandType.StoredProcedure;
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
@@ -162,7 +176,7 @@ namespace OMS
                 {
                     i.Close();
                 }
-                throw;
+                
             }
             finally
             {
@@ -172,6 +186,7 @@ namespace OMS
                 }
                 i.Dispose();
             }
+            return wareHouses;
         }
 
     }

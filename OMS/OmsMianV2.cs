@@ -12,8 +12,8 @@ namespace OMS
     {
         static void Main()
         {
-            string[] wareHouseFolders = Directory.GetDirectories(rootFolderPath);
-            List<WareHouseModel> wareHouses = WareHouseProcess.getAllWareHouses();
+            string[] wareHouseFolders = Directory.GetDirectories(RootFolderPath);
+            List<WareHouseModel> wareHouses = WareHouseProcess.GetAllWareHouses();
 
             foreach (string folderPath in wareHouseFolders)
             {
@@ -56,6 +56,9 @@ namespace OMS
                 
                 new CustomerProcess(CustomersFile, OrdersFile, OrderItemsFile, warehouse.WareHouseidpk).Process();
 
+                string returnFilePath= GetFileNameByFileType(folderPath,FileTypes.returns);
+                new ReturnProcess(returnFilePath, warehouse.WareHouseidpk).Process();
+
             }
 
             Console.ReadLine();
@@ -75,6 +78,15 @@ namespace OMS
                     StartsWith = "employee"; break;
                 case FileTypes.inventory:
                     StartsWith = "inventory"; break;
+                case FileTypes.customers:
+                    StartsWith = "customers";break;
+                case FileTypes.orders:
+                    StartsWith = "orders"; break;
+                case FileTypes.orderitem:
+                    StartsWith = "orderitem";break;
+                case FileTypes.returns:
+                    StartsWith = "returns";break;
+
 
             }
 

@@ -12,7 +12,8 @@ namespace OMS
         public string EmpCode { get; set; }
         public string EmpName { get; set; }
         public string EmpWareHouseCode { get; set; }
-        public string empContactNumber { get; set; }
+        public bool IsValidEmpolyee { get; set; } = true;
+        public string EmpContactNumber { get; set; }
         public string Gender { get; set; }
         public string Salary { get; set; }
     }

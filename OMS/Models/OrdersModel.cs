@@ -20,7 +20,7 @@ namespace OMS
         public string PaymentStaus { get; set; }
         public decimal TotalAmount {  get; set; }
         public int CustomerIdFk { get; set; }
-        public bool IsValidRecord {  get; set; }=true;
+        public bool IsValidOrder {  get; set; }=true;
         public List<OrderItemsModel> Items { get; set; }
 
     }

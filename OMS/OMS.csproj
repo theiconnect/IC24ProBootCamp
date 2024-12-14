@@ -55,7 +55,6 @@
     <Compile Include="BaseProcesser.cs" />
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="CustomerProcess.cs" />
-    <Compile Include="DBConstants.cs" />
     <Compile Include="EmployeeProcess.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="Filetypes.cs" />
@@ -66,12 +65,13 @@
     <Compile Include="Models\InventoryModel.cs" />
     <Compile Include="Models\OrderItemsModel.cs" />
     <Compile Include="Models\OrdersModel.cs" />
+    <Compile Include="Models\ReturnsModel.cs" />
     <Compile Include="Models\WareHouseModel.cs" />
     <Compile Include="Models\ProductMaster.cs" />
-    <Compile Include="omsMain.cs" />
     <Compile Include="OmsMianV2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReturnProcess.cs" />
     <Compile Include="WareHouseProcess.cs" />
   </ItemGroup>
   <ItemGroup>

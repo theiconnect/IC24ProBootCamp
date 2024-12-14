@@ -19,6 +19,6 @@ namespace OMS
         public decimal Quantity {  get; set; }
         public decimal PricePerUnit { get; set; }
          public decimal TotalAmount {  get; set; }
-        public bool IsValidRecord { get; set; } = true;
+        public bool IsValidItem { get; set; } = true;
     }
 }
