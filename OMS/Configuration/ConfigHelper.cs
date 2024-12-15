@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog.Internal;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OMS
 {
-    internal class ConfigHelper
+    public class ConfigHelper
     {
         protected static string RootFolderPath { get; set; }
         protected static string ExcelConnString { get; set; }
@@ -19,7 +20,7 @@ namespace OMS
         }
     }
 
-    internal class DBHelper
+    public   class DBHelper
     {
         protected static string oMSConnectionString { get; set; }
                                

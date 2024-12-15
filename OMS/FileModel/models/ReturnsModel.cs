@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS
+namespace FileModel
 {
-    internal class ReturnsModel
+    public class ReturnsModel
     {
         public string InvoiceNumber{get;set;}
         public string WareHouseCode {get;set;}

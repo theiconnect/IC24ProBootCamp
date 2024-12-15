@@ -7,10 +7,12 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using FileModel;
+using OMS;
 
-namespace OMS
+namespace FileProcesses
 {
-    internal class WareHouseProcess : BaseProcessor
+    public class WareHouseProcess : BaseProcessor
     {
         private string WareHouseFilePath{get;set;}
         private string FailedReason { get;set;}
@@ -28,7 +30,7 @@ namespace OMS
 
         }
 
-        internal void process()
+        public void process()
         {
             ReadFileData();
             ValidateStoreData();
@@ -49,6 +51,7 @@ namespace OMS
             { 
             
                 FailedReason="Log: the file contain more than one store information";
+                FileHelper.MoiveFile(WareHouseFilePath,FileStatus.Failure);
             }
 
            else if(WareHouseFileContent.Length <= 1)

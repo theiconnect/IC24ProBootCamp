@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS
+namespace FileModel
 {
-    internal class ProductMasterModel
+    public class ProductMasterModel
     {
         public int ProductIdPk { get; set; }
         public string ProductCode { get; set; }

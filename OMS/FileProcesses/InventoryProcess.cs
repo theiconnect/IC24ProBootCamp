@@ -8,10 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using FileModel;
+using FileProcesses;
+using OMS;
 
-namespace OMS
+namespace FileProcesses
 {
-    internal class InventoryProcess : BaseProcessor
+    public class InventoryProcess : BaseProcessor
     {
         private string InventoryPath { get; set; }
         private string FailedReason { get; set; }
@@ -33,7 +36,7 @@ namespace OMS
             InventoryPath = inventorypath;
         }
 
-        internal void Process()
+        public void Process()
         {
             //Read the file
             //Validate the file 

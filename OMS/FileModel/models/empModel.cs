@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS
+namespace FileModel
 {
-    internal class EmployeeModel
+    public class EmployeeModel
     {
         public int EmpIdpk { get; set; }
         public string EmpCode { get; set; }

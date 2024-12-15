@@ -1,5 +1,4 @@
-﻿using OMS.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -11,10 +10,13 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
+using FileModel;
+using FileProcesses;
+using OMS;
 
-namespace OMS
+namespace FileProcesses
 {
-    internal class CustomerProcess : BaseProcessor
+    public class CustomerProcess : BaseProcessor
     {
         private string CustomerFilePath { get; set; }
         public string OrdersFileName { get { return Path.GetFileName(OrdersFilePath); } }
@@ -32,7 +34,7 @@ namespace OMS
             this.WareHouseId = wareHouseId;
         }
 
-        internal void Process()
+        public void Process()
         {
             if (string.IsNullOrEmpty(this.CustomerFilePath) && string.IsNullOrEmpty(this.OrdersFilePath) && string.IsNullOrEmpty(this.OrderItemFilePath))
             {

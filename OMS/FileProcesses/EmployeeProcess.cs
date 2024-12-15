@@ -11,10 +11,14 @@ using System.Xml;
 using System.Data;
 using System.Reflection.Emit;
 using System.Runtime.Remoting.Messaging;
+using FileModel;
+using FileProcesses;
+using OMS;
 
-namespace OMS
+
+namespace FileProcesses
 {
-    internal class EmployeeProcess:BaseProcessor
+    public class EmployeeProcess:BaseProcessor
     {
        
         private bool isValidFile { get; set; }
@@ -36,7 +40,7 @@ namespace OMS
             EmployeeFilePath = Employeefile;
         }
 
-        internal void Process()
+        public void Process()
         {
 
             //READ

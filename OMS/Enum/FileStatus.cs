@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS
+namespace Enum
 {
-    internal class Program
+    public enum FileStatus
     {
-        static void Main(string[] args)
-        {
-            Console.ReadLine();
-        }
+        
+            Success,
+            Failure 
+        
+
     }
 }

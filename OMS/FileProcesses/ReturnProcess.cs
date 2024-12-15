@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using OMS;
+using FileProcesses;
+using FileModel;
 
-namespace OMS
+
+namespace FileProcesses
 {
-    internal class ReturnProcess: BaseProcessor
+    public class ReturnProcess: BaseProcessor
     {
         private string ReturnFilePath {  get; set; }
         private int WareHouseId {  get; set; }
@@ -17,7 +21,7 @@ namespace OMS
             this.WareHouseId = wareHouseidpk;
         }
 
-        internal void Process()
+        public void Process()
         {
             if (string.IsNullOrEmpty(ReturnFilePath))
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleApp
+namespace Enum
 {
-    internal enum FileTypes
+    public enum FileTypes
     {
         wareHouse = 1,
         employee = 2,

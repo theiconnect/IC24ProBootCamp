@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS
+
+namespace FileModel
 {
-    internal class InventoryModel
+    public class InventoryModel
     {
         public  string wareHouseCode{get; set;}
         public  int ProductIdFk { get; set;}

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OMS
 {
-    internal class BaseProcessor : DBHelper
+    public class BaseProcessor : DBHelper
     {
         
     }

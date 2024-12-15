@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS
+namespace FileModel
 {
-    internal class DBStockData
+    public class DBStockData
     {
         public int InventoryIdPk { get; set; }
         public int ProductIdFk { get; set; }
@@ -17,5 +17,6 @@ namespace OMS
         public decimal QuantityAvailable { get; set; }
         public decimal PricePerUnit { get; set; }
         public decimal RemainingQuantity {  get; set; }
+
     }
 }

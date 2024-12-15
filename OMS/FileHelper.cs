@@ -7,10 +7,13 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using FileModel;
+using Enum;
+
 
 namespace OMS
 {
-    internal class FileHelper : ConfigHelper
+    public class FileHelper : ConfigHelper
     {
         public static string GetFileNameByFilePath(string filePath)
         {
@@ -86,7 +89,7 @@ namespace OMS
 
         }
 
-        internal static DataSet GetXMLFileContent(string returnFilePath)
+        public static DataSet GetXMLFileContent(string returnFilePath)
         {
             try
             {
@@ -104,6 +107,13 @@ namespace OMS
             }
 
         }
+
+        public static void MoiveFile(string wareHouseFilePath, FileStatus failure)
+        {
+
+        }
+
+
     }
 }
 

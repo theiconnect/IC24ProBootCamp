@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS.Models
+namespace FileModel
 {
-    internal  class CustomerModel
+    public  class CustomerModel
     {
         public string CustomerName {  get; set; }
         public int CustomerIdPk {  get; set; }
