@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA6E6440-3CB4-4C5C-9397-10FDD5A23D33}</ProjectGuid>
+    <ProjectGuid>{88BD6FBD-08DF-429A-8E33-46EA79A040FC}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>RSC</RootNamespace>
-    <AssemblyName>RSC</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <RootNamespace>PathAndDataBaseConfig</RootNamespace>
+    <AssemblyName>PathAndDataBaseConfig</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -34,6 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\RSC\packages\System.Configuration.ConfigurationManager.9.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,31 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomerProcess.cs" />
-    <Compile Include="EmployeeProcessor.cs" />
-    <Compile Include="FileTypes.cs" />
+    <Compile Include="BaseProcessor.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProgramV2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StockProcess.cs" />
-    <Compile Include="StoreProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataAcess\DataAcess.csproj">
-      <Project>{f6c3e5e5-fd10-4dae-aa3c-78a1bc6e6059}</Project>
-      <Name>DataAcess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{a64e7c54-1d8d-476f-bc0a-47e3b9e3c9e2}</Project>
-      <Name>Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PathAndDataBaseConfig\PathAndDataBaseConfig.csproj">
-      <Project>{88bd6fbd-08df-429a-8e33-46ea79a040fc}</Project>
-      <Name>PathAndDataBaseConfig</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
