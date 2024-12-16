@@ -96,7 +96,7 @@ namespace FileProcesses
                         continue;
                     }
 
-                    if (employeeRecord.EmpCode != dirName)
+                    if (employeeRecord.EmpWareHouseCode != dirName)
                     {
                         employeeRecord.IsValidEmpolyee = false;
                         continue;
