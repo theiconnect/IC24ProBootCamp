@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using OMS;
 using FileProcesses;
 using FileModel;
-
+using Configuration;
+using ProjectHelpers;
+using System.Globalization;
+using DBDataAcesses;
 
 namespace FileProcesses
 {
@@ -31,7 +33,7 @@ namespace FileProcesses
             }
             ReadFileData();
             ValidateReturnsData();
-            PushRetrunsDataToDB();
+            PushDataIntoDb. PushRetrunsDataToDB(ReturnsList,ReturnFilePath);
 
         }
 
@@ -84,44 +86,8 @@ namespace FileProcesses
             }
         }
 
-        private void PushRetrunsDataToDB()
-        {
-            try
-            {
+       
 
-                using (SqlConnection conn = new SqlConnection(DBHelper.oMSConnectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandText = "AddReturn";
-                        cmd.Connection = conn;
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        conn.Open();
-                        foreach (var returnRecord in ReturnsList)
-                        {
-                            if (!returnRecord.IsvalidReturn) continue;
-                            cmd.Parameters.Clear();
 
-                            // Add parameters with correct DbType and values
-                            cmd.Parameters.Add(new SqlParameter("@ReturnDate", SqlDbType.DateTime) { Value = returnRecord.Date });
-                            cmd.Parameters.Add(new SqlParameter("@InvoiceNumber", SqlDbType.NVarChar, 50) { Value = returnRecord.InvoiceNumber });
-                            cmd.Parameters.Add(new SqlParameter("@Reason", SqlDbType.NVarChar, 255) { Value = returnRecord.Reason });
-                            cmd.Parameters.Add(new SqlParameter("@ReturnStatus", SqlDbType.NVarChar, 50) { Value = returnRecord.ReturnStatus });
-                            cmd.Parameters.Add(new SqlParameter("@AmountRefund", SqlDbType.Decimal) { Value = returnRecord.AmountRefund });
-
-                            // Execute the stored procedure
-                            cmd.ExecuteNonQuery();
-
-                        }
-                        conn.Close();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-        }
     }
 }

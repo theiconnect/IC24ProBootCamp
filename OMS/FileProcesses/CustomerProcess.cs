@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
 using FileModel;
-using FileProcesses;
-using OMS;
-
+using Configuration;
+using ProjectHelpers;
+using DBDataAcesses;
 namespace FileProcesses
 {
     public class CustomerProcess : BaseProcessor
@@ -44,7 +38,7 @@ namespace FileProcesses
 
             ReadFileData();
             ValidateCustomerData();
-            PushCustomerDataToDB();
+            PushDataIntoDb.PushCustomerDataToDB(Customers, WareHouseId, CustomerFilePath, OrdersFilePath, OrderItemFilePath);
         }
 
         private void ReadFileData()
@@ -282,137 +276,10 @@ namespace FileProcesses
             }
         }
         
-        private void PushCustomerDataToDB()
-        {
-            try
-            { 
-                using (SqlConnection connection = new SqlConnection(DBHelper.oMSConnectionString))
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-
-                        command.CommandText = "UpdateOrInsertCustomer";
-                        command.Connection = connection;
-                        command.CommandType=CommandType.StoredProcedure;
-                        connection.Open();
-                        foreach (var customerRecord in Customers)
-                        {
-                            if (!customerRecord.IsValidCustomer) continue;
-                            command.Parameters.Clear();
-                            command.Parameters.Add("@CustomerName", DbType.String).Value = customerRecord.CustomerName;
-                            command.Parameters.Add("@PhNo", DbType.String).Value = customerRecord.ContactNumber;
-                            command.ExecuteNonQuery();
-
-                        }
-
-                        connection.Close();
 
 
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            PushOrderDataToDB();
-
-        }
-        private void PushOrderDataToDB()
-        {
-            try 
-            { 
-                using (SqlConnection connection = new SqlConnection(DBHelper.oMSConnectionString))
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.CommandText = "AddOrder";
-                        command.Connection = connection;
-                        command.CommandType = CommandType.StoredProcedure;
-                        connection.Open();
-
-                        foreach (var cust in Customers)
-                        {
-                            if (!cust.IsValidCustomer) continue;
-                            foreach (var OrderRecord in cust.Orders)
-                            {
-                                if (!OrderRecord.IsValidOrder) continue;
-
-                                command.Parameters.Clear();
-                                command.Parameters.Add("@InvoiceNumber", DbType.String).Value = OrderRecord.InvoiceNumber;
-                                command.Parameters.Add("@PhNo", DbType.String).Value = OrderRecord.CustomerPhNo;
-                                command.Parameters.Add("@WareHouseIdfk", DbType.Int32).Value = WareHouseId;
-                                command.Parameters.Add("@OrderDate", DbType.DateTime).Value = OrderRecord.Date;
-                                command.Parameters.Add("@NoOfItems", DbType.Int32).Value = OrderRecord.NoOfItems;
-                                command.Parameters.Add("@PaymentStatus", DbType.String).Value = OrderRecord.PaymentStaus;
-                                command.Parameters.Add("@TotalAmount", DbType.Decimal).Value = OrderRecord.TotalAmount;
-
-                                command.ExecuteNonQuery();
 
 
-                            }
-                        }
-
-                        connection.Close();
-                    }
-
-                    PushOrderItemDataToDB();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-        private void PushOrderItemDataToDB()
-        {
-            try 
-            { 
-                using (SqlConnection connection = new SqlConnection(DBHelper.oMSConnectionString))
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {
-                        command.CommandText = "AddOrderItem";
-                        command.Connection = connection;
-                        command.CommandType=CommandType.StoredProcedure;
-                        connection.Open();
-                        foreach (var cust in Customers)
-                        {
-                            if (!cust.IsValidCustomer) continue;
-                            foreach (var order in cust.Orders)
-
-                            {
-                                if (!order.IsValidOrder) continue;
-                                foreach (var OrderItem in order.Items)
-                                {
-                                    if (!OrderItem.IsValidItem) continue;
-                                    command.Parameters.Clear();
-
-                                    // Add parameters with correct DbType and values
-                                    command.Parameters.Add("@InvoiceNumber", DbType.String).Value = OrderItem.InvoiceNumber; 
-                                    command.Parameters.Add("@ProductCode", DbType.String).Value = OrderItem.ProductCode;     
-                                    command.Parameters.Add("@WareHouseIdfk", DbType.Int32).Value = WareHouseId;              
-                                    command.Parameters.Add("@Quantity", DbType.Decimal).Value = OrderItem.Quantity;          
-                                    command.Parameters.Add("@PricePerUnit", DbType.Decimal).Value = OrderItem.PricePerUnit;  
-                                    command.Parameters.Add("@TotalAmount", DbType.Decimal).Value = OrderItem.TotalAmount;
-                                    command.ExecuteNonQuery();
-
-                                }
-
-                            }
-                        }
-
-                        connection.Close();
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
     }
 
 }

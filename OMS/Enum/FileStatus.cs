@@ -12,6 +12,5 @@ namespace Enum
             Success,
             Failure 
         
-
     }
 }

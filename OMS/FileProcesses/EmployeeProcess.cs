@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Data;
-using System.Reflection.Emit;
-using System.Runtime.Remoting.Messaging;
 using FileModel;
-using FileProcesses;
-using OMS;
-
-
+using ProjectHelpers;
+using Configuration;
+using DBDataAcesses;
+using Enum;
 namespace FileProcesses
 {
     public class EmployeeProcess:BaseProcessor
@@ -48,7 +40,7 @@ namespace FileProcesses
             //PUSH INTO DB
             ReadFileData();
             ValidateStoreData();
-            PushStoreDataToDB();
+            PushDataIntoDb.PushEmployeeDataToDB(EmployeesList, EmployeeFilePath);
 
 
         }
@@ -80,6 +72,8 @@ namespace FileProcesses
             }
             catch (Exception ex)
             {
+                FileHelper.MoiveFile(EmployeeFilePath, FileStatus.Failure);
+
                 Console.WriteLine(ex.Message);
             }
 
@@ -112,46 +106,14 @@ namespace FileProcesses
             }
             catch (Exception ex)
             {
+                FileHelper.MoiveFile(EmployeeFilePath, FileStatus.Failure);
+
                 Console.WriteLine(ex.Message);
             }
 
         }
 
-        private void PushStoreDataToDB()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(oMSConnectionString))
-                {
-                    conn.Open();
-
-                    using (SqlCommand cmd = new SqlCommand("InsertOrUpdateEmpData", conn))
-                    {
-                        foreach (var employeeData in EmployeesList)
-                        {
-                            if (!employeeData.IsValidEmpolyee) continue;
-                            cmd.CommandType = CommandType.StoredProcedure;
-
-                            cmd.Parameters.Clear();
-                            cmd.Parameters.AddWithValue("@EmpCode", employeeData.EmpCode);
-                            cmd.Parameters.AddWithValue("@EmpName", employeeData.EmpName);
-                            cmd.Parameters.AddWithValue("@EmpWareHouseCode", employeeData.EmpWareHouseCode);
-                            cmd.Parameters.AddWithValue("@EmpContactNumber", employeeData.EmpContactNumber);
-                            cmd.Parameters.AddWithValue("@Gender", employeeData.Gender);
-                            cmd.Parameters.AddWithValue("@Salary", employeeData.Salary);
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-        }
+       
 
     }
 

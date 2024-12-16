@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using FileModel;
 using Enum;
+using Configuration;
 
-
-namespace OMS
+namespace ProjectHelpers
 {
     public class FileHelper : ConfigHelper
     {
@@ -108,12 +108,65 @@ namespace OMS
 
         }
 
-        public static void MoiveFile(string wareHouseFilePath, FileStatus failure)
+        public static void MoiveFile(string FilePath, FileStatus failure)
         {
+            string combinedName=string.Empty;
+            string desinationPath=string.Empty;
+            switch (failure) 
+            {
+                case FileStatus.Success:
+                    combinedName = "Processed";
+                    break;
+                case FileStatus.Failure:
+                    combinedName = "ErrorFile";
+                    break;
+                default:
+                    combinedName=string.Empty ;
+                    break;
+
+            }
+            desinationPath=Path.Combine(Path.GetDirectoryName(FilePath),combinedName, GetFileNameByFilePath(FilePath));
+            File.Move(FilePath, desinationPath); 
+
+
 
         }
 
 
+        public static string GetFileNameByFileType(string folder, FileTypes filetype)
+        {
+            string[] wareHouseLevelFile = Directory.GetFiles(folder);
+            string StartsWith = string.Empty;
+
+            switch (filetype)
+            {
+                case FileTypes.wareHouse:
+                    StartsWith = "warehouse"; break;
+                case FileTypes.employee:
+                    StartsWith = "employee"; break;
+                case FileTypes.inventory:
+                    StartsWith = "inventory"; break;
+                case FileTypes.customers:
+                    StartsWith = "customers"; break;
+                case FileTypes.orders:
+                    StartsWith = "orders"; break;
+                case FileTypes.orderitem:
+                    StartsWith = "orderitem"; break;
+                case FileTypes.returns:
+                    StartsWith = "returns"; break;
+
+
+            }
+
+            foreach (string file in wareHouseLevelFile)
+            {
+                if (Path.GetFileNameWithoutExtension(file).ToLower().Trim().StartsWith(StartsWith))
+                {
+                    return file;
+                }
+            }
+            return null;
+        }
     }
 }
 

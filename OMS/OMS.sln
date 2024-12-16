@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configurat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enum", "Enum\Enum.csproj", "{BD73A788-4701-4686-AC42-DD8BB7302A8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectHelpers", "ProjectHelpers\ProjectHelpers.csproj", "{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBDataAcesses", "DBDataAcesses\DBDataAcesses.csproj", "{526E9A9D-BF1C-4850-A56E-E4313175F4F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{BD73A788-4701-4686-AC42-DD8BB7302A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD73A788-4701-4686-AC42-DD8BB7302A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD73A788-4701-4686-AC42-DD8BB7302A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{526E9A9D-BF1C-4850-A56E-E4313175F4F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{526E9A9D-BF1C-4850-A56E-E4313175F4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{526E9A9D-BF1C-4850-A56E-E4313175F4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{526E9A9D-BF1C-4850-A56E-E4313175F4F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

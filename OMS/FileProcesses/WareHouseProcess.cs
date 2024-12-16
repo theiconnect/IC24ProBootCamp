@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using FileModel;
-using OMS;
-
+using Configuration;
+using ProjectHelpers;
+using Enum;
+using DBDataAcesses;
 namespace FileProcesses
 {
     public class WareHouseProcess : BaseProcessor
@@ -34,13 +32,15 @@ namespace FileProcesses
         {
             ReadFileData();
             ValidateStoreData();
-            PushStoreDataToDB();
+            PushDataIntoDb. PushStoreDataToDB(wareHouseModel,isValidFile, WareHouseFilePath);
         }
 
         private void ReadFileData()
         {
 
            WareHouseFileContent= File.ReadAllLines(WareHouseFilePath);
+            prepareWareHouseObject();
+
 
         }
 
@@ -51,7 +51,6 @@ namespace FileProcesses
             { 
             
                 FailedReason="Log: the file contain more than one store information";
-                FileHelper.MoiveFile(WareHouseFilePath,FileStatus.Failure);
             }
 
            else if(WareHouseFileContent.Length <= 1)
@@ -87,39 +86,7 @@ namespace FileProcesses
 
 
         }
-        private void PushStoreDataToDB()
-        {
-            if (!isValidFile)
-            {
-                return ;
-            }
-
-            prepareWareHouseObject();
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(oMSConnectionString))
-                {
-                    conn.Open();
-
-                    using (SqlCommand cmd = new SqlCommand($"UpdateWarehousesData", conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@WareHouseCode", wareHouseModel.WareHouseCode);
-                        cmd.Parameters.AddWithValue("@WareHouseName", wareHouseModel.WareHouseName);
-                        cmd.Parameters.AddWithValue("@Location", wareHouseModel.Location);
-                        cmd.Parameters.AddWithValue("@ManagerName", wareHouseModel.ManagerName);
-                        cmd.Parameters.AddWithValue("@ContactNO", wareHouseModel.ContactNumber);
-                        cmd.ExecuteNonQuery();
-                    }
-                    conn.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
+        
         private void prepareWareHouseObject()
         {
             wareHouseModel= new WareHouseModel();
@@ -132,65 +99,8 @@ namespace FileProcesses
             wareHouseModel.ContactNumber= data[4];
         }
 
-        //read file
 
-
-        //validate file
-        //push file
-
-        public static List<WareHouseModel> GetAllWareHouses()
-        {
-            var wareHouses = new List<WareHouseModel>();
-            SqlConnection i = null;
-            try
-            {
-                using (i = new SqlConnection(oMSConnectionString))
-                {
-
-                    using (var cmd = new SqlCommand("GetAllWareHouseData", i))
-                    {
-                        i.Open();
-                        cmd.CommandType= CommandType.StoredProcedure;
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var wareHouse = new WareHouseModel();
-                                wareHouse.WareHouseidpk = Convert.ToInt32(reader["WarehouseIdPk"]);
-                                wareHouse.WareHouseCode = Convert.ToString(reader["WarehouseCode"]);
-                                wareHouse.WareHouseName = Convert.ToString(reader["WarehouseName"]);
-                                wareHouse.Location = Convert.ToString(reader["Location"]);
-                                wareHouse.ManagerName = Convert.ToString(reader["ManagerName"]);
-                                wareHouse.ContactNumber = Convert.ToString(reader["ContactNo"]);
-                                wareHouses.Add(wareHouse);
-                            }
-                        }
-                        if (i.State == ConnectionState.Open)
-                        {
-                            i.Close();
-                        }
-                    }
-                    return wareHouses;
-                }
-            }
-            catch (Exception ex)
-            {
-                if (i.State == ConnectionState.Open)
-                {
-                    i.Close();
-                }
-                
-            }
-            finally
-            {
-                if (i != null && i.State == ConnectionState.Open)
-                {
-                    i.Close();
-                }
-                i.Dispose();
-            }
-            return wareHouses;
-        }
+        
 
     }
 }
