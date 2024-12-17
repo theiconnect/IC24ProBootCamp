@@ -122,7 +122,7 @@ namespace RSC
             }
             prepareStockObject();
             StockDA stockObj = new StockDA();
-            stockObj.SyncStockData();
+            stockObj.SyncStockData(Products, stockFileInformation);
         }
         private void prepareStockObject()
         {

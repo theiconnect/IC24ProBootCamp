@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using PathAndDataBaseConfig;
 
 namespace DataAcess
 {
     public class CustomerDA
     {
-        protected static string rscConnectedString { get; set; }
+        
         private List<CustomerModel> customers { get; set; }
         public void SyncCustomerData()
         {
@@ -23,7 +24,7 @@ namespace DataAcess
 
         private void SyncCustomerDataWithDB()
         {
-            using (SqlConnection connetion = new SqlConnection(rscConnectedString))
+            using (SqlConnection connetion = new SqlConnection(BaseProcessor.rscConnectedString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -54,7 +55,7 @@ namespace DataAcess
 
         private void SyncOrderDataWithDB()
         {
-            using (SqlConnection connetion = new SqlConnection(rscConnectedString))
+            using (SqlConnection connetion = new SqlConnection(BaseProcessor.rscConnectedString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {
@@ -96,7 +97,7 @@ namespace DataAcess
         }
         private void SyncBillingDataWithDB()
         {
-            using (SqlConnection connection = new SqlConnection(rscConnectedString))
+            using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {

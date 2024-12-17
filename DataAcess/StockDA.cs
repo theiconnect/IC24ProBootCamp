@@ -6,25 +6,26 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PathAndDataBaseConfig;
 
 namespace DataAcess
 {
     public class StockDA
     {
-        private List<ProductMasterBO> Products { get; set; }
-        private List<StockBO> stockFileInformation { get; set; }
-        protected static string rscConnectedString { get; set; }
-        public void SyncStockData()
+        
+        
+        
+        public void SyncStockData(List<ProductMasterBO> products, List<StockBO> stockFileInformation)
         {
-            GetrAllProductsFromDB();
-            SyncStockTableData();
-            SyncProductMasterTableData();
+            GetrAllProductsFromDB(products);
+            SyncStockTableData(stockFileInformation);
+            SyncProductMasterTableData(stockFileInformation);
 
         }
-        private void GetrAllProductsFromDB()
+        private void GetrAllProductsFromDB(List<ProductMasterBO> products)
         {
-            Products = new List<ProductMasterBO>();
-            using (SqlConnection con = new SqlConnection(rscConnectedString))
+            products = new List<ProductMasterBO>();
+            using (SqlConnection con = new SqlConnection(BaseProcessor.rscConnectedString))
             {
                 //SELECT ProductIdPk,ProductCode,ProductName,PricePerUnit FROM ProductMaster
                 using (SqlCommand command = new SqlCommand("GetAllProducts", con))
@@ -40,7 +41,7 @@ namespace DataAcess
                             productModel.ProductCode = Convert.ToString(reader["ProductCode"]);
                             productModel.ProductName = Convert.ToString(reader["ProductName"]);
                             productModel.PricePerUnit = Convert.ToDecimal(reader["PricePerUnit"]);
-                            Products.Add(productModel);
+                            products.Add(productModel);
 
 
                         }
@@ -51,9 +52,9 @@ namespace DataAcess
             }
         }
 
-        private void SyncStockTableData()
+        private void SyncStockTableData(List<StockBO> stockFileInformation)
         {
-            using (SqlConnection connection = new SqlConnection(rscConnectedString))
+            using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
             {
 
                 using (SqlCommand command = new SqlCommand())
@@ -83,11 +84,11 @@ namespace DataAcess
 
 
         }
-        private void SyncProductMasterTableData()
+        private void SyncProductMasterTableData(List<StockBO> stockFileInformation)
         {
 
 
-            using (SqlConnection connection = new SqlConnection(rscConnectedString))
+            using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {

@@ -6,21 +6,57 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using PathAndDataBaseConfig;
 
 
 
 namespace DataAcess
 {
-        public class StoreDA
+
+     public class StoreDA
+
+     {
+        private static List<StoreModel> GetAllStoresDataFromDB()
         {
-            private string isValidFile { get; set; }
-            protected static string rscConnectedString { get; set; }
-
-            public static void SyncStoreDataToDB(StoreModel storeModelObject)
+            List<StoreModel> stores = new List<StoreModel>();
+            using (SqlConnection con = new SqlConnection(BaseProcessor.rscConnectedString))
             {
+                //string query = "select StoreIdPk,storeCode,StoreName,Location,ManagerName,StoreContactNumber from stores";
+                using (SqlCommand command = new SqlCommand())
+                {
+                    con.Open();
+                    command.CommandText = "GetAllStores";
+                    command.Connection = con;
+                    command.CommandType = CommandType.StoredProcedure;
 
 
-                using (SqlConnection con = new SqlConnection(rscConnectedString))
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            StoreModel model = new StoreModel();
+                            model.StoreIdPk = Convert.ToInt32(reader["StoreIdPk"]);
+                            model.StoreCode = Convert.ToString(reader["storeCode"]);
+                            model.StoreName = Convert.ToString(reader["StoreName"]);
+                            model.Location = Convert.ToString(reader["Location"]);
+                            model.ManagerName = Convert.ToString(reader["ManagerName"]);
+                            model.ContactNumber = Convert.ToString(reader["StoreContactNumber"]);
+                            stores.Add(model);
+                        }
+
+                    }
+                }
+                con.Close();
+            }
+            return stores;
+        }
+
+
+        public static void SyncStoreDataToDB(StoreModel storeModelObject)
+        {
+
+
+                using (SqlConnection con = new SqlConnection(BaseProcessor.rscConnectedString))
                 {
                     //string query = "update stores set storeName=@StoreName,Location=@Location,ManagerName=@ManagerName,StoreContactNumber=@ContactNumber where StoreCode=@StoreCode";
                     //string query1 = $"update stores set storeName={storeModelObject.StoreName},Location=@Location,ManagerName=@ManagerName,StoreContactNumber=@ContactNumber where StoreCode=@StoreCode";
@@ -50,8 +86,11 @@ namespace DataAcess
                     }
 
                 }
-            }
+
 
         }
+
+
+     }
 }
 

@@ -126,7 +126,7 @@ namespace RSC
             }
             PrepareEmployeeModelObject();
             EmployeeDA employeeObj = new EmployeeDA();
-            employeeObj.SyncEmployeeData();
+            employeeObj.SyncEmployeeData(employeeData, fileEmployeeDTOObject);
 
 
         }

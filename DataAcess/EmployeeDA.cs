@@ -6,26 +6,25 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PathAndDataBaseConfig;
 
 namespace DataAcess
 {
     public class EmployeeDA
     {
-        private static List<EmployeeDTO> employeeData { get; set; }
-        protected static string rscConnectedString { get; set; }
-        private List<EmployeeDTO> fileEmployeeDTOObject { get; set; }
-        public void SyncEmployeeData()
+       
+        public void SyncEmployeeData(List<EmployeeDTO> employeeData, List<EmployeeDTO> fileEmployeeDTOObject)
         {
-            GetAllEmployeeDataFromDB();
-            SyncEmployeeDataWithDB();
+            GetAllEmployeeDataFromDB(employeeData);
+            SyncEmployeeDataWithDB(fileEmployeeDTOObject );
 
         }
 
 
-        private void GetAllEmployeeDataFromDB()
+        private void GetAllEmployeeDataFromDB(List<EmployeeDTO> employeeData)
         {
             employeeData = new List<EmployeeDTO>();
-            using (SqlConnection connection = new SqlConnection(rscConnectedString))
+            using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
             {
                 using (SqlCommand command = new SqlCommand())
                 {////EmployeeCode|StoreCode|EmployeeName|Role|DateOfJoining|DateOfLeaving|ContactNumber|Gender|Salary|StoreId
@@ -71,9 +70,9 @@ namespace DataAcess
 
             }
         }
-        private void SyncEmployeeDataWithDB()
+        private void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject)
         {
-            using (SqlConnection con = new SqlConnection(rscConnectedString))
+            using (SqlConnection con = new SqlConnection(BaseProcessor.rscConnectedString))
             {
 
                 //EmployeeCode | StoreCode | EmployeeName | Role | DateOfJoining | DateOfLeaving | ContactNumber | Gender | Salary | StoreId

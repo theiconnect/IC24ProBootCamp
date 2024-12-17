@@ -12,7 +12,7 @@ namespace PathAndDataBaseConfig
     {
         public static string mainFolderPath { get; set; }
         public static string excelConnectionString { get; set; }
-        protected static string rscConnectedString { get; set; }
+        public static string rscConnectedString { get; set; }
 
 
         public BaseProcessor()

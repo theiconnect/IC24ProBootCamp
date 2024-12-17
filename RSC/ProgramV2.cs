@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PathAndDataBaseConfig;
+using DataAcess;
 
 namespace RSC
 {
@@ -15,16 +17,15 @@ namespace RSC
     {
         static int storeIdPk { get; set; }
         public static string stockFilePath { get; private set; }
-        public static string mainFolderPath { get; private set; }
-        public static string rscConnectedString { get; private set; }
+        
 
         static void Main(string[] args)
 
         {
             //Get all the store folders from root directory
-            string[] directories = Directory.GetDirectories(mainFolderPath);
+            string[] directories = Directory.GetDirectories(BaseProcessor.mainFolderPath);
             //Get All Stores information From DB
-            List<StoreModel> storesData = GetAllStoresDataFromDB();
+            List<StoreModel> storesData = StoreDA.GetAllStoresDataFromDB();
 
             foreach (string storeDirectoryPath in directories)
             {
@@ -39,7 +40,7 @@ namespace RSC
                     continue;
                 }
                 //Get the storefile path from the directory
-                string storeFilePath = GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); //"Stores"
+                string storeFilePath = GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
                 //Initiate store file processing by using store processor
                 var storeProcessor = new StoreProcessor(storeFilePath);
                 storeProcessor.Process();
@@ -103,40 +104,7 @@ namespace RSC
         }
 
 
-        private static List<StoreModel> GetAllStoresDataFromDB()
-        {
-            List<StoreModel> stores = new List<StoreModel>();
-            using (SqlConnection con = new SqlConnection(rscConnectedString))
-            {
-                //string query = "select StoreIdPk,storeCode,StoreName,Location,ManagerName,StoreContactNumber from stores";
-                using (SqlCommand command = new SqlCommand())
-                {
-                    con.Open();
-                    command.CommandText = "GetAllStores";
-                    command.Connection = con;
-                    command.CommandType = CommandType.StoredProcedure;
-
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            StoreModel model = new StoreModel();
-                            model.StoreIdPk = Convert.ToInt32(reader["StoreIdPk"]);
-                            model.StoreCode = Convert.ToString(reader["storeCode"]);
-                            model.StoreName = Convert.ToString(reader["StoreName"]);
-                            model.Location = Convert.ToString(reader["Location"]);
-                            model.ManagerName = Convert.ToString(reader["ManagerName"]);
-                            model.ContactNumber = Convert.ToString(reader["StoreContactNumber"]);
-                            stores.Add(model);
-                        }
-
-                    }
-                }
-                con.Close();
-            }
-            return stores;
-        }
+        
 
     }
 }

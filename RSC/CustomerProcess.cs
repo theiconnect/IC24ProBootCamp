@@ -46,7 +46,7 @@ namespace RSC
         private void PushCustomerDataToDB()
         {
             CustomerDA customerObj = new CustomerDA();
-            customerObj.SyncCustomerData();
+            customerObj.SyncCustomerData(customers);
 
 
 
