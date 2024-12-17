@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>OMS</RootNamespace>
-    <AssemblyName>OMS</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <ProjectGuid>{526E9A9D-BF1C-4850-A56E-E4313175F4F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DBDataAcesses</RootNamespace>
+    <AssemblyName>DBDataAcesses</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,10 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,17 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>OMS.OmsMianV2</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,35 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OmsMianV2.cs" />
+    <Compile Include="GetDataFormDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushDataIntoDb.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Configuration\Configuration.csproj">
+    <ProjectReference Include="..\Configuration\Configuration.csproj">
       <Project>{51bb42e8-5c12-4e62-8014-5aea2d962022}</Project>
       <Name>Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="DBDataAcesses\DBDataAcesses.csproj">
-      <Project>{526e9a9d-bf1c-4850-a56e-e4313175f4f6}</Project>
-      <Name>DBDataAcesses</Name>
-    </ProjectReference>
-    <ProjectReference Include="Enum\Enum.csproj">
+    <ProjectReference Include="..\Enum\Enum.csproj">
       <Project>{bd73a788-4701-4686-ac42-dd8bb7302a8b}</Project>
       <Name>Enum</Name>
     </ProjectReference>
-    <ProjectReference Include="FileModel\FileModel.csproj">
+    <ProjectReference Include="..\FileModel\FileModel.csproj">
       <Project>{a7767146-90ed-4419-bc07-c09a8e9324d3}</Project>
       <Name>FileModel</Name>
     </ProjectReference>
-    <ProjectReference Include="FileProcesses\FileProcesses.csproj">
-      <Project>{4fe7abbe-8221-4100-af0b-aefe21916ba3}</Project>
-      <Name>FileProcesses</Name>
-    </ProjectReference>
-    <ProjectReference Include="ProjectHelpers\ProjectHelpers.csproj">
+    <ProjectReference Include="..\ProjectHelpers\ProjectHelpers.csproj">
       <Project>{fc09a9d7-6067-416d-b66b-0b74a62bdcd5}</Project>
       <Name>ProjectHelpers</Name>
     </ProjectReference>
