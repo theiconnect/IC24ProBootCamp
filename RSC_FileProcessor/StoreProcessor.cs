@@ -1,0 +1,110 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
+using RSC_Configurations;
+using RSC_Models;
+
+namespace RSC_FileProcessor
+{
+    internal class StoreProcessor 
+    {
+        private string StoreFilePath { get; set; }
+        private string StoreCode { get; set; }
+        private int StoreId { get; set; }
+        private string[] filecontent { get; set; }
+        private string FailReason { get; set; }
+        private List<StoreModel> StoreData { get; set; }
+        public StoreProcessor(string Storefilepath, string storecode, int storeid)
+        {
+            StoreFilePath = Storefilepath;
+            StoreCode = storecode;
+            StoreId = storeid;
+        }
+        public void Processor()
+        {
+            ReadStoreData();
+            ValidateStoreData();
+        }
+
+        private void ReadStoreData()
+        {
+            filecontent = File.ReadAllLines(StoreFilePath);
+        }
+
+        private void ValidateStoreData()
+        {
+            if (filecontent.Length < 1)
+            {
+                FailReason = "log the error:invalid file";
+
+            }
+            else if (filecontent.Length == 1)
+            {
+                FailReason = "log the warning:no data found";
+
+            }
+            else if (filecontent.Length > 2)
+            {
+                FailReason = "log the error: invalid file has multiple store records";
+
+            }
+
+            string[] data = filecontent[1].Split(',');
+
+            if (data.Length != 6)
+            {
+                FailReason = "log the error: invalid data; not matching  with no of fields expected";
+
+            }
+
+            data = filecontent[1].Split(',');
+            StoreModel model = new StoreModel();
+            model.StoreCode = data[1];
+            model.StoreName = data[2];
+            model.Location = data[3];
+            model.ManagerName = data[4];
+            model.ContactNumber = data[5];
+            if (model.StoreCode.ToLower() != StoreCode.ToLower())
+            {
+                Console.WriteLine("log the error: invalid data; store codenot matching with current strorecode");
+            }
+            PushStoreDataToDB(model);
+
+        }
+
+        private void PushStoreDataToDB(StoreModel model)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(AppConfiguration.dbConnectionstring))
+                {
+                    string StoreProcedure = "PushToStoreDataToDB";
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(StoreProcedure, con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@StoreName", model.StoreName);
+                        cmd.Parameters.AddWithValue("@StoreCode", model.StoreCode);
+                        cmd.Parameters.AddWithValue("@Location", model.Location);
+                        cmd.Parameters.AddWithValue("@Manager", model.ManagerName);
+                        cmd.Parameters.AddWithValue("@ContactNumber", model.ContactNumber);
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+    }
+}

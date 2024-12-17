@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA6E6440-3CB4-4C5C-9397-10FDD5A23D33}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>RSC</RootNamespace>
-    <AssemblyName>RSC</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <ProjectGuid>{6B22398C-8F0A-44A3-8212-0D9D2D403040}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RSC_FileProcessor</RootNamespace>
+    <AssemblyName>RSC_FileProcessor</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,12 +30,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>RSC.JobCreation</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,20 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JobCreation.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="CustomerProcessor.cs" />
+    <Compile Include="EmployeeProcesser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
+    <Compile Include="StockProcessor.cs" />
+    <Compile Include="StoreProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RSC_Configurations\RSC_Configurations.csproj">
       <Project>{282f40ec-dff3-47e5-99d7-48c6ccf2fea8}</Project>
       <Name>RSC_Configurations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RSC_FileProcessor\RSC_FileProcessor.csproj">
-      <Project>{6b22398c-8f0a-44a3-8212-0d9d2d403040}</Project>
-      <Name>RSC_FileProcessor</Name>
     </ProjectReference>
     <ProjectReference Include="..\RSC_Models\RSC_Models.csproj">
       <Project>{e8c20244-f923-4964-9116-cc095c3834a6}</Project>
