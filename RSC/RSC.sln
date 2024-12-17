@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_FileProcessor", "..\RSC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_Configurations", "..\RSC_Configurations\RSC_Configurations.csproj", "{282F40EC-DFF3-47E5-99D7-48C6CCF2FEA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_DataAccess", "..\RSC_DataAccess\RSC_DataAccess.csproj", "{A849BA17-A63C-4E60-B9D7-911A5AB52402}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_BusinessLogics", "..\RSC_BusinessLogics\RSC_BusinessLogics.csproj", "{20B75761-C71D-4617-8986-1C932F4E884A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{282F40EC-DFF3-47E5-99D7-48C6CCF2FEA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{282F40EC-DFF3-47E5-99D7-48C6CCF2FEA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{282F40EC-DFF3-47E5-99D7-48C6CCF2FEA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A849BA17-A63C-4E60-B9D7-911A5AB52402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A849BA17-A63C-4E60-B9D7-911A5AB52402}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A849BA17-A63C-4E60-B9D7-911A5AB52402}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A849BA17-A63C-4E60-B9D7-911A5AB52402}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20B75761-C71D-4617-8986-1C932F4E884A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20B75761-C71D-4617-8986-1C932F4E884A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20B75761-C71D-4617-8986-1C932F4E884A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20B75761-C71D-4617-8986-1C932F4E884A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
