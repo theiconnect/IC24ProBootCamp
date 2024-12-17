@@ -13,17 +13,14 @@ using DataAcess;
 
 namespace RSC
 {
-    internal class ProgramV2
+    public class ProgramV2
     {
         static int storeIdPk { get; set; }
-        public static string stockFilePath { get; private set; }
-        
-
         static void Main(string[] args)
-
         {
             //Get all the store folders from root directory
             string[] directories = Directory.GetDirectories(BaseProcessor.mainFolderPath);
+
             //Get All Stores information From DB
             List<StoreModel> storesData = StoreDA.GetAllStoresDataFromDB();
 
@@ -40,71 +37,27 @@ namespace RSC
                     continue;
                 }
                 //Get the storefile path from the directory
-                string storeFilePath = GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
+                string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
                 //Initiate store file processing by using store processor
                 var storeProcessor = new StoreProcessor(storeFilePath);
                 storeProcessor.Process();
 
-                string StockFilePath = GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
+                string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
                 var stockProcessor = new StockProcess(StockFilePath, storeIdPk);
                 stockProcessor.Process();
 
 
-                string EmployeeFilePath = GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
+                string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
                 var employeeProcessor = new EmployeeProcessor(EmployeeFilePath);
                 employeeProcessor.Process();
 
-                string CustomerFilePath = GetFileNameByFileType(storeDirectoryPath, FileTypes.Customer);
+                string CustomerFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Customer);
                 var customerProcessor = new CustomerProcess(CustomerFilePath, storeIdPk);
                 customerProcessor.Process();
 
 
             }
-
-
-
-
-
             Console.Read();
-
-
-
-
-
         }
-        private static string GetFileNameByFileType(string storeDirectoryPath, FileTypes fileType)
-        {
-            //get all files from store directory
-            string[] storeLevelFiles = Directory.GetFiles(storeDirectoryPath);
-            string startWithValue = string.Empty;
-            switch (fileType)
-            {
-                case FileTypes.Stores:
-                    startWithValue = "stores_"; break;
-
-                case FileTypes.Stock:
-                    startWithValue = "stock_"; break;
-
-                case FileTypes.Employee:
-                    startWithValue = "employee_"; break;
-
-                case FileTypes.Customer:
-                    startWithValue = "customer_"; break;
-
-
-            }
-            foreach (string file in storeLevelFiles)
-            {
-                if (Path.GetFileNameWithoutExtension(file).Trim().ToLower().StartsWith(startWithValue))
-                {
-                    return file;
-                }
-            }
-            return null;
-        }
-
-
-        
-
     }
 }

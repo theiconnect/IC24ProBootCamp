@@ -9,7 +9,7 @@ namespace Models
     public class StoreModel
     {
         //Model or BO or DTO are same 
-        //one company using one way or another using another way
+        
 
         public int StoreIdPk { get; set; }
         public string StoreCode { get; set; }

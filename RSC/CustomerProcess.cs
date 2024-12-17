@@ -39,6 +39,7 @@ namespace RSC
             ReadCustomerData("Customer", "CustomerOrders", "CustomerBilling");
             ValidateCustomerData();
             PushCustomerDataToDB();
+            FileHelper.Move(CustomerFilePath, FileStatus.Sucess);
 
 
         }

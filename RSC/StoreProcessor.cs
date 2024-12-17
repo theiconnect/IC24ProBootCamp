@@ -13,38 +13,29 @@ namespace RSC
 {
     internal class StoreProcessor
     {
+        //variable names CamelCase and methods PascalCase
         private string[] fileContentLines { get; set; }
-
-        private string StoreFilePath { get; set; }
+        private string storeFilePath { get; set; }
         private bool isValidFile { get; set; }
-
-        private string FailReason { get; set; }
+        private string failReason { get; set; }
         private string[] fileData { get; set; }
         private string storeDirName { get; set; }
-
         private StoreModel storeModelObject { get; set; }
-
         public StoreProcessor(string FilePath)
         {
-            StoreFilePath = FilePath;
+            storeFilePath = FilePath;
         }
-
-
-
         public void Process()
         {
             ReadFileData();
             ValidateStoreData();
             PushStoreDataToDB();
-
-
-
-
+            FileHelper.Move(storeFilePath,FileStatus.Sucess);
         }
         private void ReadFileData()
         {
             //read store file data
-            fileContentLines = File.ReadAllLines(StoreFilePath);
+            fileContentLines = File.ReadAllLines(storeFilePath);
 
         }
         private void ValidateStoreData()
@@ -55,20 +46,20 @@ namespace RSC
             {
 
                 isValidFile = false;//this line no need to write because bool default value is false
-                FailReason = "Log the error: Invalid file";
+                failReason = "Log the error: Invalid file";
             }
 
             //validate if file has only header row
             else if (fileContentLines.Length == 1)
             {
                 isValidFile = false;//this line no need to write because bool default value is false
-                FailReason = "Log the warning: No data present in the file.";
+                failReason = "Log the warning: No data present in the file.";
             }
             //validate if the store file having one store data only
-            else if (fileContentLines.Length < 2)
+            else if (fileContentLines.Length > 2)
             {
                 isValidFile = false;//this line no need to write because bool default value is false
-                FailReason = "Log the error: Invalid file; has multiple store records.";
+                failReason = "Log the error: Invalid file; has multiple store records.";
             }
             else
             {
@@ -78,25 +69,21 @@ namespace RSC
                 {
                     isValidFile = false;
                     //after split the data is coming in array .in that all 6 elemnts are tbeir because in my store table 6 columns.6 elements not coming means error.
-                    FailReason = "Log the error: Invalid data; Not matching with noOffieds expected i.e., 6 fileds data.";
+                    failReason = "Log the error: Invalid data; Not matching with noOffieds expected i.e., 6 fileds data.";
                 }
                 else if (fileData[1].ToLower() != storeDirName.ToLower())
                 {
-                    FailReason = "Log the error: Invalid data; store code not matching with current storecode.";
+                    failReason = "Log the error: Invalid data; store code not matching with current storecode.";
                 }
 
 
             }
-            if (!string.IsNullOrEmpty(FailReason))
+            if (!string.IsNullOrEmpty(failReason))
             {
                 //log this error message into a file
                 return;
             }
             isValidFile = true;
-
-
-
-
         }
 
         private void PushStoreDataToDB()
@@ -105,12 +92,12 @@ namespace RSC
             {
                 return;
             }
-            prepareStoreObject();
+            PrepareStoreObject();
             StoreDA.SyncStoreDataToDB(storeModelObject);
         }
 
 
-        private void prepareStoreObject()
+        private void PrepareStoreObject()
         {
             fileData = fileContentLines[1].Split(',');
             storeModelObject = new StoreModel();
@@ -123,11 +110,6 @@ namespace RSC
             storeModelObject.ContactNumber = fileData[5];
 
         }
-
-
-
-
-
     }
 
 }

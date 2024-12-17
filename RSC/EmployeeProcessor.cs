@@ -19,13 +19,7 @@ namespace RSC
         private string FailReason { get; set; }
         private bool isValidFile { get; set; }
         private string DirName { get { return Path.GetFileName(Path.GetDirectoryName(EmployeeFilePath)); } }
-        private DateTime? DateOfLeaving { get { return null; } }
-        //private DateTime? date { get { return null; } }
         private string[] employeeFileData { get; set; }
-
-
-
-
         private int StoreIdFk { get; set; }
         private List<EmployeeDTO> fileEmployeeDTOObject { get; set; }
         private List<EmployeeDTO> employeeData { get; set; }
@@ -35,17 +29,12 @@ namespace RSC
             EmployeeFilePath = employeeFilePath;
 
         }
-
-
-
-
         public void Process()
         {
             ReadFileData();
             ValidateEmployeeData();
             PushEmployeeDataToDB();
-
-
+            FileHelper.Move(EmployeeFilePath, FileStatus.Sucess);
         }
 
         private void ReadFileData()
@@ -93,11 +82,6 @@ namespace RSC
                     {
                         FailReason += $"Error: invalid Date; value:{employeeFileData[5]};recordNumber:{i} ;";
                     }
-
-
-
-
-
                     if (!decimal.TryParse(employeeFileData[8], out decimal Salary))
                     {
                         FailReason += $"Error: invalid type; value:{employeeFileData[8]};recordNumber:{i} ;";
@@ -130,12 +114,6 @@ namespace RSC
 
 
         }
-
-
-
-
-
-
         private void PrepareEmployeeModelObject()
         {
             //check this code once
@@ -144,9 +122,6 @@ namespace RSC
             for (int i = 1; i < employeeFileContent.Length; i++)
             {
                 employeeFileData = employeeFileContent[i].Split('|');
-
-                //string record = employeeFileData[i];
-
                 EmployeeDTO model = new EmployeeDTO();
                 model.EmployeeCode = employeeFileData[0];
                 model.StoreCode = employeeFileData[1];
@@ -164,10 +139,5 @@ namespace RSC
             }
 
         }
-
-
-
-
-
     }
 }

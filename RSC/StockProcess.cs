@@ -24,7 +24,7 @@ namespace RSC
         private List<StockBO> stockFileInformation { get; set; }
         private List<StockBO> stockDBData { get; set; }
         private List<ProductMasterBO> Products { get; set; }
-        public string rscConnectedString { get; private set; }
+        
 
         public StockProcess(string stockFilePath, int storeIdFk)
         {
@@ -39,6 +39,7 @@ namespace RSC
             ReadFileData();
             ValidateStockData();
             PushStockDataToDB();
+            FileHelper.Move(StockFilePath, FileStatus.Sucess);
 
 
         }

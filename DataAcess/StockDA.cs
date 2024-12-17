@@ -30,24 +30,45 @@ namespace DataAcess
                 //SELECT ProductIdPk,ProductCode,ProductName,PricePerUnit FROM ProductMaster
                 using (SqlCommand command = new SqlCommand("GetAllProducts", con))
                 {
-                    con.Open();
-                    command.CommandType = CommandType.StoredProcedure;
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    try
                     {
-                        while (reader.Read())
+                        con.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            ProductMasterBO productModel = new ProductMasterBO();
-                            productModel.ProductIdPk = Convert.ToInt32(reader["ProductIdPk"]);
-                            productModel.ProductCode = Convert.ToString(reader["ProductCode"]);
-                            productModel.ProductName = Convert.ToString(reader["ProductName"]);
-                            productModel.PricePerUnit = Convert.ToDecimal(reader["PricePerUnit"]);
-                            products.Add(productModel);
+                            while (reader.Read())
+                            {
+                                ProductMasterBO productModel = new ProductMasterBO();
+                                productModel.ProductIdPk = Convert.ToInt32(reader["ProductIdPk"]);
+                                productModel.ProductCode = Convert.ToString(reader["ProductCode"]);
+                                productModel.ProductName = Convert.ToString(reader["ProductName"]);
+                                productModel.PricePerUnit = Convert.ToDecimal(reader["PricePerUnit"]);
+                                products.Add(productModel);
 
+
+                            }
 
                         }
 
                     }
-                    con.Close();
+                    catch (Exception ex) 
+                    {
+                        Console.WriteLine("Error:" + ex.Message);
+                        throw;
+
+                    }
+                    finally
+                    {
+                        if (con.State == ConnectionState.Open)
+                        {
+                            con.Close();
+
+                        }
+
+                    }
+                    
+                    
+                  
                 }
             }
         }
@@ -56,33 +77,45 @@ namespace DataAcess
         {
             using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
             {
+                try
+                {
+                    using (SqlCommand command = new SqlCommand())
+                    {//INSERT INTO stock (ProductIdFk, StoreIdFk, QuantityAvailable, Date) " +
+                     // "VALUES ((SELECT ProductIdPk FROM ProductMaster WHERE productCode = @ProductCode), " +
+                     // "(SELECT StoreIdPk FROM stores WHERE storeCode = @StoreCode),@QuantityAvailable, @Date)
+                        command.CommandText = "Insert_Stocks";
 
-                using (SqlCommand command = new SqlCommand())
-                {//INSERT INTO stock (ProductIdFk, StoreIdFk, QuantityAvailable, Date) " +
-                 // "VALUES ((SELECT ProductIdPk FROM ProductMaster WHERE productCode = @ProductCode), " +
-                 // "(SELECT StoreIdPk FROM stores WHERE storeCode = @StoreCode),@QuantityAvailable, @Date)
-                    command.CommandText = "Insert_Stocks";
+                        command.Connection = connection;
+                        command.CommandType = CommandType.StoredProcedure;
 
-                    command.Connection = connection;
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    connection.Open();
-                    foreach (var stock in stockFileInformation)
-                    {
-                        command.Parameters.Clear();
-                        command.Parameters.Add("@QuantityAvailable", DbType.Decimal).Value = stock.QuantityAvailable;
-                        command.Parameters.Add("@ProductCode", DbType.String).Value = stock.ProductCode;
-                        command.Parameters.Add("@StoreCode", DbType.String).Value = stock.StoreCode;
-                        command.Parameters.Add("@Date", DbType.DateTime).Value = stock.Date;
-                        command.ExecuteNonQuery();
+                        connection.Open();
+                        foreach (var stock in stockFileInformation)
+                        {
+                            command.Parameters.Clear();
+                            command.Parameters.Add("@QuantityAvailable", DbType.Decimal).Value = stock.QuantityAvailable;
+                            command.Parameters.Add("@ProductCode", DbType.String).Value = stock.ProductCode;
+                            command.Parameters.Add("@StoreCode", DbType.String).Value = stock.StoreCode;
+                            command.Parameters.Add("@Date", DbType.DateTime).Value = stock.Date;
+                            command.ExecuteNonQuery();
+                        }
                     }
-                    connection.Close();
-
 
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error:" + ex.Message);
+                    throw;
+
+                }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+
+                    }
+                }
             }
-
-
         }
         private void SyncProductMasterTableData(List<StockBO> stockFileInformation)
         {
@@ -90,30 +123,44 @@ namespace DataAcess
 
             using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
             {
-                using (SqlCommand command = new SqlCommand())
+                try
                 {
-                    //If Not Exists(select ProductCode from ProductMaster where ProductCode=@ProductCode)\r\nbegin\n
-                    //INSERTINTO ProductMaster (ProductIdPk,ProductCode,ProductName,PricePerUnit)
-                    //VALUES((select max(ProductIdPk)+1 from productmaster),@ProductCode, @ProductName, @PricePerUnit)\r\nend"
-                    command.CommandText = "InsertProducts";
-                    command.Connection = connection;
-                    command.CommandType = CommandType.StoredProcedure;
-                    connection.Open();
-                    foreach (var stock in stockFileInformation)
+                    using (SqlCommand command = new SqlCommand())
                     {
-                        command.Parameters.Clear();
-                        command.Parameters.Add("@productCode", DbType.String).Value = stock.ProductCode;
-                        command.Parameters.Add("@ProductName", DbType.String).Value = stock.ProductName;
-                        command.Parameters.Add("@PricePerUnit", DbType.Decimal).Value = stock.PricePerUnit;
-                        command.ExecuteNonQuery();
+                        //If Not Exists(select ProductCode from ProductMaster where ProductCode=@ProductCode)\r\nbegin\n
+                        //INSERTINTO ProductMaster (ProductIdPk,ProductCode,ProductName,PricePerUnit)
+                        //VALUES((select max(ProductIdPk)+1 from productmaster),@ProductCode, @ProductName, @PricePerUnit)\r\nend"
+                        command.CommandText = "InsertProducts";
+                        command.Connection = connection;
+                        command.CommandType = CommandType.StoredProcedure;
+                        connection.Open();
+                        foreach (var stock in stockFileInformation)
+                        {
+                            command.Parameters.Clear();
+                            command.Parameters.Add("@productCode", DbType.String).Value = stock.ProductCode;
+                            command.Parameters.Add("@ProductName", DbType.String).Value = stock.ProductName;
+                            command.Parameters.Add("@PricePerUnit", DbType.Decimal).Value = stock.PricePerUnit;
+                            command.ExecuteNonQuery();
 
 
+                        }
                     }
-
-                    connection.Close();
-
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error:" + ex.Message);
+                    throw;
 
                 }
+                finally
+                {
+                    if (connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+
+                    }
+                }
+                
 
             }
         }

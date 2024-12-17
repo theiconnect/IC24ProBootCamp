@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RSC
+namespace Models
 {
-    internal enum FileTypes
+    public enum FileTypes
     {
         //here constant values for below details
         Stores = 1,
