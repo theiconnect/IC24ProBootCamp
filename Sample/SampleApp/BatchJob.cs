@@ -41,7 +41,8 @@ namespace SampleApp
             //string storeDirName1 = storeDirectories[0].Split('\\')[storeDirectories[0].Split('\\').Length - 1];
             //\\MURALI\iConnect\RSC\DailyDataLoad\STBLR003
 
-            List<StoreModel> stores = GetAllStoresFromDB();
+
+                  List<StoreModel> stores = GetAllStoresFromDB();
 
             foreach (string storeDirectoryPath in storeDirectories)
             {
@@ -91,6 +92,7 @@ namespace SampleApp
                     {
                         employeeFilePath = file;
                     }
+                     
                 }
 
                 //////////////////////////////////////////////
@@ -134,7 +136,7 @@ namespace SampleApp
                 {
                     Console.WriteLine("Log the error: Invalid data; Not matching with noOffieds expected i.e., 6.");
                     continue;
-                }
+               
 
                 StoreModel model = new StoreModel();
                 model.StoreCode = data[1];
@@ -146,7 +148,8 @@ namespace SampleApp
                 if(model.StoreCode.ToLower() != storeDirName.ToLower())
                 {
                     Console.WriteLine("Log the error: Invalid data; store code not matching with current storecode.");
-                    continue;
+               
+                        continue;
                 }
                 int rowsAffected = SyncStoreTableData(model);
 
@@ -182,7 +185,6 @@ namespace SampleApp
 
             //Step-3:
             //Read the content of the file
-
             //Step-4:
             //Validation : Validate the data against to the business rules.
 
@@ -224,6 +226,7 @@ namespace SampleApp
                 {
                     con.Open();
                     using (SqlDataReader reader = cmd.ExecuteReader())
+
                     {
                         while (reader.Read())
                         {
@@ -237,6 +240,7 @@ namespace SampleApp
                             stores.Add(model);
                         }
                     }
+
                 }
                 con.Close();
             }
@@ -258,6 +262,11 @@ namespace SampleApp
                         }
                     }
                 }
+
+
+
+
+
                
             }
 
@@ -276,7 +285,7 @@ namespace SampleApp
                         {
                             while (reader.Read())
                             {
-                                storeId = (int)reader[0];
+                                //storeId = (int)reader[0];
                                 int storeId1 = (int)reader["StoreIdpk"];
                                 //StoreCode StoreName   Location ManagerName ContactNumber
                                 string StoreCode = reader["StoreCode"].ToString();
@@ -313,4 +322,5 @@ namespace SampleApp
             }
         }
     }
+
 }
