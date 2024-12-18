@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace OMS
 {
-    internal class Program
+    internal static class DBConstants
     {
-        static void Main(string[] args)
-        {
-            Console.ReadLine();
-        }
+        public const string GET_ALL_WAREHOUSES = " ";
     }
 }

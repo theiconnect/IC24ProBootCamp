@@ -1,9 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS", "OMS.csproj", "{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.Configuration_Muni", "..\..\..\..\ADO.NET\Configuration\OMS.Configuration_Muni.csproj", "{0F696F97-C000-448B-AAFE-F121F4078B8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.FileModel_Muni", "..\..\..\..\ADO.NET\FileModel\OMS.FileModel_Muni.csproj", "{7CAEAAEB-4E82-4FC9-BB82-6DB916F0C72D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.ProjectHelper_Muni", "..\..\..\..\ADO.NET\ProjectHelper\OMS.ProjectHelper_Muni.csproj", "{4915146F-2E36-4C73-8774-57D2BC9C12F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.FilesEnum_Muni", "..\..\..\..\ADO.NET\FilesEnum\OMS.FilesEnum_Muni.csproj", "{74941E16-9BE1-4D19-B6FC-CFFCBB2CC6C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.DataAccessLayer_Muni", "OMS.WareHouseDAL_Muni\OMS.DataAccessLayer_Muni.csproj", "{896E21B0-ACDD-4D65-B22B-6305C372D6BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS.FileProcessses_Muni", "FileProcessses\OMS.FileProcessses_Muni.csproj", "{006806A8-4811-46F6-AE7B-871F238165D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +27,30 @@ Global
 		{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F696F97-C000-448B-AAFE-F121F4078B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F696F97-C000-448B-AAFE-F121F4078B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F696F97-C000-448B-AAFE-F121F4078B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F696F97-C000-448B-AAFE-F121F4078B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CAEAAEB-4E82-4FC9-BB82-6DB916F0C72D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CAEAAEB-4E82-4FC9-BB82-6DB916F0C72D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CAEAAEB-4E82-4FC9-BB82-6DB916F0C72D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CAEAAEB-4E82-4FC9-BB82-6DB916F0C72D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4915146F-2E36-4C73-8774-57D2BC9C12F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4915146F-2E36-4C73-8774-57D2BC9C12F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4915146F-2E36-4C73-8774-57D2BC9C12F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4915146F-2E36-4C73-8774-57D2BC9C12F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74941E16-9BE1-4D19-B6FC-CFFCBB2CC6C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74941E16-9BE1-4D19-B6FC-CFFCBB2CC6C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74941E16-9BE1-4D19-B6FC-CFFCBB2CC6C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74941E16-9BE1-4D19-B6FC-CFFCBB2CC6C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896E21B0-ACDD-4D65-B22B-6305C372D6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896E21B0-ACDD-4D65-B22B-6305C372D6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896E21B0-ACDD-4D65-B22B-6305C372D6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896E21B0-ACDD-4D65-B22B-6305C372D6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{006806A8-4811-46F6-AE7B-871F238165D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{006806A8-4811-46F6-AE7B-871F238165D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{006806A8-4811-46F6-AE7B-871F238165D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{006806A8-4811-46F6-AE7B-871F238165D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

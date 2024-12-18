@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>OMS</RootNamespace>
-    <AssemblyName>OMS</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <ProjectGuid>{006806A8-4811-46F6-AE7B-871F238165D1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FileProcessses</RootNamespace>
+    <AssemblyName>FileProcessses</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,10 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,17 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>OMS.OmsMianV2</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\GitHub Source\repos\IC24ProBootCamp\OMS\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,37 +44,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBConstants.cs" />
-    <Compile Include="omsMain.cs" />
-    <Compile Include="OmsMianV2.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="CustomerProcess.cs" />
+    <Compile Include="EmployeeProcess.cs" />
+    <Compile Include="InventoryProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WareHouseProcess.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\ADO.NET\Configuration\OMS.Configuration_Muni.csproj">
+    <ProjectReference Include="..\..\..\..\..\ADO.NET\Configuration\OMS.Configuration_Muni.csproj">
       <Project>{0f696f97-c000-448b-aafe-f121f4078b8e}</Project>
       <Name>OMS.Configuration_Muni</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\ADO.NET\FileModel\OMS.FileModel_Muni.csproj">
+    <ProjectReference Include="..\..\..\..\..\ADO.NET\FileModel\OMS.FileModel_Muni.csproj">
       <Project>{7caeaaeb-4e82-4fc9-bb82-6db916f0c72d}</Project>
       <Name>OMS.FileModel_Muni</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\ADO.NET\FilesEnum\OMS.FilesEnum_Muni.csproj">
-      <Project>{74941e16-9be1-4d19-b6fc-cffcbb2cc6c6}</Project>
-      <Name>OMS.FilesEnum_Muni</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\ADO.NET\ProjectHelper\OMS.ProjectHelper_Muni.csproj">
+    <ProjectReference Include="..\..\..\..\..\ADO.NET\ProjectHelper\OMS.ProjectHelper_Muni.csproj">
       <Project>{4915146f-2e36-4c73-8774-57d2bc9c12f2}</Project>
       <Name>OMS.ProjectHelper_Muni</Name>
     </ProjectReference>
-    <ProjectReference Include="FileProcessses\OMS.FileProcessses_Muni.csproj">
-      <Project>{006806a8-4811-46f6-ae7b-871f238165d1}</Project>
-      <Name>OMS.FileProcessses_Muni</Name>
+    <ProjectReference Include="..\OMS.WareHouseDAL_Muni\OMS.DataAccessLayer_Muni.csproj">
+      <Project>{896e21b0-acdd-4d65-b22b-6305c372d6bb}</Project>
+      <Name>OMS.DataAccessLayer_Muni</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
