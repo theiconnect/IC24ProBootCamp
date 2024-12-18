@@ -14,7 +14,7 @@ using RSC_DataAccess;
 
 namespace RSC_FileProcessor
 {
-    internal class StoreProcessor 
+    public class StoreProcessor 
     {
         private string StoreFilePath { get; set; }
         private string StoreCode { get; set; }
@@ -22,6 +22,13 @@ namespace RSC_FileProcessor
         private string[] filecontent { get; set; }
         private string FailReason { get; set; }
         private List<StoreModel> StoreData { get; set; }
+        public static List<StoreModel> DBStorecodes 
+        { 
+            get 
+            {
+                return GetStoreDataFromDB.GetStorecodesFromDB();
+            }  
+        }
         public StoreProcessor(string Storefilepath, string storecode, int storeid)
         {
             StoreFilePath = Storefilepath;
