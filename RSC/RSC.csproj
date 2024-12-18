@@ -46,7 +46,6 @@
     <Compile Include="CustomerProcess.cs" />
     <Compile Include="EmployeeProcessor.cs" />
     <Compile Include="FileHelper.cs" />
-    <Compile Include="FileTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramV2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

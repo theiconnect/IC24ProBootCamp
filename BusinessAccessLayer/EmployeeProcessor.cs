@@ -8,11 +8,12 @@ using Models;
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections;
-using DataAcess;
+using DataAccess;
 
-namespace RSC
+
+namespace BusinessAccessLayer
 {
-    internal class EmployeeProcessor
+    public class EmployeeProcessor
     {
         private string[] employeeFileContent { get; set; }
         private string EmployeeFilePath { get; set; }

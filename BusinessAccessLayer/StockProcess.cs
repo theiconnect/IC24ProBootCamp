@@ -8,11 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAcess;
+using DataAccess;
 using Models;
-namespace RSC
+
+namespace BusinessAccessLayer
 {
-    internal class StockProcess
+    public class StockProcess
     {
         private string StockFilePath { get; set; }
         private int StoreIdFk { get; set; }

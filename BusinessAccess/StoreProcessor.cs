@@ -7,11 +7,12 @@ using System.IO;
 using Models;
 using System.Data.SqlClient;
 using System.Data;
-using DataAcess;
+using DataAccess;
+using PathAndDataBaseConfig;
 
 namespace RSC
 {
-    internal class StoreProcessor
+    public class StoreProcessor
     {
         //variable names CamelCase and methods PascalCase
         private string[] fileContentLines { get; set; }

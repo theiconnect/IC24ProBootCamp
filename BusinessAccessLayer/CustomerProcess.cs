@@ -10,11 +10,12 @@ using System.Data.SqlClient;
 using Models;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using DataAcess;
+using DataAccess;
 
-namespace RSC
+
+namespace BusinessAccessLayer
 {
-    internal class CustomerProcess
+    public class CustomerProcess
     {
         private string CustomerFilePath { get; set; }
         private int StoreIdFk { get; set; }
