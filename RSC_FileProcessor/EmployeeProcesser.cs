@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using RSC_Models;
 using RSC_Configurations;
 using System.Data;
+using RSC_DataAccess;
 
 namespace RSC_FileProcessor
 {
@@ -95,45 +96,13 @@ namespace RSC_FileProcessor
             }
 
             PrepareEmployeeObjects();
-
-            SyncFileStockWithDB();
+            new EmployeeDBAccess(EmpData, Storeid);
+            
         }
 
-        private void SyncFileStockWithDB()
-        {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(AppConfiguration.dbConnectionstring))
-                {
-                    con.Open();
-                    string StoreProcedure = "employeeDataToDB";
-                    using (SqlCommand cmd = new SqlCommand(StoreProcedure, con))
-                    {
-                        foreach (var employeedata in EmpData)
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.Add("@empcode", employeedata.EmpCode);
-                            cmd.Parameters.Add("@employeename", employeedata.EmployeeName);
-                            cmd.Parameters.Add("@role", employeedata.Role);
-                            cmd.Parameters.Add("@dateofjoining", employeedata.DateOfJoiningstr);
-                            cmd.Parameters.Add("@dateofleaving", employeedata.DateOfLeavingstr);
-                            cmd.Parameters.Add("@contactnumber", employeedata.ContactNumber);
-                            cmd.Parameters.Add("@gender", employeedata.Gender);
-                            cmd.Parameters.Add("@salary", employeedata.Salary);
-                            cmd.Parameters.Add("@storeidfk", this.Storeid);
-                        }
+        
 
-                    }
-                    con.Close();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-        }
+        
         private void PrepareEmployeeObjects()
         {
             EmpData = new List<EmployeeModel>();

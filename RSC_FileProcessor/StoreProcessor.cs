@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography.X509Certificates;
 using RSC_Configurations;
 using RSC_Models;
+using RSC_DataAccess;
 
 namespace RSC_FileProcessor
 {
@@ -31,8 +32,8 @@ namespace RSC_FileProcessor
         {
             ReadStoreData();
             ValidateStoreData();
+            PrepareStoreObject();
         }
-
         private void ReadStoreData()
         {
             filecontent = File.ReadAllLines(StoreFilePath);
@@ -63,7 +64,7 @@ namespace RSC_FileProcessor
                 FailReason = "log the error: invalid data; not matching  with no of fields expected";
 
             }
-
+                
             data = filecontent[1].Split(',');
             StoreModel model = new StoreModel();
             model.StoreCode = data[1];
@@ -71,40 +72,24 @@ namespace RSC_FileProcessor
             model.Location = data[3];
             model.ManagerName = data[4];
             model.ContactNumber = data[5];
+            StoreData.Add(model);
             if (model.StoreCode.ToLower() != StoreCode.ToLower())
             {
                 Console.WriteLine("log the error: invalid data; store codenot matching with current strorecode");
             }
-            PushStoreDataToDB(model);
-
         }
-
-        private void PushStoreDataToDB(StoreModel model)
+        private void PrepareStoreObject()
         {
-            try
-            {
-                using (SqlConnection con = new SqlConnection(AppConfiguration.dbConnectionstring))
-                {
-                    string StoreProcedure = "PushToStoreDataToDB";
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(StoreProcedure, con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@StoreName", model.StoreName);
-                        cmd.Parameters.AddWithValue("@StoreCode", model.StoreCode);
-                        cmd.Parameters.AddWithValue("@Location", model.Location);
-                        cmd.Parameters.AddWithValue("@Manager", model.ManagerName);
-                        cmd.Parameters.AddWithValue("@ContactNumber", model.ContactNumber);
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                    }
-                }
+          string[]  data = filecontent[1].Split(',');
+            StoreModel model = new StoreModel();
+            model.StoreCode = data[1];
+            model.StoreName = data[2];
+            model.Location = data[3];
+            model.ManagerName = data[4];
+            model.ContactNumber = data[5];
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            new StoreDBAccess(model);
+
         }
     }
 }

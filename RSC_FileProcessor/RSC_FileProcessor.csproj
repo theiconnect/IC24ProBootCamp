@@ -53,6 +53,10 @@
       <Project>{282f40ec-dff3-47e5-99d7-48c6ccf2fea8}</Project>
       <Name>RSC_Configurations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RSC_DataAccess\RSC_DataAccess.csproj">
+      <Project>{a849ba17-a63c-4e60-b9d7-911a5ab52402}</Project>
+      <Name>RSC_DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RSC_Models\RSC_Models.csproj">
       <Project>{e8c20244-f923-4964-9116-cc095c3834a6}</Project>
       <Name>RSC_Models</Name>
