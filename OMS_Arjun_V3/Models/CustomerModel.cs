@@ -14,6 +14,8 @@ namespace OMS_arjun
         public string PhNo { get; set; }
         public List<OrdersModel> Orders { get; set; }
 
+        public List<WareHouseModel> WareHouseCode { get; set; }
+
        
     }
 }

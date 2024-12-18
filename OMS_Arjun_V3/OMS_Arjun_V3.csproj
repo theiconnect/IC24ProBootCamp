@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,18 +44,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessAccessLayer\WareHouseBAL.cs" />
+    <Compile Include="ConnectionConfig.cs" />
+    <Compile Include="DataBaseAccessLayer\WareHouseDAL.cs" />
+    <Compile Include="FileHelper.cs" />
+    <Compile Include="FileTypes.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\EmployeeModel.cs" />
     <Compile Include="Models\InventoryModel.cs" />
     <Compile Include="Models\OrderItemsModel.cs" />
     <Compile Include="Models\OrdersModel.cs" />
-    <Compile Include="Models\ProductMasterModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\WareHouseModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

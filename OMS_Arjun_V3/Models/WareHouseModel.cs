@@ -14,5 +14,7 @@ namespace OMS_arjun
         public string Location { get; set; }
         public string ManagerName { get; set; }
         public string ContactNo { get; set; }
+
+        
     }
 }

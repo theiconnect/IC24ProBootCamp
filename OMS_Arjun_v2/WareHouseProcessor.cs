@@ -34,7 +34,7 @@ namespace OMS_Arjun_v2
         {
             ReadFileData();
             ValidateStoreData();
-            PushStoreDataToDB();
+            PushWareHouseDataToDB();
         }
 
         private void ReadFileData()
@@ -86,7 +86,7 @@ namespace OMS_Arjun_v2
 
 
         }
-        private void PushStoreDataToDB()
+        private void PushWareHouseDataToDB()
         {
             if (!isValidFile)
             {
@@ -118,11 +118,7 @@ namespace OMS_Arjun_v2
             wareHouseModel.ContactNo = data[4];
         }
 
-        //read file
-
-
-        //validate file
-        //push file
+      
 
         public static List<WareHouseModel> getAllWareHouses()
         {
@@ -149,7 +145,7 @@ namespace OMS_Arjun_v2
                                 wareHouse.ContactNo = Convert.ToString(reader["ContactNo"]);
                                 wareHouses.Add(wareHouse);
                             }
-                        }
+                         }
                         if (Con.State == ConnectionState.Open)
                         {
                             Con.Close();
