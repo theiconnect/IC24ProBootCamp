@@ -55,10 +55,6 @@
       <Project>{7caeaaeb-4e82-4fc9-bb82-6db916f0c72d}</Project>
       <Name>OMS.FileModel_Muni</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FileProcessses\OMS.FileProcessses_Muni.csproj">
-      <Project>{006806a8-4811-46f6-ae7b-871f238165d1}</Project>
-      <Name>OMS.FileProcessses_Muni</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

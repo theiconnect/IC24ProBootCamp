@@ -83,10 +83,6 @@
       <Project>{006806a8-4811-46f6-ae7b-871f238165d1}</Project>
       <Name>OMS.FileProcessses_Muni</Name>
     </ProjectReference>
-    <ProjectReference Include="OMS.WareHouseDAL_Muni\OMS.DataAccessLayer_Muni.csproj">
-      <Project>{896e21b0-acdd-4d65-b22b-6305c372d6bb}</Project>
-      <Name>OMS.DataAccessLayer_Muni</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

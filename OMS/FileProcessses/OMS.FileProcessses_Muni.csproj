@@ -64,6 +64,10 @@
       <Project>{4915146f-2e36-4c73-8774-57d2bc9c12f2}</Project>
       <Name>OMS.ProjectHelper_Muni</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OMS.WareHouseDAL_Muni\OMS.DataAccessLayer_Muni.csproj">
+      <Project>{896e21b0-acdd-4d65-b22b-6305c372d6bb}</Project>
+      <Name>OMS.DataAccessLayer_Muni</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
