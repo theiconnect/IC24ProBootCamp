@@ -21,9 +21,10 @@ namespace DataAccess
             var stores = new List<storemodel>();
             using (SqlConnection con = new SqlConnection(ConfigHelper.connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("SELECT StoreIdPk,StoreCode,StoreName,Location,ManagerName,ContactNumber FROM Stores", con))
+                using (SqlCommand cmd = new SqlCommand("GetStoresData", con))
                 {
                     con.Open();
+                    cmd.CommandType= CommandType.StoredProcedure;
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
