@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS
+namespace OMS.DataAccessLayer_Muni
 {
-    internal static class DBConstants
+    public class Class1
     {
-        public const string GET_ALL_WAREHOUSES = " ";
     }
 }

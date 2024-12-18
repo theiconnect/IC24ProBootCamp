@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -13,7 +14,7 @@ using FileModel;
 
 namespace FileProcessses
 {
-    public class EmployeeProcess:BaseProcessor
+    public class EmployeeProcess:DBHelper
     {
        
         private bool isValidFile { get; set; }
@@ -41,7 +42,7 @@ namespace FileProcessses
             //PUSH INTO DB
             ReadFileData();
             ValidateStoreData();
-            PushStoreDataToDB();
+            PushEmployeeDataToDB();
 
 
         }
@@ -145,7 +146,7 @@ namespace FileProcessses
 
         }
 
-        private void PushStoreDataToDB()
+        private void PushEmployeeDataToDB()
         {
             if (!isValidFile)
             {
@@ -156,22 +157,15 @@ namespace FileProcessses
                 conn.Open();
                 foreach(var data in employees)
                 {
-                    using (SqlCommand cmd = new SqlCommand($"if not  exists (select empname from Employee where empcode ='{data.EmpCode}') " +
-                   $"begin " +
-                   $"insert into Employee(empcode,EmpName,WareHouseIdfk,ContactNumber,Gender,Salary)" +
-                   $"values ('{data.EmpCode}','{data.EmpName}',(select warehouseidpk from warehouse where warehousecode='{data.EmpWareHouseCode}')," +
-                   $"'{data.empContactNumber}'," +
-                   $"'{data.Gender}','{data.Salary}')" +
-                   $" end  " +
-
-                   $"else " +
-
-                   $" begin " +
-                   $"update Employee  " +
-                   $"set empcode='{data.EmpCode}',empname='{data.EmpName}', warehouseidfk=(select warehouseidpk from warehouse where warehousecode='{data.EmpWareHouseCode}'), contactnumber='{data.empContactNumber}', gender='{data.Gender}',  Salary='{data.Salary}' " +
-                   $"where  empcode='{data.EmpCode}'" +
-                   $"end", conn))
+                    using (SqlCommand cmd = new SqlCommand("InsertOrUpdateEmpData", conn))
                     {
+                        cmd.CommandType=CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@EmpCode",DbType.String).Value=data.EmpCode;
+                        cmd.Parameters.Add("@EmpName",DbType.String).Value=data.EmpName;
+                        cmd.Parameters.Add("@EmpWareHouseCode", DbType.String).Value = data.EmpWareHouseCode;
+                        cmd.Parameters.Add("@EmpContactNumber", DbType.String).Value = data.empContactNumber;
+                        cmd.Parameters.Add("@Gender", DbType.String).Value = data.Gender;
+                        cmd.Parameters.Add("@Salary",DbType.Decimal).Value = data.Salary;
 
                         cmd.ExecuteNonQuery();
 

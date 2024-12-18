@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Configuration;
 using FileModel;
+using System.Data;
 
 namespace FileProcessses
 {
-    public class InventoryProcess:BaseProcessor
+    public class InventoryProcess:DBHelper
     {
         private string InventoryPath { get; set; }
         private string FailedReason { get; set; }
@@ -140,97 +141,137 @@ namespace FileProcessses
                 var product = productMasterList.Find(x => x.ProductCode == stock.productCode);
                 if (product == null)
                 {
-                    query = query + "insert into Products(ProductCode, ProductName, PricePerUnit,categoryidfk)" +
-                        $"   Values('{stock.productCode}', '{stock.productCode}', {stock.pricePerUnit},{1})" +
-                        $"";
+                    
+                    if (!string.IsNullOrEmpty(query))
+                    {
+                        using (SqlConnection con = new SqlConnection(oMSConnectionString))
+                        {
+                            con.Open();
+                            using (SqlCommand cmd = new SqlCommand("USP_SyncProducts", con))
+                            {
+                                cmd.CommandType=System.Data.CommandType.StoredProcedure;
+                                cmd.Parameters.Add("@productCode",DbType.String).Value = stock.productCode;
+                                cmd.Parameters.Add("@productName",DbType.String).Value=stock.productCode;
+                                cmd.Parameters.Add("@pricePerUnit",DbType.Decimal).Value=stock.pricePerUnit;
+                                cmd.Parameters.Add("@categoryIdfk", DbType.Int32).Value = 1;
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        GetAllProductsFromDB();
+                        foreach (var eachStock in inventoryList)
+                        {
+                            if (Convert.ToInt32(eachStock.ProductIdFk) == 0)
+                            {
+                                var eachProduct = productMasterList.FirstOrDefault(x => x.ProductCode == eachStock.productCode);
+                                eachStock.ProductIdFk = eachProduct.ProductIdPk;
+                            }
+                        }
+
+                    }
                 }
                 else
                 {
                     stock.ProductIdFk = product.ProductIdPk;
                 }
             }
-            if (!string.IsNullOrEmpty(query))
-            {
-                using (SqlConnection con = new SqlConnection(oMSConnectionString))
-                {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, con))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-
-                GetAllProductsFromDB();
-                foreach (var stock in inventoryList)
-                {
-                    if (Convert.ToInt32(stock.ProductIdFk) == 0)
-                    {
-                        var product = productMasterList.FirstOrDefault(x => x.ProductCode == stock.productCode);
-                        stock.ProductIdFk = product.ProductIdPk;
-                    }
-                }
-
-            }
+            
             }
 
         private void GetAllProductsFromDB()
         {
+            SqlConnection conn = null;
             productMasterList = new List<ProductMasterModel>();
-            using (SqlConnection conn=new SqlConnection(oMSConnectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand($" Select Productidpk,productcode,productname, priceperunit from products", conn))
-                {
-                    conn.Open();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
 
-                        while (reader.Read())
+                using (conn = new SqlConnection(oMSConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("GetAllProductsFromDB", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        conn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                          ProductMasterModel model = new ProductMasterModel();
-                            model.ProductIdPk=reader.GetInt32(0);
-                            model.ProductIdPk = Convert.ToInt32(reader["Productidpk"]);
-                            model.ProductCode = reader.GetString(1);
-                            model.ProductName = reader.GetString(2);
-                            model.PricePerUnit= reader.GetDecimal(3);
-                            productMasterList.Add(model);
+
+                            while (reader.Read())
+                            {
+                                ProductMasterModel model = new ProductMasterModel();
+                                model.ProductIdPk = reader.GetInt32(0);
+                                model.ProductIdPk = Convert.ToInt32(reader["Productidpk"]);
+                                model.ProductCode = reader.GetString(1);
+                                model.ProductName = reader.GetString(2);
+                                model.PricePerUnit = reader.GetDecimal(3);
+                                productMasterList.Add(model);
+                            }
+                        }
+                        if (conn.State == ConnectionState.Open)
+                        {
+                            conn.Close();
                         }
                     }
-                    conn.Close();
 
-
-                        
 
                 }
-
-
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                throw;
+            }
+            finally
+            {
+                if (conn != null && conn.State == ConnectionState.Open) { conn.Dispose(); }
             }
         }
 
         private void GetAllStockInfoOfTodayFromDB()
         {
             dBStockDatas = new List<DBStockData>();
-            using (SqlConnection conn = new SqlConnection(oMSConnectionString))
+            SqlConnection conn = null;
+            try
             {
-                using (SqlCommand cmd = new SqlCommand($"select InventoryIdpk,WarehouseIdfk,ProductIdfk,Date,AvailableQuantity,PricePerUnit,RemainingQuantity from inventory  where date='{StockDateStr}'",conn))
+                using (conn = new SqlConnection(oMSConnectionString))
                 {
-                    conn.Open();
-                    using(SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlCommand cmd = new SqlCommand("GetAllStockInfoOfTodayFromDB", conn))
                     {
-                        while (reader.Read())
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@StockDateStr", DbType.Date).Value = StockDateStr;
+                        conn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            DBStockData model = new DBStockData();
-                            model.InventoryIdPk = reader.GetInt32(0);
-                            model.WareHouseIdFk = reader.GetInt32(1);
-                            model.ProductIdFk = reader.GetInt32(2);
-                            model.Date=reader.GetDateTime(3);
-                            model.QuantityAvailable = reader.GetDecimal(4);
-                            model.PricePerUnit = reader.GetDecimal(5);
-                            model.RemainingQuantity = reader.GetDecimal(6);
-                            dBStockDatas.Add(model);
+                            while (reader.Read())
+                            {
+                                DBStockData model = new DBStockData();
+                                model.InventoryIdPk = reader.GetInt32(0);
+                                model.WareHouseIdFk = reader.GetInt32(1);
+                                model.ProductIdFk = reader.GetInt32(2);
+                                model.Date = reader.GetDateTime(3);
+                                model.QuantityAvailable = reader.GetDecimal(4);
+                                model.PricePerUnit = reader.GetDecimal(5);
+                                model.RemainingQuantity = reader.GetDecimal(6);
+                                dBStockDatas.Add(model);
+                            }
+                        }
+                        if (conn.State == ConnectionState.Open)
+                        {
+                            conn.Close();
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                throw;
+            }
+            finally {if (conn != null && conn.State == ConnectionState.Open) {  conn.Dispose(); } }   
 
 
         }

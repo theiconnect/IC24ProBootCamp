@@ -16,12 +16,13 @@ namespace OMS
         static void Main()
         {
             string[] wareHouseFolders = Directory.GetDirectories(rootFolderPath);
-            List<WareHouseModel> wareHouses = WareHouseProcess.getAllWareHouses();
+           
 
             foreach (string folderPath in wareHouseFolders)
             {
                 string wareHouseFolderName = FileHelper.GetDirectoryNameByDirectoryPath(folderPath);
-                var warehouse = wareHouses.FirstOrDefault(x => x.WareHouseCode == wareHouseFolderName);
+
+                var warehouse = WareHouseProcess.wareHouses.FirstOrDefault(x => x.WareHouseCode == wareHouseFolderName);
 
                 if (warehouse == null)
                 {

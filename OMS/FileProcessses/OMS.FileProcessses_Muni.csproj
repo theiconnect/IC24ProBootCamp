@@ -52,17 +52,17 @@
     <Compile Include="WareHouseProcess.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\Configuration.csproj">
+    <ProjectReference Include="..\..\..\..\..\ADO.NET\Configuration\OMS.Configuration_Muni.csproj">
       <Project>{0f696f97-c000-448b-aafe-f121f4078b8e}</Project>
-      <Name>Configuration</Name>
+      <Name>OMS.Configuration_Muni</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FileModel\FileModel.csproj">
+    <ProjectReference Include="..\..\..\..\..\ADO.NET\FileModel\OMS.FileModel_Muni.csproj">
       <Project>{7caeaaeb-4e82-4fc9-bb82-6db916f0c72d}</Project>
-      <Name>FileModel</Name>
+      <Name>OMS.FileModel_Muni</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjectHelper\ProjectHelper.csproj">
+    <ProjectReference Include="..\..\..\..\..\ADO.NET\ProjectHelper\OMS.ProjectHelper_Muni.csproj">
       <Project>{4915146f-2e36-4c73-8774-57d2bc9c12f2}</Project>
-      <Name>ProjectHelper</Name>
+      <Name>OMS.ProjectHelper_Muni</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

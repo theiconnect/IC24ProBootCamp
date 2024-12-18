@@ -9,18 +9,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Configuration;
 using FileModel;
+using OMS.DataAccessLayer_Muni;
+
 
 namespace FileProcessses
 {
-    public class WareHouseProcess : BaseProcessor
+    public class WareHouseProcess :DBHelper
     {
-        private string WareHouseFilePath{get;set;}
+       
+        private WareHouseModel wareHouseModel { get; set; }
+        public string WareHouseFilePath{get;set;}
         private string FailedReason { get;set;}
         private string dirName {
             get { return Path.GetFileName(Path.GetDirectoryName(WareHouseFilePath)); } }
-        private string[] WareHouseFileContent {  get;set;}
+        public string[] WareHouseFileContent {  get;set;}
         private bool isValidFile {  get;set;}
-        private WareHouseModel wareHouseModel { get;set;}   
+        public static List<WareHouseModel> wareHouses { get { return GetWareHousesDataFromDb.getAllWareHouses(); } }
+
 
 
         public WareHouseProcess( string WareHouseFile) 
@@ -29,12 +34,18 @@ namespace FileProcessses
             WareHouseFilePath = WareHouseFile;
 
         }
+       
 
         public void process()
         {
             ReadFileData();
             ValidateStoreData();
-            PushStoreDataToDB();
+            if (!isValidFile)
+            {
+                Console.WriteLine("Log the error:not a valid file");
+                return;
+            }
+            SyncWareHouseDataToDB.PushWareHouseDataToDB(wareHouseModel);
         }
 
         private void ReadFileData()
@@ -43,7 +54,17 @@ namespace FileProcessses
            WareHouseFileContent= File.ReadAllLines(WareHouseFilePath);
 
         }
+        public void prepareWareHouseObject()
+        {
+            wareHouseModel = new WareHouseModel();
 
+            string[] data = WareHouseFileContent[1].Split('|');
+            wareHouseModel.WareHouseCode = data[0];
+            wareHouseModel.WareHouseName = data[1];
+            wareHouseModel.Location = data[2];
+            wareHouseModel.ManagerName = data[3];
+            wareHouseModel.ContactNumber = data[4];
+        }
 
         private void ValidateStoreData()
         {
@@ -86,96 +107,15 @@ namespace FileProcessses
 
 
         }
-        private void PushStoreDataToDB()
-        {
-            if (!isValidFile)
-            {
-                return ;
-            }
-
-            prepareWareHouseObject();
-
-            using(SqlConnection conn=new SqlConnection(oMSConnectionString))
-            {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand($"Update warehouse Set warehouseName = '{wareHouseModel.WareHouseName}', Location = '{wareHouseModel.Location}', ManagerName= '{wareHouseModel.ManagerName}', ContactNo = '{wareHouseModel.ContactNumber}' where WareHouseCode = '{wareHouseModel.WareHouseCode}'", conn))
-                {
-
-                    cmd.ExecuteNonQuery();
-                }
-                conn.Close();
-            }
-        }
-        private void prepareWareHouseObject()
-        {
-            wareHouseModel= new WareHouseModel();
-
-            string[] data = WareHouseFileContent[1].Split('|');
-            wareHouseModel.WareHouseCode = data[0];
-            wareHouseModel.WareHouseName= data[1];
-            wareHouseModel.Location = data[2];
-            wareHouseModel.ManagerName= data[3];
-            wareHouseModel.ContactNumber= data[4];
-        }
-
+       
+        
         //read file
 
 
         //validate file
         //push file
 
-        public static List<WareHouseModel> getAllWareHouses()
-        {
-            var wareHouses = new List<WareHouseModel>();
-            SqlConnection i = null;
-            try
-            {
-                using (i = new SqlConnection(oMSConnectionString))
-                {
-
-                    using (var cmd = new SqlCommand(DBConstants.GET_ALL_WAREHOUSES, i))
-                    {
-                        i.Open();
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var wareHouse = new WareHouseModel();
-                                wareHouse.WareHouseidpk = Convert.ToInt32(reader["WarehouseIdPk"]);
-                                wareHouse.WareHouseCode = Convert.ToString(reader["WarehouseCode"]);
-                                wareHouse.WareHouseName = Convert.ToString(reader["WarehouseName"]);
-                                wareHouse.Location = Convert.ToString(reader["Location"]);
-                                wareHouse.ManagerName = Convert.ToString(reader["ManagerName"]);
-                                wareHouse.ContactNumber = Convert.ToString(reader["ContactNo"]);
-                                wareHouses.Add(wareHouse);
-                            }
-                        }
-                        if (i.State == ConnectionState.Open)
-                        {
-                            i.Close();
-                        }
-                    }
-                    return wareHouses;
-                }
-            }
-            catch (Exception ex)
-            {
-                if (i.State == ConnectionState.Open)
-                {
-                    i.Close();
-                }
-                
-            }
-            finally
-            {
-                if (i != null && i.State == ConnectionState.Open)
-                {
-                    i.Close();
-                }
-                i.Dispose();
-            }
-            return wareHouses;
-        }
+        
 
     }
 }

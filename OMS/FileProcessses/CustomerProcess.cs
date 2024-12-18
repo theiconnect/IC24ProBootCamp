@@ -16,7 +16,7 @@ using FileModel;
 using ProjectHelper;
 namespace FileProcessses
 {
-    public class CustomerProcess: BaseProcessor
+    public class CustomerProcess: DBHelper
     {
         private string CustomerFilePath {  get; set; }
         public string OrdersFileName { get { return Path.GetFileName(OrdersFilePath); }  }
@@ -188,7 +188,7 @@ namespace FileProcessses
                     connection.Open();
                     foreach(var cust in Customers)
                     {
-                        foreach(var order in cust.Orders)
+                        foreach(var OrderRecord in cust.Orders)
                         {
                             command.Parameters.Add("@InvoiceNumber", DbType.String).Value = OrderRecord.InvoiceNumber;
                             command.Parameters.Add("@Phno", DbType.Int16).Value = OrderRecord.CustomerPhNo;
@@ -215,17 +215,20 @@ namespace FileProcessses
                     command.CommandText = "insert into Orders(InvoiceNumber,WareHouseIdfk,CustomerIdfk,OrderDate,NoOfItems,PaymentStatusIdfk,TotalAmount)\r\nvalues(@InvoiceNumber,@WareHouseIdfk,(Select customeridpk from cusrtomers where phno=@Phno),@OrderDate,@NoOfItems,@PaymentStatusIdfk,@TotalAmount)";
                     command.Connection = connection;
                     connection.Open();
-                    
-                    foreach(var OrderRecord in Customers.o)
+                    foreach (var cust in Customers)
                     {
-                        command.Parameters.Add("@InvoiceNumber", DbType.String).Value = OrderRecord.InvoiceNumber;
-                        command.Parameters.Add("@Phno", DbType.Int16).Value = OrderRecord.CustomerPhNo;
-                        command.Parameters.Add("@WareHouseIdfk", DbType.Int16).Value = WareHouseId;
-                        command.Parameters.Add("@OrderDate", DbType.DateTime).Value = OrderRecord.Date;
-                        command.Parameters.Add("@NoOfItems", DbType.Decimal).Value = OrderRecord.NoOfItems;
-                        command.Parameters.Add("@PaymentStatusIdfk", DbType.Int16).Value = OrderRecord.PaymentStaus;
-                        command.ExecuteNonQuery();
 
+                        foreach (var OrderRecord in cust.Orders)
+                        {
+                            command.Parameters.Add("@InvoiceNumber", DbType.String).Value = OrderRecord.InvoiceNumber;
+                            command.Parameters.Add("@Phno", DbType.Int16).Value = OrderRecord.CustomerPhNo;
+                            command.Parameters.Add("@WareHouseIdfk", DbType.Int16).Value = WareHouseId;
+                            command.Parameters.Add("@OrderDate", DbType.DateTime).Value = OrderRecord.Date;
+                            command.Parameters.Add("@NoOfItems", DbType.Decimal).Value = OrderRecord.NoOfItems;
+                            command.Parameters.Add("@PaymentStatusIdfk", DbType.Int16).Value = OrderRecord.PaymentStaus;
+                            command.ExecuteNonQuery();
+
+                        }
                     }
                     connection.Close();
                 }
