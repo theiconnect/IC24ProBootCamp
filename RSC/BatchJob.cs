@@ -1,7 +1,4 @@
-﻿
-using Kiran_RSC;
-using Kiran_RSC.MODELS;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -11,9 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RSC.Configuration_Venky;
+using RSC.FileModels_Venky;
+using RSC.BusinessAccessLayer_Venky;
 
 
-namespace Kiran_RSC
+namespace RSC
 {
     internal class BatchJob : AppConnection
     {
@@ -78,6 +78,7 @@ namespace Kiran_RSC
 
 
                 new StoreProcesser(storeFilePath).Processer();
+                
 
                 ////////////////////////////////////////////
                 /////Employee file processing

@@ -6,18 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using RSC.AppConnection_Kiran;
-using RSC.FileModel_Kiran;
+using RSC.Configuration_Venky;
+using RSC.FileModels_Venky;
 
-namespace BusinessAccessLayer
+namespace RSC.BusinessAccessLayer_Venky
 {
-    internal class StoreProcesser : AppConnection
+    public  class StoreProcesser : AppConnection
     {
         public string StoreFilePath { get; set; }
         public string[] FileContent { get; set; }
         public List<StoreModel> stores { get; set; }
 
-        public StoreProcesser(string storefilepath)
+        public  StoreProcesser(string storefilepath)
         {
             StoreFilePath = storefilepath;
         }

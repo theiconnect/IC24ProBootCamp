@@ -1,15 +1,16 @@
-﻿using RSC.AppConnection_Kiran;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using System.IO;
-using RSC.FileModel_Kiran;
+using RSC.Configuration_Venky;
+using RSC.FileModels_Venky;
 
-namespace BusinessAccessLayer
+namespace RSC.BusinessAccessLayer_Venky
 {
 
-    internal class Employeeprocesser : AppConnection
+    public class Employeeprocesser : AppConnection
     {
         public int StoreId { get; set; }
         private bool isValidFile { get; set; }

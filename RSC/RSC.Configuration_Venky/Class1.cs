@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SyncEmployeepushtoDB
+namespace RSC.Configuration_Venky
 {
     public class Class1
     {

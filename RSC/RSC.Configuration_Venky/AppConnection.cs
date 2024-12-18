@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RSC.AppConnection_Kiran
+namespace RSC.Configuration_Venky
 {
     public class AppConnection
     {

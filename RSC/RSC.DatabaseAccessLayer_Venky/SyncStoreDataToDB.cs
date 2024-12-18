@@ -5,9 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RSC.FileModel_Kiran;
-using RSC.AppConnection_Kiran;
-namespace DataBaseAccessLayer
+using RSC.Configuration_Venky;
+using RSC.FileModels_Venky;
+
+namespace RSC.DatabaseAccessLayer_Venky
 {
     internal class SyncStoreDataToDB:AppConnection
     {
