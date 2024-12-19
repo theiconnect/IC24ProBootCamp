@@ -43,7 +43,7 @@ namespace DataAccess
                             command.Parameters.Add("@Name", DbType.String).Value = customerRecord.Name;
                             command.Parameters.Add("@Email", DbType.String).Value = customerRecord.Email;
                             command.Parameters.Add("@ContactNumber", DbType.String).Value = customerRecord.ContactNumber;
-                            command.Parameters.Add("@CustomerCode", DbType.String).Value = customerRecord.CustomerCode;
+                            command.Parameters.Add("@CustomerCode", DbType.String).Value =customerRecord.CustomerCode;
                             command.ExecuteNonQuery();
                         }
                         
@@ -91,13 +91,13 @@ namespace DataAccess
                             {
                                 orderRecord.IsValidOrder = true;
                                 command.Parameters.Clear();
-                                command.Parameters.Add("@orderDate", DbType.DateTime).Value =orderRecord.OrderDate;
-                                command.Parameters.Add("@StoreCode", DbType.String).Value = orderRecord.StoreCode;
-                                command.Parameters.Add("@CustomerCode", DbType.String).Value = orderRecord.CustomerCode;
-                                command.Parameters.Add("@EmployeeCode", DbType.String).Value = orderRecord.EmployeeCode;
-                                command.Parameters.Add("@OrderCode", DbType.String).Value = orderRecord.OrderCode;
-                                command.Parameters.Add("@NoOfItems", DbType.String).Value = orderRecord.NoOfItems;
-                                command.Parameters.Add("@TotalAmount", DbType.Decimal).Value = orderRecord.Amount;
+                                command.Parameters.Add("@orderDate", DbType.DateTime).Value=orderRecord.OrderDate;
+                                command.Parameters.Add("@StoreCode", DbType.String).Value =orderRecord.StoreCode;
+                                command.Parameters.Add("@CustomerCode", DbType.String).Value =orderRecord.CustomerCode;
+                                command.Parameters.Add("@EmployeeCode", DbType.String).Value =orderRecord.EmployeeCode;
+                                command.Parameters.Add("@OrderCode", DbType.String).Value =orderRecord.OrderCode;
+                                command.Parameters.Add("@NoOfItems", DbType.String).Value =orderRecord.NoOfItems;
+                                command.Parameters.Add("@TotalAmount", DbType.Decimal).Value =orderRecord.Amount;
                                 command.ExecuteNonQuery();
                             }
 
@@ -145,11 +145,11 @@ namespace DataAccess
                                 foreach (var billingRecord in orderRecord.OrderBilling)
                                 {
                                     command.Parameters.Clear();
-                                    command.Parameters.Add("@BillingIdPk", DbType.Int32).Value =                              billingRecord.BillingIdPk;
-                                    command.Parameters.Add("@BillingNumber", DbType.String).Value =                           billingRecord.BillingNumber;
-                                    command.Parameters.Add("@BillingDate", DbType.DateTime).Value =                           billingRecord.BillingDate;
-                                    command.Parameters.Add("@PaymentMode", DbType.Decimal).Value =                            billingRecord.ModeOfPayment;
-                                    command.Parameters.Add("@OrderCode", DbType.String).Value =                               billingRecord.OrderCode;
+                                    command.Parameters.Add("@BillingIdPk", DbType.Int32).Value =billingRecord.BillingIdPk;
+                                    command.Parameters.Add("@BillingNumber", DbType.String).Value =billingRecord.BillingNumber;
+                                    command.Parameters.Add("@BillingDate", DbType.DateTime).Value =billingRecord.BillingDate;
+                                    command.Parameters.Add("@PaymentMode", DbType.Decimal).Value =billingRecord.ModeOfPayment;
+                                    command.Parameters.Add("@OrderCode", DbType.String).Value =billingRecord.OrderCode;
                                     command.ExecuteNonQuery();
                                 }
 
