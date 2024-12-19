@@ -87,6 +87,7 @@ namespace DataAccess
                         command.CommandText = "update_Stores";
                         command.Connection = connetion;
                         command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Clear();
                         command.Parameters.Add("@StoreName", DbType.String).Value = storeModelObject.StoreName;
                         command.Parameters.Add("@StoreCode", DbType.String).Value = storeModelObject.StoreCode;
                         command.Parameters.Add("@Location", DbType.String).Value = storeModelObject.Location;

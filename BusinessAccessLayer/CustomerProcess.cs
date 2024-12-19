@@ -11,6 +11,8 @@ using Models;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using DataAccess;
+using PathAndDataBaseConfig;
+
 
 
 namespace BusinessAccessLayer
@@ -23,8 +25,8 @@ namespace BusinessAccessLayer
         private bool isValidFile { get; set; }
         private string FailReason { get; set; }
         private DataSet ds { get; set; }
-        public string rscConnectedString { get; private set; }
-        public string excelConnectionString { get; private set; }
+        
+        
 
         public CustomerProcess(string customerFilePath, int storeIdFk)
         {
@@ -63,7 +65,7 @@ namespace BusinessAccessLayer
         public void ReadCustomerData(params string[] sheets)
         {
             ds = new DataSet();
-            string conn = string.Format(excelConnectionString, CustomerFilePath);
+            string conn = string.Format(BaseProcessor.excelConnectionString, CustomerFilePath);
             using (OleDbConnection con = new OleDbConnection(conn))
 
 

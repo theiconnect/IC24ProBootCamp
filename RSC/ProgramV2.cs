@@ -38,19 +38,19 @@ namespace RSC
                     continue;
                 }
                 //Get the storefile path from the directory
-                string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
-                //Initiate store file processing by using store processor
-                var storeProcessor = new StoreProcessor(storeFilePath);
-                storeProcessor.Process();
+                //string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
+                ////Initiate store file processing by using store processor
+                //var storeProcessor = new StoreProcessor(storeFilePath);
+                //storeProcessor.Process();
 
-                string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
-                var stockProcessor = new StockProcess(StockFilePath, storeIdPk);
-                stockProcessor.Process();
+                //string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
+                //var stockProcessor = new StockProcess(StockFilePath, storeIdPk);
+                //stockProcessor.Process();
 
 
-                string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
-                var employeeProcessor = new EmployeeProcessor(EmployeeFilePath);
-                employeeProcessor.Process();
+                //string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
+                //var employeeProcessor = new EmployeeProcessor(EmployeeFilePath);
+                //employeeProcessor.Process();
 
                 string CustomerFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Customer);
                 var customerProcessor = new CustomerProcess(CustomerFilePath, storeIdPk);

@@ -20,7 +20,7 @@ namespace BusinessAccessLayer
         private bool isValidFile { get; set; }
         private string failReason { get; set; }
         private string[] fileData { get; set; }
-        private string storeDirName { get; set; }
+        private string storeDirName { get { return Path.GetFileName(Path.GetDirectoryName(storeFilePath)); } }
         private StoreModel storeModelObject { get; set; }
         public StoreProcessor(string FilePath)
         {
