@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//using OMS_Arjun_V3;
+
+namespace Model
+{
+    public class OrderItemsModel
+    {
+        public int OrderItemIdpk { get; set; }
+        public int OrderIdfk { get; set; }
+        public string InvoiceNumber { get; set; }
+        public int ProductIdFk { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal PricePerUnit { get; set; }
+        public decimal TotalAmount { get; set; }
+        public bool IsValidRecord { get; set; } = true;
+    }
+}

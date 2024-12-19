@@ -4,22 +4,26 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OMS_arjun;
-using OMS_Arjun_V3.BusinessAccessLayer;
+using Model;
+using BusinessAccessLayer;
+using ConnectionConfig;
+using FileTypes;
+using FileHelper;
+using DataAccessLayer;
 
 namespace OMS_Arjun_V3
 {
-    internal class Program : ConnectionConfig
+    internal class Program 
     {
 
         static void Main(string[] args)
         {
-            string[] wareHouseFolders = Directory.GetDirectories(rootFolderPath);
-            List<WareHouseModel> wareHouses = WareHouseBAL.getAllWareHousesFromDB();
+            string[] wareHouseFolders = Directory.GetDirectories(ConnectionConfig.ConnectionConfig1.rootFolderPath);
+            List<WareHouseModel> wareHouses = WareHouseDAL.getAllWareHousesFromDB();
 
             foreach (string folderPath in wareHouseFolders)
             {
-                string wareHouseFolderName = FileHelper.GetDirectoryNameByDirectoryPath(folderPath);
+                string wareHouseFolderName = FileHelper.FileHelper.GetDirectoryNameByDirectoryPath(folderPath);
                 var warehouse = wareHouses.FirstOrDefault(x => x.WareHouseCode == wareHouseFolderName);
 
                 if (warehouse == null)
@@ -28,8 +32,8 @@ namespace OMS_Arjun_V3
                     continue;
                 }
 
-                string WareHouseFile = GetFileNameByFileType(folderPath, FileTypes.wareHouse);
-
+                string WareHouseFile = GetFileNameByFileType(folderPath, FileTypes.FileTypes1.wareHouse);
+                
 
                 if (!string.IsNullOrEmpty(WareHouseFile))
                 {
@@ -38,18 +42,18 @@ namespace OMS_Arjun_V3
 
             }
         }
-        private static string GetFileNameByFileType(string folder, FileTypes filetype)
+        private static string GetFileNameByFileType(string folder, FileTypes.FileTypes1 filetype)
         {
             string[] wareHouseLevelFile = Directory.GetFiles(folder);
             string StartsWith = string.Empty;
 
             switch (filetype)
             {
-                case FileTypes.wareHouse:
+                case FileTypes.FileTypes1.wareHouse:
                     StartsWith = "warehouse"; break;
-                case FileTypes.employee:
+                case FileTypes.FileTypes1.employee:
                     StartsWith = "employee"; break;
-                case FileTypes.inventory:
+                case FileTypes.FileTypes1.inventory:
                     StartsWith = "inventory"; break;
 
             }
@@ -63,5 +67,6 @@ namespace OMS_Arjun_V3
             }
             return null;
         }
+        
     }
 }

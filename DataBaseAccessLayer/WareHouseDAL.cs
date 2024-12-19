@@ -5,18 +5,17 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OMS_arjun;
 
-
-namespace OMS_Arjun_V3.DataBaseAccessLayer
+namespace DataBaseAccessLayer
 {
-    
-    internal class WareHouseDAL:ConnectionConfig
+    internal class WareHouseDAL
     {
-        private WareHouseModel wareHouseModel { get; set; }
+        static void Main(string[] args)
+        {
+            private WareHouseModel wareHouseModel { get; set; }
         //private string[] WareHouseFileContent { get; set; }
-        public void UpdateWareHouseDataToDB(string[] WareHouseFileContent)
-        {           
+        public void UpdateWareHouseDataToDB(string[] WareHouseFileContent, string WareHouseFilePath)
+        {
 
             prepareWareHouseObject(WareHouseFileContent);
             SqlConnection conn = null;
@@ -29,18 +28,22 @@ namespace OMS_Arjun_V3.DataBaseAccessLayer
                     {
 
                         cmd.ExecuteNonQuery();
+
                     }
                     conn.Close();
                 }
+                FileHelper.MoveFile(WareHouseFilePath, FileTypes.Success);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-               Console.WriteLine("" + ex.Message);
+                FileHelper.MoveFile(WareHouseFilePath, FileTypes.Failure);
+                Console.WriteLine("" + ex.Message);
             }
             finally
             {
                 conn.Dispose();
             }
+
         }
         private void prepareWareHouseObject(string[] wareHouseFileContent)
         {
@@ -107,4 +110,5 @@ namespace OMS_Arjun_V3.DataBaseAccessLayer
         }
 
     }
+}
 }

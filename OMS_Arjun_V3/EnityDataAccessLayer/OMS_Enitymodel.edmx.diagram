@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4d2be9f3a13846359b9659d7547092f8" Name="Diagram1">
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.Category" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.customer" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.Employee" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.Inventory" Width="1.5" PointX="6" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.OrderItem" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.Order" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.PaymentStatu" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.Product" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.Return" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.ReturnStatu" Width="1.5" PointX="6" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="Arjun_OMSDBModel.WareHouse" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK__Orders__Customer__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK__Employee__WareHo__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK_Inventory_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK_Inventory_WareHouse" ManuallyRouted="false" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK_OrderItem_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK_OrderItem_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK__Orders__WareHous__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK__Returns__OrderId__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK_Orders_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="Arjun_OMSDBModel.FK_Returns_ReturnStatus" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

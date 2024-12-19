@@ -139,7 +139,7 @@ namespace OMS_arjun
                 conn.Close();
             }
         }
-        private static void ProcessEmployee(string employeeFile, string storeFolderPath)
+        private static void ProcessEmployee(string employeeFile, string wareHouseFolderPath)
         {
             bool emptyFile = true;
             using (XmlReader reader = XmlReader.Create(employeeFile))
@@ -210,7 +210,7 @@ namespace OMS_arjun
                     }
                     if (move > 0)
                     {
-                        File.Move(employeeFile, Path.Combine(storeFolderPath, "processed", Path.GetFileName(employeeFile)));
+                        File.Move(employeeFile, Path.Combine(wareHouseFolderPath, "processed", Path.GetFileName(employeeFile)));
                     }
                 }
                 catch (Exception ex)
@@ -224,11 +224,11 @@ namespace OMS_arjun
 
             if (emptyFile)
             {
-                File.Move(employeeFile, Path.Combine(storeFolderPath, "archive", Path.GetFileName(employeeFile)));
+                File.Move(employeeFile, Path.Combine(wareHouseFolderPath, "archive", Path.GetFileName(employeeFile)));
             }
         }
 
-        private static void ProcessWareHouse(string wareHouseFile, string storeFolderPath, string storeFolderName)
+        private static void ProcessWareHouse(string wareHouseFile, string wareHouseFolderPath, string wareHouseFolderName)
         {
             string[] dataOfFile = File.ReadAllLines(wareHouseFile);
             if (dataOfFile.Length < 1)
@@ -250,7 +250,7 @@ namespace OMS_arjun
                 if (data.Length != 5)
                 {
                     Console.WriteLine("invalid file");
-                    File.Move(wareHouseFile, Path.Combine(storeFolderPath + "archive", Path.GetFileName(wareHouseFile)));
+                    File.Move(wareHouseFile, Path.Combine(wareHouseFolderPath + "archive", Path.GetFileName(wareHouseFile)));
 
                 }
                 else
@@ -262,10 +262,10 @@ namespace OMS_arjun
                     models.ManagerName = data[3];
                     models.ContactNo = data[4];
 
-                    if (models.WareHouseCode != storeFolderName)
+                    if (models.WareHouseCode != wareHouseFolderName)
                     {
                         Console.WriteLine("warehouse code doesn't match the current context");
-                        File.Move(storeFolderPath, Path.Combine(storeFolderPath + "archive", Path.GetFileName(wareHouseFile)));
+                        File.Move(wareHouseFolderPath, Path.Combine(wareHouseFolderPath + "archive", Path.GetFileName(wareHouseFile)));
 
 
                     }
@@ -282,7 +282,7 @@ namespace OMS_arjun
                             Console.WriteLine("Log the Warning: Storefile sync with DB is not sucess.");
 
                         }
-                        File.Move(wareHouseFile, Path.Combine(storeFolderPath, "processed", Path.GetFileName(wareHouseFile)));
+                        File.Move(wareHouseFile, Path.Combine(wareHouseFolderPath, "processed", Path.GetFileName(wareHouseFile)));
 
                     }
 

@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{46DE43AC-BCA9-45C3-AFCF-9A4C3A320B78}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>OMS_Arjun_V3</RootNamespace>
-    <AssemblyName>OMS_Arjun_V3</AssemblyName>
+    <ProjectGuid>{4FA2C9BF-C985-43CC-B988-DC26A65AAF93}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ClassLibrary1</RootNamespace>
+    <AssemblyName>ClassLibrary1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,41 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="EmployeeDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WareHouseDAL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="BusinessAccessLayer1\BusinessAccessLayer.csproj">
-      <Project>{6acc9568-3094-44fe-81f5-1aab40187f6d}</Project>
-      <Name>BusinessAccessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="ClassLibrary1\DataAccessLayer.csproj">
-      <Project>{4fa2c9bf-c985-43cc-b988-dc26a65aaf93}</Project>
-      <Name>DataAccessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="ConnectionConfig1\ConnectionConfig.csproj">
+    <ProjectReference Include="..\ConnectionConfig1\ConnectionConfig.csproj">
       <Project>{8e34d8e7-9e3e-40f1-870f-4290b678fa0c}</Project>
       <Name>ConnectionConfig</Name>
     </ProjectReference>
-    <ProjectReference Include="FileHelper1\FileHelper.csproj">
+    <ProjectReference Include="..\FileHelper1\FileHelper.csproj">
       <Project>{f1206929-7e67-412b-aff6-1278a4156792}</Project>
       <Name>FileHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="FileTypes\FileTypes.csproj">
+    <ProjectReference Include="..\FileTypes\FileTypes.csproj">
       <Project>{ebbbc240-1079-45b9-8df2-fcb3a4566f95}</Project>
       <Name>FileTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="Model\Model.csproj">
+    <ProjectReference Include="..\Model\Model.csproj">
       <Project>{2e65f227-2cb8-4b12-84cc-3b16d26595fa}</Project>
       <Name>Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

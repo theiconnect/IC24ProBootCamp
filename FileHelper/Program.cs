@@ -7,11 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS_Arjun_V3
+namespace FileHelper
 {
-    internal class FileHelper:ConnectionConfig
+    internal class Program
     {
-        public static string GetFileNameByFilePath(string filePath)
+      
+            public static string GetFileNameByFilePath(string filePath)
         {
             return Path.GetFileName(filePath);
         }
@@ -65,5 +66,27 @@ namespace OMS_Arjun_V3
             }
             return ds;
         }
+        public static void MoveFile(string FilePath, FileTypes failure)
+        {
+            string combinedName = string.Empty;
+            string desinationPath = string.Empty;
+            switch (failure)
+            {
+                case FileTypes.Success:
+                    combinedName = "Processed";
+                    break;
+                case FileTypes.Failure:
+                    combinedName = "ErrorFile";
+                    break;
+                case FileTypes.Archieve:
+                    combinedName = "Archieve";
+                    break;
+
+            }
+
+            desinationPath = Path.Combine(Path.GetDirectoryName(FilePath), combinedName, GetFileNameByFilePath(FilePath));
+            File.Move(FilePath, desinationPath);
+        }
+    
     }
 }

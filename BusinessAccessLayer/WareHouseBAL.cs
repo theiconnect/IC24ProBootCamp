@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OMS_arjun;
-using OMS_Arjun_V3.DataBaseAccessLayer;
 
-namespace OMS_Arjun_V3.BusinessAccessLayer
+namespace BusinessAccessLayer
 {
-    internal class WareHouseBAL:WareHouseDAL
+    internal class WareHouseBAL
     {
-        private string WareHouseFilePath { get; set; }
+        static void Main(string[] args)
+        {
+            private string WareHouseFilePath { get; set; }
         private string FailedReason { get; set; }
         private string dirName
         {
@@ -22,6 +20,8 @@ namespace OMS_Arjun_V3.BusinessAccessLayer
         private string[] WareHouseFileContent { get; set; }
         private bool isValidFile { get; set; }
         private WareHouseModel wareHouseModel { get; set; }
+        //private string wareHouseFilePath { get; set; }
+
 
 
         public WareHouseBAL(string WareHouseFile)
@@ -36,7 +36,9 @@ namespace OMS_Arjun_V3.BusinessAccessLayer
             ReadFileData();
             ValidateStoreData();
             PushWareHouseDataToDB();
+
         }
+
 
         private void ReadFileData()
         {
@@ -94,10 +96,9 @@ namespace OMS_Arjun_V3.BusinessAccessLayer
                 return;
             }
 
-            UpdateWareHouseDataToDB(WareHouseFileContent);            
+            UpdateWareHouseDataToDB(WareHouseFileContent, WareHouseFilePath);
         }
-        
-
 
     }
+}
 }

@@ -1,0 +1,759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Arjun_OMSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryIdpk" />
+          </Key>
+          <Property Name="CategoryIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="CustomerIdpk" />
+          </Key>
+          <Property Name="CustomerIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="PhNo" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmpIdpk" />
+          </Key>
+          <Property Name="EmpIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="WareHouseIdfk" Type="int" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="23" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+          <Property Name="Salary" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="EmpCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="InventoryIdpk" />
+          </Key>
+          <Property Name="InventoryIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WarehouseIdfk" Type="int" Nullable="false" />
+          <Property Name="ProductIdfk" Type="int" Nullable="false" />
+          <Property Name="AvailableQuantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PricePerUnit" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="date" Type="datetime" />
+          <Property Name="Remianingquantity" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="OrderItemIdpk" />
+          </Key>
+          <Property Name="OrderItemIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderIdfk" Type="int" Nullable="false" />
+          <Property Name="ProductIdfk" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PricePerUnit" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderIdpk" />
+          </Key>
+          <Property Name="OrderIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WareHouseIdfk" Type="int" Nullable="false" />
+          <Property Name="CustomerIdfk" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NoOfItems" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PaymentStatusIdfk" Type="int" Nullable="false" />
+          <Property Name="TotalAmount" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="PaymentStatus">
+          <Key>
+            <PropertyRef Name="PaymentStatusIdpk" />
+          </Key>
+          <Property Name="PaymentStatusIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentStatus" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductIdpk" />
+          </Key>
+          <Property Name="ProductIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PricePerUnit" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CategoryIdfk" Type="int" Nullable="false" />
+          <Property Name="ProductCode" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Returns">
+          <Key>
+            <PropertyRef Name="ReturnIdpk" />
+          </Key>
+          <Property Name="ReturnIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderIdfk" Type="int" Nullable="false" />
+          <Property Name="ReturnDate" Type="date" Nullable="false" />
+          <Property Name="Reason" Type="varchar" MaxLength="500" />
+          <Property Name="ReturnStatusIdfk" Type="int" Nullable="false" />
+          <Property Name="AmountRefund" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="ReturnStatus">
+          <Key>
+            <PropertyRef Name="ReturnStatusIdpk" />
+          </Key>
+          <Property Name="ReturnStatusIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReturnStatus" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="WareHouse">
+          <Key>
+            <PropertyRef Name="WareHouseIdpk" />
+          </Key>
+          <Property Name="WareHouseIdpk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WareHouseCode" Type="varchar" MaxLength="223" Nullable="false" />
+          <Property Name="WareHouseName" Type="varchar" MaxLength="100" />
+          <Property Name="Location" Type="varchar" MaxLength="100" />
+          <Property Name="ManagerName" Type="nchar" MaxLength="10" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__Employee__WareHo__75A278F5">
+          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WareHouse">
+              <PropertyRef Name="WareHouseIdpk" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="WareHouseIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Customer__6EF57B66">
+          <End Role="customers" Type="Self.customers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="CustomerIdpk" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__WareHous__6E01572D">
+          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WareHouse">
+              <PropertyRef Name="WareHouseIdpk" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="WareHouseIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Returns__OrderId__72C60C4A">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Returns" Type="Self.Returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderIdpk" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="OrderIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductIdpk" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ProductIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_WareHouse">
+          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WareHouse">
+              <PropertyRef Name="WareHouseIdpk" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="WarehouseIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderIdpk" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="OrderIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductIdpk" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="ProductIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Orders">
+          <End Role="PaymentStatus" Type="Self.PaymentStatus" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatus">
+              <PropertyRef Name="PaymentStatusIdpk" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PaymentStatusIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Returns_ReturnStatus">
+          <End Role="ReturnStatus" Type="Self.ReturnStatus" Multiplicity="1" />
+          <End Role="Returns" Type="Self.Returns" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReturnStatus">
+              <PropertyRef Name="ReturnStatusIdpk" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="ReturnStatusIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Arjun_OMSDBModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inventory" EntityType="Self.Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItem" EntityType="Self.OrderItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentStatus" EntityType="Self.PaymentStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Returns" EntityType="Self.Returns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReturnStatus" EntityType="Self.ReturnStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WareHouse" EntityType="Self.WareHouse" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Employee__WareHo__75A278F5" Association="Self.FK__Employee__WareHo__75A278F5">
+            <End Role="WareHouse" EntitySet="WareHouse" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Customer__6EF57B66" Association="Self.FK__Orders__Customer__6EF57B66">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__WareHous__6E01572D" Association="Self.FK__Orders__WareHous__6E01572D">
+            <End Role="WareHouse" EntitySet="WareHouse" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Returns__OrderId__72C60C4A" Association="Self.FK__Returns__OrderId__72C60C4A">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Products" Association="Self.FK_Inventory_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_WareHouse" Association="Self.FK_Inventory_WareHouse">
+            <End Role="WareHouse" EntitySet="WareHouse" />
+            <End Role="Inventory" EntitySet="Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Orders" Association="Self.FK_OrderItem_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Products" Association="Self.FK_OrderItem_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Orders" Association="Self.FK_Orders_Orders">
+            <End Role="PaymentStatus" EntitySet="PaymentStatus" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Returns_ReturnStatus" Association="Self.FK_Returns_ReturnStatus">
+            <End Role="ReturnStatus" EntitySet="ReturnStatus" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Arjun_OMSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryIdpk" />
+          </Key>
+          <Property Name="CategoryIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="CustomerIdpk" />
+          </Key>
+          <Property Name="CustomerIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Customer__6EF57B66" FromRole="customers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmpIdpk" />
+          </Key>
+          <Property Name="EmpIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WareHouseIdfk" Type="Int32" />
+          <Property Name="ContactNumber" Type="String" MaxLength="23" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Salary" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="EmpCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="WareHouse" Relationship="Self.FK__Employee__WareHo__75A278F5" FromRole="Employee" ToRole="WareHouse" />
+        </EntityType>
+        <EntityType Name="Inventory">
+          <Key>
+            <PropertyRef Name="InventoryIdpk" />
+          </Key>
+          <Property Name="InventoryIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarehouseIdfk" Type="Int32" Nullable="false" />
+          <Property Name="ProductIdfk" Type="Int32" Nullable="false" />
+          <Property Name="AvailableQuantity" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PricePerUnit" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="Remianingquantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Inventory_Products" FromRole="Inventory" ToRole="Products" />
+          <NavigationProperty Name="WareHouse" Relationship="Self.FK_Inventory_WareHouse" FromRole="Inventory" ToRole="WareHouse" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="OrderItemIdpk" />
+          </Key>
+          <Property Name="OrderItemIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderIdfk" Type="Int32" Nullable="false" />
+          <Property Name="ProductIdfk" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PricePerUnit" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="InvoiceNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrderItem_Orders" FromRole="OrderItem" ToRole="Orders" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_OrderItem_Products" FromRole="OrderItem" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderIdpk" />
+          </Key>
+          <Property Name="OrderIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WareHouseIdfk" Type="Int32" Nullable="false" />
+          <Property Name="CustomerIdfk" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NoOfItems" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PaymentStatusIdfk" Type="Int32" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="customer" Relationship="Self.FK__Orders__Customer__6EF57B66" FromRole="Orders" ToRole="customers" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Orders" FromRole="Orders" ToRole="OrderItem" />
+          <NavigationProperty Name="WareHouse" Relationship="Self.FK__Orders__WareHous__6E01572D" FromRole="Orders" ToRole="WareHouse" />
+          <NavigationProperty Name="Returns" Relationship="Self.FK__Returns__OrderId__72C60C4A" FromRole="Orders" ToRole="Returns" />
+          <NavigationProperty Name="PaymentStatu" Relationship="Self.FK_Orders_Orders" FromRole="Orders" ToRole="PaymentStatus" />
+        </EntityType>
+        <EntityType Name="PaymentStatu">
+          <Key>
+            <PropertyRef Name="PaymentStatusIdpk" />
+          </Key>
+          <Property Name="PaymentStatusIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Orders" FromRole="PaymentStatus" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductIdpk" />
+          </Key>
+          <Property Name="ProductIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PricePerUnit" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CategoryIdfk" Type="Int32" Nullable="false" />
+          <Property Name="ProductCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Inventories" Relationship="Self.FK_Inventory_Products" FromRole="Products" ToRole="Inventory" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Products" FromRole="Products" ToRole="OrderItem" />
+        </EntityType>
+        <EntityType Name="Return">
+          <Key>
+            <PropertyRef Name="ReturnIdpk" />
+          </Key>
+          <Property Name="ReturnIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderIdfk" Type="Int32" Nullable="false" />
+          <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ReturnStatusIdfk" Type="Int32" Nullable="false" />
+          <Property Name="AmountRefund" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__Returns__OrderId__72C60C4A" FromRole="Returns" ToRole="Orders" />
+          <NavigationProperty Name="ReturnStatu" Relationship="Self.FK_Returns_ReturnStatus" FromRole="Returns" ToRole="ReturnStatus" />
+        </EntityType>
+        <EntityType Name="ReturnStatu">
+          <Key>
+            <PropertyRef Name="ReturnStatusIdpk" />
+          </Key>
+          <Property Name="ReturnStatusIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReturnStatus" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Returns" Relationship="Self.FK_Returns_ReturnStatus" FromRole="ReturnStatus" ToRole="Returns" />
+        </EntityType>
+        <EntityType Name="WareHouse">
+          <Key>
+            <PropertyRef Name="WareHouseIdpk" />
+          </Key>
+          <Property Name="WareHouseIdpk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WareHouseCode" Type="String" MaxLength="223" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WareHouseName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__WareHo__75A278F5" FromRole="WareHouse" ToRole="Employee" />
+          <NavigationProperty Name="Inventories" Relationship="Self.FK_Inventory_WareHouse" FromRole="WareHouse" ToRole="Inventory" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__WareHous__6E01572D" FromRole="WareHouse" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK__Orders__Customer__6EF57B66">
+          <End Role="customers" Type="Self.customer" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="CustomerIdpk" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__WareHo__75A278F5">
+          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WareHouse">
+              <PropertyRef Name="WareHouseIdpk" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="WareHouseIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductIdpk" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="ProductIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Inventory_WareHouse">
+          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="1" />
+          <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WareHouse">
+              <PropertyRef Name="WareHouseIdpk" />
+            </Principal>
+            <Dependent Role="Inventory">
+              <PropertyRef Name="WarehouseIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Orders">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderIdpk" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="OrderIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductIdpk" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="ProductIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__WareHous__6E01572D">
+          <End Role="WareHouse" Type="Self.WareHouse" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WareHouse">
+              <PropertyRef Name="WareHouseIdpk" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="WareHouseIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Returns__OrderId__72C60C4A">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="Returns" Type="Self.Return" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderIdpk" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="OrderIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Orders">
+          <End Role="PaymentStatus" Type="Self.PaymentStatu" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatus">
+              <PropertyRef Name="PaymentStatusIdpk" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PaymentStatusIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Returns_ReturnStatus">
+          <End Role="ReturnStatus" Type="Self.ReturnStatu" Multiplicity="1" />
+          <End Role="Returns" Type="Self.Return" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReturnStatus">
+              <PropertyRef Name="ReturnStatusIdpk" />
+            </Principal>
+            <Dependent Role="Returns">
+              <PropertyRef Name="ReturnStatusIdfk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Arjun_OMSDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Inventories" EntityType="Self.Inventory" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="PaymentStatus" EntityType="Self.PaymentStatu" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Returns" EntityType="Self.Return" />
+          <EntitySet Name="ReturnStatus" EntityType="Self.ReturnStatu" />
+          <EntitySet Name="WareHouses" EntityType="Self.WareHouse" />
+          <AssociationSet Name="FK__Orders__Customer__6EF57B66" Association="Self.FK__Orders__Customer__6EF57B66">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__WareHo__75A278F5" Association="Self.FK__Employee__WareHo__75A278F5">
+            <End Role="WareHouse" EntitySet="WareHouses" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_Products" Association="Self.FK_Inventory_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inventory_WareHouse" Association="Self.FK_Inventory_WareHouse">
+            <End Role="WareHouse" EntitySet="WareHouses" />
+            <End Role="Inventory" EntitySet="Inventories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Orders" Association="Self.FK_OrderItem_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Products" Association="Self.FK_OrderItem_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__WareHous__6E01572D" Association="Self.FK__Orders__WareHous__6E01572D">
+            <End Role="WareHouse" EntitySet="WareHouses" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Returns__OrderId__72C60C4A" Association="Self.FK__Returns__OrderId__72C60C4A">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Orders" Association="Self.FK_Orders_Orders">
+            <End Role="PaymentStatus" EntitySet="PaymentStatus" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Returns_ReturnStatus" Association="Self.FK_Returns_ReturnStatus">
+            <End Role="ReturnStatus" EntitySet="ReturnStatus" />
+            <End Role="Returns" EntitySet="Returns" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Arjun_OMSDBModelStoreContainer" CdmEntityContainer="Arjun_OMSDBEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryIdpk" ColumnName="CategoryIdpk" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.customer">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="CustomerIdpk" ColumnName="CustomerIdpk" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="PhNo" ColumnName="PhNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmpIdpk" ColumnName="EmpIdpk" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="WareHouseIdfk" ColumnName="WareHouseIdfk" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="EmpCode" ColumnName="EmpCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inventories">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.Inventory">
+              <MappingFragment StoreEntitySet="Inventory">
+                <ScalarProperty Name="InventoryIdpk" ColumnName="InventoryIdpk" />
+                <ScalarProperty Name="WarehouseIdfk" ColumnName="WarehouseIdfk" />
+                <ScalarProperty Name="ProductIdfk" ColumnName="ProductIdfk" />
+                <ScalarProperty Name="AvailableQuantity" ColumnName="AvailableQuantity" />
+                <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="Remianingquantity" ColumnName="Remianingquantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItems">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItem">
+                <ScalarProperty Name="OrderItemIdpk" ColumnName="OrderItemIdpk" />
+                <ScalarProperty Name="OrderIdfk" ColumnName="OrderIdfk" />
+                <ScalarProperty Name="ProductIdfk" ColumnName="ProductIdfk" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderIdpk" ColumnName="OrderIdpk" />
+                <ScalarProperty Name="WareHouseIdfk" ColumnName="WareHouseIdfk" />
+                <ScalarProperty Name="CustomerIdfk" ColumnName="CustomerIdfk" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="NoOfItems" ColumnName="NoOfItems" />
+                <ScalarProperty Name="PaymentStatusIdfk" ColumnName="PaymentStatusIdfk" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentStatus">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.PaymentStatu">
+              <MappingFragment StoreEntitySet="PaymentStatus">
+                <ScalarProperty Name="PaymentStatusIdpk" ColumnName="PaymentStatusIdpk" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductIdpk" ColumnName="ProductIdpk" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
+                <ScalarProperty Name="CategoryIdfk" ColumnName="CategoryIdfk" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Returns">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.Return">
+              <MappingFragment StoreEntitySet="Returns">
+                <ScalarProperty Name="ReturnIdpk" ColumnName="ReturnIdpk" />
+                <ScalarProperty Name="OrderIdfk" ColumnName="OrderIdfk" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="ReturnStatusIdfk" ColumnName="ReturnStatusIdfk" />
+                <ScalarProperty Name="AmountRefund" ColumnName="AmountRefund" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReturnStatus">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.ReturnStatu">
+              <MappingFragment StoreEntitySet="ReturnStatus">
+                <ScalarProperty Name="ReturnStatusIdpk" ColumnName="ReturnStatusIdpk" />
+                <ScalarProperty Name="ReturnStatus" ColumnName="ReturnStatus" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WareHouses">
+            <EntityTypeMapping TypeName="Arjun_OMSDBModel.WareHouse">
+              <MappingFragment StoreEntitySet="WareHouse">
+                <ScalarProperty Name="WareHouseIdpk" ColumnName="WareHouseIdpk" />
+                <ScalarProperty Name="WareHouseCode" ColumnName="WareHouseCode" />
+                <ScalarProperty Name="WareHouseName" ColumnName="WareHouseName" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ManagerName" ColumnName="ManagerName" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,48 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OMS_arjun;
+using Model;
+using DataAccessLayer;
+using ConnectionConfig;
+using System.Data.SqlClient;
+using System.IO;
 using System.Xml;
 
-namespace OMS_Arjun_v2
+namespace BusinessAccessLayer1
 {
-    internal class EmployeeProcess : BaseProcessor
+    public class EmployeeBAL
     {
-        private bool isValidFile { get; set; }
+        public bool isValidFile { get; set; }
 
-        private string EmployeeFilePath { get; set; }
-        private string FailedReason { get; set; }
-        private string dirName
+        public string EmployeeFilePath { get; set; }
+        public string FailedReason { get; set; }
+        public string[] EmployeeFileContent {  get; set; }
+        public string dirName
         {
             get { return Path.GetFileName(Path.GetDirectoryName(EmployeeFilePath)); }
         }
 
-        private List<EmployeeModel> employees;
-        public EmployeeProcess(string Employeefile)
+        public List<EmployeeModel> employees;
+        public EmployeeBAL(string Employeefile)
 
         {
 
             EmployeeFilePath = Employeefile;
         }
 
-        internal void Process()
+        public void Process()
         {
 
             //READ
             //VALIDATE
             //PUSH INTO DB
             ReadFileData();
-            ValidateStoreData();
-            PushStoreDataToDB();
+            ValidateEmployeeData();
+            PushEmployeeDataToDB();
 
 
         }
 
-        private void ReadFileData()
+        public void ReadFileData()
         {
             employees = new List<EmployeeModel>();
             using (XmlReader reader = XmlReader.Create(EmployeeFilePath))
@@ -54,11 +57,11 @@ namespace OMS_Arjun_v2
                 {
 
 
-                    if (reader.IsStartElement()) 
+                    if (reader.IsStartElement())
                     {
                         if (reader.Name.ToLower() == "employeecode")
                         {
-                           
+
                             empmodel.EmpCode = reader.ReadElementContentAsString();
                             count++;
                             if (empmodel.EmpCode == "")
@@ -124,7 +127,7 @@ namespace OMS_Arjun_v2
 
         }
 
-        private void ValidateStoreData()
+        public void ValidateEmployeeData()
         {
 
             foreach (var empdata in employees)
@@ -132,7 +135,7 @@ namespace OMS_Arjun_v2
                 if (empdata.WareHouseIdfk != dirName)
                 {
                     FailedReason = "invalid warehouse code ";
-                    
+
                     return;
 
                 }
@@ -141,40 +144,15 @@ namespace OMS_Arjun_v2
 
         }
 
-        private void PushStoreDataToDB()
+        public void PushEmployeeDataToDB()
         {
             if (!isValidFile)
             {
                 return;
             }
-            using (SqlConnection conn = new SqlConnection(oMSConnectionString))
-            {
-                conn.Open();
-                foreach (var data in employees)
-                {
-                    using (SqlCommand cmd = new SqlCommand($"if not  exists (select empname from Employee where empcode ='{data.EmpCode}') " +
-                       $"begin " +
-                       $"insert into Employee(empcode,EmpName,WareHouseIdfk,ContactNumber,Gender,Salary)" +
-                       $"values ('{data.EmpCode}','{data.EmpName}',(select warehouseidpk from warehouse where warehousecode='{data.WareHouseIdfk}')," +
-                       $"'{data.ContactNumber}'," +
-                       $"'{data.Gender}','{data.Salary}')" +
-                       $" end  " +
+           
+            new EmployeeDAL().UpdateorinsertEmployeeDataToDB(EmployeeFileContent, EmployeeFilePath);
 
-                       $"else " +
-
-                       $" begin " +
-                       $"update Employee  " +
-                       $"set empcode='{data.EmpCode}',empname='{data.EmpName}', warehouseidfk=(select warehouseidpk from warehouse where warehousecode='{data.WareHouseIdfk}'), contactnumber='{data.ContactNumber}', gender='{data.Gender}',  Salary='{data.Salary}' " +
-                       $"where  empcode='{data.EmpCode}'" +
-                       $"end", conn))
-                    {
-
-                        cmd.ExecuteNonQuery();
-
-                    }
-                }
-
-            }
         }
     }
 }
