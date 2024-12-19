@@ -21,6 +21,7 @@ namespace OMS
             foreach (string folderPath in wareHouseFolders)
             {
                 string wareHouseFolderName = FileHelper.GetDirectoryNameByDirectoryPath(folderPath);
+                
 
                 var warehouse = WareHouseProcess.wareHouses.FirstOrDefault(x => x.WareHouseCode == wareHouseFolderName);
 

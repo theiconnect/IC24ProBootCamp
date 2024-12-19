@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{896E21B0-ACDD-4D65-B22B-6305C372D6BB}</ProjectGuid>
+    <ProjectGuid>{64D27CEF-8188-45D9-BFF9-B13BA610A430}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OMS.WareHouseDAL_Muni</RootNamespace>
-    <AssemblyName>OMS.WareHouseDAL_Muni</AssemblyName>
+    <RootNamespace>OMS.DataAccessLayer.Entity_Muni</RootNamespace>
+    <AssemblyName>OMS.DataAccessLayer.Entity_Muni</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,22 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmployeeDAL\SyncEmployeeDataToDB.cs" />
-    <Compile Include="InventoryDAL\SyncInventoryFileDataToDB.cs" />
+    <Compile Include="EmployeeDAL_Entity\SyncEmployeeDataToDB_Entity.cs" />
+    <Compile Include="InventoryDAL_Entity\SyncInventoryDataToDB_Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WareHouseDAL\GetWareHousesDataFromDb.cs" />
-    <Compile Include="WareHouseDAL\SyncWareHouseDataToDB.cs" />
+    <Compile Include="WareHouseDAL_Entity\GetWareHousesDataFromDB_Entity.cs" />
+    <Compile Include="WareHouseDAL_Entity\SyncWareHouseDataToDB_Entity.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\ADO.NET\Configuration\OMS.Configuration_Muni.csproj">
-      <Project>{0f696f97-c000-448b-aafe-f121f4078b8e}</Project>
-      <Name>OMS.Configuration_Muni</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\ADO.NET\FileModel\OMS.FileModel_Muni.csproj">
       <Project>{7caeaaeb-4e82-4fc9-bb82-6db916f0c72d}</Project>
       <Name>OMS.FileModel_Muni</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

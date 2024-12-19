@@ -9,7 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Configuration;
 using FileModel;
+using OMS.DataAccessLayer_Muni;
 using System.Data;
+using OMS.WareHouseDAL_Muni.InventoryDAL;
 
 namespace FileProcessses
 {
@@ -41,8 +43,8 @@ namespace FileProcessses
             //Validate the file 
             //push in to db
             ReadFileData();
-            ValidateStoreData();
-            PushStoreDataToDB();
+            ValidateInventoryData();
+            PushInventoryDataToDB();
         }
 
 
@@ -60,7 +62,7 @@ namespace FileProcessses
 
 
         }
-        private void ValidateStoreData()
+        private void ValidateInventoryData()
         {
             if (inventoryList.Count < 1)
             {
@@ -113,187 +115,24 @@ namespace FileProcessses
 
         }
 
-        private void PushStoreDataToDB()
+        private void PushInventoryDataToDB()
         {
 
             if (!string.IsNullOrEmpty(FailedReason))
             {
                 return;
             }
+            SyncInventoryFileDataToDB inventory = new SyncInventoryFileDataToDB();
 
-            SyncProducts();
+            inventory.GetAllProductsFromDB();
 
-            GetAllStockInfoOfTodayFromDB();
+            inventory.SyncProducts(inventoryList, productMasterList);
 
-            SyncFileStockWithDB();
+            inventory.GetAllStockInfoOfTodayFromDB(StockDateStr);
 
+            inventory.SyncFileStockWithDB(inventoryList, dBStockDatas, StockDateStr,dirName);
 
-        }
-
-        private void SyncProducts()
-        {
-            string query = string.Empty;
-
-            GetAllProductsFromDB();
-            foreach(var stock in inventoryList)
-            {
-
-                var product = productMasterList.Find(x => x.ProductCode == stock.productCode);
-                if (product == null)
-                {
-                    
-                    if (!string.IsNullOrEmpty(query))
-                    {
-                        using (SqlConnection con = new SqlConnection(oMSConnectionString))
-                        {
-                            con.Open();
-                            using (SqlCommand cmd = new SqlCommand("USP_SyncProducts", con))
-                            {
-                                cmd.CommandType=System.Data.CommandType.StoredProcedure;
-                                cmd.Parameters.Add("@productCode",DbType.String).Value = stock.productCode;
-                                cmd.Parameters.Add("@productName",DbType.String).Value=stock.productCode;
-                                cmd.Parameters.Add("@pricePerUnit",DbType.Decimal).Value=stock.pricePerUnit;
-                                cmd.Parameters.Add("@categoryIdfk", DbType.Int32).Value = 1;
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-
-                        GetAllProductsFromDB();
-                        foreach (var eachStock in inventoryList)
-                        {
-                            if (Convert.ToInt32(eachStock.ProductIdFk) == 0)
-                            {
-                                var eachProduct = productMasterList.FirstOrDefault(x => x.ProductCode == eachStock.productCode);
-                                eachStock.ProductIdFk = eachProduct.ProductIdPk;
-                            }
-                        }
-
-                    }
-                }
-                else
-                {
-                    stock.ProductIdFk = product.ProductIdPk;
-                }
-            }
-            
-            }
-
-        private void GetAllProductsFromDB()
-        {
-            SqlConnection conn = null;
-            productMasterList = new List<ProductMasterModel>();
-            try
-            {
-
-                using (conn = new SqlConnection(oMSConnectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("GetAllProductsFromDB", conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        conn.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-
-                            while (reader.Read())
-                            {
-                                ProductMasterModel model = new ProductMasterModel();
-                                model.ProductIdPk = reader.GetInt32(0);
-                                model.ProductIdPk = Convert.ToInt32(reader["Productidpk"]);
-                                model.ProductCode = reader.GetString(1);
-                                model.ProductName = reader.GetString(2);
-                                model.PricePerUnit = reader.GetDecimal(3);
-                                productMasterList.Add(model);
-                            }
-                        }
-                        if (conn.State == ConnectionState.Open)
-                        {
-                            conn.Close();
-                        }
-                    }
-
-
-                }
-            }
-            catch (Exception ex)
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-                throw;
-            }
-            finally
-            {
-                if (conn != null && conn.State == ConnectionState.Open) { conn.Dispose(); }
-            }
-        }
-
-        private void GetAllStockInfoOfTodayFromDB()
-        {
-            dBStockDatas = new List<DBStockData>();
-            SqlConnection conn = null;
-            try
-            {
-                using (conn = new SqlConnection(oMSConnectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand("GetAllStockInfoOfTodayFromDB", conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@StockDateStr", DbType.Date).Value = StockDateStr;
-                        conn.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                DBStockData model = new DBStockData();
-                                model.InventoryIdPk = reader.GetInt32(0);
-                                model.WareHouseIdFk = reader.GetInt32(1);
-                                model.ProductIdFk = reader.GetInt32(2);
-                                model.Date = reader.GetDateTime(3);
-                                model.QuantityAvailable = reader.GetDecimal(4);
-                                model.PricePerUnit = reader.GetDecimal(5);
-                                model.RemainingQuantity = reader.GetDecimal(6);
-                                dBStockDatas.Add(model);
-                            }
-                        }
-                        if (conn.State == ConnectionState.Open)
-                        {
-                            conn.Close();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-                throw;
-            }
-            finally {if (conn != null && conn.State == ConnectionState.Open) {  conn.Dispose(); } }   
-
-
-        }
-
-        private void SyncFileStockWithDB()
-        {
-            foreach (var stock in inventoryList)
-            {
-                if (!dBStockDatas.Exists(s => s.Date == stock.date && s.ProductIdFk == stock.ProductIdFk))
-                {
-                    using (SqlConnection con = new SqlConnection(oMSConnectionString))
-                    {
-                        con.Open();
-                        string query = "INSERT INTO inventory( WarehouseIdFk,ProductIdFk, Date, AvailableQuantity, PricePerUnit,RemainingQuantity)" +
-                            $"values((select WarehouseIdpk from warehouse where warehousecode='{dirName}'),{stock.ProductIdFk} , '{StockDateStr}', {stock.availableQuantity}, {stock.pricePerUnit},{stock.remainingQuantity})";
-                        using (SqlCommand cmd = new SqlCommand(query, con))
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-            }
-        }
+        }                       
+        
     }
 }

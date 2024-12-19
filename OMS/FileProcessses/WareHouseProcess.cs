@@ -24,7 +24,8 @@ namespace FileProcessses
             get { return Path.GetFileName(Path.GetDirectoryName(WareHouseFilePath)); } }
         public string[] WareHouseFileContent {  get;set;}
         private bool isValidFile {  get;set;}
-        public static List<WareHouseModel> wareHouses { get { return GetWareHousesDataFromDb.getAllWareHouses(); } }
+       
+        public static List<WareHouseModel> wareHouses { get { return GetWareHousesDataFromDb.GetAllWareHouses() ; } }
 
 
 
@@ -45,7 +46,8 @@ namespace FileProcessses
                 Console.WriteLine("Log the error:not a valid file");
                 return;
             }
-            SyncWareHouseDataToDB.PushWareHouseDataToDB(wareHouseModel);
+            SyncWareHouseDataToDB warehouse = new SyncWareHouseDataToDB();
+            warehouse.PushWareHouseDataToDB(wareHouseModel);
         }
 
         private void ReadFileData()

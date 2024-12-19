@@ -12,7 +12,7 @@ namespace OMS.DataAccessLayer_Muni
 {
     public class GetWareHousesDataFromDb:DBHelper
     {
-        public static List<WareHouseModel> getAllWareHouses()
+        public static  List<WareHouseModel> GetAllWareHouses()
         {
             var wareHouses = new List<WareHouseModel>();
             SqlConnection conn = null;

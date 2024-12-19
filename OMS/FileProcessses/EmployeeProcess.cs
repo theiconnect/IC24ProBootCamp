@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Xml;
 using Configuration;
 using FileModel;
+using OMS.DataAccessLayer_Muni;
+using OMS.WareHouseDAL_Muni.EmployeeDAL;
 
 namespace FileProcessses
 {
@@ -41,9 +43,15 @@ namespace FileProcessses
             //VALIDATE
             //PUSH INTO DB
             ReadFileData();
-            ValidateStoreData();
-            PushEmployeeDataToDB();
-
+            ValidateEmployeeData();
+            if (!isValidFile)
+            {
+                Console.WriteLine("Log the error:Employee  File is not valid");
+                return;
+            }
+            SyncEmployeeDataToDB employee = new SyncEmployeeDataToDB();
+            employee.PushEmployeeDataToDB(employees);
+            
 
         }
 
@@ -129,7 +137,7 @@ namespace FileProcessses
             
         }
 
-        private void ValidateStoreData()
+        private void ValidateEmployeeData()
         {
 
             foreach (var empdata in employees)
@@ -146,34 +154,7 @@ namespace FileProcessses
 
         }
 
-        private void PushEmployeeDataToDB()
-        {
-            if (!isValidFile)
-            {
-                return;
-            }
-            using (SqlConnection conn = new SqlConnection(oMSConnectionString))
-            {
-                conn.Open();
-                foreach(var data in employees)
-                {
-                    using (SqlCommand cmd = new SqlCommand("InsertOrUpdateEmpData", conn))
-                    {
-                        cmd.CommandType=CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@EmpCode",DbType.String).Value=data.EmpCode;
-                        cmd.Parameters.Add("@EmpName",DbType.String).Value=data.EmpName;
-                        cmd.Parameters.Add("@EmpWareHouseCode", DbType.String).Value = data.EmpWareHouseCode;
-                        cmd.Parameters.Add("@EmpContactNumber", DbType.String).Value = data.empContactNumber;
-                        cmd.Parameters.Add("@Gender", DbType.String).Value = data.Gender;
-                        cmd.Parameters.Add("@Salary",DbType.Decimal).Value = data.Salary;
-
-                        cmd.ExecuteNonQuery();
-
-                    }
-                }
-               
-            }
-        }
+        
 
        
     }

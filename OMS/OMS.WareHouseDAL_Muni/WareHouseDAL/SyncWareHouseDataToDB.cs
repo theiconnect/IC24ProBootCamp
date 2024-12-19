@@ -12,7 +12,7 @@ namespace OMS.DataAccessLayer_Muni
 {
     public class SyncWareHouseDataToDB:DBHelper
     {
-        public static void PushWareHouseDataToDB(WareHouseModel wareHouseModel)
+        public  void PushWareHouseDataToDB(WareHouseModel wareHouseModel)
         {
             SqlConnection conn = null;
             try
