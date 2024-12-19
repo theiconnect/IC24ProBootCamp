@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Models;
 using PathAndDataBaseConfig;
+using IDataAccess;
 using System.Linq.Expressions;
 
 
@@ -14,7 +15,7 @@ using System.Linq.Expressions;
 
 namespace DataAccess
 {
-    public class StoreDA
+    public class StoreDA:IStoreDA
     {
         public static List<StoreModel> GetAllStoresDataFromDB()
         {

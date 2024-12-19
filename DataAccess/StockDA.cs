@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PathAndDataBaseConfig;
+using IDataAccess;
 
 namespace DataAccess
 {
-    public class StockDA
+    public class StockDA:IStockDA
     {
         
         
@@ -22,7 +23,7 @@ namespace DataAccess
             SyncProductMasterTableData(stockFileInformation);
 
         }
-        private void GetrAllProductsFromDB(List<ProductMasterBO> products)
+        public void GetrAllProductsFromDB(List<ProductMasterBO> products)
         {
             products = new List<ProductMasterBO>();
             using (SqlConnection con = new SqlConnection(BaseProcessor.rscConnectedString))
@@ -73,7 +74,7 @@ namespace DataAccess
             }
         }
 
-        private void SyncStockTableData(List<StockBO> stockFileInformation)
+        public void SyncStockTableData(List<StockBO> stockFileInformation)
         {
             using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
             {
@@ -117,7 +118,7 @@ namespace DataAccess
                 }
             }
         }
-        private void SyncProductMasterTableData(List<StockBO> stockFileInformation)
+        public void SyncProductMasterTableData(List<StockBO> stockFileInformation)
         {
 
 

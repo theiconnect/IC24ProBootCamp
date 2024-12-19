@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PathAndDataBaseConfig;
+using IDataAccess;
 
 namespace DataAccess
 {
-    public class EmployeeDA
+    public class EmployeeDA:IEmployeeDA
     {
         public void SyncEmployeeData(List<EmployeeDTO> employeeData, List<EmployeeDTO> fileEmployeeDTOObject)
         {

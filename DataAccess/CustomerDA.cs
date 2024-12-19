@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Models;
 using PathAndDataBaseConfig;
+using IDataAccess;
 
 namespace DataAccess
 {
-    public class CustomerDA
+    public class CustomerDA:ICustomerDA
     {
         public void SyncCustomerData(List<CustomerModel> customers)
         {
