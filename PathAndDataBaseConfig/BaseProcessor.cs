@@ -15,7 +15,7 @@ namespace PathAndDataBaseConfig
         public static string rscConnectedString { get; set; }
 
 
-        public BaseProcessor()
+        static BaseProcessor()
         {
             mainFolderPath = ConfigurationManager.AppSettings["RootFolder"];
 

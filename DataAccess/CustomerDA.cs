@@ -30,7 +30,7 @@ namespace DataAccess
                     {
                         //"If exists(select ContactNumber from Customer where ContactNUmber=@ContactNumber)" +
                         //"\r\nBegin\r\nupdate Customer set name=@name,email=@email,ContactNumber=@ContactNumber," +
-                        //"customerCode=@customerCode; \r\nend\r\nelse\r\nbegin\r\nInsert InTo Customer(Name,Email," +
+                        //"customerCode=@customerCode where CustomerCode=@CustomerCode; \r\nend\r\nelse\r\nbegin\r\nInsert InTo Customer(Name,Email," +
                         //"ContactNumber,CustomerCode)\r\nvalues(@Name,@Email,@ContactNumber,@CustomerCode);\r\nend\r\n";
                         command.CommandText = "InsertOrUpdateCustomer";
                         command.Connection = connetion;
@@ -39,11 +39,12 @@ namespace DataAccess
                         foreach (var customerRecord in customers)
                         {
                             customerRecord.IsValidCustomer = true;
+                            command.Parameters.Clear();
                             command.Parameters.Add("@Name", DbType.String).Value = customerRecord.Name;
                             command.Parameters.Add("@Email", DbType.String).Value = customerRecord.Email;
                             command.Parameters.Add("@ContactNumber", DbType.String).Value = customerRecord.ContactNumber;
                             command.Parameters.Add("@CustomerCode", DbType.String).Value = customerRecord.CustomerCode;
-                            //command.ExecuteNonQuery();
+                            command.ExecuteNonQuery();
                         }
                         
                     }
@@ -89,7 +90,8 @@ namespace DataAccess
                             foreach (var orderRecord in customerRecord.CustomerOrders)
                             {
                                 orderRecord.IsValidOrder = true;
-                                command.Parameters.Add("@orderDate", DbType.DateTime).Value =                orderRecord.OrderDate;
+                                command.Parameters.Clear();
+                                command.Parameters.Add("@orderDate", DbType.DateTime).Value =orderRecord.OrderDate;
                                 command.Parameters.Add("@StoreCode", DbType.String).Value = orderRecord.StoreCode;
                                 command.Parameters.Add("@CustomerCode", DbType.String).Value = orderRecord.CustomerCode;
                                 command.Parameters.Add("@EmployeeCode", DbType.String).Value = orderRecord.EmployeeCode;
@@ -142,6 +144,7 @@ namespace DataAccess
                             {
                                 foreach (var billingRecord in orderRecord.OrderBilling)
                                 {
+                                    command.Parameters.Clear();
                                     command.Parameters.Add("@BillingIdPk", DbType.Int32).Value =                              billingRecord.BillingIdPk;
                                     command.Parameters.Add("@BillingNumber", DbType.String).Value =                           billingRecord.BillingNumber;
                                     command.Parameters.Add("@BillingDate", DbType.DateTime).Value =                           billingRecord.BillingDate;

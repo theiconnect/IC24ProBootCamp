@@ -43,22 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomerProcess.cs" />
-    <Compile Include="EmployeeProcessor.cs" />
-    <Compile Include="FileHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramV2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StockProcess.cs" />
-    <Compile Include="StoreProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataAcess\DataAcess.csproj">
-      <Project>{f6c3e5e5-fd10-4dae-aa3c-78a1bc6e6059}</Project>
-      <Name>DataAcess</Name>
+    <ProjectReference Include="..\BusinessAccessLayer\BusinessAccessLayer.csproj">
+      <Project>{b04aa516-55a7-4c90-8bbc-db395aed2097}</Project>
+      <Name>BusinessAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{6910c146-50a8-4b93-9ecb-da905aebd7d3}</Project>
+      <Name>DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{a64e7c54-1d8d-476f-bc0a-47e3b9e3c9e2}</Project>
