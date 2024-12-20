@@ -16,18 +16,35 @@ namespace OMS
 {
     internal class OmsMianV2 : ConfigHelper
     {
+        private static IWareHouseDAL objWhDal { get; set; }
+        private static IEmployeeyDAL objEmpDal { get; set; }
+        private static WareHouseProcess objBal;
+        static OmsMianV2()
+        {
+            if (UseEf)
+            {
+                objWhDal = new WareHouseEntityDAL();
+                objEmpDal = new EmployeeEntityDAL();
+            }
+            else
+            {
+                objWhDal = new WarehouseDAL();
+                objEmpDal = new EmployeeDAL();
+            }
+        }
         static void Main()
         {
             string[] wareHouseFolders = Directory.GetDirectories(RootFolderPath);
-            IGetAllWareHousesDataDAL getAllWareHousesDataDAL = new GetAllWareHousesDataEntityDAL();
+            
 
-           // IGetAllWareHousesDataDAL getAllWareHousesDataDAL = new GetAllWareHousesData();
-
-
-            List<WareHouseModel> wareHouses = getAllWareHousesDataDAL.GetAllWareHouses();
 
             foreach (string folderPath in wareHouseFolders)
             {
+                string WareHouseFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.wareHouse);
+                
+                objBal = new WareHouseProcess(WareHouseFile, objWhDal);
+                List<WareHouseModel> wareHouses = objBal.GetAllWareHouses();
+
                 string wareHouseFolderName = FileHelper.GetDirectoryNameByDirectoryPath(folderPath);
                 var warehouse = wareHouses.FirstOrDefault(x => x.WareHouseCode == wareHouseFolderName);
 
@@ -37,12 +54,12 @@ namespace OMS
                     continue;
                 }
 
-                string WareHouseFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.wareHouse);
 
 
                 if (!string.IsNullOrEmpty(WareHouseFile))
                 {
-                    new WareHouseProcess(WareHouseFile).process();
+                    
+                    objBal.process();
                 }
 
                 string EmployeeFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.employee);

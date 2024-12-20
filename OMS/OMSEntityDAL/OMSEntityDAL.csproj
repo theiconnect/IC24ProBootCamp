@@ -31,8 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +51,72 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerEntityDAL.cs" />
+    <Compile Include="EF\Category.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\customers.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Employee.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\GetAllProductsFromDB_Result.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\GetAllStockInfoOfTodayFromDB_Result.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\GetAllWareHouseData_Result.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Inventory.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OMSModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OMSModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OMSModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OMSModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OMSModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrderItem.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Orders.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\PaymentStatus.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Products.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Returns.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ReturnStatus.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sp_helpdiagrams_Result.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sysdiagrams.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\WareHouse.cs">
+      <DependentUpon>OMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeEntityDAL.cs" />
     <Compile Include="GetAllWareHousesDataEntityDAL.cs" />
     <Compile Include="InventoryEntityDAL.cs" />
@@ -58,6 +133,31 @@
       <Project>{37103f14-9116-4bd6-a995-dfe279f1008e}</Project>
       <Name>OMS_IDAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="EF\OMSModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OMSModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EF\OMSModel.edmx.diagram">
+      <DependentUpon>OMSModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EF\OMSModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>OMSModel.Context.cs</LastGenOutput>
+      <DependentUpon>OMSModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="EF\OMSModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OMSModel.edmx</DependentUpon>
+      <LastGenOutput>OMSModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

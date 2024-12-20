@@ -23,12 +23,13 @@ namespace FileProcesses
         private bool isValidFile {  get;set;}
         private WareHouseModel wareHouseModel { get;set;}   
 
+        private IWareHouseDAL objDal { get;set;}
 
-        public WareHouseProcess( string WareHouseFile) 
+        public WareHouseProcess( string WareHouseFile, IWareHouseDAL wareHouseDAL) 
         
         {
             WareHouseFilePath = WareHouseFile;
-
+            objDal = wareHouseDAL;
         }
 
         public void process()
@@ -36,18 +37,28 @@ namespace FileProcesses
             ReadFileData();
             ValidateStoreData();
 
-            //IWareHouseDAL wareHouseDAL = new WarehouseDAL();
-            IWareHouseDAL wareHouseDAL= new WareHouseEntityDAL();
-            wareHouseDAL. PushWareHouseDataToDB(wareHouseModel,isValidFile, WareHouseFilePath);
+            if (!isValidFile)
+            {
+                FileHelper.MoiveFile(WareHouseFilePath, FileStatus.Failure);
+                return;
+            }
+
+            bool isSuccess = objDal.PushWareHouseDataToDB(wareHouseModel);
+
+            if (isSuccess)
+            {
+                FileHelper.MoiveFile(WareHouseFilePath, FileStatus.Success);
+            }
+            else
+            {
+                FileHelper.MoiveFile(WareHouseFilePath, FileStatus.Failure);
+            }
         }
 
         private void ReadFileData()
         {
-
-           WareHouseFileContent= File.ReadAllLines(WareHouseFilePath);
+            WareHouseFileContent = File.ReadAllLines(WareHouseFilePath);
             prepareWareHouseObject();
-
-
         }
 
 
@@ -105,8 +116,10 @@ namespace FileProcesses
             wareHouseModel.ContactNumber= data[4];
         }
 
-
-        
+        public   List<WareHouseModel> GetAllWareHouses()
+        {
+            return objDal.GetAllWareHouses();
+        }
 
     }
 }

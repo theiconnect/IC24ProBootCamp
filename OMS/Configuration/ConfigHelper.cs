@@ -12,9 +12,11 @@ namespace Configuration
     {
         protected static string RootFolderPath { get; set; }
         protected static string ExcelConnString { get; set; }
+        protected static bool UseEf { get; set; }
         static ConfigHelper()
         {
 
+            UseEf = Convert.ToBoolean(ConfigurationManager.AppSettings["UseEf"]);
             RootFolderPath = ConfigurationManager.AppSettings["RootFolder"];
             ExcelConnString = ConfigurationManager.AppSettings["ExcelConnectionString"];
         }

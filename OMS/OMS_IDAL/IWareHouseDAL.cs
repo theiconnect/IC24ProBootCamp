@@ -8,8 +8,7 @@ namespace OMS_IDAL
 {
     public interface IWareHouseDAL
     {
-
-        void PushWareHouseDataToDB(WareHouseModel wareHouseModel, bool isValidFile, string wareHouseFilePath);
-        
+        List<WareHouseModel> GetAllWareHouses();
+        bool PushWareHouseDataToDB(WareHouseModel wareHouseModel);
     }
 }
