@@ -13,15 +13,8 @@ namespace OMS.WareHouseDAL_Muni.InventoryDAL
     public class SyncInventoryFileDataToDB:DBHelper
     {
         
-        public void SyncProducts(List<InventoryModel> inventoryList, List<ProductMasterModel> productMasterList)
+        public void SyncProducts(InventoryModel stock)
         {
-            GetAllProductsFromDB();
-            foreach (var stock in inventoryList)
-            {
-
-                var product = productMasterList.Find(x => x.ProductCode == stock.productCode);
-                if (product == null)
-                {
                     SqlConnection conn = null;
                     try
                     {
@@ -56,25 +49,6 @@ namespace OMS.WareHouseDAL_Muni.InventoryDAL
                     {
                         if (conn != null && conn.State == ConnectionState.Open) { conn.Dispose(); }
                     }
-
-                    GetAllProductsFromDB();
-                    foreach (var eachStock in inventoryList)
-                    {
-                        if (Convert.ToInt32(eachStock.ProductIdFk) == 0)
-                        {
-                            var eachProduct = productMasterList.FirstOrDefault(x => x.ProductCode == eachStock.productCode);
-                            eachStock.ProductIdFk = eachProduct.ProductIdPk;
-                        }
-                    }
-
-
-                }
-                else
-                {
-                    stock.ProductIdFk = product.ProductIdPk;
-                }
-            }
-
         }
         public List<ProductMasterModel> GetAllProductsFromDB( )
         {
@@ -183,13 +157,9 @@ namespace OMS.WareHouseDAL_Muni.InventoryDAL
             return dBStockDatas;
 
         }
-        public void SyncFileStockWithDB(List<InventoryModel> inventoryList, List<DBStockData> dBStockDatas, string StockDateStr,string dirName)
+        public void SyncFileStockWithDB(InventoryModel stock, string StockDateStr,string dirName)
         {
-            foreach (var stock in inventoryList)
-            {
-                if (!dBStockDatas.Exists(s => s.Date == stock.date && s.ProductIdFk == stock.ProductIdFk))
-                {
-                    SqlConnection conn = null;
+            SqlConnection conn = null;
                     try
                     {
                         using (conn = new SqlConnection(oMSConnectionString))
@@ -228,10 +198,7 @@ namespace OMS.WareHouseDAL_Muni.InventoryDAL
                         }
                         conn.Dispose();
                     }
-
-                }
-
-            }
+            
         }
 
     }

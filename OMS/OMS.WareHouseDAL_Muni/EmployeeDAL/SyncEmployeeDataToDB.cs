@@ -12,7 +12,6 @@ namespace OMS.WareHouseDAL_Muni.EmployeeDAL
 {
     public class SyncEmployeeDataToDB:DBHelper
     {
-        public string name {  get; set; }  
         public  void PushEmployeeDataToDB(List<EmployeeModel> employees)
         {
             SqlConnection conn = null;

@@ -124,13 +124,36 @@ namespace FileProcessses
             }
             SyncInventoryFileDataToDB inventory = new SyncInventoryFileDataToDB();
 
-            inventory.GetAllProductsFromDB();
+            
+            foreach (var stock in inventoryList)
+            {
+                inventory.GetAllProductsFromDB();
+                var product = productMasterList.Find(x => x.ProductCode == stock.productCode);
+                if (product != null)
+                {
 
-            inventory.SyncProducts(inventoryList, productMasterList);
+                    inventory.SyncProducts(stock);
+                    inventory.GetAllProductsFromDB();
+                    foreach (var eachStock in inventoryList)
+                    {
+                        if (Convert.ToInt32(eachStock.ProductIdFk) == 0)
+                        {
+                            var eachProduct = productMasterList.FirstOrDefault(x => x.ProductCode == eachStock.productCode);
+                            eachStock.ProductIdFk = eachProduct.ProductIdPk;
+                        }
+                    }
+                }
+            }
 
             inventory.GetAllStockInfoOfTodayFromDB(StockDateStr);
-
-            inventory.SyncFileStockWithDB(inventoryList, dBStockDatas, StockDateStr,dirName);
+            foreach (var stock in inventoryList)
+            {
+                if (!dBStockDatas.Exists(s => s.Date == stock.date && s.ProductIdFk == stock.ProductIdFk))
+                {
+                    inventory.SyncFileStockWithDB(stock,  StockDateStr, dirName);
+                }
+                
+            }
 
         }                       
         
