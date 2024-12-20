@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS", "OMS.csproj", "{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMSMain", "OMSMain.csproj", "{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileModel", "FileModel\FileModel.csproj", "{A7767146-90ED-4419-BC07-C09A8E9324D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileProcesses", "FileProcesses\FileProcesses.csproj", "{4FE7ABBE-8221-4100-AF0B-AEFE21916BA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileProcessesBAL", "FileProcesses\FileProcessesBAL.csproj", "{4FE7ABBE-8221-4100-AF0B-AEFE21916BA3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{51BB42E8-5C12-4E62-8014-5AEA2D962022}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enum", "Enum\Enum.csproj", "{BD73A788-4701-4686-AC42-DD8BB7302A8B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectHelpers", "ProjectHelpers\ProjectHelpers.csproj", "{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBDataAcesses", "DBDataAcesses\DBDataAcesses.csproj", "{526E9A9D-BF1C-4850-A56E-E4313175F4F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMSDAL", "DBDataAcesses\OMSDAL.csproj", "{526E9A9D-BF1C-4850-A56E-E4313175F4F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMSEntityDAL", "OMSEntityDAL\OMSEntityDAL.csproj", "{1D55F0BB-42C6-41C2-A74D-353A4EA0B7FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_IDAL", "OMS_IDAL\OMS_IDAL.csproj", "{37103F14-9116-4BD6-A995-DFE279F1008E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +41,6 @@ Global
 		{51BB42E8-5C12-4E62-8014-5AEA2D962022}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51BB42E8-5C12-4E62-8014-5AEA2D962022}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51BB42E8-5C12-4E62-8014-5AEA2D962022}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BD73A788-4701-4686-AC42-DD8BB7302A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD73A788-4701-4686-AC42-DD8BB7302A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD73A788-4701-4686-AC42-DD8BB7302A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD73A788-4701-4686-AC42-DD8BB7302A8B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +49,14 @@ Global
 		{526E9A9D-BF1C-4850-A56E-E4313175F4F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{526E9A9D-BF1C-4850-A56E-E4313175F4F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{526E9A9D-BF1C-4850-A56E-E4313175F4F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D55F0BB-42C6-41C2-A74D-353A4EA0B7FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D55F0BB-42C6-41C2-A74D-353A4EA0B7FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D55F0BB-42C6-41C2-A74D-353A4EA0B7FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D55F0BB-42C6-41C2-A74D-353A4EA0B7FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37103F14-9116-4BD6-A995-DFE279F1008E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37103F14-9116-4BD6-A995-DFE279F1008E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37103F14-9116-4BD6-A995-DFE279F1008E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37103F14-9116-4BD6-A995-DFE279F1008E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

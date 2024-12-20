@@ -8,6 +8,9 @@ using Configuration;
 using ProjectHelpers;
 using Enum;
 using DBDataAcesses;
+using OMSDAL;
+using OMS_IDAL;
+using OMSEntityDAL;
 namespace FileProcesses
 {
     public class WareHouseProcess : BaseProcessor
@@ -32,7 +35,10 @@ namespace FileProcesses
         {
             ReadFileData();
             ValidateStoreData();
-            PushDataIntoDb. PushStoreDataToDB(wareHouseModel,isValidFile, WareHouseFilePath);
+
+            //IWareHouseDAL wareHouseDAL = new WarehouseDAL();
+            IWareHouseDAL wareHouseDAL= new WareHouseEntityDAL();
+            wareHouseDAL. PushWareHouseDataToDB(wareHouseModel,isValidFile, WareHouseFilePath);
         }
 
         private void ReadFileData()

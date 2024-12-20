@@ -4,22 +4,23 @@ using System.Data.SqlClient;
 using System.Data;
 using Configuration;
 using FileModel;
-namespace DBDataAcesses
+using OMS_IDAL;
+namespace OMSDAL
 {
-    public class GetDataFromDB: BaseProcessor
+    public class GetAllWareHousesData : BaseProcessor,IGetAllWareHousesDataDAL
     {
-        public static List<WareHouseModel> GetAllWareHouses()
+        public   List<WareHouseModel> GetAllWareHouses()
         {
             var wareHouses = new List<WareHouseModel>();
-            SqlConnection i = null;
+            SqlConnection conn = null;
             try
             {
-                using (i = new SqlConnection(oMSConnectionString))
+                using (conn = new SqlConnection(oMSConnectionString))
                 {
 
-                    using (var cmd = new SqlCommand("GetAllWareHouseData", i))
+                    using (var cmd = new SqlCommand("GetAllWareHouseData", conn))
                     {
-                        i.Open();
+                        conn.Open();
                         cmd.CommandType = CommandType.StoredProcedure;
                         using (var reader = cmd.ExecuteReader())
                         {
@@ -35,9 +36,9 @@ namespace DBDataAcesses
                                 wareHouses.Add(wareHouse);
                             }
                         }
-                        if (i.State == ConnectionState.Open)
+                        if (conn.State == ConnectionState.Open)
                         {
-                            i.Close();
+                            conn.Close();
                         }
                     }
                     return wareHouses;
@@ -45,19 +46,19 @@ namespace DBDataAcesses
             }
             catch (Exception ex)
             {
-                if (i.State == ConnectionState.Open)
+                if (conn.State == ConnectionState.Open)
                 {
-                    i.Close();
+                    conn.Close();
                 }
 
             }
             finally
             {
-                if (i != null && i.State == ConnectionState.Open)
+                if (conn != null && conn.State == ConnectionState.Open)
                 {
-                    i.Close();
+                    conn.Close();
                 }
-                i.Dispose();
+                conn.Dispose();
             }
             return wareHouses;
 

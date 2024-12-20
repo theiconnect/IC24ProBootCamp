@@ -13,6 +13,8 @@ using FileProcesses;
 using Configuration;
 using ProjectHelpers;
 using DBDataAcesses;
+using OMS_IDAL;
+using OMSEntityDAL;
 
 namespace FileProcesses
 {
@@ -45,7 +47,10 @@ namespace FileProcesses
             //push in to db
             ReadFileData();
             ValidateStoreData();
-            PushDataIntoDb.PushInvetoryDataToDB(FailedReason, inventoryList, dBStockDatas, productMasterList, dirName, StockDateStr, Date, InventoryPath);
+
+            //IInventoryDAL inventoryDAL = new InventoryDAL();
+            IInventoryDAL inventoryDAL= new InventoryEntityDAL();
+            inventoryDAL.PushInvetoryDataToDB(FailedReason, inventoryList, dBStockDatas, productMasterList, dirName, StockDateStr, Date, InventoryPath);
         }
 
 

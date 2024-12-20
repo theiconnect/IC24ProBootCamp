@@ -56,17 +56,21 @@
       <Project>{51bb42e8-5c12-4e62-8014-5aea2d962022}</Project>
       <Name>Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DBDataAcesses\DBDataAcesses.csproj">
+    <ProjectReference Include="..\DBDataAcesses\OMSDAL.csproj">
       <Project>{526e9a9d-bf1c-4850-a56e-e4313175f4f6}</Project>
-      <Name>DBDataAcesses</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Enum\Enum.csproj">
-      <Project>{bd73a788-4701-4686-ac42-dd8bb7302a8b}</Project>
-      <Name>Enum</Name>
+      <Name>OMSDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\FileModel\FileModel.csproj">
       <Project>{a7767146-90ed-4419-bc07-c09a8e9324d3}</Project>
       <Name>FileModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMSEntityDAL\OMSEntityDAL.csproj">
+      <Project>{1d55f0bb-42c6-41c2-a74d-353a4ea0b7fd}</Project>
+      <Name>OMSEntityDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMS_IDAL\OMS_IDAL.csproj">
+      <Project>{37103f14-9116-4bd6-a995-dfe279f1008e}</Project>
+      <Name>OMS_IDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectHelpers\ProjectHelpers.csproj">
       <Project>{fc09a9d7-6067-416d-b66b-0b74a62bdcd5}</Project>

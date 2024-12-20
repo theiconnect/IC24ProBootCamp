@@ -8,6 +8,8 @@ using ProjectHelpers;
 using Configuration;
 using DBDataAcesses;
 using Enum;
+using OMS_IDAL;
+using OMSEntityDAL;
 namespace FileProcesses
 {
     public class EmployeeProcess:BaseProcessor
@@ -35,12 +37,11 @@ namespace FileProcesses
         public void Process()
         {
 
-            //READ
-            //VALIDATE
-            //PUSH INTO DB
             ReadFileData();
             ValidateStoreData();
-            PushDataIntoDb.PushEmployeeDataToDB(EmployeesList, EmployeeFilePath);
+            //IEmployeeyDAL employeeyDAL = new EmployeeDAL();
+            IEmployeeyDAL employeeyDAL=new EmployeeEntityDAL();
+            employeeyDAL.PushEmployeeDataToDB(EmployeesList, EmployeeFilePath);
 
 
         }

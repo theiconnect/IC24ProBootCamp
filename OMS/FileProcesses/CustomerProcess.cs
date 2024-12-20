@@ -8,6 +8,8 @@ using FileModel;
 using Configuration;
 using ProjectHelpers;
 using DBDataAcesses;
+using OMS_IDAL;
+using OMSEntityDAL;
 namespace FileProcesses
 {
     public class CustomerProcess : BaseProcessor
@@ -38,7 +40,11 @@ namespace FileProcesses
 
             ReadFileData();
             ValidateCustomerData();
-            PushDataIntoDb.PushCustomerDataToDB(Customers, WareHouseId, CustomerFilePath, OrdersFilePath, OrderItemFilePath);
+           // ICustomerDAL customerDAL = new CustomersDAL();
+            ICustomerDAL customerDAL = new CustomerEntityDAL();
+
+            customerDAL.PushCustomerDataToDB(Customers, WareHouseId, CustomerFilePath, OrdersFilePath, OrderItemFilePath);
+
         }
 
         private void ReadFileData()

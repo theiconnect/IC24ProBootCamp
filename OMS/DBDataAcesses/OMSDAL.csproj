@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}</ProjectGuid>
+    <ProjectGuid>{526E9A9D-BF1C-4850-A56E-E4313175F4F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectHelpers</RootNamespace>
-    <AssemblyName>ProjectHelpers</AssemblyName>
+    <RootNamespace>DBDataAcesses</RootNamespace>
+    <AssemblyName>DBDataAcesses</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,8 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileHelper.cs" />
+    <Compile Include="CustomersDAL.cs" />
+    <Compile Include="EmployeeDAL.cs" />
+    <Compile Include="GetAllWareHousesData.cs" />
+    <Compile Include="InventoryDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReturnsDAL.cs" />
+    <Compile Include="WarehouseDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Configuration\Configuration.csproj">
@@ -52,6 +57,14 @@
     <ProjectReference Include="..\FileModel\FileModel.csproj">
       <Project>{a7767146-90ed-4419-bc07-c09a8e9324d3}</Project>
       <Name>FileModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OMS_IDAL\OMS_IDAL.csproj">
+      <Project>{37103f14-9116-4bd6-a995-dfe279f1008e}</Project>
+      <Name>OMS_IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectHelpers\ProjectHelpers.csproj">
+      <Project>{fc09a9d7-6067-416d-b66b-0b74a62bdcd5}</Project>
+      <Name>ProjectHelpers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileStatus.cs" />
+    <Compile Include="Filetypes.cs" />
     <Compile Include="models\CustomerModel.cs" />
     <Compile Include="models\DBStockData.cs" />
     <Compile Include="models\empModel.cs" />

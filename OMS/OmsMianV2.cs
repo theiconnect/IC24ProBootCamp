@@ -8,6 +8,9 @@ using Enum;
 using Configuration;
 using ProjectHelpers;
 using DBDataAcesses;
+using OMSDAL;
+using OMS_IDAL;
+using OMSEntityDAL;
 
 namespace OMS
 {
@@ -16,7 +19,12 @@ namespace OMS
         static void Main()
         {
             string[] wareHouseFolders = Directory.GetDirectories(RootFolderPath);
-            List<WareHouseModel> wareHouses = GetDataFromDB.GetAllWareHouses();
+            IGetAllWareHousesDataDAL getAllWareHousesDataDAL = new GetAllWareHousesDataEntityDAL();
+
+           // IGetAllWareHousesDataDAL getAllWareHousesDataDAL = new GetAllWareHousesData();
+
+
+            List<WareHouseModel> wareHouses = getAllWareHousesDataDAL.GetAllWareHouses();
 
             foreach (string folderPath in wareHouseFolders)
             {

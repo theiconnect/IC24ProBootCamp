@@ -8,6 +8,8 @@ using Configuration;
 using ProjectHelpers;
 using System.Globalization;
 using DBDataAcesses;
+using OMS_IDAL;
+using OMSEntityDAL;
 
 namespace FileProcesses
 {
@@ -33,7 +35,9 @@ namespace FileProcesses
             }
             ReadFileData();
             ValidateReturnsData();
-            PushDataIntoDb. PushRetrunsDataToDB(ReturnsList,ReturnFilePath);
+            //IReturnsDAL returnsDAL= new ReturnsDAL();
+            IReturnsDAL returnsDAL= new ReturnsEntityDAL();
+            returnsDAL.PushReturnsDataToDB(ReturnsList,ReturnFilePath);
 
         }
 
