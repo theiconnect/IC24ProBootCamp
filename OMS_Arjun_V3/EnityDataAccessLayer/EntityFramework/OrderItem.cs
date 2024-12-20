@@ -7,22 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EnityDataAccessLayer
+namespace EnityDataAccessLayer.EntityFramework
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Inventory
+    public partial class OrderItem
     {
-        public int InventoryIdpk { get; set; }
-        public int WarehouseIdfk { get; set; }
+        public int OrderItemIdpk { get; set; }
+        public int OrderIdfk { get; set; }
         public int ProductIdfk { get; set; }
-        public decimal AvailableQuantity { get; set; }
+        public decimal Quantity { get; set; }
         public decimal PricePerUnit { get; set; }
-        public Nullable<System.DateTime> date { get; set; }
-        public string Remianingquantity { get; set; }
+        public decimal TotalAmount { get; set; }
+        public string InvoiceNumber { get; set; }
     
+        public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
-        public virtual WareHouse WareHouse { get; set; }
     }
 }

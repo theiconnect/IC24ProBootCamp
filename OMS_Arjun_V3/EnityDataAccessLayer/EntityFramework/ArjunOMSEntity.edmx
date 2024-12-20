@@ -551,7 +551,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Arjun_OMSDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Arjun_OMSDBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="customers" EntityType="Self.customer" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
@@ -609,7 +609,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Arjun_OMSDBModelStoreContainer" CdmEntityContainer="Arjun_OMSDBEntities">
+        <EntityContainerMapping StorageEntityContainer="Arjun_OMSDBModelStoreContainer" CdmEntityContainer="Arjun_OMSDBEntities1">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="Arjun_OMSDBModel.Category">
               <MappingFragment StoreEntitySet="Category">

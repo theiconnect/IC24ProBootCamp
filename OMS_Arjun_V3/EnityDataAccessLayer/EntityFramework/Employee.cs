@@ -7,21 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EnityDataAccessLayer
+namespace EnityDataAccessLayer.EntityFramework
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Return
+    public partial class Employee
     {
-        public int ReturnIdpk { get; set; }
-        public int OrderIdfk { get; set; }
-        public System.DateTime ReturnDate { get; set; }
-        public string Reason { get; set; }
-        public int ReturnStatusIdfk { get; set; }
-        public Nullable<decimal> AmountRefund { get; set; }
+        public int EmpIdpk { get; set; }
+        public string EmpName { get; set; }
+        public Nullable<int> WareHouseIdfk { get; set; }
+        public string ContactNumber { get; set; }
+        public string Gender { get; set; }
+        public Nullable<decimal> Salary { get; set; }
+        public string EmpCode { get; set; }
     
-        public virtual Order Order { get; set; }
-        public virtual ReturnStatu ReturnStatu { get; set; }
+        public virtual WareHouse WareHouse { get; set; }
     }
 }

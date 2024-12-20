@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\ARJUN\source\repos\IC24ProBootCamp\OMS_Arjun_V3\EnityDataAccessLayer\OMS_Enitymodel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\ARJUN\Source\Repos\IC24ProBootCamp\OMS_Arjun_V3\EnityDataAccessLayer\EntityFramework\ArjunOMSEntity.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

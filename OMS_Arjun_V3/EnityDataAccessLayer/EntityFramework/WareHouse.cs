@@ -7,23 +7,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EnityDataAccessLayer
+namespace EnityDataAccessLayer.EntityFramework
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class PaymentStatu
+    public partial class WareHouse
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PaymentStatu()
+        public WareHouse()
         {
+            this.Employees = new HashSet<Employee>();
+            this.Inventories = new HashSet<Inventory>();
             this.Orders = new HashSet<Order>();
         }
     
-        public int PaymentStatusIdpk { get; set; }
-        public string PaymentStatus { get; set; }
-        public string Description { get; set; }
+        public int WareHouseIdpk { get; set; }
+        public string WareHouseCode { get; set; }
+        public string WareHouseName { get; set; }
+        public string Location { get; set; }
+        public string ManagerName { get; set; }
+        public string ContactNo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Inventory> Inventories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

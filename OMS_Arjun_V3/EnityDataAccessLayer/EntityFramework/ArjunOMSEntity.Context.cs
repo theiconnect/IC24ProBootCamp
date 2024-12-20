@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EnityDataAccessLayer
+namespace EnityDataAccessLayer.EntityFramework
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Arjun_OMSDBEntities : DbContext
+    public partial class Arjun_OMSDBEntities1 : DbContext
     {
-        public Arjun_OMSDBEntities()
-            : base("name=Arjun_OMSDBEntities")
+        public Arjun_OMSDBEntities1()
+            : base("name=Arjun_OMSDBEntities1")
         {
         }
     

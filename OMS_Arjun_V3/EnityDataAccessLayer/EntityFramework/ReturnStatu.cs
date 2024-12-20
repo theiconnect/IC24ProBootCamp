@@ -7,24 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EnityDataAccessLayer
+namespace EnityDataAccessLayer.EntityFramework
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class customer
+    public partial class ReturnStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public customer()
+        public ReturnStatu()
         {
-            this.Orders = new HashSet<Order>();
+            this.Returns = new HashSet<Return>();
         }
     
-        public int CustomerIdpk { get; set; }
-        public string CustomerName { get; set; }
-        public string PhNo { get; set; }
+        public int ReturnStatusIdpk { get; set; }
+        public string ReturnStatus { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Return> Returns { get; set; }
     }
 }

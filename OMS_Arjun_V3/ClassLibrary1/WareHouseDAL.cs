@@ -38,11 +38,11 @@ namespace DataAccessLayer
                     }
                     conn.Close();
                 }
-                FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Success);
+                //FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Success);
             }
             catch (Exception ex) 
             {
-                FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Failure);
+                //FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Failure);
                 Console.WriteLine("" + ex.Message);
             }
             finally

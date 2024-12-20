@@ -7,29 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EnityDataAccessLayer
+namespace EnityDataAccessLayer.EntityFramework
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class PaymentStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public PaymentStatu()
         {
-            this.Inventories = new HashSet<Inventory>();
-            this.OrderItems = new HashSet<OrderItem>();
+            this.Orders = new HashSet<Order>();
         }
     
-        public int ProductIdpk { get; set; }
-        public string ProductName { get; set; }
-        public decimal PricePerUnit { get; set; }
-        public int CategoryIdfk { get; set; }
-        public string ProductCode { get; set; }
+        public int PaymentStatusIdpk { get; set; }
+        public string PaymentStatus { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Inventory> Inventories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

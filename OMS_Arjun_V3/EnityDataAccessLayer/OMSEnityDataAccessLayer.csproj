@@ -50,57 +50,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Category.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="customer.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Employee.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EnityEmployeeDAL.cs" />
     <Compile Include="EnityWareHouseDAL.cs" />
-    <Compile Include="Inventory.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OMS_Enitymodel.Context.cs">
+    <Compile Include="EntityFramework\ArjunOMSEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OMS_Enitymodel.Context.tt</DependentUpon>
+      <DependentUpon>ArjunOMSEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="OMS_Enitymodel.cs">
+    <Compile Include="EntityFramework\ArjunOMSEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="OMS_Enitymodel.Designer.cs">
+    <Compile Include="EntityFramework\ArjunOMSEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OMS_Enitymodel.edmx</DependentUpon>
+      <DependentUpon>ArjunOMSEntity.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Order.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
+    <Compile Include="EntityFramework\Category.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrderItem.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
+    <Compile Include="EntityFramework\customer.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="PaymentStatu.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
+    <Compile Include="EntityFramework\Employee.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Product.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
+    <Compile Include="EntityFramework\Inventory.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Order.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\OrderItem.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\PaymentStatu.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Product.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\Return.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\ReturnStatu.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityFramework\WareHouse.cs">
+      <DependentUpon>ArjunOMSEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Return.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ReturnStatu.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WareHouse.cs">
-      <DependentUpon>OMS_Enitymodel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConnectionConfig1\ConnectionConfig.csproj">
@@ -121,32 +121,30 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="OMS_Enitymodel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OMS_Enitymodel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.Config" />
-    <None Include="OMS_Enitymodel.edmx.diagram">
-      <DependentUpon>OMS_Enitymodel.edmx</DependentUpon>
+    <EntityDeploy Include="EntityFramework\ArjunOMSEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ArjunOMSEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EntityFramework\ArjunOMSEntity.edmx.diagram">
+      <DependentUpon>ArjunOMSEntity.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OMS_Enitymodel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OMS_Enitymodel.Context.cs</LastGenOutput>
-      <DependentUpon>OMS_Enitymodel.edmx</DependentUpon>
-    </Content>
-    <Content Include="OMS_Enitymodel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OMS_Enitymodel.edmx</DependentUpon>
-      <LastGenOutput>OMS_Enitymodel.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="EntityFramework\ArjunOMSEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ArjunOMSEntity.edmx</DependentUpon>
+      <LastGenOutput>ArjunOMSEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityFramework\ArjunOMSEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ArjunOMSEntity.edmx</DependentUpon>
+      <LastGenOutput>ArjunOMSEntity.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

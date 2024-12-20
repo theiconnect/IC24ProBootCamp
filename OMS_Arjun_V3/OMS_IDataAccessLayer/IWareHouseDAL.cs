@@ -14,7 +14,8 @@ namespace OMS_IDataAccessLayer
     {
         public void UpdateWareHouseDataToDB(string[] WareHouseFileContent, string WareHouseFilePath)
         {
-
+             List<WareHouseModel> getAllWareHousesFromDB();
+             bool PushWareHouseDataToDB(WareHouseModel wareHouseModel);
         }
         public void prepareWareHouseObject(string[] wareHouseFileContent)
         {

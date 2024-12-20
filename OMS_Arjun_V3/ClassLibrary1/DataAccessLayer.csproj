@@ -50,14 +50,6 @@
       <Project>{8e34d8e7-9e3e-40f1-870f-4290b678fa0c}</Project>
       <Name>ConnectionConfig</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FileHelper1\FileHelper.csproj">
-      <Project>{f1206929-7e67-412b-aff6-1278a4156792}</Project>
-      <Name>FileHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileTypes\FileTypes.csproj">
-      <Project>{ebbbc240-1079-45b9-8df2-fcb3a4566f95}</Project>
-      <Name>FileTypes</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{2e65f227-2cb8-4b12-84cc-3b16d26595fa}</Project>
       <Name>Model</Name>

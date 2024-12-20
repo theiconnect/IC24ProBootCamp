@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using Model;
 using DataAccessLayer;
 using ConnectionConfig;
+using OMSEnityDataAccessLayer;
+using OMS_IDataAccessLayer;
+using FileHelper;
+using FileTypes;
+
 
 
 namespace BusinessAccessLayer
@@ -23,21 +28,41 @@ namespace BusinessAccessLayer
         }
         public string[] WareHouseFileContent { get; set; }
         public bool isValidFile { get; set; }
-        public WareHouseModel wareHouseModel { get; set; }     
+        public WareHouseModel wareHouseModel { get; set; }
 
+        private IWareHouseDAL objDal { get; set; }
 
-
-        public WareHouseBAL(string WareHouseFile)
+        public WareHouseBAL(string WareHouseFile, IWareHouseDAL objDal)
 
         {
             WareHouseFilePath = WareHouseFile;
-
+            
+            objDal = WareHouseDAL;
+            
         }
 
         public void process()
         {
             ReadFileData();
             ValidateWareHouseData();
+            if (!isValidFile)
+            {
+                
+                FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Failure);
+
+                return;
+            }
+
+            bool isSuccess = objDal.PushWareHouseDataToDB(wareHouseModel);
+
+            if (isSuccess)
+            {
+                FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Success);
+            }
+            else
+            {
+                FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Failure);
+            }
             PushWareHouseDataToDB();
 
         }
