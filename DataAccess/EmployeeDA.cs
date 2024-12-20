@@ -20,7 +20,7 @@ namespace DataAccess
 
         }
         
-        private void GetAllEmployeeDataFromDB(List<EmployeeDTO> employeeData)
+        public void GetAllEmployeeDataFromDB(List<EmployeeDTO> employeeData)
         {
             employeeData = new List<EmployeeDTO>();
             using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
@@ -75,7 +75,7 @@ namespace DataAccess
                 }
             }
         }
-        private void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject)
+        public void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject)
         {
             using (SqlConnection con = new SqlConnection(BaseProcessor.rscConnectedString))
             {

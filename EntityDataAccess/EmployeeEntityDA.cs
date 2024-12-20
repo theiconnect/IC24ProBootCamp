@@ -10,6 +10,10 @@ namespace EntityDataAccess
 {
     internal class EmployeeEntityDA:IEmployeeDA
     {
+        public void SyncEmployeeData(List<EmployeeDTO> employeeData, List<EmployeeDTO> fileEmployeeDTOObject)
+        {
+
+        }
         public void GetAllEmployeeDataFromDB(List<EmployeeDTO> employeeData)
         {
 

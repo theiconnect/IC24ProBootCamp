@@ -8,6 +8,7 @@ using Models;
 using System.Data.SqlClient;
 using System.Data;
 using DataAccess;
+using IDataAccess;
 
 
 namespace BusinessAccessLayer
@@ -22,9 +23,11 @@ namespace BusinessAccessLayer
         private string[] fileData { get; set; }
         private string storeDirName { get { return Path.GetFileName(Path.GetDirectoryName(storeFilePath)); } }
         private StoreModel storeModelObject { get; set; }
-        public StoreProcessor(string FilePath)
+        private IStoreDA objectStoreDA { get; set; }
+        public StoreProcessor(string FilePath,IStoreDA objIStgoreDA)
         {
             storeFilePath = FilePath;
+            objectStoreDA= objIStgoreDA;
         }
         public void Process()
         {
@@ -94,7 +97,8 @@ namespace BusinessAccessLayer
                 return;
             }
             PrepareStoreObject();
-            StoreDA.SyncStoreDataToDB(storeModelObject);
+            StoreDA storeDAObj= new StoreDA();
+            storeDAObj.SyncStoreDataToDB(storeModelObject);
         }
 
 

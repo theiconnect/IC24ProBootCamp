@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace EntityDataAccess
 {
-    internal class CustomerEntityDA:ICustomerDA
+    public class CustomerEntityDA:ICustomerDA
     {
+        public void SyncCustomerData(List<CustomerModel> customers)
+        {
+
+        }
         public void SyncCustomerDataWithDB(List<CustomerModel> customers)
         {
 

@@ -11,19 +11,38 @@ using System.Threading.Tasks;
 using PathAndDataBaseConfig;
 using DataAccess;
 using BusinessAccessLayer;
+using IDataAccess;
+using EntityDataAccess;
 
 namespace RSC
 {
-    public class ProgramV2
+    public class ProgramV2:BaseProcessor
     {
         static int storeIdPk { get; set; }
+        private static IStoreDA objIStoreDA { get; set; } 
+
+        static ProgramV2()
+        {
+            if (UseEf)
+            {
+                objIStoreDA = new StoreDA();
+
+            }
+            else
+            {
+                objIStoreDA = new StoreEntityDA();
+
+            }
+        }
         static void Main(string[] args)
         {
             //Get all the store folders from root directory
             string[] directories = Directory.GetDirectories(BaseProcessor.mainFolderPath);
 
             //Get All Stores information From DB
-            List<StoreModel> storesData = StoreDA.GetAllStoresDataFromDB();
+            StoreDA storeDAObject = new StoreDA();
+
+            List<StoreModel> storesData = storeDAObject.GetAllStoresDataFromDB();
 
             foreach (string storeDirectoryPath in directories)
             {
@@ -38,19 +57,20 @@ namespace RSC
                     continue;
                 }
                 //Get the storefile path from the directory
-                //string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
+                string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
                 ////Initiate store file processing by using store processor
-                //var storeProcessor = new StoreProcessor(storeFilePath);
-                //storeProcessor.Process();
 
-                //string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
-                //var stockProcessor = new StockProcess(StockFilePath, storeIdPk);
-                //stockProcessor.Process();
+                var storeProcessor = new StoreProcessor(storeFilePath,objIStoreDA);
+                storeProcessor.Process();
+
+                string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
+                var stockProcessor = new StockProcess(StockFilePath, storeIdPk);
+                stockProcessor.Process();
 
 
-                //string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
-                //var employeeProcessor = new EmployeeProcessor(EmployeeFilePath);
-                //employeeProcessor.Process();
+                string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
+                var employeeProcessor = new EmployeeProcessor(EmployeeFilePath);
+                employeeProcessor.Process();
 
                 string CustomerFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Customer);
                 var customerProcessor = new CustomerProcess(CustomerFilePath, storeIdPk);

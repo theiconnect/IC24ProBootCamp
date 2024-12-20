@@ -17,7 +17,7 @@ namespace DataAccess
 {
     public class StoreDA:IStoreDA
     {
-        public static List<StoreModel> GetAllStoresDataFromDB()
+        public  List<StoreModel> GetAllStoresDataFromDB()
         {
             List<StoreModel> stores = new List<StoreModel>();
             using (SqlConnection connetion = new SqlConnection(BaseProcessor.rscConnectedString))
@@ -72,7 +72,7 @@ namespace DataAccess
         }
 
 
-        public static void SyncStoreDataToDB(StoreModel storeModelObject)
+        public  void SyncStoreDataToDB(StoreModel storeModelObject)
         {
             using (SqlConnection connetion = new SqlConnection(BaseProcessor.rscConnectedString))
             {

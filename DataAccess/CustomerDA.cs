@@ -21,7 +21,7 @@ namespace DataAccess
 
         }
 
-        private void SyncCustomerDataWithDB(List<CustomerModel> customers)
+        public void SyncCustomerDataWithDB(List<CustomerModel> customers)
         {
             using (SqlConnection connetion = new SqlConnection(BaseProcessor.rscConnectedString))
             {
@@ -70,7 +70,7 @@ namespace DataAccess
 
         }
 
-        private void SyncOrderDataWithDB(List<CustomerModel> customers)
+        public void SyncOrderDataWithDB(List<CustomerModel> customers)
         {
             using (SqlConnection connetion = new SqlConnection(BaseProcessor.rscConnectedString))
             {
@@ -125,7 +125,7 @@ namespace DataAccess
             }
 
         }
-        private void SyncBillingDataWithDB(List<CustomerModel> customers)
+        public void SyncBillingDataWithDB(List<CustomerModel> customers)
         {
             using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
             {

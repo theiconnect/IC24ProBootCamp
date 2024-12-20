@@ -54,6 +54,10 @@
       <Project>{6910c146-50a8-4b93-9ecb-da905aebd7d3}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IDataAccess\IDataAccess.csproj">
+      <Project>{f7b8c00f-b57a-4715-8665-21c9b8aff22b}</Project>
+      <Name>IDataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{a64e7c54-1d8d-476f-bc0a-47e3b9e3c9e2}</Project>
       <Name>Models</Name>

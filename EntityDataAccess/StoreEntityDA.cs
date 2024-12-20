@@ -8,7 +8,7 @@ using Models;
 
 namespace EntityDataAccess
 {
-    internal class StoreEntityDA:IStoreDA
+    public class StoreEntityDA:IStoreDA
     {
         public  List<StoreModel> GetAllStoresDataFromDB()
         {
