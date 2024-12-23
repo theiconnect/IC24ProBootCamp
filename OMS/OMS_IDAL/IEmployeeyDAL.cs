@@ -9,6 +9,6 @@ namespace OMS_IDAL
 {
     public interface  IEmployeeyDAL
     {
-        void PushEmployeeDataToDB(List<EmployeeModel> EmployeesList, string employeeFilePath);
+        bool PushEmployeeDataToDB(List<EmployeeModel> EmployeesList);
     }
 }

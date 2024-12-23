@@ -47,6 +47,7 @@
     <Compile Include="models\DBStockData.cs" />
     <Compile Include="models\empModel.cs" />
     <Compile Include="models\InventoryModel.cs" />
+    <Compile Include="models\InventoryPushData.cs" />
     <Compile Include="models\OrderItemsModel.cs" />
     <Compile Include="models\OrdersModel.cs" />
     <Compile Include="models\ProductMaster.cs" />

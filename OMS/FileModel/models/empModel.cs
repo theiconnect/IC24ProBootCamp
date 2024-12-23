@@ -16,5 +16,6 @@ namespace FileModel
         public string EmpContactNumber { get; set; }
         public string Gender { get; set; }
         public string Salary { get; set; }
+        public int WareHouseIdPk {  get; set; }
     }
 }

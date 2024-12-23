@@ -1,54 +1,63 @@
-﻿using Enum;
-using FileModel;
-using System;
+﻿using FileModel;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OMS_IDAL;
+using FileModel.models;
+using OMSEntityDAL.EF;
+using System.Linq;
 
 namespace OMSEntityDAL
 {
     public class InventoryEntityDAL:IInventoryDAL
     {
+        OMSEntities OMSEntities { get; set; }
+        public InventoryEntityDAL()
+        {
+            OMSEntities=new OMSEntities();
+        }
+        public bool PushInvetoryDataToDB(InventoryPushData pushData)
+        {
+            SyncProducts(pushData);
 
-        public void PushInvetoryDataToDB(string failedReason, List<InventoryModel> inventoryList, List<DBStockData> dBStockDatas, List<ProductMasterModel> productMasterList, string dirName, string stockDateStr, DateTime date, string inventoryPath)
+            pushData.DBStockDatas = GetAllStockInfoOfTodayFromDB(pushData);
+
+            SyncStockFileWithDB(pushData);
+            return true;
+
+        }
+        public   void SyncProducts(InventoryPushData pushData)
         {
 
-            if (!string.IsNullOrEmpty(failedReason))
+            pushData.ProductMasterList = GetAllProductsFromDB(pushData);
+            var product = OMSEntities.Products.FirstOrDefault(x => x.ProductCode ==);
+
+        }
+
+        public List<ProductMasterModel> GetAllProductsFromDB(InventoryPushData pushData)
+        {
+
+            pushData.ProductMasterList=new List<ProductMasterModel>();
+            foreach (var productRecord in OMSEntities.Products)
             {
-                return;
+                ProductMasterModel productMasterModel = new ProductMasterModel();
+
+                productMasterModel.ProductIdPk=productRecord.ProductIdpk;
+                productMasterModel.ProductName=productRecord.ProductName;
+                productMasterModel.ProductCode=productRecord.ProductCode;
+                productMasterModel.PricePerUnit=productRecord.PricePerUnit;
+                pushData.ProductMasterList.Add(productMasterModel);
+
+
             }
-
-            SyncProducts(inventoryList, dBStockDatas, productMasterList);
-
-            dBStockDatas = GetAllStockInfoOfTodayFromDB(dBStockDatas, date);
-
-            SyncStockFileWithDB(inventoryList, dBStockDatas, dirName, stockDateStr, inventoryPath);
-
-
-        }
-        public   void SyncProducts(List<InventoryModel> inventoryList, List<DBStockData> dBStockDatas, List<ProductMasterModel> productMasterList)
-        {
-
-            productMasterList = GetAllProductsFromDB(productMasterList);
-          
+            return pushData.ProductMasterList;
         }
 
-        public List<ProductMasterModel> GetAllProductsFromDB(List<ProductMasterModel> productMasterList)
-        {
-            return null;
-        }
-
-        public List<DBStockData> GetAllStockInfoOfTodayFromDB(List<DBStockData> dBStockDatas, DateTime date)
+        public List<DBStockData> GetAllStockInfoOfTodayFromDB(InventoryPushData pushData)
         {
             return null;
 
         }
 
-        public void SyncStockFileWithDB(List<InventoryModel> inventoryList, List<DBStockData> dBStockDatas, string dirName, string stockDateStr, string inventoryPath)
+        public void SyncStockFileWithDB(InventoryPushData pushData)
         {
            
         }

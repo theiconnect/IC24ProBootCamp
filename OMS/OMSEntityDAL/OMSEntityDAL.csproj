@@ -60,15 +60,6 @@
     <Compile Include="EF\Employee.cs">
       <DependentUpon>OMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\GetAllProductsFromDB_Result.cs">
-      <DependentUpon>OMSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\GetAllStockInfoOfTodayFromDB_Result.cs">
-      <DependentUpon>OMSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\GetAllWareHouseData_Result.cs">
-      <DependentUpon>OMSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\Inventory.cs">
       <DependentUpon>OMSModel.tt</DependentUpon>
     </Compile>
@@ -105,12 +96,6 @@
     <Compile Include="EF\ReturnStatus.cs">
       <DependentUpon>OMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>OMSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\sp_helpdiagrams_Result.cs">
-      <DependentUpon>OMSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EF\sysdiagrams.cs">
       <DependentUpon>OMSModel.tt</DependentUpon>
     </Compile>
@@ -145,19 +130,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="EF\OMSModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OMSModel.Context.cs</LastGenOutput>
       <DependentUpon>OMSModel.edmx</DependentUpon>
+      <LastGenOutput>OMSModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="EF\OMSModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OMSModel.edmx</DependentUpon>
       <LastGenOutput>OMSModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

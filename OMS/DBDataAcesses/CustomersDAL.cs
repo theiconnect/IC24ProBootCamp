@@ -12,7 +12,7 @@ namespace DBDataAcesses
 {
     public class CustomersDAL:BaseProcessor,ICustomerDAL
     {
-        public  void PushCustomerDataToDB(List<CustomerModel> Customers, int wareHouseId, string customerFilePath, string ordersFilePath, string orderItemFilePath)
+        public  bool PushCustomerDataToDB(List<CustomerModel> Customers, int wareHouseId)
         {
             SqlConnection conn = null;
             try
@@ -46,17 +46,16 @@ namespace DBDataAcesses
                    
                 }
 
-                FileHelper.MoiveFile(customerFilePath, FileStatus.Success);
-
+                return PushOrderDataToDB(Customers, wareHouseId);
             }
             catch (Exception ex)
             {
-                FileHelper.MoiveFile(customerFilePath, FileStatus.Failure);
                 if (conn.State == ConnectionState.Open)
                 {
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                return false;
             }
 
             finally
@@ -66,12 +65,13 @@ namespace DBDataAcesses
                     conn.Close();
                 }
                 conn.Dispose();
+               
+
             }
 
-            PushOrderDataToDB(Customers, wareHouseId, ordersFilePath, orderItemFilePath);
 
         }
-        public  void PushOrderDataToDB(List<CustomerModel> Customers, int wareHouseId, string ordersFilePath, string orderItemFilePath)
+        public  bool PushOrderDataToDB(List<CustomerModel> Customers, int wareHouseId)
         {
             SqlConnection conn=null;
             try
@@ -112,19 +112,18 @@ namespace DBDataAcesses
                         }
 
                     }
-                    FileHelper.MoiveFile(ordersFilePath, FileStatus.Success);
 
-                    PushOrderItemDataToDB(Customers, wareHouseId, orderItemFilePath);
+                   return PushOrderItemDataToDB(Customers, wareHouseId);
                 }
             }
             catch (Exception ex)
             {
-                FileHelper.MoiveFile(ordersFilePath, FileStatus.Failure);
                 if (conn.State == ConnectionState.Open)
                 {
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                return false;
             }
             finally
             {
@@ -135,7 +134,7 @@ namespace DBDataAcesses
                 conn.Dispose();
             }
         }
-        public    void PushOrderItemDataToDB(List<CustomerModel> Customers, int wareHouseId, string orderItemFilePath)
+        public    bool PushOrderItemDataToDB(List<CustomerModel> Customers, int wareHouseId)
         {
             SqlConnection conn=null;
             try
@@ -181,18 +180,17 @@ namespace DBDataAcesses
                     }
 
                 }
-                FileHelper.MoiveFile(orderItemFilePath, FileStatus.Success);
-
+                return true;
 
             }
             catch (Exception ex)
             {
-                FileHelper.MoiveFile(orderItemFilePath, FileStatus.Failure);
                 if (conn.State == ConnectionState.Open)
                 {
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                return false;
             }
 
             finally

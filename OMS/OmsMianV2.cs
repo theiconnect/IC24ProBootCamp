@@ -18,18 +18,34 @@ namespace OMS
     {
         private static IWareHouseDAL objWhDal { get; set; }
         private static IEmployeeyDAL objEmpDal { get; set; }
-        private static WareHouseProcess objBal;
+        private static IInventoryDAL objInventoryDal {  get; set; }
+        private static ICustomerDAL objCustomerDal { get; set; }
+        private static IReturnsDAL objReturnsDal { get; set; }
+
+        private static WareHouseProcess objWhBal;
+        private static EmployeeProcess objEmpBal;
+        private static InventoryProcess objInvetoryBal;
+        private static CustomerProcess objCustomerpBal;
+        private static ReturnProcess objReturnsBal;
         static OmsMianV2()
         {
             if (UseEf)
             {
                 objWhDal = new WareHouseEntityDAL();
                 objEmpDal = new EmployeeEntityDAL();
+                objInventoryDal= new InventoryEntityDAL();
+                objCustomerDal= new CustomerEntityDAL();
+                objReturnsDal=new ReturnsEntityDAL();
+
             }
             else
             {
                 objWhDal = new WarehouseDAL();
                 objEmpDal = new EmployeeDAL();
+                objInventoryDal = new InventoryDAL();
+                objCustomerDal=new CustomersDAL();
+                objReturnsDal= new ReturnsDAL();
+                
             }
         }
         static void Main()
@@ -40,10 +56,10 @@ namespace OMS
 
             foreach (string folderPath in wareHouseFolders)
             {
-                string WareHouseFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.wareHouse);
                 
-                objBal = new WareHouseProcess(WareHouseFile, objWhDal);
-                List<WareHouseModel> wareHouses = objBal.GetAllWareHouses();
+                string WareHouseFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.wareHouse);
+                objWhBal = new WareHouseProcess(WareHouseFile, objWhDal);
+                List<WareHouseModel> wareHouses = objWhBal.GetAllWareHouses();
 
                 string wareHouseFolderName = FileHelper.GetDirectoryNameByDirectoryPath(folderPath);
                 var warehouse = wareHouses.FirstOrDefault(x => x.WareHouseCode == wareHouseFolderName);
@@ -59,21 +75,26 @@ namespace OMS
                 if (!string.IsNullOrEmpty(WareHouseFile))
                 {
                     
-                    objBal.process();
+                    objWhBal.process();
                 }
 
                 string EmployeeFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.employee);
 
+                objEmpBal = new EmployeeProcess(EmployeeFile,objEmpDal);
+
                 if (!string.IsNullOrEmpty(EmployeeFile))
                 {
-                    new EmployeeProcess(EmployeeFile).Process();
+                    objEmpBal.Process();
                 }
+
 
                 string InventoryFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.inventory);
 
+                objInvetoryBal = new InventoryProcess(InventoryFile,objInventoryDal);
+
                 if (!string.IsNullOrEmpty(InventoryFile))
                 {
-                    new InventoryProcess(InventoryFile).Process();
+                    objInvetoryBal.Process();
                 }
 
                 string CustomersFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.customers);
@@ -81,11 +102,14 @@ namespace OMS
                 string OrdersFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.orders);
 
                 string OrderItemsFile = FileHelper.GetFileNameByFileType(folderPath, FileTypes.orderitem);
-                
-                new CustomerProcess(CustomersFile, OrdersFile, OrderItemsFile, warehouse.WareHouseidpk).Process();
+
+                objCustomerpBal = new CustomerProcess(CustomersFile, OrdersFile, OrderItemsFile, objCustomerDal, warehouse.WareHouseidpk);
+                objCustomerpBal.Process();
 
                 string returnFilePath= FileHelper. GetFileNameByFileType(folderPath,FileTypes.returns);
-                new ReturnProcess(returnFilePath, warehouse.WareHouseidpk).Process();
+
+                objReturnsBal = new ReturnProcess(returnFilePath, warehouse.WareHouseidpk, objReturnsDal);
+                objReturnsBal.Process();
 
             }
 

@@ -12,7 +12,7 @@ namespace DBDataAcesses
 {
     public class EmployeeDAL:BaseProcessor,IEmployeeyDAL
     {
-        public   void PushEmployeeDataToDB(List<EmployeeModel> EmployeesList, string employeeFilePath)
+        public   bool PushEmployeeDataToDB(List<EmployeeModel> EmployeesList)
         {
             SqlConnection conn=null;
             try
@@ -45,19 +45,18 @@ namespace DBDataAcesses
                     }
 
                 }
-                FileHelper.MoiveFile(employeeFilePath, FileStatus.Success);
 
-
+                return true;
             }
 
             catch (Exception ex)
             {
-                FileHelper.MoiveFile(employeeFilePath, FileStatus.Failure);
                 if (conn.State == ConnectionState.Open)
                 {
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                return false;
             }
 
             finally

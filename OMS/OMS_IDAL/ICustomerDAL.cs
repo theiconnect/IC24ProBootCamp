@@ -9,12 +9,9 @@ namespace OMS_IDAL
 {
     public interface ICustomerDAL
     {
-         void PushCustomerDataToDB(List<CustomerModel> Customers, int wareHouseId, string customerFilePath, string ordersFilePath, string orderItemFilePath);
+         bool PushCustomerDataToDB(List<CustomerModel> Customers, int wareHouseId);
 
-        void PushOrderDataToDB(List<CustomerModel> Customers, int wareHouseId, string ordersFilePath, string orderItemFilePath);
-
-        void PushOrderItemDataToDB(List<CustomerModel> Customers, int wareHouseId, string orderItemFilePath);
-        
+       
 
     }
 }

@@ -19,15 +19,16 @@ namespace FileProcesses
         private string OrdersFilePath { get; set; }
         private string OrderItemFilePath { get; set; }
         private string[] CustomerContent { get; set; }
-        private int WareHouseId { get; set; }
         private List<CustomerModel> Customers { get; set; }
-
-        public CustomerProcess(string CustomerFilePath, string Orderfilepath, string Orderitemfilepath, int wareHouseId)
+        private ICustomerDAL objCustomerDal {  get; set; }
+        private int WareHouseId { get; set; }
+        public CustomerProcess(string CustomerFilePath, string Orderfilepath, string Orderitemfilepath, ICustomerDAL objCustomerDal,int wareHouseid)
         {
             this.CustomerFilePath = CustomerFilePath;
             this.OrdersFilePath = Orderfilepath;
             this.OrderItemFilePath = Orderitemfilepath;
-            this.WareHouseId = wareHouseId;
+            this.objCustomerDal= objCustomerDal;
+            WareHouseId = wareHouseid;
         }
 
         public void Process()
@@ -40,11 +41,21 @@ namespace FileProcesses
 
             ReadFileData();
             ValidateCustomerData();
-           // ICustomerDAL customerDAL = new CustomersDAL();
-            ICustomerDAL customerDAL = new CustomerEntityDAL();
 
-            customerDAL.PushCustomerDataToDB(Customers, WareHouseId, CustomerFilePath, OrdersFilePath, OrderItemFilePath);
+            bool isSucess=objCustomerDal.PushCustomerDataToDB(Customers, WareHouseId);
 
+            if (isSucess)
+            {
+                FileHelper.MoiveFile(CustomerFilePath, Enum.FileStatus.Success);
+                FileHelper.MoiveFile(OrdersFilePath, Enum.FileStatus.Success);
+                FileHelper.MoiveFile(OrderItemFilePath, Enum.FileStatus.Success);
+            }
+            else
+            {
+                FileHelper.MoiveFile(CustomerFilePath, Enum.FileStatus.Failure);
+                FileHelper.MoiveFile(OrdersFilePath, Enum.FileStatus.Failure);
+                FileHelper.MoiveFile(OrderItemFilePath, Enum.FileStatus.Failure);
+            }
         }
 
         private void ReadFileData()

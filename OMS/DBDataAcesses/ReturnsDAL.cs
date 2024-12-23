@@ -15,7 +15,7 @@ namespace DBDataAcesses
 {
     public class ReturnsDAL:BaseProcessor,IReturnsDAL
     {
-        public   void PushReturnsDataToDB(List<ReturnsModel> returnsList, string returnFilePath)
+        public   bool PushReturnsDataToDB(List<ReturnsModel> returnsList, string returnFilePath)
         {
             SqlConnection conn=null;
             try
@@ -53,18 +53,17 @@ namespace DBDataAcesses
                 }
 
 
-                FileHelper.MoiveFile(returnFilePath, FileStatus.Success);
-
+                return true;
             }
             catch (Exception ex)
             {
 
-                FileHelper.MoiveFile(returnFilePath, FileStatus.Failure);
                 if (conn.State == ConnectionState.Open)
                 {
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                return false;
             }
 
             finally

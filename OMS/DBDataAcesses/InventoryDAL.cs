@@ -13,21 +13,18 @@ namespace DBDataAcesses
 {
     public class InventoryDAL:BaseProcessor,IInventoryDAL
     {
-        public   void PushInvetoryDataToDB(string failedReason, List<InventoryModel> inventoryList, List<DBStockData> dBStockDatas, List<ProductMasterModel> productMasterList, string dirName, string stockDateStr, DateTime date, string inventoryPath)
+        public   bool  PushInvetoryDataToDB(string failedReason, List<InventoryModel> inventoryList, List<DBStockData> dBStockDatas, List<ProductMasterModel> productMasterList, string dirName, string stockDateStr, DateTime date, IInventoryDAL IInventoryDAL)
         {
 
-            if (!string.IsNullOrEmpty(failedReason))
-            {
-                return;
-            }
+           
 
             SyncProducts(inventoryList, dBStockDatas, productMasterList);
 
             dBStockDatas = GetAllStockInfoOfTodayFromDB(dBStockDatas, date);
 
-            SyncStockFileWithDB(inventoryList, dBStockDatas, dirName, stockDateStr, inventoryPath);
+            return SyncStockFileWithDB(inventoryList, dBStockDatas, dirName, stockDateStr);
 
-
+            
         }
        public   void SyncProducts(List<InventoryModel> inventoryList, List<DBStockData> dBStockDatas, List<ProductMasterModel> productMasterList)
         {
@@ -211,7 +208,7 @@ namespace DBDataAcesses
 
         }
        
-       public   void SyncStockFileWithDB(List<InventoryModel> inventoryList, List<DBStockData> dBStockDatas, string dirName, string stockDateStr, string inventoryPath)
+       public   bool SyncStockFileWithDB(List<InventoryModel> inventoryList, List<DBStockData> dBStockDatas, string dirName, string stockDateStr)
         {
             SqlConnection conn = null;
             try
@@ -244,17 +241,16 @@ namespace DBDataAcesses
                         }
                     }
                 }
-                FileHelper.MoiveFile(inventoryPath, FileStatus.Success);
-
+                return true;
             }
             catch (Exception ex)
             {
-                FileHelper.MoiveFile(inventoryPath, FileStatus.Failure);
                 if (conn.State == ConnectionState.Open)
                 {
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                return false;
             }
 
             finally

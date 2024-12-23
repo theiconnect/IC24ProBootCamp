@@ -15,17 +15,20 @@ using ProjectHelpers;
 using DBDataAcesses;
 using OMS_IDAL;
 using OMSEntityDAL;
+using FileModel.models;
 
 namespace FileProcesses
 {
     public class InventoryProcess : BaseProcessor
     {
+
         private string InventoryPath { get; set; }
         private string FailedReason { get; set; }
         private DateTime Date { get; set; }
         private string StockDateStr { get; set; }
 
-        private bool IsValidFile { get; set; }
+        private bool IsValidFile { get; set; } = true;
+        private IInventoryDAL ObjInventoryDal { get; set; }
         List<InventoryModel> inventoryList { get; set; }
         List<ProductMasterModel> productMasterList { get; set; }
         List<DBStockData> dBStockDatas { get; set; }
@@ -34,23 +37,44 @@ namespace FileProcesses
         {
             get { return Path.GetFileName(Path.GetDirectoryName(InventoryPath)); }
         }
-        public InventoryProcess(string inventorypath)
+        public InventoryProcess(string inventorypath, IInventoryDAL objInventoryDal)
         {
 
             InventoryPath = inventorypath;
+            ObjInventoryDal = objInventoryDal;
         }
 
         public void Process()
         {
-            //Read the file
-            //Validate the file 
-            //push in to db
             ReadFileData();
             ValidateStoreData();
+            if (IsValidFile) 
+            {
+                FileHelper.MoiveFile(InventoryPath, Enum.FileStatus.Failure);
+                return;
+            }
 
-            //IInventoryDAL inventoryDAL = new InventoryDAL();
-            IInventoryDAL inventoryDAL= new InventoryEntityDAL();
-            inventoryDAL.PushInvetoryDataToDB(FailedReason, inventoryList, dBStockDatas, productMasterList, dirName, StockDateStr, Date, InventoryPath);
+            var listOfParameter=new InventoryPushData
+            {
+                FailedReason = FailedReason,
+                InventoryList = inventoryList,
+                DBStockDatas = dBStockDatas,
+                ProductMasterList = productMasterList,
+                DirName = dirName,
+                StockDateStr = StockDateStr,
+                Date = Date
+            };
+            bool isSucess= ObjInventoryDal.PushInvetoryDataToDB(listOfParameter);
+            if (isSucess)
+            {
+                FileHelper.MoiveFile(InventoryPath, Enum.FileStatus.Success);
+            }
+            else
+            {
+                FileHelper.MoiveFile(InventoryPath, Enum.FileStatus.Failure);
+
+            }
+
         }
 
 
@@ -60,7 +84,6 @@ namespace FileProcesses
             {
                 using (StreamReader reader = new StreamReader(InventoryPath))
                 {
-                    //int noOfrowsEffected = default(int);
                     string jsonFileReader = reader.ReadToEnd();
                     JObject jsonObject = JObject.Parse(jsonFileReader);
                     JArray inventoryArray = (JArray)jsonObject["inventory"];
@@ -125,7 +148,10 @@ namespace FileProcesses
 
 
             }
-
+            if (!string.IsNullOrEmpty(FailedReason))
+            {
+                IsValidFile = false;
+            }
 
         }
 

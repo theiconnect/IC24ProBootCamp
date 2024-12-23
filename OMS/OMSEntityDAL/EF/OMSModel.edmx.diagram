@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4478d635a9004a768907b24be017b7aa" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="OMSModel.Category" Width="1.5" PointX="0.5" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="OMSModel.customers" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+      <Diagram DiagramId="315e4bb8b3234d1093c30a776dda6731" Name="Diagram1">
+        <EntityTypeShape EntityType="OMSModel.Category" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="OMSModel.customers" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="OMSModel.Employee" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="OMSModel.Inventory" Width="1.5" PointX="6" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OMSModel.OrderItem" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Aron\source\repos\theiconnect\IC24ProBootCamp\OMS\OMSEntityDAL\EF\OMSModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\iConnect\source\repos\IC24A\IC24ProBootCamp\OMS\OMSEntityDAL\EF\OMSModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

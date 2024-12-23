@@ -126,7 +126,7 @@ namespace ProjectHelpers
 
             }
             desinationPath=Path.Combine(Path.GetDirectoryName(FilePath),combinedName, GetFileNameByFilePath(FilePath));
-            File.Move(FilePath, desinationPath); 
+           // File.Move(FilePath, desinationPath); 
 
 
 

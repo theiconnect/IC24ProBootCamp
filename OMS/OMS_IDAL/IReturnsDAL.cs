@@ -9,6 +9,6 @@ namespace OMS_IDAL
 {
     public interface IReturnsDAL
     {
-        void PushReturnsDataToDB(List<ReturnsModel> returnsList, string returnFilePath);
+        bool PushReturnsDataToDB(List<ReturnsModel> returnsList, string returnFilePath);
     }
 }

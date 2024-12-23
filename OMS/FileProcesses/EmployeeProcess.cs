@@ -14,8 +14,8 @@ namespace FileProcesses
 {
     public class EmployeeProcess:BaseProcessor
     {
-       
-        private bool isValidFile { get; set; }
+
+        private bool isValidFile { get; set; } = true;
 
         private string EmployeeFilePath {  get; set; }
         private string FailedReason { get; set; }
@@ -26,12 +26,13 @@ namespace FileProcesses
 
         private List<EmployeeModel > EmployeesList;
 
-
-        public EmployeeProcess( string Employeefile) 
+        private IEmployeeyDAL ObjEmpDal {  get; set; }
+        public EmployeeProcess( string Employeefile, IEmployeeyDAL objEmpDal) 
         
         {
         
             EmployeeFilePath = Employeefile;
+            ObjEmpDal = objEmpDal;
         }
 
         public void Process()
@@ -39,10 +40,24 @@ namespace FileProcesses
 
             ReadFileData();
             ValidateStoreData();
-            //IEmployeeyDAL employeeyDAL = new EmployeeDAL();
-            IEmployeeyDAL employeeyDAL=new EmployeeEntityDAL();
-            employeeyDAL.PushEmployeeDataToDB(EmployeesList, EmployeeFilePath);
+            if (!isValidFile) 
+            { 
+              FileHelper.MoiveFile(EmployeeFilePath,FileStatus.Failure); 
+                return;
+            }
 
+            
+            bool isSucess = ObjEmpDal.PushEmployeeDataToDB(EmployeesList);
+
+            if (isSucess)
+            {
+                FileHelper.MoiveFile(EmployeeFilePath, FileStatus.Success);
+            }
+            else
+            {
+                FileHelper.MoiveFile(EmployeeFilePath, FileStatus.Failure);
+
+            }
 
         }
 

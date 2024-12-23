@@ -18,11 +18,12 @@ namespace FileProcesses
         private string ReturnFilePath {  get; set; }
         private int WareHouseId {  get; set; }
         private List<ReturnsModel> ReturnsList {get; set;}
-
-        public ReturnProcess(string returnFilePath, int wareHouseidpk)
+        private IReturnsDAL objReturnsDal {  get; set; }
+        public ReturnProcess(string returnFilePath, int wareHouseidpk, IReturnsDAL objReturnsDal)
         {
             this.ReturnFilePath = returnFilePath;
             this.WareHouseId = wareHouseidpk;
+            this.objReturnsDal = objReturnsDal;
         }
 
         public void Process()
@@ -35,9 +36,18 @@ namespace FileProcesses
             }
             ReadFileData();
             ValidateReturnsData();
-            //IReturnsDAL returnsDAL= new ReturnsDAL();
-            IReturnsDAL returnsDAL= new ReturnsEntityDAL();
-            returnsDAL.PushReturnsDataToDB(ReturnsList,ReturnFilePath);
+           
+
+            bool isSucess=objReturnsDal.PushReturnsDataToDB(ReturnsList,ReturnFilePath);
+            if (isSucess)
+            {
+                FileHelper.MoiveFile(ReturnFilePath, Enum.FileStatus.Success);
+
+            }
+            else
+            {
+                FileHelper.MoiveFile(ReturnFilePath, Enum.FileStatus.Failure);
+            }
 
         }
 
