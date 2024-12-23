@@ -79,6 +79,7 @@ namespace OMS.DataAccessLayer.Entity_Muni
            newInventory.AvailableQuantity=stock.availableQuantity;
            newInventory.Date= Convert.ToDateTime(StockDateStr);
            newInventory.RemainingQuantity=stock.remainingQuantity;
+           OMSDB.SaveChanges();
 
         }
     }
