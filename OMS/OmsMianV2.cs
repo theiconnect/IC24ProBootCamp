@@ -9,10 +9,40 @@ using FileModel;
 using ProjectHelper;
 using FilesEnum;
 using FileProcessses;
+using System.Configuration;
+using OMS.IDataAccessLayer_Muni;
+using OMS.DataAccessLayer;
+using OMS.DataAccessLayer.Entity_Muni;
+using OMS.DataAccessLayer_Muni;
 namespace OMS
 {
     internal class OmsMianV2 : ConfigHelper
     {
+        private static IWareHouseDAL objWhDal { get; set; }
+        private static IEmployeeDAL objEmpDal { get; set; }
+        private static IInventoryDAL objInvDal { get; set; }
+        private static WareHouseProcess objWhBAL { get; set; }
+        private static EmployeeProcess objEmpBAL { get; set; }
+        private static InventoryProcess objInvBAL { get; set; }
+
+        static OmsMianV2()
+        {
+            if (UseEF)
+            {
+                objWhDal = new EntityWareHouseDAL();
+                objEmpDal=new EntityEmployeeDAL();
+                objInvDal=new EntityInventoryDAL();
+
+
+            }
+            else
+            {
+                objWhDal=new WareHouseDAL();
+                objEmpDal=new EmployeeDAL();
+                objInvDal=new InventoryDAL();
+
+            }
+        }
         static void Main()
         {
             string[] wareHouseFolders = Directory.GetDirectories(rootFolderPath);
@@ -20,10 +50,12 @@ namespace OMS
 
             foreach (string folderPath in wareHouseFolders)
             {
-                string wareHouseFolderName = FileHelper.GetDirectoryNameByDirectoryPath(folderPath);
+                string WareHouseFile = GetFileNameByFileType(folderPath, FileTypes.wareHouse);
                 
 
-                var warehouse = WareHouseProcess.wareHouses.FirstOrDefault(x => x.WareHouseCode == wareHouseFolderName);
+                objWhBAL=new WareHouseProcess(objWhDal, WareHouseFile);
+                string wareHouseFolderName = FileHelper.GetDirectoryNameByDirectoryPath(folderPath);
+                var warehouse = objWhBAL.wareHouses.FirstOrDefault(x => x.WareHouseCode == wareHouseFolderName);
 
                 if (warehouse == null)
                 {
@@ -31,26 +63,25 @@ namespace OMS
                     continue;
                 }
 
-                string WareHouseFile = GetFileNameByFileType(folderPath, FileTypes.wareHouse);
-
-
                 if (!string.IsNullOrEmpty(WareHouseFile))
                 {
-                    new WareHouseProcess(WareHouseFile).process();
+                    objWhBAL.process();
                 }
 
                 string EmployeeFile = GetFileNameByFileType(folderPath, FileTypes.employee);
+                objEmpBAL = new EmployeeProcess(objEmpDal, EmployeeFile);
 
                 if (!string.IsNullOrEmpty(EmployeeFile))
                 {
-                    new EmployeeProcess(EmployeeFile).Process();
+                    objEmpBAL.Process();
                 }
 
                 string InventoryFile = GetFileNameByFileType(folderPath, FileTypes.inventory);
+                objInvBAL = new InventoryProcess(objInvDal, InventoryFile);
 
                 if (!string.IsNullOrEmpty(InventoryFile))
                 {
-                    new InventoryProcess(InventoryFile).Process();
+                    objInvBAL.Process();
                 }
 
                 string CustomersFile = GetFileNameByFileType(folderPath, FileTypes.customers);

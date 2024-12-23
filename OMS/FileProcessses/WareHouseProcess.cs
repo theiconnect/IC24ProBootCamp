@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Configuration;
 using FileModel;
-using OMS.DataAccessLayer_Muni;
+using OMS.IDataAccessLayer_Muni;
 
 
 namespace FileProcessses
@@ -17,23 +17,24 @@ namespace FileProcessses
     public class WareHouseProcess :DBHelper
     {
        
-        private WareHouseModel wareHouseModel { get; set; }
+        private static WareHouseModel wareHouseModel { get; set; }
         public string WareHouseFilePath{get;set;}
         private string FailedReason { get;set;}
         private string dirName {
             get { return Path.GetFileName(Path.GetDirectoryName(WareHouseFilePath)); } }
         public string[] WareHouseFileContent {  get;set;}
         private bool isValidFile {  get;set;}
+        private IWareHouseDAL objDal { get; set; }
        
-        public static List<WareHouseModel> wareHouses { get { return GetWareHousesDataFromDb.GetAllWareHouses() ; } }
+        public  List<WareHouseModel> wareHouses { get { return objDal.GetAllWareHouses() ; } }
 
 
 
-        public WareHouseProcess( string WareHouseFile) 
+        public WareHouseProcess( IWareHouseDAL objDAL,string WareHouseFile) 
         
         {
             WareHouseFilePath = WareHouseFile;
-
+            objDal=objDAL;  
         }
        
 
@@ -46,8 +47,8 @@ namespace FileProcessses
                 Console.WriteLine("Log the error:not a valid file");
                 return;
             }
-            SyncWareHouseDataToDB warehouse = new SyncWareHouseDataToDB();
-            warehouse.PushWareHouseDataToDB(wareHouseModel);
+            prepareWareHouseObject();
+            objDal.PushWareHouseDataToDB(wareHouseModel);
         }
 
         private void ReadFileData()
@@ -56,7 +57,7 @@ namespace FileProcessses
            WareHouseFileContent= File.ReadAllLines(WareHouseFilePath);
 
         }
-        public void prepareWareHouseObject()
+        public  void prepareWareHouseObject()
         {
             wareHouseModel = new WareHouseModel();
 

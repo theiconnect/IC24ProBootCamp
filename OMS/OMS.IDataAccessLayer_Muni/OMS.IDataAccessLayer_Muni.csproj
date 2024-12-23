@@ -41,10 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IEmployeeDAL\ISyncEmployeeDataToDB.cs" />
-    <Compile Include="IInventoryDAL\ISyncInventoryFileDataToDB.cs" />
-    <Compile Include="IWareHouseDAL\IGetWareHousesDataFromDb.cs" />
-    <Compile Include="IWareHouseDAL\ISyncWareHouseDataToDB.cs" />
+    <Compile Include="IEmployeeDAL.cs" />
+    <Compile Include="IInventoryDAL.cs" />
+    <Compile Include="IWareHouseDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

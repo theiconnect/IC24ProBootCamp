@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OMS.IDataAccessLayer_Muni.IInventoryDAL
-{
-    internal interface ISyncInventoryFileDataToDB
+namespace OMS.IDataAccessLayer_Muni 
+{ 
+    public interface IInventoryDAL
     {
         void SyncProducts(InventoryModel stock);
 

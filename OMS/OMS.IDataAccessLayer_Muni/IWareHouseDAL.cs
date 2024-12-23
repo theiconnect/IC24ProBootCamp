@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using FileModel;
 
-namespace OMS.IDataAccessLayer_Muni.IWareHouseDAL
+namespace OMS.IDataAccessLayer_Muni
 {
-    internal interface IGetWareHousesDataFromDb
+    public interface IWareHouseDAL
     {
         List<WareHouseModel> GetAllWareHouses();
+        void PushWareHouseDataToDB(WareHouseModel wareHouseModel);
     }
 }

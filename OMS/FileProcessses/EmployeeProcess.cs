@@ -11,15 +11,15 @@ using System.Threading.Tasks;
 using System.Xml;
 using Configuration;
 using FileModel;
-using OMS.DataAccessLayer_Muni;
-using OMS.WareHouseDAL_Muni.EmployeeDAL;
+using OMS.IDataAccessLayer_Muni;
+using ProjectHelper;
 
 namespace FileProcessses
 {
     public class EmployeeProcess:DBHelper
     {
        
-        private bool isValidFile { get; set; }
+        private bool isValidFile { get; set; }=false;
 
         private string EmployeeFilePath {  get; set; }
         private string FailedReason { get; set; }
@@ -29,11 +29,13 @@ namespace FileProcessses
         }
 
         private List<EmployeeModel > employees;
-        public EmployeeProcess( string Employeefile) 
+        private IEmployeeDAL objEmpDAL { get; set; }
+        public EmployeeProcess( IEmployeeDAL objEmpDal,string Employeefile) 
         
         {
         
             EmployeeFilePath = Employeefile;
+            objEmpDAL = objEmpDal;
         }
 
         public void Process()
@@ -49,92 +51,44 @@ namespace FileProcessses
                 Console.WriteLine("Log the error:Employee  File is not valid");
                 return;
             }
-            SyncEmployeeDataToDB employee = new SyncEmployeeDataToDB();
-            employee.PushEmployeeDataToDB(employees);
-            
+           
+            objEmpDAL.PushEmployeeDataToDB(employees);
+
 
         }
 
         private void ReadFileData()
         {
-            employees=new List<EmployeeModel>();
-            using (XmlReader  reader = XmlReader.Create(EmployeeFilePath))
+            DataSet dsEmployees = FileHelper.GetXMLFileContent(EmployeeFilePath);
+            PrepareEmployeeModel(dsEmployees);
+
+        }
+
+        private void PrepareEmployeeModel(DataSet dsEmployees)
+        {
+            employees = new List<EmployeeModel>();
+            try
             {
-                EmployeeModel empmodel = new EmployeeModel();
-
-                int count = 0;
-                while (reader.Read())
+                foreach (DataRow employeeRecord in dsEmployees.Tables[0].Rows)
                 {
-
-
-                    if (reader.IsStartElement()) // Check if it is an element node
-                    {
-                        if (reader.Name.ToLower() == "employeecode")
-                        {
-                            // Read element value
-                            empmodel.EmpCode = reader.ReadElementContentAsString();
-                            count++;
-                            if (empmodel.EmpCode == "")
-                            {
-                                Console.WriteLine("Invalid employee record: EmployeeCode cannot be empty");
-                                break;
-                            }
-
-                        }
-                        else if (reader.Name.ToLower() == "employeename")
-                        {
-                            empmodel.EmpName = reader.ReadElementContentAsString();
-                            count++;
-
-                        }
-                        else if (reader.Name.ToLower() == "warehousecode")
-                        {
-                            empmodel.EmpWareHouseCode = reader.ReadElementContentAsString();
-                            count++;
-
-                            if (empmodel.EmpWareHouseCode == "")
-                            {
-                                break;
-                            }
-                        }
-                        else if (reader.Name.ToLower() == "contactnumber")
-
-                        {
-                            empmodel.empContactNumber = reader.ReadElementContentAsString();
-                            count++;
-
-                        }
-                        else if ((reader.Name.ToLower() == "gender"))
-                        {
-                            empmodel.Gender = reader.ReadElementContentAsString();
-                            count++;
-
-                        }
-                        else if (reader.Name.ToLower() == "salary")
-                        {
-                            empmodel.Salary = reader.ReadElementContentAsString();
-                            count++;
-
-
-                        }
-
-
-                    }
-                    if (count > 5&& empmodel.EmpCode!="")
-                    {
-                        
-
-                        employees.Add(empmodel);
-                        count = 0;
-                        empmodel = new EmployeeModel();
-
-                    }
-
+                    EmployeeModel employeeModel = new EmployeeModel();
+                    employeeModel.EmpCode = Convert.ToString(employeeRecord["EmployeeCode"]);
+                    employeeModel.EmpName = Convert.ToString(employeeRecord["EmployeeName"]);
+                    employeeModel.EmpWareHouseCode = Convert.ToString(employeeRecord["WarehouseCode"]);
+                    employeeModel.empContactNumber = Convert.ToString(employeeRecord["ContactNumber"]);
+                    employeeModel.Gender = Convert.ToString(employeeRecord["Gender"]);
+                    employeeModel.Salary = Convert.ToString(employeeRecord["Salary"]);
+                    employees.Add(employeeModel);
 
                 }
-             
             }
-            
+            catch (Exception ex)
+            {
+                
+
+                Console.WriteLine(ex.Message);
+            }
+
         }
 
         private void ValidateEmployeeData()

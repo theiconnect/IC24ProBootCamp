@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using FileModel;
 using Configuration;
+using OMS.IDataAccessLayer_Muni;
 
-namespace OMS.WareHouseDAL_Muni.InventoryDAL
+namespace OMS.DataAccessLayer_Muni
 {
-    public class SyncInventoryFileDataToDB:DBHelper
+    public class InventoryDAL:DBHelper,IInventoryDAL
     {
         
         public void SyncProducts(InventoryModel stock)

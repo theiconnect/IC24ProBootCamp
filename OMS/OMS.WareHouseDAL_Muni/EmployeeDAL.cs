@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using FileModel;
 using Configuration;
+using OMS.IDataAccessLayer_Muni;
 
-namespace OMS.WareHouseDAL_Muni.EmployeeDAL
+namespace OMS.DataAccessLayer_Muni
 {
-    public class SyncEmployeeDataToDB:DBHelper
+    public class EmployeeDAL:DBHelper,IEmployeeDAL
     {
         public  void PushEmployeeDataToDB(List<EmployeeModel> employees)
         {

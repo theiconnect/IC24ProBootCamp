@@ -9,32 +9,34 @@ using System.Text;
 using System.Threading.Tasks;
 using Configuration;
 using FileModel;
-using OMS.DataAccessLayer_Muni;
+using OMS.IDataAccessLayer_Muni;
 using System.Data;
-using OMS.WareHouseDAL_Muni.InventoryDAL;
+
 
 namespace FileProcessses
 {
-    public class InventoryProcess:DBHelper
+    public class InventoryProcess : DBHelper
     {
         private string InventoryPath { get; set; }
         private string FailedReason { get; set; }
-        private DateTime date {  get; set; }
+        private DateTime date { get; set; }
         private string StockDateStr { get; set; }
 
         private bool isValidFile { get; set; }
         List<InventoryModel> inventoryList { get; set; }
         List<ProductMasterModel> productMasterList { get; set; }
         List<DBStockData> dBStockDatas { get; set; }
+        private IInventoryDAL objInvDAL { get; set; }
 
         private string dirName
         {
             get { return Path.GetFileName(Path.GetDirectoryName(InventoryPath)); }
         }
-        public InventoryProcess( string inventorypath) 
+        public InventoryProcess(IInventoryDAL objInvDal,string inventorypath)
         {
-        
+
             InventoryPath = inventorypath;
+            objInvDAL = objInvDal;
         }
 
         public void Process()
@@ -59,8 +61,6 @@ namespace FileProcessses
 
                 inventoryList = inventoryArray.ToObject<List<InventoryModel>>();
             }
-
-
         }
         private void ValidateInventoryData()
         {
@@ -73,16 +73,16 @@ namespace FileProcessses
             {
                 FailedReason = "Log the warning: No data present in the file";
             }
-            else 
+            else
             {
-                foreach(var data in inventoryList)
+                foreach (var data in inventoryList)
                 {
                     if (data.wareHouseCode != dirName)
                     {
                         FailedReason = "log the error : the record doesn't matches the current warehosue code";
 
                     }
-                    if(!DateTime.TryParse(data.date.ToString(), out DateTime date))
+                    if (!DateTime.TryParse(data.date.ToString(), out DateTime date))
                     {
                         FailedReason += "log the error : the record doesn't have valid date";
 
@@ -104,8 +104,8 @@ namespace FileProcessses
                     {
                         break;
                     }
-                    date=Convert.ToDateTime(data.date);
-                    StockDateStr =date.ToString("yyyy-MM-dd");
+                    date = Convert.ToDateTime(data.date);
+                    StockDateStr = date.ToString("yyyy-MM-dd");
                 }
 
 
@@ -122,18 +122,18 @@ namespace FileProcessses
             {
                 return;
             }
-            SyncInventoryFileDataToDB inventory = new SyncInventoryFileDataToDB();
-
             
+
+
             foreach (var stock in inventoryList)
             {
-                inventory.GetAllProductsFromDB();
+                objInvDAL.GetAllProductsFromDB();
                 var product = productMasterList.Find(x => x.ProductCode == stock.productCode);
                 if (product != null)
                 {
 
-                    inventory.SyncProducts(stock);
-                    inventory.GetAllProductsFromDB();
+                    objInvDAL.SyncProducts(stock);
+                    objInvDAL.GetAllProductsFromDB();
                     foreach (var eachStock in inventoryList)
                     {
                         if (Convert.ToInt32(eachStock.ProductIdFk) == 0)
@@ -145,17 +145,17 @@ namespace FileProcessses
                 }
             }
 
-            inventory.GetAllStockInfoOfTodayFromDB(StockDateStr);
+            objInvDAL.GetAllStockInfoOfTodayFromDB(StockDateStr);
             foreach (var stock in inventoryList)
             {
                 if (!dBStockDatas.Exists(s => s.Date == stock.date && s.ProductIdFk == stock.ProductIdFk))
                 {
-                    inventory.SyncFileStockWithDB(stock,  StockDateStr, dirName);
+                    objInvDAL.SyncFileStockWithDB(stock, StockDateStr, dirName);
                 }
-                
+
             }
 
-        }                       
-        
+        }
+
     }
 }
