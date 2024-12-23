@@ -11,6 +11,6 @@ namespace IDataAccess
     {
         void GetrAllProductsFromDB(List<ProductMasterBO> products);
          void SyncStockTableData(List<StockBO> stockFileInformation);
-        void SyncProductMasterTableData(List<StockBO> stockFileInformation);
+        void SyncProductMasterTableData(List<ProductMasterBO> stockFileInformation);
     }
 }

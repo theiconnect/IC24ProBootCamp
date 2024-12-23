@@ -21,8 +21,10 @@ namespace RSC
         static int storeIdPk { get; set; }
         private static IStoreDA objIStoreDA { get; set; }
         private static IEmployeeDA objIEmployeeDA { get; set; }
+        private static IStockDA objIStockDA { get; set; }
         private static StoreProcessor objStoreBAL {  get; set; }
         public static EmployeeProcessor objEmployeeBAL { get; private set; }
+        public static StockProcess objStockBAL { get; set; }
 
         static ProgramV2()
         {
@@ -30,12 +32,14 @@ namespace RSC
             {
                 objIStoreDA = new StoreEntityDA();
                 objIEmployeeDA = new EmployeeEntityDA();
+                objIStockDA = new StockEntityDA();
 
             }
             else
             {
                 objIStoreDA = new StoreDA();
                 objIEmployeeDA = new EmployeeDA();
+                objIStockDA = new StockDA();
 
 
             }
@@ -52,45 +56,45 @@ namespace RSC
 
             foreach (string storeDirectoryPath in directories)
             {
-                int Storeid = default;
+                //int Storeid = default;
                 //Get Store Directory Path
                 string storeDirName = Path.GetFileName(storeDirectoryPath);
 
-                //var store = storesData.Exists(x => x.StoreCode == storeDirName);
-                bool isvalid = false;
-                foreach(var stores in storesData)
-                {
-                    stores.StoreCode = storeDirName;
-                    stores.StoreIdPk = Storeid;
-                    isvalid = true;
-                    break;
+                var store = storesData.Exists(x => x.StoreCode == storeDirName);
+                //bool isvalid = false;
+                //foreach(var stores in storesData)
+                //{
+                //    stores.StoreCode = storeDirName;
+                //    stores.StoreIdPk = Storeid;
+                //    isvalid = true;
+                //    break;
                    
 
-                }
-                if (!isvalid)
+                //}
+                if (!store)
                 {
                     //there is no store found with the storecode matching with foldername leave that and go and check next storecode folder
                     continue;
                 }
                 //Get the storefile path from the directory
-               // string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
-               // ////Initiate store file processing by using store processor
+                string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
+                // ////Initiate store file processing by using store processor
 
-               //objStoreBAL = new StoreProcessor(storeFilePath,objIStoreDA);
-               // objStoreBAL.Process();
+                objStoreBAL = new StoreProcessor(storeFilePath,objIStoreDA);
+                objStoreBAL.Process();
 
-               // string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
-               // var stockProcessor = new StockProcess(StockFilePath, storeIdPk);
-               // stockProcessor.Process();
+                 string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
+                objStockBAL = new StockProcess(StockFilePath, storeIdPk,objIStockDA);
+                 objStockBAL.Process();
 
 
                 string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
-                objEmployeeBAL = new EmployeeProcessor(EmployeeFilePath, objIEmployeeDA);
+                objEmployeeBAL = new EmployeeProcessor(EmployeeFilePath, objIEmployeeDA, storeIdPk);
                 objEmployeeBAL.Process();
 
-                string CustomerFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Customer);
-                var customerProcessor = new CustomerProcess(CustomerFilePath, storeIdPk);
-                customerProcessor.Process();
+                //string CustomerFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Customer);
+                //var customerProcessor = new CustomerProcess(CustomerFilePath, storeIdPk);
+                //customerProcessor.Process();
 
 
             }

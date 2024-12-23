@@ -35,7 +35,7 @@ namespace BusinessAccessLayer
             ValidateStoreData();
 
             PushStoreDataToDB();
-            FileHelper.Move(storeFilePath,FileStatus.Sucess);
+            //FileHelper.Move(storeFilePath,FileStatus.Sucess);
         }
         private void ReadFileData()
         {

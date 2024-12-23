@@ -13,13 +13,7 @@ namespace DataAccess
 {
     public class CustomerDA:ICustomerDA
     {
-        public void SyncCustomerData(List<CustomerModel> customers)
-        {
-            SyncCustomerDataWithDB(customers);
-            SyncOrderDataWithDB(customers);
-            SyncBillingDataWithDB(customers);
-
-        }
+        
 
         public void SyncCustomerDataWithDB(List<CustomerModel> customers)
         {

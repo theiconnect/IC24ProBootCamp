@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess;
+using IDataAccess;
 using Models;
 
 namespace BusinessAccessLayer
@@ -25,12 +26,14 @@ namespace BusinessAccessLayer
         private List<StockBO> stockFileInformation { get; set; }
         private List<StockBO> stockDBData { get; set; }
         private List<ProductMasterBO> Products { get; set; }
+        private IStockDA ObjIStockDA {  get; set; }
         
 
-        public StockProcess(string stockFilePath, int storeIdFk)
+        public StockProcess(string stockFilePath, int storeIdFk, IStockDA objIStockDA)
         {
             StockFilePath = stockFilePath;
             StoreIdFk = storeIdFk;
+            ObjIStockDA = objIStockDA;
         }
 
 
@@ -123,8 +126,10 @@ namespace BusinessAccessLayer
                 return;
             }
             prepareStockObject();
-            StockDA stockObj = new StockDA();
-            stockObj.SyncStockData(Products, stockFileInformation);
+            //StockDA stockObj = new StockDA();
+            ObjIStockDA.GetrAllProductsFromDB(Products);
+            ObjIStockDA.SyncStockTableData(stockFileInformation);
+            ObjIStockDA.SyncProductMasterTableData(stockFileInformation);
         }
         private void prepareStockObject()
         {

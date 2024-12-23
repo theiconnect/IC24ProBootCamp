@@ -18,9 +18,9 @@ namespace DataAccess
 
 
 
-        public void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject, int StoreIdFk)
+        public void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject)
         {
-            this.storeIdFk = StoreIdFk;
+            
             using (SqlConnection con = new SqlConnection(BaseProcessor.rscConnectedString))
             {
 

@@ -11,15 +11,15 @@ namespace EntityDataAccess
     
     public class StoreEntityDA:IStoreDA
     {
-         public RscEntities RscEntities { get; set; }
+         public RscEntities RSCDB { get; set; }
         public StoreEntityDA()
         {
-            RscEntities = new RscEntities();
+            RSCDB = new RscEntities();
         }
         public  List<StoreModel> GetAllStoresDataFromDB()
         {
             List < StoreModel > model=new List<StoreModel> ();
-            var  stores=RscEntities.Stores.ToList();
+            var  stores=RSCDB.Stores.ToList();
             foreach (var store in stores)
             {
                 StoreModel st = new StoreModel();
@@ -35,7 +35,7 @@ namespace EntityDataAccess
         }
         public void SyncStoreDataToDB(StoreModel storeModelObject)
         {
-            var dbStore=RscEntities.Stores.FirstOrDefault(s=>s.StoreCode== storeModelObject.StoreCode);
+            var dbStore=RSCDB.Stores.FirstOrDefault(s=>s.StoreCode== storeModelObject.StoreCode);
             if(dbStore == null)
             {
                 Console.WriteLine($"file Store code:{storeModelObject.StoreCode} didn't match with the db records.");
@@ -48,7 +48,7 @@ namespace EntityDataAccess
                 dbStore.StoreContactNumber = storeModelObject.ContactNumber;
                 dbStore.ManagerName= storeModelObject.ManagerName;
                 dbStore.Location= storeModelObject.Location;
-                RscEntities.SaveChanges();
+                RSCDB.SaveChanges();
             }
 
 

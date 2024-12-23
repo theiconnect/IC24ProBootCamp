@@ -16,13 +16,7 @@ namespace DataAccess
         
         
         
-        public void SyncStockData(List<ProductMasterBO> products, List<StockBO> stockFileInformation)
-        {
-            GetrAllProductsFromDB(products);
-            SyncStockTableData(stockFileInformation);
-            SyncProductMasterTableData(stockFileInformation);
-
-        }
+        
         public void GetrAllProductsFromDB(List<ProductMasterBO> products)
         {
             products = new List<ProductMasterBO>();
@@ -118,7 +112,7 @@ namespace DataAccess
                 }
             }
         }
-        public void SyncProductMasterTableData(List<StockBO> stockFileInformation)
+        public void SyncProductMasterTableData(List<ProductMasterBO> stockFileInformation)
         {
 
 

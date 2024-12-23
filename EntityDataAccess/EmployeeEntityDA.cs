@@ -11,26 +11,26 @@ namespace EntityDataAccess
 {
     public class EmployeeEntityDA:IEmployeeDA
     {
-        public RscEntities rscEntities { get; set; }
-        public int storeIdFK {  get; set; }
+        public RscEntities RSCDB{ get; set; }
+        
         
         public EmployeeEntityDA() 
         {
-            rscEntities = new RscEntities();
+            RSCDB = new RscEntities();
         }
 
         
         
 
         
-        public void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject ,int StoreIdFk)
+        public void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject)
         {
-            this.storeIdFK= StoreIdFk;
+            
             
                        
            foreach(var employee in fileEmployeeDTOObject) 
            {
-                var dbEmployee = rscEntities.Employee.FirstOrDefault(E => E.EmployeeCode == employee.EmployeeCode);
+                var dbEmployee = RSCDB.Employee.FirstOrDefault(E => E.EmployeeCode == employee.EmployeeCode);
 
                 if (dbEmployee == null)
                 {
@@ -44,10 +44,10 @@ namespace EntityDataAccess
                     emp.salary = Convert.ToString(employee.Salary);
                     emp.Role = employee.Role;
                     emp.gender = employee.Gender;
-                    emp.StoreIdFk = this.storeIdFK;
+                    emp.StoreIdFk = employee.StoreIdFk;
 
-                    rscEntities.Employee.Add(emp);
-                    rscEntities.SaveChanges();
+                    RSCDB.Employee.Add(emp);
+                    RSCDB.SaveChanges();
 
 
 
@@ -63,8 +63,8 @@ namespace EntityDataAccess
                     dbEmployee.salary = Convert.ToString(employee.Salary);
                     dbEmployee.Role = employee.Role;
                     dbEmployee.gender = employee.Gender;
-                    dbEmployee.StoreIdFk = this.storeIdFK;
-                    rscEntities.SaveChanges();
+                    dbEmployee.StoreIdFk = employee.StoreIdFk;
+                    RSCDB.SaveChanges();
 
 
 
@@ -76,5 +76,7 @@ namespace EntityDataAccess
 
 
         }
+
+        
     }
 }

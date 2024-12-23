@@ -10,10 +10,7 @@ namespace EntityDataAccess
 {
     public class CustomerEntityDA:ICustomerDA
     {
-        public void SyncCustomerData(List<CustomerModel> customers)
-        {
-
-        }
+        
         public void SyncCustomerDataWithDB(List<CustomerModel> customers)
         {
 

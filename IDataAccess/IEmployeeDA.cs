@@ -11,6 +11,6 @@ namespace IDataAccess
     {
         
         
-        void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject, int storeIdFk);
+        void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject);
     }
 }

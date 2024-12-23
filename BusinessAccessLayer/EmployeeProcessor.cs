@@ -27,10 +27,11 @@ namespace BusinessAccessLayer
         private List<EmployeeDTO> employeeData { get; set; }
         private IEmployeeDA objEmployeeDA {  get; set; }
 
-        public EmployeeProcessor(string employeeFilePath, IEmployeeDA objIEmployeeDA)
+        public EmployeeProcessor(string employeeFilePath, IEmployeeDA objIEmployeeDA, int storeIdPk)
         {
             EmployeeFilePath = employeeFilePath;
             objEmployeeDA = objIEmployeeDA;
+            StoreIdFk = storeIdPk;
 
         }
         public void Process()
@@ -115,7 +116,7 @@ namespace BusinessAccessLayer
             PrepareEmployeeModelObject();
             //EmployeeDA employeeObj = new EmployeeDA();
             
-            objEmployeeDA.SyncEmployeeDataWithDB(fileEmployeeDTOObject, StoreIdFk);
+            objEmployeeDA.SyncEmployeeDataWithDB(fileEmployeeDTOObject);
 
 
         }

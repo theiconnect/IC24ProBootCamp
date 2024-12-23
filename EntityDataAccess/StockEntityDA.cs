@@ -11,34 +11,73 @@ namespace EntityDataAccess
 {
     public class StockEntityDA:IStockDA
     {
-        public RscEntities rscEntities { get; set; }
+        public RscEntities RSCDB { get; set; }
         public StockEntityDA() 
         { 
-            rscEntities= new RscEntities();
+            RSCDB = new RscEntities();
         }
         public void GetrAllProductsFromDB(List<ProductMasterBO> products)
         {
-            List<ProductMasterBO> allProducts = products.ToList();  
-            var dbProducts=rscEntities.ProductMaster.ToList();
-            foreach (var product in allProducts) 
+              
+            var dbProducts=RSCDB.ProductMaster.ToList();
+            foreach (var product in dbProducts) 
             {
                 ProductMasterBO productMasterObj=new ProductMasterBO();
                 productMasterObj.ProductIdPk = product.ProductIdPk;
                 productMasterObj.ProductName = product.ProductName;
                 productMasterObj.ProductCode= product.ProductCode;
                 productMasterObj.PricePerUnit = product.PricePerUnit;
-                allProducts.Add(productMasterObj);
+                products.Add(productMasterObj);
 
             }
 
         }
         public void SyncStockTableData(List<StockBO> stockFileInformation)
         {
+            foreach(var stock in stockFileInformation)
+            {
+                Stock stockObj=new Stock();
+                stockObj.StockIdPk = stock.StockIdPk;
+                stockObj.StoreIdFk = stock.StoreIdFK;
+                stockObj.ProductIdFk = stock.ProductIdFk;
+                stockObj.QuantityAvailable=stock.QuantityAvailable;
+                stockObj.Date=stock.Date;
+                RSCDB.Stock.Add(stockObj);
+                RSCDB.SaveChanges();
+
+
+
+            }
+
 
 
         }
-        public void SyncProductMasterTableData(List<StockBO> stockFileInformation)
+        public void SyncProductMasterTableData(List<ProductMasterBO> stockFileInformation)
         {
+            
+            foreach(var stockInformation in stockFileInformation)
+            {
+
+                var dbStock = RSCDB.ProductMaster.FirstOrDefault(p => p.ProductCode == stockInformation.ProductCode);
+                if(dbStock == null)
+                {
+                    ProductMaster productMaster = new ProductMaster();
+                    productMaster.ProductIdPk = stockInformation.ProductIdPk;
+                    productMaster.ProductName= stockInformation.ProductName;
+                    productMaster.ProductCode= stockInformation.ProductCode;
+                    productMaster.PricePerUnit= stockInformation.PricePerUnit;
+                    RSCDB.ProductMaster.Add(productMaster);
+                    RSCDB.SaveChanges();
+
+
+                }
+
+
+
+
+            }
+            
+
 
 
         }
