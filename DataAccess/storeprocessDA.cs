@@ -11,7 +11,7 @@ using System.Data;
 using System.Reflection;
 
 
-namespace DataAccess
+namespace DataAccess:confighelper
 {
     public class storeprocessDA
     {

@@ -15,7 +15,8 @@ namespace DataBaseConfig
         {
 
             rootFolderPath = ConfigurationManager.AppSettings["RootFolder"];
-            connectionString = ConfigurationManager.AppSettings["iConnectRSCConnectionString"];
+            connectionString = ConfigurationManager.ConnectionStrings
+                ["iconnectrscconnectionstring"].ToString();
         }
     }
 

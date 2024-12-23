@@ -54,9 +54,6 @@
     <Compile Include="storeprocess.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{070f68b7-27ee-44c7-a93c-1630b863739c}</Project>
       <Name>DataAccess</Name>
@@ -69,6 +66,9 @@
       <Project>{6538cbbd-a9fd-48ee-a028-383c0093d90d}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

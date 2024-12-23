@@ -49,9 +49,6 @@
     <Compile Include="storeprocessDA.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DataBaseConfig\DataBaseConfig.csproj">
       <Project>{4129f23e-a24e-4218-b01f-24f32084e450}</Project>
       <Name>DataBaseConfig</Name>
