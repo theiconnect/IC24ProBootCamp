@@ -114,7 +114,8 @@ namespace BusinessAccessLayer
             }
             PrepareEmployeeModelObject();
             //EmployeeDA employeeObj = new EmployeeDA();
-            objEmployeeDA.SyncEmployeeData(employeeData, fileEmployeeDTOObject);
+            
+            objEmployeeDA.SyncEmployeeDataWithDB(fileEmployeeDTOObject, StoreIdFk);
 
 
         }

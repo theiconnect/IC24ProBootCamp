@@ -13,70 +13,14 @@ namespace DataAccess
 {
     public class EmployeeDA:IEmployeeDA
     {
-        public void SyncEmployeeData(List<EmployeeDTO> employeeData, List<EmployeeDTO> fileEmployeeDTOObject)
+        public int storeIdFk { get; set; }
+
+
+
+
+        public void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject, int StoreIdFk)
         {
-            GetAllEmployeeDataFromDB(employeeData);
-            SyncEmployeeDataWithDB(fileEmployeeDTOObject );
-
-        }
-        
-        public void GetAllEmployeeDataFromDB(List<EmployeeDTO> employeeData)
-        {
-            employeeData = new List<EmployeeDTO>();
-            using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
-            {
-                try
-                {
-                    using (SqlCommand command = new SqlCommand())
-                    {////EmployeeCode|StoreCode|EmployeeName|Role|DateOfJoining|DateOfLeaving|ContactNumber|Gender|Salary|StoreId
-                     //"select EmployeeCode,EmployeeName,Role,DateOfJoining,DateOfLeaving,ContactNumber,Gender,Salary,StoreIdF from Employee";
-                        command.CommandText = "GetAllEmployees";
-                        command.Connection = connection;
-                        command.CommandType = CommandType.StoredProcedure;
-                        connection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                EmployeeDTO modelObjectForDB = new EmployeeDTO();
-                                //reader default type is object
-                                //so,we declare type compalsary
-
-                                modelObjectForDB.EmployeeCode = Convert.ToString(reader["EmployeeCode"]);
-
-                                modelObjectForDB.EmployeeName = Convert.ToString(reader["EmployeeName"]);
-                                modelObjectForDB.Role = Convert.ToString(reader["role"]);
-                                modelObjectForDB.DateOfJoining = Convert.ToDateTime(reader["DateOfJoining"]);
-                                modelObjectForDB.DateOfLeaving = Convert.ToDateTime(reader["DateOfLeaving"]);
-                                modelObjectForDB.ContactNumber = Convert.ToString(reader["ContactNumber"]);
-                                modelObjectForDB.Gender = Convert.ToString(reader["Gender"]);
-                                modelObjectForDB.Salary = Convert.ToDecimal(reader["Salary"]);
-                                modelObjectForDB.StoreIdFk = Convert.ToInt32(reader["StoreIdFk"]);
-
-                                employeeData.Add(modelObjectForDB);
-                            }
-
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error:" + ex.Message);
-                    throw;
-
-                }
-                finally
-                {
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-
-                    }
-                }
-            }
-        }
-        public void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject)
-        {
+            this.storeIdFk = StoreIdFk;
             using (SqlConnection con = new SqlConnection(BaseProcessor.rscConnectedString))
             {
 

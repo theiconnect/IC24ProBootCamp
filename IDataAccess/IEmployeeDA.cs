@@ -9,9 +9,8 @@ namespace IDataAccess
 {
     public interface IEmployeeDA
     {
-        void SyncEmployeeData(List<EmployeeDTO> employeeData, List<EmployeeDTO> fileEmployeeDTOObject);
-
-         void GetAllEmployeeDataFromDB(List<EmployeeDTO> employeeData);
-        void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject);
+        
+        
+        void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject, int storeIdFk);
     }
 }
