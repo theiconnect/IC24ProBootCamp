@@ -24,7 +24,7 @@ namespace EntityDataAccess
         }
         public void GetAllEmployeeDataFromDB(List<EmployeeDTO> employeeData)
         {
-            List<EmployeeDTO> employeeDTOObj= new List<EmployeeDTO>();
+            
             var employees=rscEntities.Employee.ToList();
             foreach (var employee in employees)
             { 
@@ -37,7 +37,7 @@ namespace EntityDataAccess
                 employeeObj.DateOfLeaving = Convert.ToDateTime(employee.DateOfLeaving);
                 employeeObj.Salary = Convert.ToDecimal(employee.salary);
                 employeeObj.Gender = employee.gender;
-                employeeDTOObj.Add(employeeObj);
+                employeeData.Add(employeeObj);
 
             }
 
