@@ -13,6 +13,7 @@ namespace PathAndDataBaseConfig
         public static string mainFolderPath { get; set; }
         public static string excelConnectionString { get; set; }
         public static string rscConnectedString { get; set; }
+        public static bool useEf {  get; set; }
 
 
         static BaseProcessor()
@@ -23,6 +24,7 @@ namespace PathAndDataBaseConfig
 
 
             excelConnectionString = ConfigurationManager.AppSettings["ExcelConnectionString"].ToString();
+            useEf = Convert.ToBoolean(ConfigurationManager.AppSettings["UseEf"]);
 
         }
     }

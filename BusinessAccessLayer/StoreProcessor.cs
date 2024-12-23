@@ -33,6 +33,7 @@ namespace BusinessAccessLayer
         {
             ReadFileData();
             ValidateStoreData();
+
             PushStoreDataToDB();
             FileHelper.Move(storeFilePath,FileStatus.Sucess);
         }
@@ -97,8 +98,8 @@ namespace BusinessAccessLayer
                 return;
             }
             PrepareStoreObject();
-            StoreDA storeDAObj= new StoreDA();
-            storeDAObj.SyncStoreDataToDB(storeModelObject);
+            //StoreDA storeDAObj= new StoreDA();
+            objectStoreDA.SyncStoreDataToDB(storeModelObject);
         }
 
 

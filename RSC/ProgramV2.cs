@@ -19,18 +19,23 @@ namespace RSC
     public class ProgramV2:BaseProcessor
     {
         static int storeIdPk { get; set; }
-        private static IStoreDA objIStoreDA { get; set; } 
+        private static IStoreDA objIStoreDA { get; set; }
+        private static IEmployeeDA objIEmployeeDA { get; set; }
+        private static StoreProcessor objStoreBAL {  get; set; }
 
         static ProgramV2()
         {
-            if (UseEf)
+            if (useEf)
             {
-                objIStoreDA = new StoreDA();
+                objIStoreDA = new StoreEntityDA();
+                objIEmployeeDA = new EmployeeEntityDA();
 
             }
             else
             {
-                objIStoreDA = new StoreEntityDA();
+                objIStoreDA = new StoreDA();
+                objIEmployeeDA = new EmployeeDA();
+
 
             }
         }
@@ -40,9 +45,9 @@ namespace RSC
             string[] directories = Directory.GetDirectories(BaseProcessor.mainFolderPath);
 
             //Get All Stores information From DB
-            StoreDA storeDAObject = new StoreDA();
+            //StoreDA storeDAObject = new StoreDA();
 
-            List<StoreModel> storesData = storeDAObject.GetAllStoresDataFromDB();
+            List<StoreModel> storesData = objIStoreDA.GetAllStoresDataFromDB();
 
             foreach (string storeDirectoryPath in directories)
             {
@@ -60,8 +65,8 @@ namespace RSC
                 string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
                 ////Initiate store file processing by using store processor
 
-                var storeProcessor = new StoreProcessor(storeFilePath,objIStoreDA);
-                storeProcessor.Process();
+               objStoreBAL = new StoreProcessor(storeFilePath,objIStoreDA);
+                objStoreBAL.Process();
 
                 string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
                 var stockProcessor = new StockProcess(StockFilePath, storeIdPk);

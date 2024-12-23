@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Collections;
 using DataAccess;
+using IDataAccess;
 
 
 namespace BusinessAccessLayer
@@ -24,10 +25,12 @@ namespace BusinessAccessLayer
         private int StoreIdFk { get; set; }
         private List<EmployeeDTO> fileEmployeeDTOObject { get; set; }
         private List<EmployeeDTO> employeeData { get; set; }
+        private IEmployeeDA objEmployeeDA {  get; set; }
 
-        public EmployeeProcessor(string employeeFilePath)
+        public EmployeeProcessor(string employeeFilePath, IEmployeeDA objIEmployeeDA)
         {
             EmployeeFilePath = employeeFilePath;
+            objEmployeeDA = objIEmployeeDA;
 
         }
         public void Process()
@@ -110,8 +113,8 @@ namespace BusinessAccessLayer
                 return;
             }
             PrepareEmployeeModelObject();
-            EmployeeDA employeeObj = new EmployeeDA();
-            employeeObj.SyncEmployeeData(employeeData, fileEmployeeDTOObject);
+            //EmployeeDA employeeObj = new EmployeeDA();
+            objEmployeeDA.SyncEmployeeData(employeeData, fileEmployeeDTOObject);
 
 
         }
