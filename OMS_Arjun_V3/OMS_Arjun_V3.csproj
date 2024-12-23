@@ -64,6 +64,10 @@
       <Project>{8e34d8e7-9e3e-40f1-870f-4290b678fa0c}</Project>
       <Name>ConnectionConfig</Name>
     </ProjectReference>
+    <ProjectReference Include="EnityDataAccessLayer\OMSEnityDataAccessLayer.csproj">
+      <Project>{7fb1dedf-7777-4747-afcb-f076060884c9}</Project>
+      <Name>OMSEnityDataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="FileHelper1\FileHelper.csproj">
       <Project>{f1206929-7e67-412b-aff6-1278a4156792}</Project>
       <Name>FileHelper</Name>
@@ -75,6 +79,10 @@
     <ProjectReference Include="Model\Model.csproj">
       <Project>{2e65f227-2cb8-4b12-84cc-3b16d26595fa}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="OMS_IDataAccessLayer\OMS_IDataAccessLayer.csproj">
+      <Project>{31131e8c-b6f0-4a54-afc9-5c307830ddf2}</Project>
+      <Name>OMS_IDataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

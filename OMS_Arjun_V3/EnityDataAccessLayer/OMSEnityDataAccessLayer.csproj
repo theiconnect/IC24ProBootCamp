@@ -119,9 +119,12 @@
       <Project>{2e65f227-2cb8-4b12-84cc-3b16d26595fa}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OMS_IDataAccessLayer\OMS_IDataAccessLayer.csproj">
+      <Project>{31131e8c-b6f0-4a54-afc9-5c307830ddf2}</Project>
+      <Name>OMS_IDataAccessLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <EntityDeploy Include="EntityFramework\ArjunOMSEntity.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ArjunOMSEntity.Designer.cs</LastGenOutput>

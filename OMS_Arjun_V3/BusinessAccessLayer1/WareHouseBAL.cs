@@ -36,9 +36,10 @@ namespace BusinessAccessLayer
 
         {
             WareHouseFilePath = WareHouseFile;
-            
-            objDal = WareHouseDAL;
-            
+
+            objDal = objDal;
+
+
         }
 
         public void process()
@@ -63,7 +64,8 @@ namespace BusinessAccessLayer
             {
                 FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Failure);
             }
-            PushWareHouseDataToDB();
+         
+
 
         }
        
@@ -73,8 +75,21 @@ namespace BusinessAccessLayer
 
             WareHouseFileContent = File.ReadAllLines(WareHouseFilePath);
 
+            prepareWareHouseObject();
+
         }
 
+        public void prepareWareHouseObject()
+        {
+            wareHouseModel = new WareHouseModel();
+
+            string[] data = WareHouseFileContent[1].Split('|');
+            wareHouseModel.WareHouseCode = data[0];
+            wareHouseModel.WareHouseName = data[1];
+            wareHouseModel.Location = data[2];
+            wareHouseModel.ManagerName = data[3];
+            wareHouseModel.ContactNo = data[4];
+        }
 
         public void ValidateWareHouseData()
         {
@@ -124,7 +139,7 @@ namespace BusinessAccessLayer
                 return;
             }
 
-           new WareHouseDAL().UpdateWareHouseDataToDB(WareHouseFileContent, WareHouseFilePath);
+            objDal.UpdateWareHouseDataToDB(WareHouseFileContent, WareHouseFilePath);
         }
         
 

@@ -10,16 +10,35 @@ using ConnectionConfig;
 using FileTypes;
 using FileHelper;
 using DataAccessLayer;
+using EnityDataAccessLayer;
+using OMS_IDataAccessLayer;
+using BusinessAccessLayer1;
+using EnityDataAccessLayer.EntityFramework;
+using OMSEnityDataAccessLayer;
+using System.Diagnostics;
 
 namespace OMS_Arjun_V3
 {
     internal class Program 
     {
-
-        static void Main(string[] args)
+        public static IWareHouseDAL objWhDal { get; set; }
+        public static IEmployeeDAL objEmpDal { get; set; }
+        public static Process objBal;
+        public bool UseEntityFramework {  get; set; }
+        public void Main(string[] args)
         {
+            if (UseEntityFramework)
+            {
+                objWhDal = new EnityWareHouseDAL();
+                objEmpDal = new EnityEmployeeDAL();
+            }
+            else
+            {
+                objWhDal = new WareHouseDAL();
+                objEmpDal = new EmployeeDAL();
+            }
             string[] wareHouseFolders = Directory.GetDirectories(ConnectionConfig.ConnectionConfig1.rootFolderPath);
-            List<WareHouseModel> wareHouses = WareHouseDAL.getAllWareHousesFromDB();
+            List<WareHouseModel> wareHouses = objWhDal.getAllWareHousesFromDB();
 
             foreach (string folderPath in wareHouseFolders)
             {
@@ -37,7 +56,7 @@ namespace OMS_Arjun_V3
 
                 if (!string.IsNullOrEmpty(WareHouseFile))
                 {
-                    new WareHouseBAL(WareHouseFile).process();
+                    new WareHouseBAL(WareHouseFile, objWhDal).process();
                 }
 
             }

@@ -7,23 +7,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 //using OMS_Arjun_V3;
-using FileTypes;
-using FileHelper;
+//using FileTypes;
+//using FileHelper;
 using Model;
 using ConnectionConfig;
+using OMS_IDataAccessLayer;
 
 
 namespace DataAccessLayer
 {
     
-    public class WareHouseDAL:ConnectionConfig.ConnectionConfig1
+    public class WareHouseDAL:ConnectionConfig.ConnectionConfig1,IWareHouseDAL
     {
         public WareHouseModel wareHouseModel { get; set; }
         //private string[] WareHouseFileContent { get; set; }
-        public void UpdateWareHouseDataToDB(string[] WareHouseFileContent, string WareHouseFilePath)
+        public bool PushWareHouseDataToDB(WareHouseModel wareHouseModel)
         {           
 
-            prepareWareHouseObject(WareHouseFileContent);
+            
             SqlConnection conn = null;
             try
             {
@@ -38,12 +39,13 @@ namespace DataAccessLayer
                     }
                     conn.Close();
                 }
-                //FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Success);
+
+                return true;
             }
             catch (Exception ex) 
             {
-                //FileHelper.FileHelper.MoveFile(WareHouseFilePath, FileTypes.FileTypes1.Failure);
                 Console.WriteLine("" + ex.Message);
+                return false;
             }
             finally
             {
@@ -51,20 +53,11 @@ namespace DataAccessLayer
             }
             
         }
-        public void prepareWareHouseObject(string[] wareHouseFileContent)
-        {
-            wareHouseModel = new WareHouseModel();
+     
 
-            string[] data = wareHouseFileContent[1].Split('|');
-            wareHouseModel.WareHouseCode = data[0];
-            wareHouseModel.WareHouseName = data[1];
-            wareHouseModel.Location = data[2];
-            wareHouseModel.ManagerName = data[3];
-            wareHouseModel.ContactNo = data[4];
-        }
-
-        public static List<WareHouseModel> getAllWareHousesFromDB()
+        public   List<WareHouseModel> getAllWareHousesFromDB()
         {
+
             var wareHouses = new List<WareHouseModel>();
             SqlConnection Con = null;
             try
@@ -115,5 +108,6 @@ namespace DataAccessLayer
             }
         }
 
+       
     }
 }

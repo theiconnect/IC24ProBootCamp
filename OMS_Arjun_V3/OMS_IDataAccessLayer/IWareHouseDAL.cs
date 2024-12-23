@@ -7,24 +7,17 @@ using FileTypes;
 using FileHelper;
 using Model;
 using ConnectionConfig;
+//using EnityDataAccessLayer.EntityFramework;
+//using EnityDataAccessLayer;
 
 namespace OMS_IDataAccessLayer
 {
-    public class IWareHouseDAL
+    public interface IWareHouseDAL
     {
-        public void UpdateWareHouseDataToDB(string[] WareHouseFileContent, string WareHouseFilePath)
-        {
-             List<WareHouseModel> getAllWareHousesFromDB();
-             bool PushWareHouseDataToDB(WareHouseModel wareHouseModel);
-        }
-        public void prepareWareHouseObject(string[] wareHouseFileContent)
-        {
+         bool PushWareHouseDataToDB(WareHouseModel wareHouseModel);
+       
+         
 
-        }
-        public static List<WareHouseModel> getAllWareHousesFromDB()
-        {
-            var wareHouses = new List<WareHouseModel>();
-            return wareHouses;
-        }
+        List<WareHouseModel> getAllWareHousesFromDB();
     }
 }

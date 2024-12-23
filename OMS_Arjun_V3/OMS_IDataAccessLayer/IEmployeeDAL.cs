@@ -10,11 +10,9 @@ using ConnectionConfig;
 
 namespace OMS_IDataAccessLayer
 {
-    internal class IEmployeeDAL
+    public interface IEmployeeDAL
     {
-        public void UpdateorinsertEmployeeDataToDB(string[] EmployeeFileContent, string EmployeeFilePath)
-        {
-
-        }
+      void UpdateorinsertEmployeeDataToDB(string[] EmployeeFileContent, string EmployeeFilePath);
+        
     }
 }

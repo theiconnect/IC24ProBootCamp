@@ -8,10 +8,11 @@ using ConnectionConfig;
 using System.Data.SqlClient;
 using System.IO;
 using System.Xml;
+using OMS_IDataAccessLayer;
 
 namespace DataAccessLayer
 {
-    public class EmployeeDAL:ConnectionConfig.ConnectionConfig1
+    public class EmployeeDAL:ConnectionConfig1,IEmployeeDAL
     {
         
 
