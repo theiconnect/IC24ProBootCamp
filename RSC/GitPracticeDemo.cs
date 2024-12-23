@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSC
 {
-    internal class Program
+    internal class GitPracticeDemo
     {
-        static void Main(string[] args)
-        {
-
-
-        }
     }
 }
