@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RSC_IDAL;
 using RSC_EntityDAL.EF;
+using System.Runtime.InteropServices;
 
 namespace RSC_EntityDAL
 {
@@ -26,22 +27,25 @@ namespace RSC_EntityDAL
             this.Storeid = storeid;
             foreach(var Customerdata in custumerData)
             {
-                var CustomerDt = RSCDB.Customers.FirstOrDefault(c=> c.CustomerCode == Customerdata.CustomerCode && c.ContactNumber == Customerdata.ContactNumber);
-                if(CustomerDt != null)
+                if (!Customerdata.IsValidCustomer)
                 {
-                    CustomerDt.Name = Customerdata.CustomerName;
-                    CustomerDt.Email = Customerdata.CustomerEmail;
-                    RSCDB.SaveChanges();
-                }
-                else
-                {
-                    Customer CustomerData = new Customer();
-                    CustomerData.ContactNumber = Customerdata.ContactNumber;
-                    CustomerData.CustomerCode = Customerdata.CustomerCode;
-                    CustomerData.Email = Customerdata.CustomerEmail;
-                    CustomerData.Name = Customerdata.CustomerName;
-                    RSCDB.Customers.Add(CustomerData);
-                    RSCDB.SaveChanges();    
+                    var CustomerDt = RSCDB.Customers.FirstOrDefault(c => c.CustomerCode == Customerdata.CustomerCode && c.ContactNumber == Customerdata.ContactNumber);
+                    if (CustomerDt != null)
+                    {
+                        CustomerDt.Name = Customerdata.CustomerName;
+                        CustomerDt.Email = Customerdata.CustomerEmail;
+                        RSCDB.SaveChanges();
+                    }
+                    else
+                    {
+                        Customer CustomerData = new Customer();
+                        CustomerData.ContactNumber = Customerdata.ContactNumber;
+                        CustomerData.CustomerCode = Customerdata.CustomerCode;
+                        CustomerData.Email = Customerdata.CustomerEmail;
+                        CustomerData.Name = Customerdata.CustomerName;
+                        RSCDB.Customers.Add(CustomerData);
+                        RSCDB.SaveChanges();
+                    }
                 }
             }
         }
@@ -51,41 +55,67 @@ namespace RSC_EntityDAL
         {
             foreach(var Customer in custumerData)
             {
-                foreach (var CustomerOrder in Customer.custumerOrders)
+                if (!Customer.IsValidCustomer)
                 {
-                    var CustomerID = RSCDB.Customers.Where(c => c.CustomerCode == CustomerOrder.CustomerCode).Select(c => c.CustomerIdPk).FirstOrDefault();
-                    var EmployeeID = RSCDB.Employees.Where(E=> E.EmpCode== CustomerOrder.EmployeeCode).Select(E=>E.EmployeeIdPk).FirstOrDefault();
-                    var OrderData = RSCDB.Orders.FirstOrDefault(O => O.CustomerIdFk == CustomerID);
-                    if (OrderData != null)
+                    foreach (var CustomerOrder in Customer.custumerOrders)
                     {
-                        OrderData.OrderDate = CustomerOrder.OrderDate;
-                        OrderData.StoreIdFk = this.Storeid;
-                        OrderData.NoOfItems = CustomerOrder.NoFoIteams;
-                        OrderData.EmployeeIdFk = EmployeeID;
-                        OrderData.Amount = CustomerOrder.Amount;    
-                        OrderData.OrderCode = CustomerOrder.OrderCode;
-                        RSCDB.SaveChanges();    
-                    }
-                    else
-                    {
-                        Order Orderdata = new Order();
-                        Orderdata.OrderCode = CustomerOrder.OrderCode;
-                        Orderdata.NoOfItems = CustomerOrder.NoFoIteams;
-                        Orderdata.StoreIdFk = this.Storeid;
-                        Orderdata.Amount = CustomerOrder.Amount;
-                        Orderdata.CustomerIdFk = CustomerID;
-                        Orderdata.EmployeeIdFk= EmployeeID;
-                        Orderdata.OrderDate = CustomerOrder.OrderDate;
-                        RSCDB.Orders.Add(Orderdata);
-                        RSCDB.SaveChanges();
-                    }
+                        if (!CustomerOrder.IsValidOrder)
+                        {
+                            var CustomerID = RSCDB.Customers.Where(c => c.CustomerCode == CustomerOrder.CustomerCode).Select(c => c.CustomerIdPk).FirstOrDefault();
+                            var EmployeeID = RSCDB.Employees.Where(E => E.EmpCode == CustomerOrder.EmployeeCode).Select(E => E.EmployeeIdPk).FirstOrDefault();
+                            var OrderData = RSCDB.Orders.FirstOrDefault(O => O.CustomerIdFk == CustomerID);
+                            if (OrderData != null)
+                            {
+                                OrderData.OrderDate = CustomerOrder.OrderDate;
+                                OrderData.StoreIdFk = this.Storeid;
+                                OrderData.NoOfItems = CustomerOrder.NoFoIteams;
+                                OrderData.EmployeeIdFk = EmployeeID;
+                                OrderData.Amount = CustomerOrder.Amount;
+                                OrderData.OrderCode = CustomerOrder.OrderCode;
+                                RSCDB.SaveChanges();
+                            }
+                            else
+                            {
+                                Order Orderdata = new Order();
+                                Orderdata.OrderCode = CustomerOrder.OrderCode;
+                                Orderdata.NoOfItems = CustomerOrder.NoFoIteams;
+                                Orderdata.StoreIdFk = this.Storeid;
+                                Orderdata.Amount = CustomerOrder.Amount;
+                                Orderdata.CustomerIdFk = CustomerID;
+                                Orderdata.EmployeeIdFk = EmployeeID;
+                                Orderdata.OrderDate = CustomerOrder.OrderDate;
+                                RSCDB.Orders.Add(Orderdata);
+                                RSCDB.SaveChanges();
+                            }
+                        }
 
+                    }
                 }
             }
         }
         public bool pushOrderBillingDataToDB(List<CustumerModel> custumerData)
         {
-            
+            foreach (var customer in custumerData)
+            {
+                if (!customer.IsValidCustomer)
+                {
+                    foreach(var CustomerOrder in customer.custumerOrders)
+                    {
+                        if (!CustomerOrder.IsValidOrder)
+                        {
+                            foreach(var OrderBilling in CustomerOrder.OrderBillings)
+                            {
+                                var OrderID = RSCDB.Orders.Where(o=>o.OrderCode ==  OrderBilling.Ordercode).Select(o=> o.OrderIdPk).FirstOrDefault();
+                                var BillingData = RSCDB.Billings.FirstOrDefault(B=>B.OrderIdFk == OrderID);
+                                if (BillingData != null)
+                                {
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             return true;
         }
     }
