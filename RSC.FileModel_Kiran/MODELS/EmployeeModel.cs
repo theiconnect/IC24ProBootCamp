@@ -9,15 +9,16 @@ namespace RSC.FileModel_Kiran
     
     public class EmployeeModel
     {
-        public string employeesId { get; set; }
+        public int employeesId { get; set; }
+        public int Storeid { get; set; }    
         public  string employeeCode { get; set; }
         public  string employeeName { get; set; }
         public  string employeeRole { get; set; }
-        public  string employeeDateOfJoining { get; set; }
-        public  string employeeDateOfLeaving { get; set; }
+        public  DateTime employeeDateOfJoining { get; set; }
+        public  DateTime employeeDateOfLeaving { get; set; }
         public  string employeeContactNumber { get; set; }
         public  string employeeGender { get; set; }
-        public  string employeeSalary { get; set; }
+        public  decimal employeeSalary { get; set; }
         public List<EmployeeModel> employeeModels { get; set; } 
 
     }

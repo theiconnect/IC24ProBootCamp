@@ -44,9 +44,14 @@
     <Compile Include="Class1.cs" />
     <Compile Include="EmployeeProcesser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockProcesser.cs" />
     <Compile Include="StoreProcesser.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataBaseAccessLayer\DataBaseAccessLayer.csproj">
+      <Project>{7e961d85-f649-40ae-aea2-817b4f5a85d9}</Project>
+      <Name>DataBaseAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RSC.AppConnection_Kiran\RSC.AppConnection_Kiran.csproj">
       <Project>{f2bc7f77-5598-46c4-8b6e-5ef904d4ba5a}</Project>
       <Name>RSC.AppConnection_Kiran</Name>
@@ -54,6 +59,14 @@
     <ProjectReference Include="..\RSC.FileModel_Kiran\RSC.FileModel_Kiran.csproj">
       <Project>{f87c89c8-c00b-4045-8409-5c4f9d0798e9}</Project>
       <Name>RSC.FileModel_Kiran</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_IDAL\RSC_IDAL.csproj">
+      <Project>{dc208e2e-0654-4c0e-9b88-ef4760952590}</Project>
+      <Name>RSC_IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_Validations\RSC_Validations.csproj">
+      <Project>{fb43d7cd-4ab6-4bbd-afa0-1eeaaaa6c65b}</Project>
+      <Name>RSC_Validations</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

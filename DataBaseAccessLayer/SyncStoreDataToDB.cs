@@ -7,11 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using RSC.FileModel_Kiran;
 using RSC.AppConnection_Kiran;
+using RSC_IDAL;
+
 namespace DataBaseAccessLayer
 {
-    internal class SyncStoreDataToDB:AppConnection
+    public class SyncStoreDataToDB:AppConnection,IStoreDAL
     {
-        private void PushStoreDataToDB(StoreModel Model)
+        public void PushStoreDataToDB(List<StoreModel> Stores)
         {
             using (SqlConnection con = new SqlConnection(rSCConnectionString))
             {
@@ -21,13 +23,15 @@ namespace DataBaseAccessLayer
                 {
                     cmd.CommandText = query;
                     cmd.Connection = con;
-
-                    cmd.Parameters.Add("@StoreName", DbType.String).Value = Model.storeName;
-                    cmd.Parameters.Add("@StoreCode", DbType.String).Value = Model.storeCode;
-                    cmd.Parameters.Add("@Location", DbType.String).Value = Model.location;
-                    cmd.Parameters.Add("@Manager", DbType.String).Value = Model.managerName;
-                    cmd.Parameters.Add("@ContactNumber", DbType.String).Value = Model.contactNumber;
-                    con.Close();
+                    foreach (StoreModel Model in Stores)
+                    {
+                        cmd.Parameters.Add("@StoreName", DbType.String).Value = Model.storeName;
+                        cmd.Parameters.Add("@StoreCode", DbType.String).Value = Model.storeCode;
+                        cmd.Parameters.Add("@Location", DbType.String).Value = Model.location;
+                        cmd.Parameters.Add("@Manager", DbType.String).Value = Model.managerName;
+                        cmd.Parameters.Add("@ContactNumber", DbType.String).Value = Model.contactNumber;
+                        con.Close();
+                    }
                 }
             }
 

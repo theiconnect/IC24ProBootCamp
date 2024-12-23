@@ -8,31 +8,36 @@ using System.Data;
 using System.Data.SqlClient;
 using RSC.AppConnection_Kiran;
 using RSC.FileModel_Kiran;
+using RSC_Validations;
+using RSC_IDAL;
+using DataBaseAccessLayer;
 
 namespace BusinessAccessLayer
 {
-    internal class StoreProcesser : AppConnection
+    public class StoreProcesser
     {
+        public IStoreDAL StoreObj {  get; set; }    
         public string StoreFilePath { get; set; }
         public string[] FileContent { get; set; }
         public List<StoreModel> stores { get; set; }
 
-        public StoreProcesser(string storefilepath)
+        public StoreProcesser(string storefilepath, IStoreDAL storeDALObj)
         {
+            StoreObj = storeDALObj;
             StoreFilePath = storefilepath;
         }
         public void Processer()
         {
             ReadFileData();
-            ValidateData();
+            StoreValidation();
             PrepareStoreObject();
+            StoreObj.PushStoreDataToDB(stores);
         }
         private void ReadFileData()
         {
-            FileContent = File.ReadAllLines(StoreFilePath);
+            FileContent = File.ReadAllLines(StoreFilePath);    
         }
-
-        private void ValidateData()
+        public void StoreValidation()
         {
             if (FileContent.Length < 1)
             {
@@ -59,12 +64,10 @@ namespace BusinessAccessLayer
                 Console.WriteLine("Log the error: Invalid data; Not matching with noOffieds expected i.e., 6.");
 
             }
-                
-            
         }
         private void PrepareStoreObject()
         {
-            var stores = new List<StoreModel>();
+            stores = new List<StoreModel>();
             string[] data = FileContent[1].Split(',');
             StoreModel Model = new StoreModel();
             Model.storeCode = data[1];
@@ -73,11 +76,9 @@ namespace BusinessAccessLayer
             Model.managerName = data[4];
             Model.contactNumber = data[5];
             stores.Add(Model);
-
-            //PushStoreDataToDB(Model);
+            SyncStoreDataToDB obj = new SyncStoreDataToDB();
+            obj.PushStoreDataToDB(stores);
         }
-
-       
     }
 }
     

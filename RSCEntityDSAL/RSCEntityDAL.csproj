@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E788403C-8EFC-4EB6-922D-F8B0D0B74D56}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RSCEntityDSAL</RootNamespace>
+    <AssemblyName>RSCEntityDSAL</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\Kiran_RSC\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\Kiran_RSC\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="EF\Billing.cs">
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Customer.cs">
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Employee.cs">
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Order.cs">
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\OrderProduct.cs">
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ProductsMaster.cs">
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\RSC_MODELS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RSC_MODELS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\RSC_MODELS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\RSC_MODELS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RSC_MODELS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Stock.cs">
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Store.cs">
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\sysdiagram.cs">
+      <DependentUpon>RSC_MODELS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeEntityDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockEntityDAL.cs" />
+    <Compile Include="StoreEntityDAL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RSC.AppConnection_Kiran\RSC.AppConnection_Kiran.csproj">
+      <Project>{f2bc7f77-5598-46c4-8b6e-5ef904d4ba5a}</Project>
+      <Name>RSC.AppConnection_Kiran</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC.FileModel_Kiran\RSC.FileModel_Kiran.csproj">
+      <Project>{f87c89c8-c00b-4045-8409-5c4f9d0798e9}</Project>
+      <Name>RSC.FileModel_Kiran</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_IDAL\RSC_IDAL.csproj">
+      <Project>{dc208e2e-0654-4c0e-9b88-ef4760952590}</Project>
+      <Name>RSC_IDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EntityDeploy Include="EF\RSC_MODELS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RSC_MODELS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EF\RSC_MODELS.edmx.diagram">
+      <DependentUpon>RSC_MODELS.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EF\RSC_MODELS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RSC_MODELS.Context.cs</LastGenOutput>
+      <DependentUpon>RSC_MODELS.edmx</DependentUpon>
+    </Content>
+    <Content Include="EF\RSC_MODELS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RSC_MODELS.edmx</DependentUpon>
+      <LastGenOutput>RSC_MODELS.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

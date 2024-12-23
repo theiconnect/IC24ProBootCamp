@@ -11,11 +11,14 @@ namespace RSC.AppConnection_Kiran
     {
         public static string rootFolderPath { get; set; }
         public static string rSCConnectionString { get; set; }
+        public static bool UseEF {  get; set; }
 
         static AppConnection()
         {
             rootFolderPath = ConfigurationManager.AppSettings["RootFolder"];
             rSCConnectionString = ConfigurationManager.ConnectionStrings["kiranRSCConnectionString"].ToString();
+            UseEF =Convert.ToBoolean( ConfigurationManager.AppSettings["UseEF"]);
+
         }
     }
 }

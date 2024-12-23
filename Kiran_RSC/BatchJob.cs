@@ -1,6 +1,5 @@
 ﻿
 using Kiran_RSC;
-using Kiran_RSC.MODELS;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,19 +10,39 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RSC.AppConnection_Kiran;
+using RSC.FileModel_Kiran;
+using BusinessAccessLayer;
+using RSC_IDAL;
+using RSCEntityDSAL;
+using DataBaseAccessLayer;
 
 
 namespace Kiran_RSC
 {
     internal class BatchJob : AppConnection
     {
+        private static IStoreDAL StoreDALObj {  get; set; }    
+        private static IEmployeeDAL EmployeeDALObj { get; set; }
+        private static IStockDAL StockDALobj { get; set; }
 
+        static BatchJob()
+        {
+            if (UseEF)
+            {
+                StoreDALObj = new StoreEntityDAL(); /// by using  entity framework class
+            }
+            else
+            {
+                StoreDALObj = new SyncStoreDataToDB(); /// by using ADO.net class
+            }
+        }
         static void Main(string[] args)
         {
             string[] storeDirectories = Directory.GetDirectories(rootFolderPath);
 
             List<StoreModel> stores = GetAllStoresFromDB();
-            int storeid = default; 
+            int storeid = default;
             foreach (string storeDirectoryPath in storeDirectories)
             {
                 string storeDirName = Path.GetFileName(storeDirectoryPath);
@@ -32,8 +51,8 @@ namespace Kiran_RSC
                 //bool isValidFolder = ValdateStoreFolderInDB(storeDirName);//Not required=> we no need to hit db for every folder validation.
                 //bool isValidFolder = stores.Exists(x => x.storeCode == storeDirName);//Lambda (=>)
 
-                bool isvalid = false;   
-                foreach(var x in stores)
+                bool isvalid = false;
+                foreach (var x in stores)
                 {
                     x.storeCode = storeDirName;
                     storeid = x.storeId;
@@ -46,6 +65,7 @@ namespace Kiran_RSC
                         continue;
                     }
 
+                
                 string[] storeFolderFiles = Directory.GetFiles(storeDirectoryPath);
                 //Get all file names
                 string storeFilePath = string.Empty;
@@ -77,115 +97,28 @@ namespace Kiran_RSC
                 //////////////////////////////////////////////
 
 
-                new StoreProcesser(storeFilePath).Processer();
+                new StoreProcesser(storeFilePath, StoreDALObj).Processer();
+
+
+
+                ////////////////////////////////////////////////
+                /////Stock File Processing
+                ///////////////////////////////////////////////
+
+                new StockProcesser(stockFilePath, storeid, storeDirName,StockDALobj).Processor();
+
+
 
                 ////////////////////////////////////////////
                 /////Employee file processing
                 ///////////////////////////////////////////
-                 //new EmployeeProcesser(employeeFilePath).Processer();
+                //new EmployeeProcesser(employeeFilePath).Processer();
 
-                new Employeeprocesser(employeeFilePath, storeid, storeDirName).processer();
-                
-
-                    //step-1 read data from file.
-                    //step-2 validate the data
-                    //step-3 update/insert/push the data to DB;
-
-                    //    string[] filecontentLines = File.ReadAllLines(storeFilePath); /*[if define the string array]*/
-                    //    //validate if file has no content
-                    //    if (filecontentLines.Length < 1)
-                    //    {
-                    //        Console.WriteLine("Log the error: Invalid file");
-                    //        continue;
-                    //    }
-                    //    //validate if file has only header row
-                    //    else if (filecontentLines.Length == 1)
-                    //    {
-                    //        Console.WriteLine("Log the warning: No data present in the file");
-                    //        continue;
-                    //    }
-                    //    else if (filecontentLines.Length > 2)
-                    //    {
-                    //        Console.WriteLine("Log the error: Invalid file; has multiple store records.");
-                    //        continue;
-                    //    }
-
-                    //    string[] data = filecontentLines[1].Split(',');
-
-                    //    if (data.Length != 6)
-                    //    {
-                    //        Console.WriteLine("Log the error: Invalid data; Not matching with noOffieds expected i.e., 6.");
-                    //        continue;
-                    //    }
-
-                    //    StoreModel model = new StoreModel();
-                    //    model.StoreCode = data[1];
-                    //    model.StoreName = data[2];
-                    //    model.Location = data[3];
-                    //    model.ManagerName = data[4];
-                    //    model.ContactNumber = data[5];
-
-                    //    if (model.StoreCode.ToLower() != storeDirName.ToLower())
-                    //    {
-                    //        Console.WriteLine("Log the error: Invalid data; store code not matching with current storecode.");
-                    //        continue;
-                    //    }
-                    //    int rowsAffected = SyncStoreTableData(model);
-
-                    //    if (rowsAffected > 0)
-                    //    {
-                    //        Console.WriteLine("Log the Information: Storefile sync with DB is sucess.");
-                    //    }
-                    //    else
-                    //    {
-                    //        Console.WriteLine("Log the Warning: Storefile sync with DB is not sucess.");
-                    //    }
-
-                    //    string sourcePath = storeFilePath;
-                    //    //Store folderpath + Processed + Store_yyymmmdd.csv
-                    //    string destPath = Path.Combine(storeDirectoryPath, "Processed", Path.GetFileName(storeFilePath));
-                    //    File.Move(sourcePath, destPath);
-
-                    //    //SyncStoreTableData(model);
-                    //}
-
-                    //Step-3:
-                    //Read the content of the file
-
-                    //Step-4:
-                    //Validation : Validate the data against to the business rules.
-
-                    //Step-5:
-                    //Push the data to the DB.
-
-                }
-            //private static int SyncStoreTableData(StoreModel model)
-            //{
-            //    using (SqlConnection con = new SqlConnection(rSCConnectionString))
-            //    {
-            //        string query = $"Update Stores Set StoreName = @StoreName, Location = @Location, ManagerName= @Manager, ContactNumber = @ContactNumber where StoreCode = @StoreCode";
-
-            //        string query1 = $"Update Stores Set StoreName = {model.StoreName}, Location = {model.Location}, ManagerName= {model.ManagerName}, ContactNumber = {model.ContactNumber} where StoreCode = {model.StoreCode}";
-
-            //        con.Open();
-            //        using (SqlCommand cmd = new SqlCommand())
-            //        {
-            //            cmd.CommandText = query;
-            //            cmd.Connection = con;
-            //            cmd.Parameters.Add("@StoreName", DbType.String).Value = model.StoreName;
-            //            cmd.Parameters.Add("@StoreCode", DbType.String).Value = model.storeCode;
-            //            cmd.Parameters.Add("@Location", DbType.String).Value = model.Location;
-            //            cmd.Parameters.Add("@Manager", DbType.String).Value = model.ManagerName;
-            //            cmd.Parameters.Add("@ContactNumber", DbType.String).Value = model.ContactNumber;
-            //            int rowsaffected = cmd.ExecuteNonQuery();
-            //            con.Close();
-            //            return rowsaffected;
-            //        }
-            //    }
-            //}
+                new Employeeprocesser(employeeFilePath, storeid, storeDirName, EmployeeDALObj).processer();
 
 
 
+            }
 
         }
 

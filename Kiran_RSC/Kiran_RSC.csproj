@@ -47,11 +47,36 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessAccessLayer\BusinessAccessLayer.csproj">
+      <Project>{99cd3256-46b5-4290-81ab-695e41c224a2}</Project>
+      <Name>BusinessAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataBaseAccessLayer\DataBaseAccessLayer.csproj">
+      <Project>{7e961d85-f649-40ae-aea2-817b4f5a85d9}</Project>
+      <Name>DataBaseAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC.AppConnection_Kiran\RSC.AppConnection_Kiran.csproj">
+      <Project>{f2bc7f77-5598-46c4-8b6e-5ef904d4ba5a}</Project>
+      <Name>RSC.AppConnection_Kiran</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC.FileModel_Kiran\RSC.FileModel_Kiran.csproj">
+      <Project>{f87c89c8-c00b-4045-8409-5c4f9d0798e9}</Project>
+      <Name>RSC.FileModel_Kiran</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSCEntityDSAL\RSCEntityDAL.csproj">
+      <Project>{e788403c-8efc-4eb6-922d-f8b0d0b74d56}</Project>
+      <Name>RSCEntityDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_IDAL\RSC_IDAL.csproj">
+      <Project>{dc208e2e-0654-4c0e-9b88-ef4760952590}</Project>
+      <Name>RSC_IDAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
