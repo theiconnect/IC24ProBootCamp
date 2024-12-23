@@ -11,7 +11,8 @@ using RSC.FileModels_Venky;
 
 namespace RSC.BusinessAccessLayer_Venky
 {
-    public  class StoreProcesser : AppConnection
+    public  class StoreProcesser 
+
     {
         public string StoreFilePath { get; set; }
         public string[] FileContent { get; set; }

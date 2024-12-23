@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RSC
+namespace RSC.EntityDAL_venky
 {
-    internal class Program
+    public class Class1
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine();
-        }
+
     }
 }

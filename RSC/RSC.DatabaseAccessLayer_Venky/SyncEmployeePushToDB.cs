@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using RSC.Configuration_Venky;
 using RSC.FileModels_Venky;
+using RSC.IDAL;
 
 
-namespace RSC.DatabaseAccessLayer_Venky 
+namespace RSC 
 {
-    internal class SyncEmployeePushToDB:AppConnection
+    internal class SyncEmployeePushToDB:AppConnection,IEmployeeDAl
     {
-        private void PushStoreDataToDB(EmployeeModel model)
+        public void PushStoreDataToDB(EmployeeModel model)
         {
            
             using (SqlConnection con = new SqlConnection(rSCConnectionString))

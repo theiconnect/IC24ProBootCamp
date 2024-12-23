@@ -9,14 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RSC.Configuration_Venky;
-using RSC.FileModels_Venky;
 using RSC.BusinessAccessLayer_Venky;
+using RSC.FileModels_Venky;
 
 
 namespace RSC
 {
-    internal class BatchJob : AppConnection
+    internal class BatchJob: AppConnection
     {
+        
 
         static void Main(string[] args)
         {
@@ -25,6 +26,8 @@ namespace RSC
             List<StoreModel> stores = GetAllStoresFromDB();
             int storeid = default; 
             foreach (string storeDirectoryPath in storeDirectories)
+
+
             {
                 string storeDirName = Path.GetFileName(storeDirectoryPath);
 
@@ -172,7 +175,6 @@ namespace RSC
             //        using (SqlCommand cmd = new SqlCommand())
             //        {
             //            cmd.CommandText = query;
-            //            cmd.Connection = con;
             //            cmd.Parameters.Add("@StoreName", DbType.String).Value = model.StoreName;
             //            cmd.Parameters.Add("@StoreCode", DbType.String).Value = model.storeCode;
             //            cmd.Parameters.Add("@Location", DbType.String).Value = model.Location;

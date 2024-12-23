@@ -15,7 +15,7 @@ namespace RSC.Configuration_Venky
         static AppConnection()
         {
             rootFolderPath = ConfigurationManager.AppSettings["RootFolder"];
-            rSCConnectionString = ConfigurationManager.ConnectionStrings["kiranRSCConnectionString"].ToString();
+            rSCConnectionString = ConfigurationManager.ConnectionStrings["RSCConnectionString"].ToString();
         }
     }
 }

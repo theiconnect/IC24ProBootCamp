@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0918C4F9-CE50-45BB-AD4C-C69F224E2A87}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RSC.FileModels_Venky</RootNamespace>
-    <AssemblyName>RSC.FileModels_Venky</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <ProjectGuid>{CA6E6440-3CB4-4C5C-9397-10FDD5A23D33}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>RSC</RootNamespace>
+    <AssemblyName>RSC</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,11 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Models\EmployeeModel.cs" />
+    <Compile Include="BatchJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\StoreModel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="RSC.BusinessAccessLayer_Venky\RSC.BusinessAccessLayer_Venky.csproj">
+      <Project>{9afa3383-d7ca-4bad-b8dc-408f606bb177}</Project>
+      <Name>RSC.BusinessAccessLayer_Venky</Name>
+    </ProjectReference>
+    <ProjectReference Include="RSC.Configuration_Venky\RSC.Configuration_Venky.csproj">
+      <Project>{aa6531e6-8a4f-4bea-b735-fb602645932e}</Project>
+      <Name>RSC.Configuration_Venky</Name>
+    </ProjectReference>
+    <ProjectReference Include="RSC.FileModels_Venky\RSC.FileModels_Venky.csproj">
+      <Project>{0918c4f9-ce50-45bb-ad4c-c69f224e2a87}</Project>
+      <Name>RSC.FileModels_Venky</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

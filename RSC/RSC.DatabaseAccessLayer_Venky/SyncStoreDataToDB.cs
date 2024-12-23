@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using RSC.Configuration_Venky;
 using RSC.FileModels_Venky;
+using RSC.IDAL;
 
 namespace RSC.DatabaseAccessLayer_Venky
 {
-    internal class SyncStoreDataToDB:AppConnection
+    public class SyncStoreDataToDB:AppConnection, IstoreDAL
     {
-        private void PushStoreDataToDB(StoreModel Model)
+        public void PushStoreDataToDB(StoreModel Model)
         {
             using (SqlConnection con = new SqlConnection(rSCConnectionString))
             {

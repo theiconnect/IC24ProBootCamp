@@ -47,6 +47,10 @@
     <Compile Include="SyncStoreDataToDB.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\RSC.IDAL\RSC.IDAL.csproj">
+      <Project>{75efb655-5564-41f7-8365-81b82859efd3}</Project>
+      <Name>RSC.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RSC.Configuration_Venky\RSC.Configuration_Venky.csproj">
       <Project>{aa6531e6-8a4f-4bea-b735-fb602645932e}</Project>
       <Name>RSC.Configuration_Venky</Name>
