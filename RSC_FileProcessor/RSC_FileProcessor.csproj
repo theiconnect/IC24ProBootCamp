@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6B22398C-8F0A-44A3-8212-0D9D2D403040}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RSC_FileProcessor</RootNamespace>
+    <AssemblyName>RSC_FileProcessor</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="CustomerProcessor.cs" />
+    <Compile Include="EmployeeProcesser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockProcessor.cs" />
+    <Compile Include="StoreProcessor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RSC_Configurations\RSC_Configurations.csproj">
+      <Project>{282f40ec-dff3-47e5-99d7-48c6ccf2fea8}</Project>
+      <Name>RSC_Configurations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_DataAccess\RSC_DataAccess.csproj">
+      <Project>{a849ba17-a63c-4e60-b9d7-911a5ab52402}</Project>
+      <Name>RSC_DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_IDAL\RSC_IDAL.csproj">
+      <Project>{3bd51c33-09f4-40f2-a5d7-e760df388f60}</Project>
+      <Name>RSC_IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_Models\RSC_Models.csproj">
+      <Project>{e8c20244-f923-4964-9116-cc095c3834a6}</Project>
+      <Name>RSC_Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
