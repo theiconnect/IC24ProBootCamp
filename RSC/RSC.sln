@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_Configurations", "..\RS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_DataAccess", "..\RSC_DataAccess\RSC_DataAccess.csproj", "{A849BA17-A63C-4E60-B9D7-911A5AB52402}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_EntityDAL", "..\RSC_EntityDAL\RSC_EntityDAL.csproj", "{821CF894-7142-41CB-9741-A857873645E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_IDAL", "..\RSC_IDAL\RSC_IDAL.csproj", "{3BD51C33-09F4-40F2-A5D7-E760DF388F60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{A849BA17-A63C-4E60-B9D7-911A5AB52402}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A849BA17-A63C-4E60-B9D7-911A5AB52402}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A849BA17-A63C-4E60-B9D7-911A5AB52402}.Release|Any CPU.Build.0 = Release|Any CPU
+		{821CF894-7142-41CB-9741-A857873645E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{821CF894-7142-41CB-9741-A857873645E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{821CF894-7142-41CB-9741-A857873645E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{821CF894-7142-41CB-9741-A857873645E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BD51C33-09F4-40F2-A5D7-E760DF388F60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BD51C33-09F4-40F2-A5D7-E760DF388F60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BD51C33-09F4-40F2-A5D7-E760DF388F60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BD51C33-09F4-40F2-A5D7-E760DF388F60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

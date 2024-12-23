@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RSC_Models;
+using RSC_IDAL;
 
 namespace RSC_DataAccess
 {
-    public class StockDBAccess
+    public class StockDBAccess:IStockDAL
     {
-        public StockDBAccess(List<Stockmodel> stocks)
+        public  bool StockDBAcces(List<Stockmodel> stocks , int Storeid)
         {
             try
             {
@@ -37,10 +38,12 @@ namespace RSC_DataAccess
 
                 }
             }
+             
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            return true;
         }
         private List<ProductModel> GetAllProducts()
         {

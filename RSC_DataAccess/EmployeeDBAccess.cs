@@ -6,14 +6,15 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RSC_IDAL;
 
 
 namespace RSC_DataAccess
 {
-    public class EmployeeDBAccess
+    public class EmployeeDBAccess:IEmployeeDAL
     {
         private int Storeid { get; set; }
-        public EmployeeDBAccess(List<RSC_Models.EmployeeModel> empData, int storeid)
+        public  bool EmployeeDBAcces(List<RSC_Models.EmployeeModel> empData, int storeid)
         {
             this.Storeid = storeid;
             try
@@ -47,6 +48,7 @@ namespace RSC_DataAccess
             {
                 Console.WriteLine(ex.Message);
             }
+            return true;
         }
     }
 }

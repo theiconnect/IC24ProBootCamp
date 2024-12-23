@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Data;
-using System.Data.SqlClient;
+using System.Data.SqlClient; 
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,16 +16,43 @@ using System.Collections;
 using RSC_Models;
 using RSC_Configurations;
 using RSC_FileProcessor;
-
+using RSC_IDAL;
+using RSC_EntityDAL;
+using RSC_DataAccess;
 
 namespace RSC
 {
-    public class JobCreation 
+    public class JobCreation : AppConfiguration
     {
+        private static IStoreDAL StoreDALObj { get; set; }
+        private static IStockDAL StockDALObj { get; set; }
+        private static IEmployeeDAL EmployeeDALObj { get; set; }   
+        private static ICustomerDAL CustomerDALObj { get; set; }    
+
+        
+        static JobCreation()
+        {
+            if (UseEF)
+            {
+                StoreDALObj = new StoreEntityDAL();
+                StockDALObj = new StockEntityDAL();
+                EmployeeDALObj = new EmployeeEntityDAL();
+                CustomerDALObj = new CustomerEntityDAL();
+
+            }
+            else 
+            {
+                StoreDALObj = new StoreDBAccess();
+                StockDALObj = new StockDBAccess();
+                EmployeeDALObj = new EmployeeDBAccess();   
+                CustomerDALObj = new CustomerDBAccess();
+            }
+
+        }
         static void Main(string[] args)
         {
 
-            string[] pathfolderStoreCodes = Directory.GetDirectories(AppConfiguration.mainFolderPath);//get all paths on my local folders
+            string[] pathfolderStoreCodes = Directory.GetDirectories(mainFolderPath);//get all paths on my local folders
 
             List<StoreModel> DBStorecodes = StoreProcessor.DBStorecodes;///get all storecodes by using DB
 
@@ -74,15 +101,15 @@ namespace RSC
                     }
                 }
 
-                new StockProcessor(storeFilePath, storeId, storeDirName).Processor();
+                new StoreProcessor(storeFilePath, storeDirName, storeId, StoreDALObj).Processor();
 
 
-                new StockProcessor(storeFilePath, storeId, storeDirName).Processor();
+                new StockProcessor(stockFilePath, storeId, storeDirName, StockDALObj).Processor();
 
 
-                new EmployeProcesser(employeeFilePath, storeId, storeDirName).processor();
+                new EmployeProcesser(employeeFilePath, storeId, storeDirName, EmployeeDALObj).processor();
 
-                new CustumerProcessor(customerFilePath, storeId).processor();
+                new CustumerProcessor(customerFilePath, storeId, CustomerDALObj).processor();
             }
         }
     }

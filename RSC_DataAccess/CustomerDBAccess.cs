@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RSC_Models;
+using RSC_IDAL;
 
 namespace RSC_DataAccess
 {
-    public class CustomerDBAccess
+    public class CustomerDBAccess:ICustomerDAL
     {
         private int Storeid { get; set; }
-        public  CustomerDBAccess(List<CustumerModel> custumerData)
+        public void CustomerDBAcces(List<CustumerModel> custumerData, int storeid)
         {
             try
             {
@@ -41,9 +42,8 @@ namespace RSC_DataAccess
                 Console.WriteLine(ex.Message);
             }
         }
-        public void CustomerOrderPushToDB(List<CustumerModel> custumerData, int storeid)
-        {
-            Storeid = storeid;  
+        public  void CustomerOrderPushToDB(List<CustumerModel> custumerData)
+        { 
             try
             {
                 using (SqlConnection con = new SqlConnection(AppConfiguration.dbConnectionstring))
@@ -61,7 +61,7 @@ namespace RSC_DataAccess
                                     if (!CustomerOrder.IsValidOrder)
                                     {
                                         cmd.CommandType = CommandType.StoredProcedure;
-                                        cmd.Parameters.AddWithValue("@ordercode", CustomerOrder.OrderCode);
+                                        cmd.Parameters.AddWithValue("@ordercode",              CustomerOrder.OrderCode);
                                         cmd.Parameters.AddWithValue("@storeidfk", this.Storeid);
                                         cmd.Parameters.AddWithValue("@orderdata", CustomerOrder.OrderDatestr);
                                         cmd.Parameters.AddWithValue("@noofitems", CustomerOrder.NoFoIteams);
@@ -82,7 +82,7 @@ namespace RSC_DataAccess
                 Console.WriteLine(ex.Message);
             }
         }
-        public void pushOrderBillingDataToDB(List<CustumerModel> custumerData)
+        public bool pushOrderBillingDataToDB(List<CustumerModel> custumerData)
         {
             try
             {
@@ -121,6 +121,7 @@ namespace RSC_DataAccess
             {
                 Console.WriteLine(ex.Message);
             }
+            return true;
         }
     }
 }

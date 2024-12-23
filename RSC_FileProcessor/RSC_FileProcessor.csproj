@@ -57,6 +57,10 @@
       <Project>{a849ba17-a63c-4e60-b9d7-911a5ab52402}</Project>
       <Name>RSC_DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RSC_IDAL\RSC_IDAL.csproj">
+      <Project>{3bd51c33-09f4-40f2-a5d7-e760df388f60}</Project>
+      <Name>RSC_IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RSC_Models\RSC_Models.csproj">
       <Project>{e8c20244-f923-4964-9116-cc095c3834a6}</Project>
       <Name>RSC_Models</Name>

@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="CustomerDBAccess.cs" />
     <Compile Include="EmployeeDBAccess.cs" />
     <Compile Include="GetStoreDataFromDB.cs" />
@@ -53,6 +52,10 @@
     <ProjectReference Include="..\RSC_Configurations\RSC_Configurations.csproj">
       <Project>{282f40ec-dff3-47e5-99d7-48c6ccf2fea8}</Project>
       <Name>RSC_Configurations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_IDAL\RSC_IDAL.csproj">
+      <Project>{3bd51c33-09f4-40f2-a5d7-e760df388f60}</Project>
+      <Name>RSC_IDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\RSC_Models\RSC_Models.csproj">
       <Project>{e8c20244-f923-4964-9116-cc095c3834a6}</Project>

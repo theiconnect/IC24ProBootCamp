@@ -10,6 +10,7 @@ using RSC_Models;
 using RSC_Configurations;
 using System.Data;
 using RSC_DataAccess;
+using RSC_IDAL;
 
 namespace RSC_FileProcessor
 {
@@ -22,9 +23,11 @@ namespace RSC_FileProcessor
         private string Storecode { get; set; }
         private bool isValidFile { get; set; }
         private List<EmployeeModel> EmpData { get; set; }
+        private IEmployeeDAL EmployeeObj { get; set; }
 
-        public EmployeProcesser(string employeefilepath, int storeid, string storecode)
+        public EmployeProcesser(string employeefilepath, int storeid, string storecode, IEmployeeDAL employeeDALObj)
         {
+            EmployeeObj = employeeDALObj;
             EmployeFilePath = employeefilepath;
             Storeid = storeid;
             Storecode = storecode;
@@ -82,9 +85,7 @@ namespace RSC_FileProcessor
             }
             if (!string.IsNullOrEmpty(FailReason))
             {
-                isValidFile = false;
-                //log this error message into a file
-                return;
+                FileHelper.MoveFile(EmployeFilePath, FileStatus.Failure);
             }
             isValidFile = true;
         }
@@ -94,15 +95,19 @@ namespace RSC_FileProcessor
             {
                 return;
             }
-
-            PrepareEmployeeObjects();
-            new EmployeeDBAccess(EmpData, Storeid);
-            
+            else
+            {
+                bool ISSuccess = EmployeeObj.EmployeeDBAcces(EmpData, Storeid);
+                if (ISSuccess)
+                {
+                    FileHelper.MoveFile(EmployeFilePath, FileStatus.Success);
+                }
+                else
+                {
+                    FileHelper.MoveFile(EmployeFilePath, FileStatus.Failure);
+                }
+            }
         }
-
-        
-
-        
         private void PrepareEmployeeObjects()
         {
             EmpData = new List<EmployeeModel>();

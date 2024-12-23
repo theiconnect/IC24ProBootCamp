@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using RSC_Models;
 using RSC_Configurations;
 using RSC_DataAccess;
+using RSC_IDAL;
 
 namespace RSC_FileProcessor
 {
@@ -20,25 +21,24 @@ namespace RSC_FileProcessor
         private static DataSet dataSet { get; set; }
         private string FailReason { get; set; }
         private bool isValidFile { get; set; }
+        private ICustomerDAL CustomerObj { get; set; }  
 
-        public List<CustumerModel> custumerData { get; set; }
+        public List<CustumerModel> CustumerData { get; set; }
 
 
-        public CustumerProcessor(string custumerfile, int storeid)
+        public CustumerProcessor(string custumerfile, int storeid, ICustomerDAL customerDALObj)
         {
             customerFilePath = custumerfile;
             Storeid = storeid;
+            CustomerObj = customerDALObj;
         }
         public void processor()
         {
             ReadCustumerData();
             ValidateCustomerData();
             PrepareCustomerData();
-            CustomerDBAccess obj = new CustomerDBAccess(custumerData);
-            obj.pushOrderBillingDataToDB(custumerData);   
-            obj.CustomerOrderPushToDB(custumerData, Storeid);    
+            PushCustomerDataToDB();   
         }
-
         private void ReadCustumerData()
         {
             dataSet = new DataSet();
@@ -64,14 +64,14 @@ namespace RSC_FileProcessor
         }
         private void ValidateCustomerData()
         {
-            if (custumerData.Count == 0)
+            if (CustumerData.Count == 0)
             {
                 FailReason = "invalid file customer file";
                 isValidFile = false;
                 return;
 
             }
-            foreach (var customer in custumerData)
+            foreach (var customer in CustumerData)
             {
 
                 if (customer.ContactNumber == string.Empty || customer.ContactNumber.Length < 10)
@@ -126,7 +126,7 @@ namespace RSC_FileProcessor
             DataTable dtCustomer = dataSet.Tables[0];
             DataTable dtOrder = dataSet.Tables[1];
             DataTable dtBilling = dataSet.Tables[2];
-            custumerData = new List<CustumerModel>();
+            CustumerData = new List<CustumerModel>();
             foreach (DataRow CustomerTable in dtCustomer.Rows)
             {
                 CustumerModel Customermodel = new CustumerModel();
@@ -134,7 +134,7 @@ namespace RSC_FileProcessor
                 Customermodel.CustomerName = CustomerTable[1].ToString();
                 Customermodel.CustomerEmail = CustomerTable[2].ToString();
                 Customermodel.ContactNumber = CustomerTable[3].ToString();
-                custumerData.Add(Customermodel);
+                CustumerData.Add(Customermodel);
                 Customermodel.custumerOrders = new List<CustumerOrders>();
                 foreach (DataRow OrderTable in dtOrder.Rows)
                 {
@@ -163,6 +163,20 @@ namespace RSC_FileProcessor
                     }
                     Customermodel.custumerOrders.Add(CustomerOrder);
                 }
+            }
+        }
+        private void PushCustomerDataToDB()
+        {
+            CustomerObj.CustomerDBAcces(CustumerData, Storeid);
+            CustomerObj.CustomerOrderPushToDB(CustumerData);
+          bool IsSuccess = CustomerObj.pushOrderBillingDataToDB(CustumerData);
+            if (IsSuccess)
+            {
+                FileHelper.MoveFile(customerFilePath, FileStatus.Success);
+            }
+            else
+            {
+                FileHelper.MoveFile(customerFilePath, FileStatus.Failure);
             }
         }
     }
