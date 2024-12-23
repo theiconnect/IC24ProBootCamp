@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA6E6440-3CB4-4C5C-9397-10FDD5A23D33}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>RSC</RootNamespace>
-    <AssemblyName>RSC</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <ProjectGuid>{B252D1AA-722B-4B56-88CE-0D09DF0419F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RSCEntityDataAcess</RootNamespace>
+    <AssemblyName>RSCEntityDataAcess</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,30 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmployeeProcessor.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="EmployeeEntityDataAcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StoreProcessor.cs" />
+    <Compile Include="StoreEntityDataAcess.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RSCConfigiration\RSCConfigiration.csproj">
-      <Project>{82a3d5f9-3dfe-4308-9cce-8eb15ae0016e}</Project>
-      <Name>RSCConfigiration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RSCDataAccess\RSCDataAccess.csproj">
-      <Project>{40d69de7-4c69-4571-a609-9013ff6f9254}</Project>
-      <Name>RSCDataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RSCIDataAcess\RSCIDataAcess.csproj">
-      <Project>{2613276C-ABB4-4F84-8F13-8F11FBE09CBD}</Project>
+      <Project>{2613276c-abb4-4f84-8f13-8f11fbe09cbd}</Project>
       <Name>RSCIDataAcess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RSCModels\RSCModels.csproj">
-      <Project>{d660ab96-63fc-44af-9a9e-da1a43fe0a98}</Project>
-      <Name>RSCModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

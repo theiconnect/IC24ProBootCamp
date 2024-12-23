@@ -16,7 +16,7 @@ namespace SampleApp
 {
     internal class BatchJob
     {
-        static string rootFolderPath { get; set; }
+        static string rootFolderPath { get; set; }                                  
         static string rSCConnectionString { get; set; }
 
         static BatchJob()
@@ -79,7 +79,7 @@ namespace SampleApp
                 string employeeFilePath = string.Empty;
                 foreach (string file in storeFolderFiles)
                 {
-                    if (Path.GetFileNameWithoutExtension(file).Trim().ToLower().StartsWith("store_"))
+                    if (Path.GetFileNameWithoutExtension(file).Trim().ToLower().StartsWith("stores_"))
                     {
                         storeFilePath = file;
                     }
@@ -150,7 +150,8 @@ namespace SampleApp
                 }
                 int rowsAffected = SyncStoreTableData(model);
 
-                if(rowsAffected > 0)
+
+                if (rowsAffected > 0)
                 {
                     Console.WriteLine("Log the Information: Storefile sync with DB is sucess.");
                 }
@@ -193,10 +194,10 @@ namespace SampleApp
         private static int SyncStoreTableData(StoreModel model)
         {
             using (SqlConnection con = new SqlConnection(rSCConnectionString))
-            {
+            {       
                 string query = $"Update Stores Set StoreName = @StoreName, Location = @Location, ManagerName= @Manager, ContactNumber = @ContactNumber where StoreCode = @StoreCode";
 
-                string query1 = $"Update Stores Set StoreName = {model.StoreName}, Location = {model.Location}, ManagerName= {model.ManagerName}, ContactNumber = {model.ContactNumber} where StoreCode = {model.StoreCode}";
+                //string query1 = $"Update Stores Set StoreName = {model.StoreName}, Location = {model.Location}, ManagerName= {model.ManagerName}, ContactNumber = {model.ContactNumber} where StoreCode = {model.StoreCode}";
 
                 con.Open();
                 using(SqlCommand cmd = new SqlCommand())
@@ -215,7 +216,7 @@ namespace SampleApp
             }
         }
 
-        private static List<StoreModel> GetAllStoresFromDB()
+        private static List<StoreModel> GetAllStoresFromDB()//public void method()
         {
             List<StoreModel> stores = new List<StoreModel>();
             using (SqlConnection con = new SqlConnection(rSCConnectionString))
