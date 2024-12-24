@@ -42,7 +42,7 @@ namespace OMS
             {
                 objWhDal = new WarehouseDAL();
                 objEmpDal = new EmployeeDAL();
-                objInventoryDal = new InventoryDAL();
+                //objInventoryDal = new InventoryDAL();
                 objCustomerDal=new CustomersDAL();
                 objReturnsDal= new ReturnsDAL();
                 

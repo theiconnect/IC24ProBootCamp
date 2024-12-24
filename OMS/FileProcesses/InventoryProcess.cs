@@ -48,7 +48,7 @@ namespace FileProcesses
         {
             ReadFileData();
             ValidateStoreData();
-            if (IsValidFile) 
+            if (!IsValidFile) 
             {
                 FileHelper.MoiveFile(InventoryPath, Enum.FileStatus.Failure);
                 return;

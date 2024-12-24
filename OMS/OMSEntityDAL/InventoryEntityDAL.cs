@@ -18,7 +18,6 @@ namespace OMSEntityDAL
         {
             SyncProducts(pushData);
 
-            pushData.DBStockDatas = GetAllStockInfoOfTodayFromDB(pushData);
 
             SyncStockFileWithDB(pushData);
             return true;
@@ -26,40 +25,38 @@ namespace OMSEntityDAL
         }
         public   void SyncProducts(InventoryPushData pushData)
         {
-
-            pushData.ProductMasterList = GetAllProductsFromDB(pushData);
-            var product = OMSEntities.Products.FirstOrDefault(x => x.ProductCode ==);
-
-        }
-
-        public List<ProductMasterModel> GetAllProductsFromDB(InventoryPushData pushData)
-        {
-
-            pushData.ProductMasterList=new List<ProductMasterModel>();
-            foreach (var productRecord in OMSEntities.Products)
+            foreach(var item in pushData.InventoryList)
             {
-                ProductMasterModel productMasterModel = new ProductMasterModel();
-
-                productMasterModel.ProductIdPk=productRecord.ProductIdpk;
-                productMasterModel.ProductName=productRecord.ProductName;
-                productMasterModel.ProductCode=productRecord.ProductCode;
-                productMasterModel.PricePerUnit=productRecord.PricePerUnit;
-                pushData.ProductMasterList.Add(productMasterModel);
+                var product = OMSEntities.Products.FirstOrDefault(x => x.ProductCode == item.productCode);
+                if (product != null)
+                {
+                    //Here We need to add the Product details into product table
+                }
 
 
             }
-            return pushData.ProductMasterList;
-        }
-
-        public List<DBStockData> GetAllStockInfoOfTodayFromDB(InventoryPushData pushData)
-        {
-            return null;
 
         }
 
         public void SyncStockFileWithDB(InventoryPushData pushData)
         {
-           
+           foreach(var stock in pushData.InventoryList)
+            {
+                var producIdFk=OMSEntities.Products.Where(x=>x.ProductCode==stock.productCode).Select(x=>x.ProductIdpk).FirstOrDefault(); 
+                var wareHouseIdFk=OMSEntities.WareHouse.Where(x=>x.WareHouseCode==stock.wareHouseCode).Select(x=>x.WareHouseIdpk).FirstOrDefault(); 
+                if(OMSEntities.Inventory.FirstOrDefault(x=>x.Date  == stock.date && x.ProductIdfk== producIdFk) == null)
+                {
+                    Inventory inventory = new Inventory();
+                    inventory.ProductIdfk= producIdFk;
+                    inventory.WarehouseIdfk = wareHouseIdFk;
+                    inventory.Date=stock.date;
+                    inventory.AvailableQuantity=stock.availableQuantity;
+                    inventory.PricePerUnit=stock.pricePerUnit;
+                    inventory.RemainingQuantity=stock.remainingQuantity;
+                    OMSEntities.Inventory.Add(inventory);
+                    OMSEntities.SaveChanges();
+                }
+            }
         }
 
     }
