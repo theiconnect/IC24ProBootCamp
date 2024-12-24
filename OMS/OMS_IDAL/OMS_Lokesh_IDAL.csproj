@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}</ProjectGuid>
+    <ProjectGuid>{37103F14-9116-4BD6-A995-DFE279F1008E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectHelpers</RootNamespace>
-    <AssemblyName>ProjectHelpers</AssemblyName>
+    <RootNamespace>OMS_IDAL</RootNamespace>
+    <AssemblyName>OMS_IDAL</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,17 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileHelper.cs" />
+    <Compile Include="ICustomerDAL.cs" />
+    <Compile Include="IEmployeeyDAL.cs" />
+    <Compile Include="IGetAllWareHousesDataDAL.cs" />
+    <Compile Include="IInventoryDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IReturnsDAL.cs" />
+    <Compile Include="IWareHouseDAL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\Configuration.csproj">
-      <Project>{51bb42e8-5c12-4e62-8014-5aea2d962022}</Project>
-      <Name>Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileModel\FileModel.csproj">
+    <ProjectReference Include="..\FileModel\OMS_Lokesh_FileModel.csproj">
       <Project>{a7767146-90ed-4419-bc07-c09a8e9324d3}</Project>
-      <Name>FileModel</Name>
+      <Name>OMS_Lokesh_FileModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

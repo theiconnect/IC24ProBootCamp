@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMSMain", "OMSMain.csproj", "{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_Lokesh_Main", "OMS_Lokesh_Main.csproj", "{D2B1903F-8AC1-4F74-BCD3-55EEB5D69610}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileModel", "FileModel\FileModel.csproj", "{A7767146-90ED-4419-BC07-C09A8E9324D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_Lokesh_FileModel", "FileModel\OMS_Lokesh_FileModel.csproj", "{A7767146-90ED-4419-BC07-C09A8E9324D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileProcessesBAL", "FileProcesses\FileProcessesBAL.csproj", "{4FE7ABBE-8221-4100-AF0B-AEFE21916BA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_Lokesh_FileProcessesBAL", "FileProcesses\OMS_Lokesh_FileProcessesBAL.csproj", "{4FE7ABBE-8221-4100-AF0B-AEFE21916BA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{51BB42E8-5C12-4E62-8014-5AEA2D962022}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_Lokesh_Configuration", "Configuration\OMS_Lokesh_Configuration.csproj", "{51BB42E8-5C12-4E62-8014-5AEA2D962022}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectHelpers", "ProjectHelpers\ProjectHelpers.csproj", "{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_Lokesh_ProjectHelpers", "ProjectHelpers\OMS_Lokesh_ProjectHelpers.csproj", "{FC09A9D7-6067-416D-B66B-0B74A62BDCD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMSDAL", "DBDataAcesses\OMSDAL.csproj", "{526E9A9D-BF1C-4850-A56E-E4313175F4F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_Lokesh_OMSDAL", "DBDataAcesses\OMS_Lokesh_OMSDAL.csproj", "{526E9A9D-BF1C-4850-A56E-E4313175F4F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMSEntityDAL", "OMSEntityDAL\OMSEntityDAL.csproj", "{1D55F0BB-42C6-41C2-A74D-353A4EA0B7FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_Lokesh_OMSEntityDAL", "OMSEntityDAL\OMS_Lokesh_OMSEntityDAL.csproj", "{1D55F0BB-42C6-41C2-A74D-353A4EA0B7FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_IDAL", "OMS_IDAL\OMS_IDAL.csproj", "{37103F14-9116-4BD6-A995-DFE279F1008E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OMS_Lokesh_IDAL", "OMS_IDAL\OMS_Lokesh_IDAL.csproj", "{37103F14-9116-4BD6-A995-DFE279F1008E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -110,13 +110,13 @@
     <Compile Include="WareHouseEntityDAL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FileModel\FileModel.csproj">
+    <ProjectReference Include="..\FileModel\OMS_Lokesh_FileModel.csproj">
       <Project>{a7767146-90ed-4419-bc07-c09a8e9324d3}</Project>
-      <Name>FileModel</Name>
+      <Name>OMS_Lokesh_FileModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OMS_IDAL\OMS_IDAL.csproj">
+    <ProjectReference Include="..\OMS_IDAL\OMS_Lokesh_IDAL.csproj">
       <Project>{37103f14-9116-4bd6-a995-dfe279f1008e}</Project>
-      <Name>OMS_IDAL</Name>
+      <Name>OMS_Lokesh_IDAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
