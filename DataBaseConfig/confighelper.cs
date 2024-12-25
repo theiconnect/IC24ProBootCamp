@@ -11,7 +11,7 @@ namespace DataBaseConfig
     {
         public static string rootFolderPath { get; set; }
         public static string connectionString { get; set; }
-        static ConfigHelper()
+          static ConfigHelper()
         {
 
             rootFolderPath = ConfigurationManager.AppSettings["RootFolder"];

@@ -11,12 +11,11 @@ using System.Data;
 using System.Reflection;
 
 
-namespace DataAccess:confighelper
+namespace DataAccess
 {
-    public class storeprocessDA
+    public class storeprocessDA 
     {
         public  static List<storemodel> GetAllStoresFromDB()
-
         {
             var stores = new List<storemodel>();
             using (SqlConnection con = new SqlConnection(ConfigHelper.connectionString))
@@ -44,7 +43,7 @@ namespace DataAccess:confighelper
             }
             return stores;
         }
-        public static void syncstoreTabledata(storemodel modelObj)
+        public  void syncstoreTabledata(storemodel modelObj)
 
         {
           

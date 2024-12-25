@@ -9,11 +9,9 @@ using DataBaseConfig;
 using RSC_IDAL;
 using System.Data;
 using System.Runtime.Remoting.Messaging;
-namespace RSC_Entity
+namespace RSC_EntityDAL
+
 {
-
-
-
     public class EmployeeprocessorDA : IemployeeDA
     {
         public bool SyncEmployeeWithDB(List<EmployeeModel> empData, int Storeid)

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RSC_saikumar
 {
-    internal class EmployeProcesser:Appconnection
+    public  class EmployeProcesser
     {
         private string EmployeFilePath { get; set; }
         private int Storeid { get; set; }
@@ -95,7 +95,8 @@ namespace RSC_saikumar
 
             PrepareEmployeeData();
 
-            EmployeeprocessorDA.SyncEmployeeWithDB(EmpData);
+            EmployeeprocessorDA empda = new EmployeeprocessorDA();
+            empda.SyncEmployeeWithDB(EmpData);
         }
 
        

@@ -39,7 +39,7 @@ namespace Models
         public Decimal Salary { get; set; }
         public int Storeidfk { get; set; }
 
-
+        public List<EmployeeModel> Employees { get; set; }
 
     }
 }

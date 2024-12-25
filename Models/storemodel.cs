@@ -14,5 +14,8 @@ namespace Models
         public string Location { get; set; }
         public string ManagerName { get; set; }
         public string ContactNumber { get; set; }
+
+        public List<storemodel> storemodels { get; set; }
+
     }
 }

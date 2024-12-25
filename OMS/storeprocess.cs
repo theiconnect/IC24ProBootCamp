@@ -20,7 +20,7 @@ namespace RSC_saikumar
         private string storeFilePath { get; set; }
         private string DirName { get { return Path.GetFileName(Path.GetDirectoryName(storeFilePath)); } }
         private string[] FileContent { get; set; }
-        private storemodel modelObj { get; set; }
+        private List<storemodel> stores { get; set; }
         public StoreProcessor(string filePath)
         {
             storeFilePath = filePath;
@@ -83,19 +83,24 @@ namespace RSC_saikumar
                 return;
             }
             PrepareStoreObject();
-            storeprocessDA.syncstoreTabledata(modelObj);
-            
+            storeprocessDA.GetAllStoresFromDB();
+
+
         }
 
         public  void PrepareStoreObject()
         {
+            stores=new List<storemodel>();
             string[] data = FileContent[1].Split(',');
-            modelObj = new storemodel();
+            storemodel modelObj = new storemodel();
             modelObj.StoreCode = data[1];
             modelObj.StoreName = data[2];
             modelObj.Location = data[3];
             modelObj.ManagerName = data[4];
             modelObj.ContactNumber = data[5];
+            stores.Add(modelObj);
+          //  storeprocessDA spda=new storeprocessDA();
+           // spda.GetAllStoresFromDB();
         }
     }
 }

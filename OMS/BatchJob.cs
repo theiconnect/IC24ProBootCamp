@@ -8,16 +8,17 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Data.SqlClient;
 using System.Data;
-using Models;
+
 using System.Threading;
 using System.Data.OleDb;
 using DataBaseConfig;
 using DataAccess;
+using Models;
+
+
 namespace RSC_saikumar
-
-
 {
-    internal class BatchJob 
+    public class BatchJob 
     {
         static void Main(string[] args)
         {
@@ -75,10 +76,18 @@ namespace RSC_saikumar
                 ////////////////////
                 ///employee processer
                 ///////////////
+                ///
+                new StoreProcessor(storeFilePath).Process();
 
                 new EmployeProcesser(employeeFilePath, storeId, storeDirName).procesor();
 
 
+
+                ///////////////////////
+                ///store file processing
+                //////////////////////
+               
+                
 
             }
         }

@@ -62,6 +62,10 @@
       <Project>{6538cbbd-a9fd-48ee-a028-383c0093d90d}</Project>
       <Name>Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OMS\RSC_saikumar.csproj">
+      <Project>{d2b1903f-8ac1-4f74-bcd3-55eeb5d69610}</Project>
+      <Name>RSC_saikumar</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RSC_IDAL\RSC_IDAL.csproj">
       <Project>{9a682eca-56a2-4410-93a8-a8c9006183be}</Project>
       <Name>RSC_IDAL</Name>
