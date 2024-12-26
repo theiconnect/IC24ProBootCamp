@@ -9,9 +9,7 @@ namespace RSC_IDAL
 {
     public interface IstoreDA
     {
-        List<storemodel> GetAllStoresFromDB();
-
-        void syncstoreTabledata(storemodel modelObj);
+        void syncstoreTabledata(List<storemodel> store);
     }
    
 }

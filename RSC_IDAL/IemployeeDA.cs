@@ -11,6 +11,6 @@ namespace RSC_IDAL
 {
     public interface IemployeeDA
     {
-         bool SyncEmployeeWithDB(List<EmployeeModel> empData, int storeid);
+         void SyncEmployeeWithDB(List<EmployeeModel> empData, int storeid);
     }
 }

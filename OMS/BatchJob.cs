@@ -11,15 +11,34 @@ using System.Data;
 
 using System.Threading;
 using System.Data.OleDb;
-using DataBaseConfig;
 using DataAccess;
 using Models;
-
+using RSC_BusinessLayer;
+using RSC_IDAL;
+using DataBaseConfig;
+using RSC_EntityDAL;
 
 namespace RSC_saikumar
 {
-    public class BatchJob 
+    public class BatchJob :ConfigHelper
     {
+        public static IstoreDA StoreObj {  get; set; }
+        
+        public static IemployeeDA EmployeeObj { get; set; }
+
+        static BatchJob()
+        {
+            if (UseEF)
+            {
+                StoreObj = new StoreEntityDAL();
+                EmployeeObj = new EmployeeEntityDAL();
+            }
+            else
+            {
+                StoreObj = new storeprocessDA();
+                EmployeeObj = new EmployeeprocessorDA();
+            }
+        }
         static void Main(string[] args)
         {
 
@@ -77,18 +96,9 @@ namespace RSC_saikumar
                 ///employee processer
                 ///////////////
                 ///
-                new StoreProcessor(storeFilePath).Process();
+                new StoreProcesser(storeFilePath, StoreObj).Process();
 
-                new EmployeProcesser(employeeFilePath, storeId, storeDirName).procesor();
-
-
-
-                ///////////////////////
-                ///store file processing
-                //////////////////////
-               
-                
-
+                new EmployeeProcesser(employeeFilePath, storeId, storeDirName, EmployeeObj).procesor();
             }
         }
 

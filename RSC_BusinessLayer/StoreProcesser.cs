@@ -1,29 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Data;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
-using DataBaseConfig;
-using RSC_saikumar;
 using DataAccess;
-namespace RSC_saikumar
+using RSC_IDAL;
+
+namespace RSC_BusinessLayer
 {
-    public class StoreProcessor 
+    public class StoreProcesser
     {
         private bool isValidFile { get; set; }
         private string FailReason { get; set; }
         private string storeFilePath { get; set; }
         private string DirName { get { return Path.GetFileName(Path.GetDirectoryName(storeFilePath)); } }
         private string[] FileContent { get; set; }
-        private List<storemodel> stores { get; set; }
-        public StoreProcessor(string filePath)
+        private List<storemodel> store { get; set; }
+        public IstoreDA StoreDALObj { get; set; }
+        public static List<storemodel> stores
+        {
+            get
+            {
+                return storeprocessDA.GetAllStoresFromDB();
+            }
+        }
+        public StoreProcesser(string filePath, IstoreDA storeObj)
         {
             storeFilePath = filePath;
+            StoreDALObj = storeObj;
         }
 
         public void Process()
@@ -33,7 +39,7 @@ namespace RSC_saikumar
             PushStoreDataToDB();
         }
 
-        
+
 
         private void ReadFileData()
         {
@@ -83,14 +89,12 @@ namespace RSC_saikumar
                 return;
             }
             PrepareStoreObject();
-            storeprocessDA.GetAllStoresFromDB();
-
-
+            StoreDALObj.syncstoreTabledata(store);
         }
 
-        public  void PrepareStoreObject()
+        public void PrepareStoreObject()
         {
-            stores=new List<storemodel>();
+            store = new List<storemodel>();
             string[] data = FileContent[1].Split(',');
             storemodel modelObj = new storemodel();
             modelObj.StoreCode = data[1];
@@ -99,8 +103,8 @@ namespace RSC_saikumar
             modelObj.ManagerName = data[4];
             modelObj.ContactNumber = data[5];
             stores.Add(modelObj);
-          //  storeprocessDA spda=new storeprocessDA();
-           // spda.GetAllStoresFromDB();
+            //  storeprocessDA spda=new storeprocessDA();
+            // spda.GetAllStoresFromDB();
         }
     }
 }

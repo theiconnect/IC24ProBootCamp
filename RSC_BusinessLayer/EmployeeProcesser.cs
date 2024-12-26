@@ -1,18 +1,16 @@
-﻿using DataAccess;
-using Models;
-using RSC_saikumar;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess;
+using Models;
+using RSC_IDAL;
 
-
-namespace RSC_saikumar
+namespace RSC_BusinessLayer
 {
-    public  class EmployeProcesser
+    public class EmployeeProcesser
     {
         private string EmployeFilePath { get; set; }
         private int Storeid { get; set; }
@@ -22,16 +20,19 @@ namespace RSC_saikumar
         private bool isValidFile { get; set; }
         private List<EmployeeModel> EmpData { get; set; }
 
-        public EmployeProcesser(string employeefilepath, int storeid, string storecode)
+        public IemployeeDA  EmployeeObj { get; set; }
+        public EmployeeProcesser(string employeefilepath, int storeid, string storecode, IemployeeDA employeeObj)
         {
             EmployeFilePath = employeefilepath;
             Storeid = storeid;
             Storecode = storecode;
+            EmployeeObj = employeeObj;
         }
         public void procesor()
         {
             ReadEmployeeData();
             ValidateDate();
+            PrepareEmployeeData();
             PushEmployeeDataToDB();
         }
 
@@ -86,21 +87,6 @@ namespace RSC_saikumar
             }
             isValidFile = true;
         }
-        private void PushEmployeeDataToDB()
-        {
-            if (!isValidFile)
-            {
-                return;
-            }
-
-            PrepareEmployeeData();
-
-            EmployeeprocessorDA empda = new EmployeeprocessorDA();
-            empda.SyncEmployeeWithDB(EmpData);
-        }
-
-       
-        
         private void PrepareEmployeeData()
         {
             EmpData = new List<EmployeeModel>();
@@ -121,6 +107,14 @@ namespace RSC_saikumar
                     model.Salary = price;
                 EmpData.Add(model);
             }
+        }
+        private void PushEmployeeDataToDB()
+        {
+            if (!isValidFile)
+            {
+                return;
+            }
+            EmployeeObj.SyncEmployeeWithDB(EmpData, Storeid);
         }
     }
 }

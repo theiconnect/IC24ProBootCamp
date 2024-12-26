@@ -11,12 +11,12 @@ namespace DataBaseConfig
     {
         public static string rootFolderPath { get; set; }
         public static string connectionString { get; set; }
-          static ConfigHelper()
+        public static bool UseEF {  get; set; }
+        static ConfigHelper()
         {
-
             rootFolderPath = ConfigurationManager.AppSettings["RootFolder"];
-            connectionString = ConfigurationManager.ConnectionStrings
-                ["iconnectrscconnectionstring"].ToString();
+            connectionString = ConfigurationManager.ConnectionStrings["iconnectrscconnectionstring"].ToString();
+            UseEF = Convert.ToBoolean( ConfigurationManager.AppSettings["UseEF"]);
         }
     }
 

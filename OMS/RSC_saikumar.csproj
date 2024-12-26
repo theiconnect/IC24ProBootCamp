@@ -47,13 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Appconnection.cs" />
     <Compile Include="BatchJob.cs" />
-    <Compile Include="Employeeprocessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="storeprocess.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\RSC_EntityDAL.csproj">
+      <Project>{2610E37D-E713-40D9-B067-FB99167D669B}</Project>
+      <Name>RSC_EntityDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{070f68b7-27ee-44c7-a93c-1630b863739c}</Project>
       <Name>DataAccess</Name>
@@ -65,6 +66,14 @@
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{6538cbbd-a9fd-48ee-a028-383c0093d90d}</Project>
       <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_BusinessLayer\RSC_BusinessLayer.csproj">
+      <Project>{c236aa12-713d-4b44-b861-740b0a84d678}</Project>
+      <Name>RSC_BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RSC_IDAL\RSC_IDAL.csproj">
+      <Project>{9a682eca-56a2-4410-93a8-a8c9006183be}</Project>
+      <Name>RSC_IDAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -9,13 +9,15 @@ using DataBaseConfig;
 using System.Collections;
 using System.Data;
 using System.Reflection;
+using RSC_IDAL;
+
 
 namespace DataAccess
 {
-    public  class EmployeeprocessorDA
+    public  class EmployeeprocessorDA: IemployeeDA
     {
         public int StoreIdFk {  get; set; }
-        public   void SyncEmployeeWithDB(List<EmployeeModel> empData)
+       public void  SyncEmployeeWithDB(List<EmployeeModel> empData, int storeid)
         {
             foreach (var employeedata in empData)
             {

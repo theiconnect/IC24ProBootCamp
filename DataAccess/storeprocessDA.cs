@@ -9,13 +9,14 @@ using Models;
 using DataBaseConfig;
 using System.Data;
 using System.Reflection;
+using RSC_IDAL;
 
 
 namespace DataAccess
 {
-    public class storeprocessDA 
+    public class storeprocessDA : IstoreDA
     {
-        public  static List<storemodel> GetAllStoresFromDB()
+        public static List<storemodel> GetAllStoresFromDB()
         {
             var stores = new List<storemodel>();
             using (SqlConnection con = new SqlConnection(ConfigHelper.connectionString))

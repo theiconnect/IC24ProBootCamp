@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_IDAL", "..\RSC_IDAL\RSC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_EntityDAL", "..\ClassLibrary1\RSC_EntityDAL.csproj", "{2610E37D-E713-40D9-B067-FB99167D669B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSC_BusinessLayer", "..\RSC_BusinessLayer\RSC_BusinessLayer.csproj", "{C236AA12-713D-4B44-B861-740B0A84D678}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{2610E37D-E713-40D9-B067-FB99167D669B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2610E37D-E713-40D9-B067-FB99167D669B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2610E37D-E713-40D9-B067-FB99167D669B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C236AA12-713D-4B44-B861-740B0A84D678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C236AA12-713D-4B44-B861-740B0A84D678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C236AA12-713D-4B44-B861-740B0A84D678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C236AA12-713D-4B44-B861-740B0A84D678}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
