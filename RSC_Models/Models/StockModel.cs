@@ -13,13 +13,6 @@ namespace RSC_Models
         public int storeidfk { get; set; }
         public string stockname { get; set; }
         public DateTime date { get; set; }
-        //public DateTime DateOfJoining
-        //{
-        //    get
-        //    {
-        //        return (Convert.ToDateTime(date));
-        //    }
-        //}
         public decimal QuantityAvailable { get; set; }
         public List<Stockmodel> storemodels { get; set; }
         public decimal pricePerUint { get; set; }
