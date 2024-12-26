@@ -16,7 +16,9 @@ namespace RSC_EntityDAL
 {
     public class EmployeeEntityDAL:IEmployeeDAL
     {
-        private RSCEntities RSCDB {  get; set; }   
+        private RSCEntities RSCDB {  get; set; }
+
+
         
         public EmployeeEntityDAL()
         {
