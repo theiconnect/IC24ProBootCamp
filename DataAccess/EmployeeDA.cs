@@ -14,13 +14,8 @@ namespace DataAccess
     public class EmployeeDA:IEmployeeDA
     {
         public int storeIdFk { get; set; }
-
-
-
-
-        public void SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject)
+        public bool SyncEmployeeDataWithDB(List<EmployeeDTO> fileEmployeeDTOObject)
         {
-            
             using (SqlConnection con = new SqlConnection(BaseProcessor.rscConnectedString))
             {
 
@@ -45,11 +40,7 @@ namespace DataAccess
                             cmd.Parameters.Add("@Salary", DbType.Decimal).Value = employee.Salary;
                             cmd.Parameters.Add("@StoreCode", DbType.String).Value = employee.StoreCode;
                             cmd.ExecuteNonQuery();
-
-
                         }
-
-
                     }
 
                 }
@@ -68,6 +59,7 @@ namespace DataAccess
                 }
                 
             }
+            return true;
         }
     }
 }

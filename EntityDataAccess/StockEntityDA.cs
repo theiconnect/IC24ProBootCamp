@@ -16,70 +16,46 @@ namespace EntityDataAccess
         { 
             RSCDB = new RscEntities();
         }
-        public void GetrAllProductsFromDB(List<ProductMasterBO> products)
+        public void SyncStockData(List<ProductMasterBO> products, List<StockBO> stockFileInformation, List<ProductMasterBO> StockFileInformation)
         {
-              
-            var dbProducts=RSCDB.ProductMaster.ToList();
-            foreach (var product in dbProducts) 
+            foreach(var stockData in stockFileInformation)
             {
-                ProductMasterBO productMasterObj=new ProductMasterBO();
-                productMasterObj.ProductIdPk = product.ProductIdPk;
-                productMasterObj.ProductName = product.ProductName;
-                productMasterObj.ProductCode= product.ProductCode;
-                productMasterObj.PricePerUnit = product.PricePerUnit;
-                products.Add(productMasterObj);
-
+                var dbProduct = RSCDB.ProductMaster.FirstOrDefault(p => p.ProductCode == stockData.ProductCode);
+                
+                if (dbProduct == null)
+                {
+                    ProductMaster productMaster = new ProductMaster();
+                    productMaster.ProductIdPk = stockData.ProductIdPk;
+                    productMaster.ProductName = stockData.ProductName;
+                    productMaster.ProductCode = stockData.ProductCode;
+                    productMaster.PricePerUnit = stockData.PricePerUnit;
+                    RSCDB.ProductMaster.Add(productMaster);
+                    RSCDB.SaveChanges();   
+                }
             }
-
+            
         }
-        public void SyncStockTableData(List<StockBO> stockFileInformation)
+        
+        public  bool SyncStockTableData(List<StockBO> stockFileInformation)
         {
             foreach(var stock in stockFileInformation)
             {
-                Stock stockObj=new Stock();
-                stockObj.StockIdPk = stock.StockIdPk;
-                stockObj.StoreIdFk = stock.StoreIdFK;
-                stockObj.ProductIdFk = stock.ProductIdFk;
-                stockObj.QuantityAvailable=stock.QuantityAvailable;
-                stockObj.Date=stock.Date;
-                RSCDB.Stock.Add(stockObj);
-                RSCDB.SaveChanges();
+                var StoreIdFK = RSCDB.Stores.Where(s=>s.StoreCode==stock.StoreCode).Select(s=>s.StoreIdPk).FirstOrDefault();
+                var ProductIdFK=RSCDB.ProductMaster.Where(p=>p.ProductCode==stock.ProductCode).Select(s=>s.ProductIdPk).FirstOrDefault();
 
-
-
-            }
-
-
-
-        }
-        public void SyncProductMasterTableData(List<ProductMasterBO> stockFileInformation)
-        {
-            
-            foreach(var stockInformation in stockFileInformation)
-            {
-
-                var dbStock = RSCDB.ProductMaster.FirstOrDefault(p => p.ProductCode == stockInformation.ProductCode);
-                if(dbStock == null)
+                if (RSCDB.Stock.FirstOrDefault(s => s.Date == stock.Date && s.ProductIdFk == ProductIdFK) ==null)
                 {
-                    ProductMaster productMaster = new ProductMaster();
-                    productMaster.ProductIdPk = stockInformation.ProductIdPk;
-                    productMaster.ProductName= stockInformation.ProductName;
-                    productMaster.ProductCode= stockInformation.ProductCode;
-                    productMaster.PricePerUnit= stockInformation.PricePerUnit;
-                    RSCDB.ProductMaster.Add(productMaster);
-                    RSCDB.SaveChanges();
-
-
+                        Stock stockObj = new Stock();
+                        
+                        stockObj.StoreIdFk = StoreIdFK;
+                        stockObj.ProductIdFk = ProductIdFK;
+                        stockObj.QuantityAvailable = stock.QuantityAvailable;
+                        stockObj.Date = stock.Date;
+                        RSCDB.Stock.Add(stockObj);
+                        RSCDB.SaveChanges();
                 }
-
-
-
-
             }
-            
-
-
-
+            return true;
         }
     }
 }

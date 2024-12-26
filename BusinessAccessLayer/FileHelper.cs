@@ -28,6 +28,9 @@ namespace BusinessAccessLayer
 
                 case FileTypes.Customer:
                     startWithValue = "customer_"; break;
+                default:
+                    startWithValue=string.Empty; break;
+
 
 
             }
@@ -51,6 +54,10 @@ namespace BusinessAccessLayer
                     file = "Processed";break;
                 case FileStatus.Failure:
                     file = "Archieve";break;
+                default:
+                    file=string.Empty;
+                    break;
+
                   
 
             }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f8f3c358009c41d58e6544357dbaeac2" Name="Diagram1">
+      <Diagram DiagramId="705dc5b6e66b4c88b8bd297238558553" Name="Diagram1">
         <EntityTypeShape EntityType="RscModel.Billing" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RscModel.Customer" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="RscModel.Employee" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
@@ -21,7 +21,7 @@
         <AssociationConnector Association="RscModel.OrderId" ManuallyRouted="false" />
         <AssociationConnector Association="RscModel.ProductId" ManuallyRouted="false" />
         <AssociationConnector Association="RscModel.FK__Orders__StoreId__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="RscModel.FK__Stock__ProductId__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="RscModel.ProductIdFK" ManuallyRouted="false" />
         <AssociationConnector Association="RscModel.FK__Stock__StoreId__03F0984C" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

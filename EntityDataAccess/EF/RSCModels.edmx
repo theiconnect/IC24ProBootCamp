@@ -13,8 +13,8 @@
           <Property Name="BillingNumber" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="OrderIdFK" Type="int" />
           <Property Name="PaymentMode" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="BillingDate" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Amount" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="BillingDate" Type="datetime" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -62,14 +62,14 @@
           <Property Name="EmployeeIdFk" Type="int" />
           <Property Name="CustomerIdFk" Type="int" />
           <Property Name="OrderCode" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="NoOfItems" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="NoOfItems" Type="int" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductMaster">
           <Key>
             <PropertyRef Name="ProductIdPk" />
           </Key>
-          <Property Name="ProductIdPk" Type="int" Nullable="false" />
+          <Property Name="ProductIdPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductCode" Type="varchar" MaxLength="255" />
           <Property Name="ProductName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="PricePerUnit" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -153,18 +153,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stock__ProductId__02FC7413">
-          <End Role="ProductMaster" Type="Self.ProductMaster" Multiplicity="0..1" />
-          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductMaster">
-              <PropertyRef Name="ProductIdPk" />
-            </Principal>
-            <Dependent Role="Stock">
-              <PropertyRef Name="ProductIdFk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Stock__StoreId__03F0984C">
           <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
           <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
@@ -209,6 +197,18 @@
               <PropertyRef Name="ProductIdPk" />
             </Principal>
             <Dependent Role="OrderProduct">
+              <PropertyRef Name="ProductIdFk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductIdFK">
+          <End Role="ProductMaster" Type="Self.ProductMaster" Multiplicity="0..1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductMaster">
+              <PropertyRef Name="ProductIdPk" />
+            </Principal>
+            <Dependent Role="Stock">
               <PropertyRef Name="ProductIdFk" />
             </Dependent>
           </ReferentialConstraint>
@@ -325,10 +325,6 @@
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stock__ProductId__02FC7413" Association="Self.FK__Stock__ProductId__02FC7413">
-            <End Role="ProductMaster" EntitySet="ProductMaster" />
-            <End Role="Stock" EntitySet="Stock" />
-          </AssociationSet>
           <AssociationSet Name="FK__Stock__StoreId__03F0984C" Association="Self.FK__Stock__StoreId__03F0984C">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Stock" EntitySet="Stock" />
@@ -345,6 +341,10 @@
             <End Role="ProductMaster" EntitySet="ProductMaster" />
             <End Role="OrderProduct" EntitySet="OrderProduct" />
           </AssociationSet>
+          <AssociationSet Name="ProductIdFK" Association="Self.ProductIdFK">
+            <End Role="ProductMaster" EntitySet="ProductMaster" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -359,8 +359,8 @@
           <Property Name="BillingNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="OrderIdFK" Type="Int32" />
           <Property Name="PaymentMode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BillingDate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Amount" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BillingDate" Type="DateTime" Precision="3" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="Orders" Relationship="Self.ForeignKey_Name1" FromRole="Billing" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Customer">
@@ -414,7 +414,7 @@
           <Property Name="EmployeeIdFk" Type="Int32" />
           <Property Name="CustomerIdFk" Type="Int32" />
           <Property Name="OrderCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NoOfItems" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NoOfItems" Type="Int32" />
           <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <NavigationProperty Name="Billing" Relationship="Self.ForeignKey_Name1" FromRole="Orders" ToRole="Billing" />
           <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__Customer__49C3F6B7" FromRole="Orders" ToRole="Customer" />
@@ -426,12 +426,12 @@
           <Key>
             <PropertyRef Name="ProductIdPk" />
           </Key>
-          <Property Name="ProductIdPk" Type="Int32" Nullable="false" />
+          <Property Name="ProductIdPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PricePerUnit" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <NavigationProperty Name="OrderProduct" Relationship="Self.ProductId" FromRole="ProductMaster" ToRole="OrderProduct" />
-          <NavigationProperty Name="Stock" Relationship="Self.FK__Stock__ProductId__02FC7413" FromRole="ProductMaster" ToRole="Stock" />
+          <NavigationProperty Name="Stock" Relationship="Self.ProductIdFK" FromRole="ProductMaster" ToRole="Stock" />
         </EntityType>
         <EntityType Name="Stock">
           <Key>
@@ -442,7 +442,7 @@
           <Property Name="StoreIdFk" Type="Int32" />
           <Property Name="QuantityAvailable" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="ProductMaster" Relationship="Self.FK__Stock__ProductId__02FC7413" FromRole="Stock" ToRole="ProductMaster" />
+          <NavigationProperty Name="ProductMaster" Relationship="Self.ProductIdFK" FromRole="Stock" ToRole="ProductMaster" />
           <NavigationProperty Name="Stores" Relationship="Self.FK__Stock__StoreId__03F0984C" FromRole="Stock" ToRole="Stores" />
         </EntityType>
         <EntityType Name="Stores">
@@ -553,7 +553,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stock__ProductId__02FC7413">
+        <Association Name="ProductIdFK">
           <End Role="ProductMaster" Type="Self.ProductMaster" Multiplicity="0..1" />
           <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
           <ReferentialConstraint>
@@ -615,7 +615,7 @@
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stock__ProductId__02FC7413" Association="Self.FK__Stock__ProductId__02FC7413">
+          <AssociationSet Name="ProductIdFK" Association="Self.ProductIdFK">
             <End Role="ProductMaster" EntitySet="ProductMaster" />
             <End Role="Stock" EntitySet="Stock" />
           </AssociationSet>

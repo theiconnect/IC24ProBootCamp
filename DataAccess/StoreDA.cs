@@ -25,8 +25,6 @@ namespace DataAccess
                 //string query = "select StoreIdPk,storeCode,StoreName,Location,ManagerName,StoreContactNumber from stores";
                 using (SqlCommand command = new SqlCommand())
                 {
-
-
                     try
                     {
                         connetion.Open();
@@ -46,12 +44,8 @@ namespace DataAccess
                                 model.ContactNumber = Convert.ToString(reader["StoreContactNumber"]);
                                 stores.Add(model);
                             }
-
                         }
-
                     }
-
-
                     catch(Exception ex)
                     {
                         Console.WriteLine("Error:"+ex.Message);
@@ -72,7 +66,7 @@ namespace DataAccess
         }
 
 
-        public  void SyncStoreDataToDB(StoreModel storeModelObject)
+        public  bool SyncStoreDataToDB(StoreModel storeModelObject)
         {
             using (SqlConnection connetion = new SqlConnection(BaseProcessor.rscConnectedString))
             {
@@ -115,7 +109,7 @@ namespace DataAccess
                 }
 
             }
-
+            return true;
 
         }
 

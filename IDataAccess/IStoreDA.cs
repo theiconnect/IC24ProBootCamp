@@ -10,6 +10,6 @@ namespace IDataAccess
     public interface IStoreDA
     {
          List<StoreModel> GetAllStoresDataFromDB();
-         void SyncStoreDataToDB(StoreModel storeModelObject);
+         bool SyncStoreDataToDB(StoreModel storeModelObject);
     }
 }

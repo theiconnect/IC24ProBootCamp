@@ -22,10 +22,10 @@ namespace RSC
         private static IStoreDA objIStoreDA { get; set; }
         private static IEmployeeDA objIEmployeeDA { get; set; }
         private static IStockDA objIStockDA { get; set; }
+        private static ICustomerDA objICustomerDA {  get; set; }
         private static StoreProcessor objStoreBAL {  get; set; }
         public static EmployeeProcessor objEmployeeBAL { get; private set; }
         public static StockProcess objStockBAL { get; set; }
-
         static ProgramV2()
         {
             if (useEf)
@@ -33,6 +33,7 @@ namespace RSC
                 objIStoreDA = new StoreEntityDA();
                 objIEmployeeDA = new EmployeeEntityDA();
                 objIStockDA = new StockEntityDA();
+                objICustomerDA = new CustomerEntityDA();
 
             }
             else
@@ -40,6 +41,7 @@ namespace RSC
                 objIStoreDA = new StoreDA();
                 objIEmployeeDA = new EmployeeDA();
                 objIStockDA = new StockDA();
+                objICustomerDA = new CustomerDA();
 
 
             }
@@ -77,24 +79,24 @@ namespace RSC
                     continue;
                 }
                 //Get the storefile path from the directory
-                string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
-                // ////Initiate store file processing by using store processor
+                //string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
+                //// ////Initiate store file processing by using store processor
 
-                objStoreBAL = new StoreProcessor(storeFilePath,objIStoreDA);
-                objStoreBAL.Process();
+                //objStoreBAL = new StoreProcessor(storeFilePath,objIStoreDA);
+                //objStoreBAL.Process();
 
-                 string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
-                objStockBAL = new StockProcess(StockFilePath, storeIdPk,objIStockDA);
-                 objStockBAL.Process();
+                //string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
+                //objStockBAL = new StockProcess(StockFilePath, storeIdPk,objIStockDA);
+                //objStockBAL.Process();
 
 
-                string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
-                objEmployeeBAL = new EmployeeProcessor(EmployeeFilePath, objIEmployeeDA, storeIdPk);
-                objEmployeeBAL.Process();
+                //string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
+                //objEmployeeBAL = new EmployeeProcessor(EmployeeFilePath, objIEmployeeDA, storeIdPk);
+                //objEmployeeBAL.Process();
 
-                //string CustomerFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Customer);
-                //var customerProcessor = new CustomerProcess(CustomerFilePath, storeIdPk);
-                //customerProcessor.Process();
+                string CustomerFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Customer);
+                var CustomerProcess = new CustomerProcess(CustomerFilePath, storeIdPk,objICustomerDA);
+                CustomerProcess.Process();
 
 
             }

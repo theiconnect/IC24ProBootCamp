@@ -24,10 +24,12 @@ namespace BusinessAccessLayer
         private string[] stockFileData { get; set; }
         private string storeDirName { get { return Path.GetFileName(Path.GetDirectoryName(StockFilePath)); } }
         private List<StockBO> stockFileInformation { get; set; }
+        private List<ProductMasterBO> StockFileInformation { get; set; }
+
         private List<StockBO> stockDBData { get; set; }
         private List<ProductMasterBO> Products { get; set; }
         private IStockDA ObjIStockDA {  get; set; }
-        
+        public List<ProductMasterBO> products { get; private set; }
 
         public StockProcess(string stockFilePath, int storeIdFk, IStockDA objIStockDA)
         {
@@ -35,19 +37,13 @@ namespace BusinessAccessLayer
             StoreIdFk = storeIdFk;
             ObjIStockDA = objIStockDA;
         }
-
-
-
         public void Process()
         {
             ReadFileData();
             ValidateStockData();
+            prepareStockObject();
             PushStockDataToDB();
-            FileHelper.Move(StockFilePath, FileStatus.Sucess);
-
-
         }
-
         private void ReadFileData()
         {
             stockFileContent = File.ReadAllLines(StockFilePath);
@@ -71,10 +67,7 @@ namespace BusinessAccessLayer
                 for (int i = 1; i < stockFileContent.Length; i++)
                 {
                     stockFileData = stockFileContent[i].Split(';');
-
-
-
-                    if (stockFileContent.Length != 8)
+                    if (stockFileContent.Length != 9)
                     {
                         FailReason = "Log the error: Invalid data; Not matching with noOffieds expected i.e., 8.";
                         break;
@@ -95,12 +88,11 @@ namespace BusinessAccessLayer
 
                     }
                     if (!decimal.TryParse(stockFileData[5], out decimal price))
+                
                     {
                         FailReason += $"Error: invalid price; value:{stockFileData[5]};recordNumber:{i} ;";
 
                     }
-
-
                     if (!string.IsNullOrEmpty(FailReason))
                         break;
                 }
@@ -113,24 +105,8 @@ namespace BusinessAccessLayer
                 return;
             }
             isValidFile = true;
-
-
-
         }
-
-
-        private void PushStockDataToDB()
-        {
-            if (!isValidFile)
-            {
-                return;
-            }
-            prepareStockObject();
-            //StockDA stockObj = new StockDA();
-            ObjIStockDA.GetrAllProductsFromDB(Products);
-            ObjIStockDA.SyncStockTableData(stockFileInformation);
-            ObjIStockDA.SyncProductMasterTableData(stockFileInformation);
-        }
+        
         private void prepareStockObject()
         {
             stockFileInformation = new List<StockBO>();
@@ -152,6 +128,25 @@ namespace BusinessAccessLayer
 
                 stockFileInformation.Add(stockModelObject);
             }
+        }
+        private void PushStockDataToDB()
+        {
+            if (!isValidFile)
+            {
+                return;
+            }
+            ObjIStockDA.SyncStockData(products,stockFileInformation ,StockFileInformation);
+            bool IsSuccess = ObjIStockDA.SyncStockTableData(stockFileInformation);
+            if (IsSuccess)
+            {
+                FileHelper.Move(StockFilePath, FileStatus.Sucess);
+            }
+            else
+            {
+                FileHelper.Move(StockFilePath, FileStatus.Failure);
+
+            }
+
         }
     }
 }

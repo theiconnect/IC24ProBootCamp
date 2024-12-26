@@ -24,18 +24,17 @@ namespace BusinessAccessLayer
         private string storeDirName { get { return Path.GetFileName(Path.GetDirectoryName(storeFilePath)); } }
         private StoreModel storeModelObject { get; set; }
         private IStoreDA objectStoreDA { get; set; }
-        public StoreProcessor(string FilePath,IStoreDA objIStgoreDA)
+        public StoreProcessor(string FilePath, IStoreDA objIStgoreDA)
         {
             storeFilePath = FilePath;
-            objectStoreDA= objIStgoreDA;
+            objectStoreDA = objIStgoreDA;
         }
         public void Process()
         {
             ReadFileData();
             ValidateStoreData();
-
+            PrepareStoreObject();
             PushStoreDataToDB();
-            //FileHelper.Move(storeFilePath,FileStatus.Sucess);
         }
         private void ReadFileData()
         {
@@ -90,19 +89,6 @@ namespace BusinessAccessLayer
             }
             isValidFile = true;
         }
-
-        private void PushStoreDataToDB()
-        {
-            if (!isValidFile)
-            {
-                return;
-            }
-            PrepareStoreObject();
-            //StoreDA storeDAObj= new StoreDA();
-            objectStoreDA.SyncStoreDataToDB(storeModelObject);
-        }
-
-
         private void PrepareStoreObject()
         {
             fileData = fileContentLines[1].Split(',');
@@ -116,6 +102,23 @@ namespace BusinessAccessLayer
             storeModelObject.ContactNumber = fileData[5];
 
         }
-    }
+        private void PushStoreDataToDB()
+        {
+            if (!isValidFile)
+            {
+                return;
+            }
+            bool ISSuccess =  objectStoreDA.SyncStoreDataToDB(storeModelObject);
+            if (ISSuccess)
+            {
+                FileHelper.Move(storeFilePath, FileStatus.Sucess);
+            }
+            else
+            {
+                FileHelper.Move(storeFilePath, FileStatus.Failure);
+            }
 
+        }
+
+    }
 }

@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using DataAccess;
 using PathAndDataBaseConfig;
+using IDataAccess;
 
 
 
@@ -25,151 +26,51 @@ namespace BusinessAccessLayer
         private bool isValidFile { get; set; }
         private string FailReason { get; set; }
         private DataSet ds { get; set; }
+        private ICustomerDA objCustomerDA {  get; set; }
         
         
 
-        public CustomerProcess(string customerFilePath, int storeIdFk)
+        public CustomerProcess(string customerFilePath, int storeIdFk, ICustomerDA objICustomerDA)
         {
+            this.objCustomerDA = objICustomerDA;
             this.CustomerFilePath = customerFilePath;
             this.StoreIdFk = storeIdFk;
 
         }
-
-
-
         public void Process()
         {
             ReadCustomerData("Customer", "CustomerOrders", "CustomerBilling");
+            PrepareCustomerModel();
             ValidateCustomerData();
-            PushCustomerDataToDB();
-            FileHelper.Move(CustomerFilePath, FileStatus.Sucess);
-
-
+            PushCustomerDataToDB();   
         }
-
-        private void PushCustomerDataToDB()
-        {
-            CustomerDA customerObj = new CustomerDA();
-            customerObj.SyncCustomerData(customers);
-
-
-
-
-        }
-
-
-
         //IMEX=1 ensures that mixed data types (e.g., both numbers and text in the same column) are handled as text,
         //preventing errors and inconsistencies.
-
         public void ReadCustomerData(params string[] sheets)
         {
             ds = new DataSet();
             string conn = string.Format(BaseProcessor.excelConnectionString, CustomerFilePath);
             using (OleDbConnection con = new OleDbConnection(conn))
-
-
             {
                 con.Open();
-
-
                 foreach (var sheet in sheets)
                 {
                     // Create a new DataTable for each sheet
                     DataTable dt = new DataTable(sheet);
-
                     using (OleDbDataAdapter da = new OleDbDataAdapter($"select * from  [{sheet}$]", con))
                     {
                         da.Fill(dt);
                     }
                     // Add the filled DataTable to the DataSet
                     ds.Tables.Add(dt);
-
                 }
                 DataTable customerTable = ds.Tables["Customer"];
                 DataTable orderTable = ds.Tables["CustomerOrders"];
                 DataTable billingTable = ds.Tables["CustomerBilling"];
-
-
-
                 con.Close();
             }
-
-
-
-
-
-
-
-            PrepareCustomerModel();
+            
         }
-
-
-        private void ValidateCustomerData()
-        {
-
-            if (customers.Count == 0)
-            {
-                //No customer is their
-                FailReason = "Log the error: No customers found in the file.";
-                isValidFile = false;
-                return;
-            }
-            foreach (var customer in customers)
-            {
-                if (customer.ContactNumber == string.Empty || customer.ContactNumber.Length < 10)
-                {
-                    customer.IsValidCustomer = false;
-                    continue;
-                }
-                if (customer.Email != string.Empty)
-                {
-                    bool isEmail = Regex.IsMatch(customer.Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
-
-                    if (isEmail)
-                    {
-                        customer.IsValidCustomer = false;
-                        continue;
-                    }
-                }
-
-                foreach (var order in customer.CustomerOrders)
-                {
-                    if (order.IsValidOrder == false)
-                        continue;
-
-                    if (order.OrderCode == string.Empty)
-                    {
-                        order.IsValidOrder = false;
-                        continue;
-                    }
-
-                    foreach (var billing in order.OrderBilling)
-                    {
-                        if (billing.BillingNumber == string.Empty)
-                        {
-                            billing.IsValidBilling = false;
-                            order.IsValidOrder = false;
-                            break;
-                        }
-                    }
-                }
-
-
-
-            }
-
-            if (!string.IsNullOrEmpty(FailReason))
-            {
-                //I am cheking any FailReason is their or not and failreason is their means invalid file
-                isValidFile = false;
-                return;
-            }
-            isValidFile = true;
-
-        }
-
-
         private void PrepareCustomerModel()
         {
             DataTable customertable = ds.Tables[0];
@@ -247,19 +148,79 @@ namespace BusinessAccessLayer
                     }
                     customerModel.CustomerOrders.Add(orderModel);
                 }
-
-
             }
-
         }
+        private void ValidateCustomerData()
+        {
 
+            if (customers.Count == 0)
+            {
+                //No customer is their
+                FailReason = "Log the error: No customers found in the file.";
+                isValidFile = false;
+                return;
+            }
+            foreach (var customer in customers)
+            {
+                if (customer.ContactNumber == string.Empty || customer.ContactNumber.Length < 10)
+                {
+                    customer.IsValidCustomer = false;
+                    continue;
+                }
+                if (customer.Email != string.Empty)
+                {
+                    bool isEmail = Regex.IsMatch(customer.Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
 
+                    if (isEmail)
+                    {
+                        customer.IsValidCustomer = false;
+                        continue;
+                    }
+                }
 
+                foreach (var order in customer.CustomerOrders)
+                {
+                    if (order.IsValidOrder == false)
+                        continue;
 
+                    if (order.OrderCode == string.Empty)
+                    {
+                        order.IsValidOrder = false;
+                        continue;
+                    }
+
+                    foreach (var billing in order.OrderBilling)
+                    {
+                        if (billing.BillingNumber == string.Empty)
+                        {
+                            billing.IsValidBilling = false;
+                            order.IsValidOrder = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!string.IsNullOrEmpty(FailReason))
+            {
+                //I am cheking any FailReason is their or not and failreason is their means invalid file
+                isValidFile = false;
+                return;
+            }
+            isValidFile = true;
+        }
+        private void PushCustomerDataToDB()
+        {
+            bool IsSuccess = objCustomerDA.SyncCustomerOrderData(customers);
+            if (IsSuccess)
+            {
+                FileHelper.Move(CustomerFilePath, FileStatus.Sucess);
+            }
+            else
+            {
+                FileHelper.Move(CustomerFilePath, FileStatus.Failure);
+            }
+        }
     }
-
-
-
 }
 
 

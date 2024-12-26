@@ -38,15 +38,13 @@ namespace BusinessAccessLayer
         {
             ReadFileData();
             ValidateEmployeeData();
-            PushEmployeeDataToDB();
-            FileHelper.Move(EmployeeFilePath, FileStatus.Sucess);
+            PrepareEmployeeModelObject();
+            PushEmployeeDataToDB();            
         }
-
         private void ReadFileData()
         {
             employeeFileContent = File.ReadAllLines(EmployeeFilePath);
         }
-
         private void ValidateEmployeeData()
         {
             //validate if file has no content
@@ -106,24 +104,9 @@ namespace BusinessAccessLayer
             isValidFile = true;
 
         }
-
-        private void PushEmployeeDataToDB()
-        {
-            if (!isValidFile)
-            {
-                return;
-            }
-            PrepareEmployeeModelObject();
-            //EmployeeDA employeeObj = new EmployeeDA();
-            
-            objEmployeeDA.SyncEmployeeDataWithDB(fileEmployeeDTOObject);
-
-
-        }
         private void PrepareEmployeeModelObject()
         {
-            //check this code once
-            //it giving wrong way output
+            
             fileEmployeeDTOObject = new List<EmployeeDTO>();
             for (int i = 1; i < employeeFileContent.Length; i++)
             {
@@ -144,6 +127,22 @@ namespace BusinessAccessLayer
                 fileEmployeeDTOObject.Add(model);
             }
 
+        }
+        private void PushEmployeeDataToDB()
+        {
+            if (!isValidFile)
+            {
+                return;
+            }
+            bool IsSuccess = objEmployeeDA.SyncEmployeeDataWithDB(fileEmployeeDTOObject);
+            if (IsSuccess)
+            {
+                FileHelper.Move(EmployeeFilePath, FileStatus.Sucess);
+            }
+            else
+            {
+                FileHelper.Move(EmployeeFilePath, FileStatus.Failure);
+            }
         }
     }
 }

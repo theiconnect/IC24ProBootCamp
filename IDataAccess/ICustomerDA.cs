@@ -9,11 +9,10 @@ namespace IDataAccess
 {
     public interface ICustomerDA
     {
-       
-        void SyncCustomerDataWithDB(List<CustomerModel> customers);
-        void SyncOrderDataWithDB(List<CustomerModel> customers);
-        void SyncBillingDataWithDB(List<CustomerModel> customers);
+        bool SyncCustomerOrderData(List<CustomerModel> customers);
+        
 
+        
 
     }
 }

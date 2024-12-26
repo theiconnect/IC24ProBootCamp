@@ -13,7 +13,13 @@ namespace DataAccess
 {
     public class StockDA:IStockDA
     {
-        
+        public void SyncStockData(List<ProductMasterBO> products, List<StockBO> stockFileInformation,  List<ProductMasterBO> StockFileInformation)
+        {
+            GetrAllProductsFromDB(products);
+            
+            SyncProductMasterTableData(StockFileInformation);
+
+        }
         
         
         
@@ -68,7 +74,7 @@ namespace DataAccess
             }
         }
 
-        public void SyncStockTableData(List<StockBO> stockFileInformation)
+        public bool SyncStockTableData(List<StockBO> stockFileInformation)
         {
             using (SqlConnection connection = new SqlConnection(BaseProcessor.rscConnectedString))
             {
@@ -111,6 +117,7 @@ namespace DataAccess
                     }
                 }
             }
+            return true;
         }
         public void SyncProductMasterTableData(List<ProductMasterBO> stockFileInformation)
         {

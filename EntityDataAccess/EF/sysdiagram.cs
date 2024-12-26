@@ -12,15 +12,12 @@ namespace EntityDataAccess.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Billing
+    public partial class sysdiagram
     {
-        public int BillingIdPk { get; set; }
-        public string BillingNumber { get; set; }
-        public Nullable<int> OrderIdFK { get; set; }
-        public string PaymentMode { get; set; }
-        public Nullable<System.DateTime> BillingDate { get; set; }
-        public Nullable<decimal> Amount { get; set; }
-    
-        public virtual Orders Orders { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

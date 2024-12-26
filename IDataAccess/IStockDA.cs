@@ -9,8 +9,9 @@ namespace IDataAccess
 {
     public interface IStockDA
     {
-        void GetrAllProductsFromDB(List<ProductMasterBO> products);
-         void SyncStockTableData(List<StockBO> stockFileInformation);
-        void SyncProductMasterTableData(List<ProductMasterBO> stockFileInformation);
+        void SyncStockData(List<ProductMasterBO> products, List<StockBO> stockFileInformation, List<ProductMasterBO> StockFileInformation);
+        bool SyncStockTableData(List<StockBO> stockFileInformation);
+
+
     }
 }

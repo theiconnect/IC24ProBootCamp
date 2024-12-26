@@ -13,6 +13,8 @@ namespace Models
         public int StockIdPk { get; set; }
         public int ProductIdFk { get; set; }
         public string ProductCode { get; set; }
+        public int ProductIdPk { get; set; }
+
         public int StoreIdFK { get; set; }
         public string StoreCode { get; set; }
         public string ProductName { get; set; }

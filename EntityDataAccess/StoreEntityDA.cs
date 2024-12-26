@@ -33,14 +33,12 @@ namespace EntityDataAccess
             }
             return model;
         }
-        public void SyncStoreDataToDB(StoreModel storeModelObject)
+        public bool SyncStoreDataToDB(StoreModel storeModelObject)
         {
             var dbStore=RSCDB.Stores.FirstOrDefault(s=>s.StoreCode== storeModelObject.StoreCode);
             if(dbStore == null)
             {
                 Console.WriteLine($"file Store code:{storeModelObject.StoreCode} didn't match with the db records.");
-
-
             }
             else
             {
@@ -50,9 +48,7 @@ namespace EntityDataAccess
                 dbStore.Location= storeModelObject.Location;
                 RSCDB.SaveChanges();
             }
-
-
-
+            return true;
         }
     }
 }
