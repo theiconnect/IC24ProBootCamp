@@ -44,7 +44,7 @@ namespace DataAccess
             }
             return stores;
         }
-        public  void syncstoreTabledata(storemodel modelObj)
+        public  void syncstoreTabledata(List<storemodel> store)
 
         {
           
@@ -57,12 +57,15 @@ namespace DataAccess
                 {
                     cmd.CommandText = query;
                     cmd.Connection = con;
-                    cmd.Parameters.Add("@storename", DbType.String).Value = modelObj.StoreName;
-                    cmd.Parameters.Add("@Location", DbType.String).Value = modelObj.Location;
-                    cmd.Parameters.Add("@Manager", DbType.String).Value = modelObj.ManagerName;
-                    cmd.Parameters.Add("@ContactNumber", DbType.String).Value = modelObj.ContactNumber;
-                    cmd.Parameters.Add("@StoreCode", DbType.String).Value = modelObj.StoreCode;
-                    cmd.ExecuteNonQuery();
+                    foreach (var model in store)
+                    {
+                        cmd.Parameters.Add("@storename", DbType.String).Value = model.StoreName;
+                        cmd.Parameters.Add("@Location", DbType.String).Value = model.Location;
+                        cmd.Parameters.Add("@Manager", DbType.String).Value = model.ManagerName;
+                        cmd.Parameters.Add("@ContactNumber", DbType.String).Value = model.ContactNumber;
+                        cmd.Parameters.Add("@StoreCode", DbType.String).Value = model.StoreCode;
+                        cmd.ExecuteNonQuery();
+                    }
                     con.Close();
                 }
             }
