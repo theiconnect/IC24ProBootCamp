@@ -87,10 +87,9 @@ namespace RSC_FileProcessor
                 model1.storeidfk = storeid;
                 model1.stockname =Convert.ToString( stockdata[2]);
                 model1.QuantityAvailable = Convert.ToDecimal(stockdata[3]);
-                model1.date = Convert.ToDateTime(stockdata[4]);
+                model1.date =Convert.ToDateTime( stockdata[4]);
                 model1.pricePerUint = Convert.ToDecimal(stockdata[5]);
                 stocks.Add(model1);
-                
             }
             
         }
@@ -103,6 +102,7 @@ namespace RSC_FileProcessor
             }
             else
             {
+                StockObj.NewStockUpdateInProductMaster(stocks);
                 bool ISSuccess = StockObj.StockDBAcces(stocks, storeid);
                 if (ISSuccess)
                 {

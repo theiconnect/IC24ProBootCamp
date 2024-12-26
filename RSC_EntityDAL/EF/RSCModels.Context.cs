@@ -25,14 +25,14 @@ namespace RSC_EntityDAL.EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Billing> Billings { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<OrderProduct> OrderProducts { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<ProductsMaster> ProductsMasters { get; set; }
-        public virtual DbSet<Stock> Stocks { get; set; }
-        public virtual DbSet<Store> Stores { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Billing> Billing { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
+        public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<OrderProducts> OrderProducts { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<ProductsMaster> ProductsMaster { get; set; }
+        public virtual DbSet<Stock> Stock { get; set; }
+        public virtual DbSet<Stores> Stores { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using RSC_Configurations;
 using RSC_Models;
 using RSC_IDAL;
-
 namespace RSC_DataAccess
 {
     public class StoreDBAccess:IStoreDAL
@@ -36,7 +35,6 @@ namespace RSC_DataAccess
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {

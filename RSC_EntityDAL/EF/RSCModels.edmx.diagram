@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3fd1e7bc206647a6970472032353b733" Name="Diagram1" ZoomLevel="40">
+      <Diagram DiagramId="22218f17361c41219e7a1e48ace5b7c8" Name="Diagram1">
         <EntityTypeShape EntityType="RSCModel.Billing" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RSCModel.Customer" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="RSCModel.Employee" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RSCModel.OrderProduct" Width="1.5" PointX="10.5" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RSCModel.Order" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSCModel.Customers" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSCModel.Employees" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSCModel.OrderProducts" Width="1.5" PointX="10.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSCModel.Orders" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="RSCModel.ProductsMaster" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="RSCModel.Stock" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RSCModel.Store" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="RSCModel.sysdiagram" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSCModel.Stores" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSCModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="RSCModel.FK__Billing__OrderId__534D60F1" ManuallyRouted="false" />
         <AssociationConnector Association="RSCModel.FK__Orders__Customer__44FF419A" ManuallyRouted="false" />
         <AssociationConnector Association="RSCModel.FK__Employees__Store__3C69FB99" ManuallyRouted="false" />
@@ -21,8 +21,8 @@
         <AssociationConnector Association="RSCModel.FK__OrderProd__Order__4F7CD00D" ManuallyRouted="false" />
         <AssociationConnector Association="RSCModel.FK__OrderProd__Produ__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="RSCModel.FK__Orders__StoreIdF__440B1D61" ManuallyRouted="false" />
-        <AssociationConnector Association="RSCModel.FK__Stock__ProductId__5629CD9C" ManuallyRouted="false" />
-        <AssociationConnector Association="RSCModel.FK__Stock__StoreIdFk__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="RSCModel.FK__Stock__ProductId__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="RSCModel.FK__Stock__StoreIdFk__7C4F7684" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

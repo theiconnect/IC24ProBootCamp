@@ -21,6 +21,6 @@ namespace RSC_EntityDAL.EF
         public System.DateTime BillingDate { get; set; }
         public decimal Amount { get; set; }
     
-        public virtual Order Order { get; set; }
+        public virtual Orders Orders { get; set; }
     }
 }

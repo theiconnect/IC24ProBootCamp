@@ -52,46 +52,46 @@
   <ItemGroup>
     <Compile Include="CustomerEntityDAL.cs" />
     <Compile Include="EF\Billing.cs">
-      <DependentUpon>RSCModel.tt</DependentUpon>
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\Customer.cs">
-      <DependentUpon>RSCModel.tt</DependentUpon>
+    <Compile Include="EF\Customers.cs">
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\Employee.cs">
-      <DependentUpon>RSCModel.tt</DependentUpon>
+    <Compile Include="EF\Employees.cs">
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\Order.cs">
-      <DependentUpon>RSCModel.tt</DependentUpon>
+    <Compile Include="EF\OrderProducts.cs">
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\OrderProduct.cs">
-      <DependentUpon>RSCModel.tt</DependentUpon>
+    <Compile Include="EF\Orders.cs">
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\ProductsMaster.cs">
-      <DependentUpon>RSCModel.tt</DependentUpon>
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\RSCModel.Context.cs">
+    <Compile Include="EF\RSCModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RSCModel.Context.tt</DependentUpon>
+      <DependentUpon>RSCModels.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\RSCModel.cs">
+    <Compile Include="EF\RSCModels.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RSCModel.tt</DependentUpon>
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\RSCModel.Designer.cs">
+    <Compile Include="EF\RSCModels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RSCModel.edmx</DependentUpon>
+      <DependentUpon>RSCModels.edmx</DependentUpon>
     </Compile>
     <Compile Include="EF\Stock.cs">
-      <DependentUpon>RSCModel.tt</DependentUpon>
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\Store.cs">
-      <DependentUpon>RSCModel.tt</DependentUpon>
+    <Compile Include="EF\Stores.cs">
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\sysdiagram.cs">
-      <DependentUpon>RSCModel.tt</DependentUpon>
+    <Compile Include="EF\sysdiagrams.cs">
+      <DependentUpon>RSCModels.tt</DependentUpon>
     </Compile>
     <Compile Include="EmployeeEntityDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,12 +117,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="EF\RSCModel.edmx">
+    <EntityDeploy Include="EF\RSCModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RSCModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>RSCModels.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EF\RSCModel.edmx.diagram">
-      <DependentUpon>RSCModel.edmx</DependentUpon>
+    <None Include="EF\RSCModels.edmx.diagram">
+      <DependentUpon>RSCModels.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -130,15 +130,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EF\RSCModel.Context.tt">
+    <Content Include="EF\RSCModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RSCModel.edmx</DependentUpon>
-      <LastGenOutput>RSCModel.Context.cs</LastGenOutput>
+      <DependentUpon>RSCModels.edmx</DependentUpon>
+      <LastGenOutput>RSCModels.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EF\RSCModel.tt">
+    <Content Include="EF\RSCModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RSCModel.edmx</DependentUpon>
-      <LastGenOutput>RSCModel.cs</LastGenOutput>
+      <DependentUpon>RSCModels.edmx</DependentUpon>
+      <LastGenOutput>RSCModels.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

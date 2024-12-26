@@ -12,7 +12,7 @@ namespace RSC_EntityDAL.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderProduct
+    public partial class OrderProducts
     {
         public int OrderProductsId { get; set; }
         public Nullable<int> OrderIdFk { get; set; }
@@ -21,7 +21,7 @@ namespace RSC_EntityDAL.EF
         public decimal PricePerUnit { get; set; }
         public decimal Amount { get; set; }
     
-        public virtual Order Order { get; set; }
+        public virtual Orders Orders { get; set; }
         public virtual ProductsMaster ProductsMaster { get; set; }
     }
 }

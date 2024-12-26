@@ -25,7 +25,7 @@ namespace RSC_FileProcessor
         private IStoreDAL StoreObj { get; set; }        
         private List<StoreModel> StoreData { get; set; }
         public static List<StoreModel> DBStorecodes 
-        { 
+        {
             get 
             {
                 return GetStoreDataFromDB.GetStorecodesFromDB();
@@ -43,15 +43,7 @@ namespace RSC_FileProcessor
             ReadStoreData();
             ValidateStoreData();
             PrepareStoreObject();
-           bool ISSuccess =  StoreObj.StoreDBAcces(StoreData);
-            if (ISSuccess)
-            {
-                FileHelper.MoveFile(StoreFilePath, FileStatus.Success);
-            }
-            else
-            {
-                FileHelper.MoveFile(StoreFilePath, FileStatus.Failure);
-            }
+            PushStoreDataToDB();
         }
         private void ReadStoreData()
         {
@@ -107,6 +99,18 @@ namespace RSC_FileProcessor
             model.ManagerName = data[4];
             model.ContactNumber = data[5];
             StoreData.Add(model);
+        }
+        private void PushStoreDataToDB()
+        {
+            bool ISSuccess = StoreObj.StoreDBAcces(StoreData);
+            if (ISSuccess)
+            {
+                FileHelper.MoveFile(StoreFilePath, FileStatus.Success);
+            }
+            else
+            {
+                FileHelper.MoveFile(StoreFilePath, FileStatus.Failure);
+            }
         }
     }
 }

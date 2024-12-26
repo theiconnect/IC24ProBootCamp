@@ -13,6 +13,11 @@ namespace RSC_DataAccess
 {
     public class StockDBAccess:IStockDAL
     {
+        public void NewStockUpdateInProductMaster(List<Stockmodel> stocks)
+        {
+            throw new NotImplementedException();
+        }
+
         public  bool StockDBAcces(List<Stockmodel> stocks , int Storeid)
         {
             try

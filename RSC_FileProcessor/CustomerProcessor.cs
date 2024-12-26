@@ -35,14 +35,16 @@ namespace RSC_FileProcessor
         public void processor()
         {
             ReadCustumerData();
-            ValidateCustomerData();
             PrepareCustomerData();
+            ValidateCustomerData();
             PushCustomerDataToDB();   
         }
         private void ReadCustumerData()
         {
+            string connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={customerFilePath};Extended Properties='Excel 12.0 Xml;HDR=YES;'";
+
             dataSet = new DataSet();
-            using (OleDbConnection connection = new OleDbConnection(AppConfiguration.XlsxConnectionstring))
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 try
                 {
@@ -60,6 +62,52 @@ namespace RSC_FileProcessor
                     Console.WriteLine(ex.Message);
                 }
 
+
+            }
+        }
+
+        private void PrepareCustomerData()
+        {
+            DataTable dtCustomer = dataSet.Tables[0];
+            DataTable dtOrder = dataSet.Tables[1];
+            DataTable dtBilling = dataSet.Tables[2];
+            CustumerData = new List<CustumerModel>();
+            foreach (DataRow CustomerTable in dtCustomer.Rows)
+            {
+                CustumerModel Customermodel = new CustumerModel();
+                Customermodel.CustomerCode = CustomerTable[0].ToString();
+                Customermodel.CustomerName = CustomerTable[1].ToString();
+                Customermodel.CustomerEmail = CustomerTable[2].ToString();
+                Customermodel.ContactNumber = CustomerTable[3].ToString();
+                CustumerData.Add(Customermodel);
+                Customermodel.custumerOrders = new List<CustumerOrders>();
+                foreach (DataRow OrderTable in dtOrder.Rows)
+                {
+                    CustumerOrders CustomerOrder = new CustumerOrders();
+                    CustomerOrder.OrderCode = OrderTable[0].ToString();
+                    CustomerOrder.CustomerCode = OrderTable[1].ToString();
+                    CustomerOrder.StoreCode = OrderTable[2].ToString();
+                    CustomerOrder.EmployeeCode = OrderTable[3].ToString();
+                    CustomerOrder.ProductCode = OrderTable[4].ToString();
+                    CustomerOrder.OrderDatestr = Convert.ToDateTime(OrderTable[5]);
+                    CustomerOrder.NoFoIteams = Convert.ToInt32(OrderTable[6]);
+                    CustomerOrder.Amount = Convert.ToDecimal(OrderTable[7]);
+
+
+                    CustomerOrder.OrderBillings = new List<BillingModel>();
+
+                    foreach (DataRow billingtable in dtBilling.Rows)
+                    {
+                        BillingModel OrderBills = new BillingModel();
+                        OrderBills.BillingNumber = Convert.ToString(billingtable[0]);
+                        OrderBills.ModeOfPayment = Convert.ToString(billingtable[1]);
+                        OrderBills.Ordercode = Convert.ToString(billingtable[2]);
+                        OrderBills.BillingDate = Convert.ToDateTime(billingtable[3]);
+                        OrderBills.Amount = Convert.ToDecimal(billingtable[4]);
+                        CustomerOrder.OrderBillings.Add(OrderBills);
+                    }
+                    Customermodel.custumerOrders.Add(CustomerOrder);
+                }
             }
         }
         private void ValidateCustomerData()
@@ -120,50 +168,6 @@ namespace RSC_FileProcessor
                 return;
             }
             isValidFile = true;
-        }
-        private void PrepareCustomerData()
-        {
-            DataTable dtCustomer = dataSet.Tables[0];
-            DataTable dtOrder = dataSet.Tables[1];
-            DataTable dtBilling = dataSet.Tables[2];
-            CustumerData = new List<CustumerModel>();
-            foreach (DataRow CustomerTable in dtCustomer.Rows)
-            {
-                CustumerModel Customermodel = new CustumerModel();
-                Customermodel.CustomerCode = CustomerTable[0].ToString();
-                Customermodel.CustomerName = CustomerTable[1].ToString();
-                Customermodel.CustomerEmail = CustomerTable[2].ToString();
-                Customermodel.ContactNumber = CustomerTable[3].ToString();
-                CustumerData.Add(Customermodel);
-                Customermodel.custumerOrders = new List<CustumerOrders>();
-                foreach (DataRow OrderTable in dtOrder.Rows)
-                {
-                    CustumerOrders CustomerOrder = new CustumerOrders();
-                    CustomerOrder.OrderCode = OrderTable[0].ToString();
-                    CustomerOrder.CustomerCode = OrderTable[1].ToString();
-                    CustomerOrder.StoreCode = OrderTable[2].ToString();
-                    CustomerOrder.EmployeeCode = OrderTable[3].ToString();
-                    CustomerOrder.ProductCode = OrderTable[4].ToString();
-                    CustomerOrder.OrderDatestr = Convert.ToDateTime(OrderTable[5]);
-                    CustomerOrder.NoFoIteams = Convert.ToInt32(OrderTable[6]);
-                    CustomerOrder.Amount = Convert.ToDecimal(OrderTable[7]);
-
-
-                    CustomerOrder.OrderBillings = new List<BillingModel>();
-
-                    foreach (DataRow billingtable in dtBilling.Rows)
-                    {
-                        BillingModel OrderBills = new BillingModel();
-                        OrderBills.BillingNumber = Convert.ToString(billingtable[0]);
-                        OrderBills.ModeOfPayment = Convert.ToString(billingtable[1]);
-                        OrderBills.Ordercode = Convert.ToString(billingtable[2]);
-                        OrderBills.BillingDate = Convert.ToDateTime(billingtable[3]);
-                        OrderBills.Amount = Convert.ToDecimal(billingtable[4]);
-                        CustomerOrder.OrderBillings.Add(OrderBills);
-                    }
-                    Customermodel.custumerOrders.Add(CustomerOrder);
-                }
-            }
         }
         private void PushCustomerDataToDB()
         {

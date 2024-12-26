@@ -17,8 +17,8 @@ namespace RSC_EntityDAL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProductsMaster()
         {
-            this.OrderProducts = new HashSet<OrderProduct>();
-            this.Stocks = new HashSet<Stock>();
+            this.OrderProducts = new HashSet<OrderProducts>();
+            this.Stock = new HashSet<Stock>();
         }
     
         public int ProductIdPk { get; set; }
@@ -27,8 +27,8 @@ namespace RSC_EntityDAL.EF
         public decimal PricePerUnit { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        public virtual ICollection<OrderProducts> OrderProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<Stock> Stock { get; set; }
     }
 }

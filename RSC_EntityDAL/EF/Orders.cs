@@ -12,28 +12,30 @@ namespace RSC_EntityDAL.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Store
+    public partial class Orders
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Store()
+        public Orders()
         {
-            this.Employees = new HashSet<Employee>();
-            this.Orders = new HashSet<Order>();
-            this.Stocks = new HashSet<Stock>();
+            this.Billing = new HashSet<Billing>();
+            this.OrderProducts = new HashSet<OrderProducts>();
         }
     
-        public int StoreIdPk { get; set; }
-        public string StoreCode { get; set; }
-        public string StoreName { get; set; }
-        public string Location { get; set; }
-        public string ManagerName { get; set; }
-        public string ContactNumber { get; set; }
+        public int OrderIdPk { get; set; }
+        public Nullable<int> StoreIdFk { get; set; }
+        public Nullable<int> CustomerIdFk { get; set; }
+        public Nullable<int> EmployeeIdFk { get; set; }
+        public System.DateTime OrderDate { get; set; }
+        public int NoOfItems { get; set; }
+        public decimal Amount { get; set; }
+        public string OrderCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Billing> Billing { get; set; }
+        public virtual Customers Customers { get; set; }
+        public virtual Employees Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<OrderProducts> OrderProducts { get; set; }
+        public virtual Stores Stores { get; set; }
     }
 }

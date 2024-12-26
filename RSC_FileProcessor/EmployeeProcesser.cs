@@ -37,6 +37,7 @@ namespace RSC_FileProcessor
         {
             ReadEmployeeData();
             ValidateDate();
+            PrepareEmployeeObjects();
             PushEmployeeDataToDB();
         }
 
@@ -89,25 +90,7 @@ namespace RSC_FileProcessor
             }
             isValidFile = true;
         }
-        private void PushEmployeeDataToDB()
-        {
-            if (!isValidFile)
-            {
-                return;
-            }
-            else
-            {
-                bool ISSuccess = EmployeeObj.EmployeeDBAcces(EmpData, Storeid);
-                if (ISSuccess)
-                {
-                    FileHelper.MoveFile(EmployeFilePath, FileStatus.Success);
-                }
-                else
-                {
-                    FileHelper.MoveFile(EmployeFilePath, FileStatus.Failure);
-                }
-            }
-        }
+        
         private void PrepareEmployeeObjects()
         {
             EmpData = new List<EmployeeModel>();
@@ -127,6 +110,25 @@ namespace RSC_FileProcessor
                 if (decimal.TryParse(data[8], out decimal price))
                     model.Salary = price;
                 EmpData.Add(model);
+            }
+        }
+        private void PushEmployeeDataToDB()
+        {
+            if (!isValidFile)
+            {
+                return;
+            }
+            else
+            {
+                bool ISSuccess = EmployeeObj.EmployeeDBAcces(EmpData, Storeid);
+                if (ISSuccess)
+                {
+                    FileHelper.MoveFile(EmployeFilePath, FileStatus.Success);
+                }
+                else
+                {
+                    FileHelper.MoveFile(EmployeFilePath, FileStatus.Failure);
+                }
             }
         }
     }

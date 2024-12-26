@@ -22,6 +22,6 @@ namespace RSC_EntityDAL.EF
         public decimal PricePerUnit { get; set; }
     
         public virtual ProductsMaster ProductsMaster { get; set; }
-        public virtual Store Store { get; set; }
+        public virtual Stores Stores { get; set; }
     }
 }

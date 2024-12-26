@@ -10,6 +10,7 @@ using RSC_Models;
 using RSC_FileProcessor;
 using RSC_IDAL;
 using RSC_EntityDAL.EF;
+using RSC_Models;
 
 namespace RSC_EntityDAL
 {
@@ -22,9 +23,10 @@ namespace RSC_EntityDAL
             RSCDB = new RSCEntities();
         }
         private int Storeid { get; set; }
-        public bool EmployeeDBAcces(List<RSC_Models.EmployeeModel> empData, int storeid)
+        public bool EmployeeDBAcces(List<EmployeeModel> empData, int storeid)
         {
             Storeid = storeid;
+
            foreach (var emp in empData)
            {
                 var EmpData = RSCDB.Employees.FirstOrDefault(x=> x.EmpCode == emp.EmpCode);
@@ -42,7 +44,7 @@ namespace RSC_EntityDAL
                 }
                 else
                 {
-                    Employee EmpData1 = new Employee();
+                    Employees EmpData1 = new Employees();
                     EmpData1.EmpCode = emp.EmpCode;  
                     EmpData1.EmployeeName = emp.EmployeeName;
                     EmpData1.Role = emp.Role;

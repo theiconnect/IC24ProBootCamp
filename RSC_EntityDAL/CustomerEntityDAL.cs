@@ -38,7 +38,7 @@ namespace RSC_EntityDAL
                     }
                     else
                     {
-                        Customer CustomerData = new Customer();
+                        Customers CustomerData = new Customers();
                         CustomerData.ContactNumber = Customerdata.ContactNumber;
                         CustomerData.CustomerCode = Customerdata.CustomerCode;
                         CustomerData.Email = Customerdata.CustomerEmail;
@@ -76,7 +76,7 @@ namespace RSC_EntityDAL
                             }
                             else
                             {
-                                Order Orderdata = new Order();
+                                Orders Orderdata = new Orders();
                                 Orderdata.OrderCode = CustomerOrder.OrderCode;
                                 Orderdata.NoOfItems = CustomerOrder.NoFoIteams;
                                 Orderdata.StoreIdFk = this.Storeid;
@@ -99,17 +99,32 @@ namespace RSC_EntityDAL
             {
                 if (!customer.IsValidCustomer)
                 {
-                    foreach(var CustomerOrder in customer.custumerOrders)
+                    foreach (var CustomerOrder in customer.custumerOrders)
                     {
                         if (!CustomerOrder.IsValidOrder)
                         {
-                            foreach(var OrderBilling in CustomerOrder.OrderBillings)
+                            foreach (var OrderBilling in CustomerOrder.OrderBillings)
                             {
-                                var OrderID = RSCDB.Orders.Where(o=>o.OrderCode ==  OrderBilling.Ordercode).Select(o=> o.OrderIdPk).FirstOrDefault();
-                                var BillingData = RSCDB.Billings.FirstOrDefault(B=>B.OrderIdFk == OrderID);
+                                var OrderID = RSCDB.Orders.Where(o => o.OrderCode == OrderBilling.Ordercode).Select(o => o.OrderIdPk).FirstOrDefault();
+                                var BillingData = RSCDB.Billing.FirstOrDefault(B => B.OrderIdFk == OrderID);
                                 if (BillingData != null)
                                 {
-
+                                    BillingData.Amount = OrderBilling.Amount;
+                                    BillingData.BillNumber = OrderBilling.BillingNumber;
+                                    BillingData.BillingDate = OrderBilling.BillingDate; 
+                                    BillingData.PaymentMode = OrderBilling.ModeOfPayment;
+                                    RSCDB.SaveChanges();
+                                }
+                                else
+                                {
+                                    Billing Billing = new Billing();
+                                    Billing.BillingDate = OrderBilling.BillingDate;
+                                    Billing.BillNumber = OrderBilling.BillingNumber;
+                                    Billing.OrderIdFk = OrderID;    
+                                    Billing.Amount = OrderBilling.Amount;
+                                    Billing.PaymentMode = OrderBilling.ModeOfPayment;
+                                    RSCDB.Billing.Add(Billing);
+                                    RSCDB.SaveChanges();
                                 }
                             }
                         }

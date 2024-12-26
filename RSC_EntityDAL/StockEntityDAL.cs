@@ -22,21 +22,35 @@ namespace RSC_EntityDAL
         {
             RSCDB = new RSCEntities();
         }
-        public bool StockDBAcces(List<Stockmodel> stocks, int storeid)
+        public void NewStockUpdateInProductMaster(List<Stockmodel> stocks)
         {
-            this.Storeid = storeid; 
             foreach (var stock in stocks)
             {
-                var productID = RSCDB.ProductsMasters.Where(p => p.ProductCode == stock.productCode)
-                                                     .Select(p=>p.ProductIdPk).FirstOrDefault();
-                var stock1 = RSCDB.Stocks.FirstOrDefault(s=>s.ProductIdFk == productID);
-                if(stock1 != null)
+                var Products = RSCDB.ProductsMaster.FirstOrDefault(p => p.ProductCode == stock.productCode);
+                if (Products == null)
+                {
+                    ProductsMaster product = new ProductsMaster();
+                    product.ProductName = stock.stockname;
+                    product.ProductCode = stock.productCode;
+                    product.PricePerUnit = stock.pricePerUint;
+                }
+            }
+        }
+        public bool StockDBAcces(List<Stockmodel> stocks, int storeid)
+        {
+            this.Storeid = storeid;
+            foreach (var stock in stocks)
+            {
+                var productID = RSCDB.ProductsMaster.Where(p => p.ProductCode == stock.productCode)
+                                                     .Select(p => p.ProductIdPk).FirstOrDefault();
+                var stock1 = RSCDB.Stock.FirstOrDefault(s => s.ProductIdFk == productID);
+                if (stock1 != null)
                 {
                     stock1.PricePerUnit = stock.pricePerUint;
                     stock1.QuantityAvailable = stock.QuantityAvailable;
-                    stock1.Date = stock.date;
+                    stock1.Date =Convert.ToDateTime( stock.date);
                     stock1.StoreIdFk = this.Storeid;
-                    RSCDB.SaveChanges();    
+                    RSCDB.SaveChanges();
                 }
                 else
                 {
@@ -46,7 +60,7 @@ namespace RSC_EntityDAL
                     StockData.Date = stock.date;
                     StockData.PricePerUnit = stock.pricePerUint;
                     StockData.QuantityAvailable = stock.QuantityAvailable;
-                    RSCDB.Stocks.Add(StockData);
+                    RSCDB.Stock.Add(StockData);
                     RSCDB.SaveChanges();
                 }
             }

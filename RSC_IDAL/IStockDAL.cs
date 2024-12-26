@@ -9,6 +9,7 @@ namespace RSC_IDAL
 {
     public interface IStockDAL
     {
+        void NewStockUpdateInProductMaster(List<Stockmodel> stocks);
         bool StockDBAcces(List<Stockmodel> stocks, int storeid);
     }
 }

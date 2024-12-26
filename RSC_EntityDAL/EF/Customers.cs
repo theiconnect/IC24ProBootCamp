@@ -12,27 +12,21 @@ namespace RSC_EntityDAL.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class Customers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
+        public Customers()
         {
-            this.Orders = new HashSet<Order>();
+            this.Orders = new HashSet<Orders>();
         }
     
-        public int EmployeeIdPk { get; set; }
-        public string EmpCode { get; set; }
-        public string EmployeeName { get; set; }
-        public string Role { get; set; }
-        public Nullable<System.DateTime> DateOfJoining { get; set; }
-        public Nullable<System.DateTime> DateOfLeaving { get; set; }
+        public int CustomerIdPk { get; set; }
+        public string CustomerCode { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
         public string ContactNumber { get; set; }
-        public string Gender { get; set; }
-        public decimal Salary { get; set; }
-        public Nullable<int> StoreIdFk { get; set; }
     
-        public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }
