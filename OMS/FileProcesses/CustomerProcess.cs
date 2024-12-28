@@ -36,6 +36,7 @@ namespace FileProcesses
             if (string.IsNullOrEmpty(this.CustomerFilePath) && string.IsNullOrEmpty(this.OrdersFilePath) && string.IsNullOrEmpty(this.OrderItemFilePath))
             {
                 Console.WriteLine("Customer file missing.");
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Customer file which is  associated with the warehouse id {WareHouseId} is missing.Please check and update the file.\n");
                 return;
             }
 
@@ -124,6 +125,8 @@ namespace FileProcesses
                     else
                     {
                         ordersModel.IsValidOrder = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Order file which is  associated with the warehouse code:{orderRow["WareHouseCode"]} has Invalid date.InvoiceNo:{orderRow["InvoiceNo"]}; Please check and Update the file\n");
+
                         continue;
                     }
                     ordersModel.NoOfItems = Convert.ToInt32(orderRow["NoOfItems"]);
@@ -135,6 +138,7 @@ namespace FileProcesses
                     else
                     {
                         ordersModel.IsValidOrder = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Order file which is  associated with the warehouse code:{orderRow["WareHouseCode"]} has Invalid Price.InvoiceNo:{orderRow["InvoiceNo"]}; Please check and Update the file\n");
                         continue;
                     }
 
@@ -153,6 +157,7 @@ namespace FileProcesses
                     else
                     {
                         ordersModel.IsValidOrder = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Order file which is  associated with the warehouse code:{orderRow["WareHouseCode"]} has Invalid Recprd because it doesn't belongs to any customer.InvoiceNo:{orderRow["InvoiceNo"]}; Please check and Update the file\n");
                     }
 
                 }
@@ -183,6 +188,7 @@ namespace FileProcesses
                     else
                     {
                         itemsModel.IsValidItem = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The OrderItem file which is  associated with the warehouse code:{orderItemRow["WareHouseCode"]} has Invalid Quanity.InvoiceNo:{orderItemRow["InvoiceNo"]}; Please check and Update the file\n");
                     }
                     if (decimal.TryParse(Convert.ToString(orderItemRow["PricePerUnit"]), out decimal PricePerUnit))
                     {
@@ -191,6 +197,7 @@ namespace FileProcesses
                     else
                     {
                         itemsModel.IsValidItem = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Order file which is  associated with the warehouse code:{orderItemRow["WareHouseCode"]} has Invalid Price.InvoiceNo:{orderItemRow["InvoiceNo"]}; Please check and Update the file\n");
                     }
                     if (decimal.TryParse(Convert.ToString(orderItemRow["TotalAmount"]), out decimal TotalAmount))
                     {
@@ -198,7 +205,9 @@ namespace FileProcesses
                     }
                     else
                     {
+                     
                         itemsModel.IsValidItem = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Order file which is  associated with the warehouse code:{orderItemRow["WareHouseCode"]} has Invalid Price.InvoiceNo:{orderItemRow["InvoiceNo"]}; Please check and Update the file\n");
                     }
 
                     foreach (var customer in Customers)
@@ -224,6 +233,7 @@ namespace FileProcesses
                     if (!isAddedToCustomer)
                     {
                         //logger
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Order file which is  associated with the warehouse code:{orderItemRow["WareHouseCode"]} is not added to DB it has some invalid values.InvoiceNo:{orderItemRow["InvoiceNo"]}; Please check and Update the file\n");
                     }
                 }
 
@@ -249,14 +259,14 @@ namespace FileProcesses
         }
         private void ValidateOrdersAndOrderItemdataData()
         {
-            try
-            {
+           
                 foreach (var CustomerRecord in Customers)
                 {
 
                     if (CustomerRecord.ContactNumber.Length != 10)
                     {
                         CustomerRecord.IsValidCustomer = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Customer file which is  associated with the warehouse code:{CustomerRecord.Orders.Select(x=>x.WareHouseCode).FirstOrDefault()} has invalid customer contactNo and orders of this customer also not affected in DB.CustomerName:{CustomerRecord.CustomerName}; Please check and Update the file\n");
                         continue;
                     }
                     foreach (var OrderRecord in CustomerRecord.Orders)
@@ -266,6 +276,9 @@ namespace FileProcesses
                         if (OrderRecord.InvoiceNumber == string.Empty)
                         {
                             OrderRecord.IsValidOrder = false;
+
+                            FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Order file which is  associated with the warehouse code:{OrderRecord.WareHouseCode} has empty InvoiceNumber, InvoiceNumber is Mandatory.CustomerName:{CustomerRecord.CustomerName}; Please check and Update the file\n");
+
                             continue;
                         }
                         foreach (var ItemRecord in OrderRecord.Items)
@@ -275,6 +288,7 @@ namespace FileProcesses
                             if (ItemRecord.InvoiceNumber == string.Empty)
                             {
                                 ItemRecord.IsValidItem = false;
+                                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The OrderItem file which is  associated with the warehouse code:{OrderRecord.WareHouseCode} has empty InvoiceNumber, InvoiceNumber is Mandatory.CustomerName:{CustomerRecord.CustomerName}; Please check and Update the file\n");
                                 continue;
                             }
 
@@ -286,11 +300,8 @@ namespace FileProcesses
 
                 }
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            
+           
         }
         
 

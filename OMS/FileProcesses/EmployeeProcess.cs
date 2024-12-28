@@ -42,7 +42,9 @@ namespace FileProcesses
             ValidateStoreData();
             if (!isValidFile) 
             { 
-              FileHelper.MoiveFile(EmployeeFilePath,FileStatus.Failure); 
+              FileHelper.MoiveFile(EmployeeFilePath,FileStatus.Failure);
+
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: Invalid file and the file is moved to error folder\n");
                 return;
             }
 
@@ -56,7 +58,7 @@ namespace FileProcesses
             else
             {
                 FileHelper.MoiveFile(EmployeeFilePath, FileStatus.Failure);
-
+                
             }
 
         }
@@ -88,9 +90,9 @@ namespace FileProcesses
             }
             catch (Exception ex)
             {
-                FileHelper.MoiveFile(EmployeeFilePath, FileStatus.Failure);
 
                 Console.WriteLine(ex.Message);
+                isValidFile = false;
             }
 
         }
@@ -104,17 +106,23 @@ namespace FileProcesses
                     if (string.IsNullOrEmpty(employeeRecord.EmpCode))
                     {
                         employeeRecord.IsValidEmpolyee = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: Employee Code is mandatory and is missing in this file. This record is associated with Warehouse Code: {employeeRecord.EmpWareHouseCode}. Employee Name: {employeeRecord.EmpName}, Contact Number: {employeeRecord.EmpContactNumber}. Please check and update the file.\n");
+                        
                         continue;
                     }
                     if (string.IsNullOrEmpty(employeeRecord.EmpWareHouseCode))
                     {
                         employeeRecord.IsValidEmpolyee = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: Employee warehouse code is mandatory and is missing in this file. Employee Code: {employeeRecord.EmpCode}, Employee Name: {employeeRecord.EmpName}. Please check and update the file.\n");
+
                         continue;
                     }
 
                     if (employeeRecord.EmpWareHouseCode != dirName)
                     {
                         employeeRecord.IsValidEmpolyee = false;
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: Employee warehouse code does not match the current directory or the respective warehouse code. Employee Code: {employeeRecord.EmpCode}, Employee Name: {employeeRecord.EmpName}. Please check and update the file.\n");
+
                         continue;
                     }
 
@@ -122,7 +130,6 @@ namespace FileProcesses
             }
             catch (Exception ex)
             {
-                FileHelper.MoiveFile(EmployeeFilePath, FileStatus.Failure);
 
                 Console.WriteLine(ex.Message);
             }

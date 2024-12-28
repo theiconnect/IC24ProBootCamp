@@ -126,7 +126,7 @@ namespace ProjectHelpers
 
             }
             desinationPath=Path.Combine(Path.GetDirectoryName(FilePath),combinedName, GetFileNameByFilePath(FilePath));
-           // File.Move(FilePath, desinationPath); 
+            File.Move(FilePath, desinationPath); 
 
 
 
@@ -166,6 +166,14 @@ namespace ProjectHelpers
                 }
             }
             return null;
+        }
+
+
+        public static void LogEntries(string log)
+        {
+            string filepath = Path.Combine(RootFolderPath, "EcommerceDataLog.txt");
+            File.AppendAllText(filepath, log);
+            Console.WriteLine();
         }
     }
 }

@@ -40,6 +40,7 @@ namespace FileProcesses
             if (!isValidFile)
             {
                 FileHelper.MoiveFile(WareHouseFilePath, FileStatus.Failure);
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR:The Warehouse file which is  associated with the warehouse code {dirName} is not a valid file and the file is moved to error folder. Please check and update the file\n");
                 return;
             }
 
@@ -48,10 +49,12 @@ namespace FileProcesses
             if (isSuccess)
             {
                 FileHelper.MoiveFile(WareHouseFilePath, FileStatus.Success);
+                FileHelper.LogEntries($"[{DateTime.Now}] INFO:The Warehouse file which is  associated with the warehouse code {dirName} is successfully processed  and the file is moved to processed folder.1 record got affected\n");
             }
             else
             {
                 FileHelper.MoiveFile(WareHouseFilePath, FileStatus.Failure);
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR:The Warehouse file which is  associated with the warehouse code {dirName} is not a valid file and the file is moved to error folder. Please check and update the file\n");
             }
         }
 
@@ -68,12 +71,13 @@ namespace FileProcesses
             { 
             
                 FailedReason="Log: the file contain more than one store information";
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR:The warehouse file includes detailed information for multiple stores associated with the warehouse code {dirName}\n");
             }
 
            else if(WareHouseFileContent.Length <= 1)
             {
                 FailedReason = "Log: the file contain less than one store information";
-
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR:The warehouse file includes detailed information for less than one stores associated with the warehouse code {dirName}\n");
             }
 
             else
@@ -85,11 +89,14 @@ namespace FileProcesses
                 {
 
                     FailedReason = "file contain more than 6 columns";
+                    FileHelper.LogEntries($"[{DateTime.Now}] ERROR:The warehouse file contain more than 6 columns associated with the warehouse code {dirName} \n");
+
                 }
 
-               else if ( data[0].ToLower() != dirName.ToLower())
+                else if ( data[0].ToLower() != dirName.ToLower())
                 {
                     FailedReason = "warehosue code doesn't match";
+                    FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The warehouse file code does not match the warehouse code {dirName}\n");
                 }
 
             }

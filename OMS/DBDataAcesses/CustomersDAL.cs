@@ -17,6 +17,7 @@ namespace DBDataAcesses
             SqlConnection conn = null;
             try
             {
+                var count = 0;
                 using ( conn = new SqlConnection(DBHelper.oMSConnectionString))
                 {
                     using (SqlCommand command = new SqlCommand())
@@ -33,7 +34,7 @@ namespace DBDataAcesses
                             command.Parameters.Add("@CustomerName", DbType.String).Value = customerRecord.CustomerName;
                             command.Parameters.Add("@PhNo", DbType.String).Value = customerRecord.ContactNumber;
                             command.ExecuteNonQuery();
-
+                            count++;
                         }
 
                         if (conn.State == ConnectionState.Open)
@@ -45,7 +46,7 @@ namespace DBDataAcesses
 
                    
                 }
-
+                FileHelper.LogEntries($"[{DateTime.Now}] INFO: The Customer file which is  associated with the warehouse id {wareHouseId} is successfully processed  and the file is moved to processed folder. Record got affected:{count}\n");
                 return PushOrderDataToDB(Customers, wareHouseId);
             }
             catch (Exception ex)
@@ -55,6 +56,8 @@ namespace DBDataAcesses
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Customer file which is  associated with the warehouse id {wareHouseId} is Invalid file  and the file is moved to error folder.Please check and update the file.\n");
+
                 return false;
             }
 
@@ -76,6 +79,7 @@ namespace DBDataAcesses
             SqlConnection conn=null;
             try
             {
+                var count = 0;
                 using ( conn = new SqlConnection(DBHelper.oMSConnectionString))
                 {
                     using (SqlCommand command = new SqlCommand())
@@ -102,7 +106,7 @@ namespace DBDataAcesses
                                 command.Parameters.Add("@TotalAmount", DbType.Decimal).Value = OrderRecord.TotalAmount;
 
                                 command.ExecuteNonQuery();
-
+                                count++;
 
                             }
                         }
@@ -112,8 +116,8 @@ namespace DBDataAcesses
                         }
 
                     }
-
-                   return PushOrderItemDataToDB(Customers, wareHouseId);
+                    FileHelper.LogEntries($"[{DateTime.Now}] INFO: The Order file which is  associated with the warehouse id {wareHouseId} is successfully processed  and the file is moved to processed folder. Record got affected:{count}\n");
+                    return PushOrderItemDataToDB(Customers, wareHouseId);
                 }
             }
             catch (Exception ex)
@@ -123,6 +127,7 @@ namespace DBDataAcesses
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Order file which is  associated with the warehouse id {wareHouseId} is Invalid file  and the file is moved to error folder.Please check and update the file.\n");
                 return false;
             }
             finally
@@ -139,6 +144,7 @@ namespace DBDataAcesses
             SqlConnection conn=null;
             try
             {
+                var count=0;
                 using ( conn = new SqlConnection(DBHelper.oMSConnectionString))
                 {
                     using (SqlCommand command = new SqlCommand())
@@ -172,7 +178,7 @@ namespace DBDataAcesses
 
                             }
                         }
-
+                        FileHelper.LogEntries($"[{DateTime.Now}] INFO: The OrderItems file which is  associated with the warehouse id {wareHouseId} is successfully processed  and the file is moved to processed folder. Record got affected:{count}\n");
                         if (conn.State == ConnectionState.Open)
                         {
                             conn.Close();
@@ -190,6 +196,7 @@ namespace DBDataAcesses
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Order file which is  associated with the warehouse id {wareHouseId} is Invalid file  and the file is moved to error folder.Please check and update the file.\n");
                 return false;
             }
 

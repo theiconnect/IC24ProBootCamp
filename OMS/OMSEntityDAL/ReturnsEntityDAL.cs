@@ -1,6 +1,7 @@
 ﻿using FileModel;
 using OMS_IDAL;
 using OMSEntityDAL.EF;
+using ProjectHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace OMSEntityDAL
         {
             try
             {
+                var count = 0;
                 foreach (var returnRecord in returnsList)
                 {
                     Returns returns = new Returns();
@@ -36,12 +38,14 @@ namespace OMSEntityDAL
 
 
                 }
+                FileHelper.LogEntries($"[{DateTime.Now}] INFO: The Returns file is sucessfully processed and moved to Processed folder.Rows affected:{count}\n");
 
                 return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Returns file is Invalid File and moved to Error folder.\n");
 
                 return false;
             }

@@ -1,6 +1,7 @@
 ﻿using FileModel;
 using OMS_IDAL;
 using OMSEntityDAL.EF;
+using ProjectHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace OMSEntityDAL
 
             try
             {
+                var count = 0;
                 foreach (var EmployeeModel in EmployeesList)
                 {
                     var employee = OMSEntities.Employee.FirstOrDefault(x => x.EmpCode == EmployeeModel.EmpCode);
@@ -38,7 +40,7 @@ namespace OMSEntityDAL
                         emp.ContactNumber=EmployeeModel.EmpContactNumber;
                         OMSEntities.Employee.Add(emp);
                         OMSEntities.SaveChanges();
-
+                        count++;
                     }
                     else
                     {
@@ -51,15 +53,17 @@ namespace OMSEntityDAL
                         employee.Gender = EmployeeModel.Gender;
 
                         OMSEntities.SaveChanges();
-                        
+                        count++;
+
 
                     }
                 }
-
+                FileHelper.LogEntries($"[{DateTime.Now}] INFO: The Employee file which is  associated with the warehouse code {EmployeesList.Select(x => x.EmpWareHouseCode).FirstOrDefault()} is successfully processed  and the file is moved to processed folder. Record got affected:{count}\n");
                 return true;
             }
             catch (Exception ex)
             {
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Employee file which is  associated with the warehouse code {EmployeesList.Select(x => x.EmpWareHouseCode).FirstOrDefault()} is not a valid file.got an error '{ex.Message}' and  the file is moved to error folder. Please check and update the file \n");
                 return false;
 
             }

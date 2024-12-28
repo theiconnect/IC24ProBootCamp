@@ -54,6 +54,7 @@ namespace OMSDAL
                 {
                     conn.Close();
                 }
+                
 
             }
             finally
@@ -102,6 +103,7 @@ namespace OMSDAL
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR:The Warehouse file which is  associated with the warehouse code {wareHouseModel.WareHouseCode} is not a valid file.got '{ex.Message}' adn  the file is moved to error folder. Please check and update the file\n");
                 return false;
             }
             finally

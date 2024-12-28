@@ -104,11 +104,13 @@ namespace FileProcesses
             if (inventoryList.Count < 1)
             {
                 FailedReason = "Log the error: Invalid file";
+
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Inventory file which is  associated with the warehouse code {dirName} is not a valid file because it doesn't have any records in this file.please check and update the file.\n");
             }
-            //validate if file has only header row
             else if (inventoryList.Count == 1)
             {
                 FailedReason = "Log the warning: No data present in the file";
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Inventory file which is  associated with the warehouse code {dirName} is not a valid file because it doesn't have any records in this file.please check and update the file.\n");
             }
             else
             {
@@ -117,24 +119,28 @@ namespace FileProcesses
                     if (data.wareHouseCode != dirName)
                     {
                         FailedReason = "log the error : the record doesn't matches the current warehosue code";
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Inventory file which is  associated with the warehouse code {dirName} is not a valid file because the warehouse code in the file doesn't match respective directory/warehouse. productCode:{data.productCode} & Date:{data.date}.please check and update the file.\n");
 
                     }
                     if (!DateTime.TryParse(data.date.ToString(), out DateTime date))
                     {
                         FailedReason += "log the error : the record doesn't have valid date";
-
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Inventory file which is  associated with the warehouse code {dirName} is not a valid file because the date is not in correct format.productCode:{data.productCode}.please check and update the file.\n");
                     }
                     if (!decimal.TryParse(data.availableQuantity.ToString(), out decimal result))
                     {
                         FailedReason += $"Error: invalid quantity avaiable data; value:{data.availableQuantity};recordNumber:{data};";
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Inventory file which is  associated with the warehouse code {dirName} is not a valid file because invalid quantity avaiable data.productCode:{data.productCode};recordNumber:{data};.please check and update the file.\n");
                     }
                     if (!decimal.TryParse(data.pricePerUnit.ToString(), out decimal price))
                     {
-                        FailedReason += $"Error: invalid date; value:{data.pricePerUnit};recordNumber:{data};";
+                        FailedReason += $"Error: invalid price; value:{data.pricePerUnit};recordNumber:{data};";
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Inventory file which is  associated with the warehouse code {dirName} is not a valid file because invalid Price data. productCode:{data.productCode};recordNumber:{data};.please check and update the file.\n");
                     }
                     if (!decimal.TryParse(data.remainingQuantity.ToString(), out decimal rem))
                     {
-                        FailedReason += $"Error: invalid price; value:{data.remainingQuantity};recordNumber:{data} ;";
+                        FailedReason += $"Error: invalid data; value:{data.remainingQuantity};recordNumber:{data} ;";
+                        FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Inventory file which is  associated with the warehouse code {dirName} is not a valid file because invalid remaining Quantity avaiable data. productCode:{data.productCode};recordNumber:{data};.please check and update the file.");
                     }
 
                     if (!string.IsNullOrEmpty(FailedReason))

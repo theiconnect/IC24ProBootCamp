@@ -20,7 +20,7 @@ namespace DBDataAcesses
             SqlConnection conn=null;
             try
             {
-
+                var count = 0;
                 using ( conn = new SqlConnection(DBHelper.oMSConnectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand())
@@ -43,7 +43,7 @@ namespace DBDataAcesses
                             
                             // Execute the stored procedure
                             cmd.ExecuteNonQuery();
-
+                            count++;
                         }
                         if (conn.State == ConnectionState.Open)
                         {
@@ -52,7 +52,7 @@ namespace DBDataAcesses
                     }
                 }
 
-
+                FileHelper.LogEntries($"[{DateTime.Now}] INFO: The Returns file is sucessfully processed and moved to Processed folder.Rows affected:{count}\n");
                 return true;
             }
             catch (Exception ex)
@@ -63,6 +63,8 @@ namespace DBDataAcesses
                     conn.Close();
                 }
                 Console.WriteLine(ex.Message);
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Returns file is Invalid File and moved to Error folder.\n");
+
                 return false;
             }
 

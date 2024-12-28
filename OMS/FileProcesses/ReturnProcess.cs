@@ -10,6 +10,7 @@ using System.Globalization;
 using DBDataAcesses;
 using OMS_IDAL;
 using OMSEntityDAL;
+using OMSEntityDAL.EF;
 
 namespace FileProcesses
 {
@@ -32,6 +33,7 @@ namespace FileProcesses
 
             {
                 Console.WriteLine($"WareHouse Id :-{WareHouseId} Return file  is missing");
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Returnd file which is  associated with the warehouse id {WareHouseId} is missing.Please check and update the file.\n");
                 return;
             }
             ReadFileData();
@@ -73,6 +75,12 @@ namespace FileProcesses
                 if (DateTime.TryParse(Convert.ToString( row["ReturnDate"]),out DateTime result))
                 {
                     returnModel.Date = result.ToString("yyyy-MM-dd");
+                    
+                }
+                else
+                {
+                    returnModel.IsvalidReturn = false;
+                    FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Returns file which is  associated with the warehouse code:{row["WareHouseCode"]} has Invalid date.InvoiceNumber:{row["InvoiceNo"]}; Please check and Update the file\n");
                 }
                 if (decimal.TryParse(Convert.ToString(row["AmountRefund"]), out decimal TotalAmount))
                 {
@@ -81,6 +89,7 @@ namespace FileProcesses
                 else
                 {
                     returnModel.IsvalidReturn = false;
+                    FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Returns file which is  associated with the warehouse code:{row["WareHouseCode"]} has Invalid amount.InvoiceNumber:{row["InvoiceNo"]}; Please check and Update the file\n");
                 }
                 ReturnsList.Add(returnModel);
             }
@@ -92,9 +101,11 @@ namespace FileProcesses
             foreach (var returnRecord in ReturnsList)
             {
                 if (!returnRecord.IsvalidReturn) continue;
+            
                 if (returnRecord.InvoiceNumber == string.Empty)
                 {
                     returnRecord.IsvalidReturn = false;
+                    FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The Returns file which is  associated with the warehouse code:{returnRecord.WareHouseCode} has empty InvoiceNumber, InvoiceNumber is Mandatory.Record:{returnRecord}; Please check and Update the file\n");
                     continue;
                 }
             }

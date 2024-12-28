@@ -1,6 +1,7 @@
 ﻿using FileModel;
 using OMS_IDAL;
 using OMSEntityDAL.EF;
+using ProjectHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace OMSEntityDAL
                 var dbWh = OMSDB.WareHouse.FirstOrDefault(w => w.WareHouseCode == wareHouseModel.WareHouseCode);
                 if(dbWh == null)
                 {
-                    Console.Write($"file warehouse code:{wareHouseModel.WareHouseCode} didn't match with the db records.");
+                    FileHelper.LogEntries($"[{DateTime.Now}] ERROR: The warehouse file code does not match the warehouse code {wareHouseModel.WareHouseCode}\n");
                     return false;
                 }
 
@@ -68,7 +69,8 @@ namespace OMSEntityDAL
             }
             catch (Exception ex)
             {
-                    return false;
+                FileHelper.LogEntries($"[{DateTime.Now}] ERROR:The Warehouse file which is  associated with the warehouse code {wareHouseModel.WareHouseCode} is not a valid file.got {ex.Message} and  the file is moved to error folder. Please check and update the file\n");
+                return false;
             }
         }
     }

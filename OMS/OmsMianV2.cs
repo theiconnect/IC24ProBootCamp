@@ -42,7 +42,7 @@ namespace OMS
             {
                 objWhDal = new WarehouseDAL();
                 objEmpDal = new EmployeeDAL();
-                //objInventoryDal = new InventoryDAL();
+                objInventoryDal = new InventoryDAL();
                 objCustomerDal=new CustomersDAL();
                 objReturnsDal= new ReturnsDAL();
                 
@@ -67,6 +67,7 @@ namespace OMS
                 if (warehouse == null)
                 {
                     Console.WriteLine("Invalid Warehouse Code");
+                    FileHelper.LogEntries($"[{ DateTime.Now}] ERROR:Invalid Warehouse Code:{wareHouseFolderName} \n");
                     continue;
                 }
 
