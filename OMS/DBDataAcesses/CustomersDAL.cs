@@ -12,6 +12,7 @@ namespace DBDataAcesses
 {
     public class CustomersDAL:BaseProcessor,ICustomerDAL
     {
+
         public  bool PushCustomerDataToDB(List<CustomerModel> Customers, int wareHouseId)
         {
             SqlConnection conn = null;
