@@ -12,27 +12,21 @@ namespace EntityDataAccess.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Orders
+    public partial class Customers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Orders()
+        public Customers()
         {
-            this.OrderProduct = new HashSet<OrderProduct>();
+            this.Orders = new HashSet<Orders>();
         }
     
-        public int OrderIdPk { get; set; }
-        public System.DateTime OrderDate { get; set; }
-        public int StoreIdFk { get; set; }
-        public int EmployeeIdFk { get; set; }
-        public int CustomerIdFk { get; set; }
-        public string OrderCode { get; set; }
-        public Nullable<int> NoOfItems { get; set; }
-        public decimal TotalAmount { get; set; }
+        public int CustomerIdPk { get; set; }
+        public string CustomerCode { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string ContactNumber { get; set; }
     
-        public virtual Customers Customers { get; set; }
-        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderProduct> OrderProduct { get; set; }
-        public virtual Stores Stores { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

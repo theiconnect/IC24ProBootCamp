@@ -96,13 +96,16 @@ namespace BusinessAccessLayer
 
                     CustomerOrderModel orderModel = new CustomerOrderModel();
                     orderModel.IsValidOrder = true;
-
-                    orderModel.CustomerCode = Convert.ToString(orders["CustomerCode"]);
-
+                    if (orders["CustomerCode"] != DBNull.Value)
+                        orderModel.CustomerCode = Convert.ToString(orders["CustomerCode"]);
+                   
                     orderModel.OrderCode = Convert.ToString(orders["OrderCode"]);
-                    orderModel.StoreCode = Convert.ToString(orders["StoreCode"]);
-                    orderModel.EmployeeCode = Convert.ToString(orders["EmployeeCode"]);
-                    orderModel.ProductCode = Convert.ToString(orders["ProductCode"]);
+                    if (orders["StoreCode"] != DBNull.Value)
+                        orderModel.StoreCode = Convert.ToString(orders["StoreCode"]);
+                    if (orders["EmployeeCode"] != DBNull.Value)
+                        orderModel.EmployeeCode = Convert.ToString(orders["EmployeeCode"]);
+                    
+                        orderModel.ProductCode = Convert.ToString(orders["ProductCode"]);
                     if (DateTime.TryParse(Convert.ToString(orders["OrderDate"]), out DateTime orderDate))
                         orderModel.OrderDate = orderDate;
                     else
@@ -124,26 +127,31 @@ namespace BusinessAccessLayer
                         billingModel.IsValidBilling = true;
 
                         billingModel.BillingNumber = Convert.ToString(billing["BillingNumber"]);
-                        billingModel.OrderCode = Convert.ToString(billing["OrderCode"]);
-                        try
-                        {
-                            billingModel.ModeOfPayment = Convert.ToString(billing["ModeOfPayment"]);
+                        billingModel.ModeOfPayment = Convert.ToString(billing[1]);
+                        billingModel.OrderCode = Convert.ToString(billing[2]);
+                        if (billing["BillingDate"] != DBNull.Value)
+                            billingModel.BillingDate = Convert.ToDateTime(billing["BillingDate"]);
 
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex);
-                        }
+                        //billingModel.BillingDate=Convert.ToDateTime(billing[3]);
+                        //billingModel.Amount=Convert.ToDecimal(billing[4]);
+                        if (billing["Amount "] != DBNull.Value)
+                            billingModel.Amount = Convert.ToDecimal(billing[4]);
+
+
+
+
 
                         //here i am using converting type for datetime and decimal for string means tryparse taking string for input
-                        if (DateTime.TryParse(Convert.ToString(billing["BillingDate"]), out DateTime billingDate))
-                            billingModel.BillingDate = billingDate;
-                        else
-                            billingModel.IsValidBilling = false;
-                        if (decimal.TryParse(Convert.ToString(billing["Amount"]), out decimal billingAmount))
-                            billingModel.Amount = billingAmount;
-                        else
-                            billingModel.IsValidBilling = false;
+                        //if (DateTime.TryParse(Convert.ToString(billing[3]), out DateTime billingDate))
+                        //    billingModel.BillingDate = billingDate;
+                        //else
+                        //    billingModel.IsValidBilling = false;
+
+                        //if (decimal.TryParse(Convert.ToString(billing[4]), out decimal billingAmount))
+                        //    billingModel.Amount = billingAmount;
+                        //else
+                        //    billingModel.IsValidBilling = false;
+
                         orderModel.OrderBilling.Add(billingModel);
                     }
                     customerModel.CustomerOrders.Add(orderModel);

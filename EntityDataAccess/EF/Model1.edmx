@@ -7,14 +7,14 @@
       <Schema Namespace="RscModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Billing">
           <Key>
-            <PropertyRef Name="BillingIdPk" />
+            <PropertyRef Name="BillIdPk" />
           </Key>
-          <Property Name="BillingIdPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BillingNumber" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="OrderIdFK" Type="int" />
-          <Property Name="PaymentMode" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="BillingDate" Type="datetime" />
-          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="BillIdPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillNumber" Type="varchar" MaxLength="512" Nullable="false" />
+          <Property Name="OrderIdFk" Type="int" Nullable="false" />
+          <Property Name="PaymentMode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BillingDate" Type="date" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -25,6 +25,16 @@
           <Property Name="Email" Type="varchar" MaxLength="255" />
           <Property Name="ContactNumber" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="CustomerCode" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerIdPk" />
+          </Key>
+          <Property Name="CustomerIdPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerCode" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ContactNumber" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -58,9 +68,9 @@
           </Key>
           <Property Name="OrderIdPk" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderDate" Type="date" Nullable="false" />
-          <Property Name="StoreIdFk" Type="int" />
-          <Property Name="EmployeeIdFk" Type="int" />
-          <Property Name="CustomerIdFk" Type="int" />
+          <Property Name="StoreIdFk" Type="int" Nullable="false" />
+          <Property Name="EmployeeIdFk" Type="int" Nullable="false" />
+          <Property Name="CustomerIdFk" Type="int" Nullable="false" />
           <Property Name="OrderCode" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="NoOfItems" Type="int" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -117,11 +127,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__Customer__49C3F6B7">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+        <Association Name="FK__Orders__Customer__4F47C5E3">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Customers">
               <PropertyRef Name="CustomerIdPk" />
             </Principal>
             <Dependent Role="Orders">
@@ -129,8 +139,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__Employee__48CFD27E">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+        <Association Name="FK__Orders__Employee__503BEA1C">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
@@ -141,8 +151,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__StoreId__47DBAE45">
-          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+        <Association Name="FK__Orders__StoreIdF__51300E55">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stores">
@@ -162,18 +172,6 @@
             </Principal>
             <Dependent Role="Stock">
               <PropertyRef Name="StoreIdFk" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ForeignKey_Name1">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
-          <End Role="Billing" Type="Self.Billing" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="OrderIdPk" />
-            </Principal>
-            <Dependent Role="Billing">
-              <PropertyRef Name="OrderIdFK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -302,6 +300,7 @@
         <EntityContainer Name="RscModelStoreContainer">
           <EntitySet Name="Billing" EntityType="Self.Billing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderProduct" EntityType="Self.OrderProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
@@ -313,25 +312,21 @@
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__Customer__49C3F6B7" Association="Self.FK__Orders__Customer__49C3F6B7">
-            <End Role="Customer" EntitySet="Customer" />
+          <AssociationSet Name="FK__Orders__Customer__4F47C5E3" Association="Self.FK__Orders__Customer__4F47C5E3">
+            <End Role="Customers" EntitySet="Customers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__Employee__48CFD27E" Association="Self.FK__Orders__Employee__48CFD27E">
+          <AssociationSet Name="FK__Orders__Employee__503BEA1C" Association="Self.FK__Orders__Employee__503BEA1C">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__StoreId__47DBAE45" Association="Self.FK__Orders__StoreId__47DBAE45">
+          <AssociationSet Name="FK__Orders__StoreIdF__51300E55" Association="Self.FK__Orders__StoreIdF__51300E55">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK__Stock__StoreId__03F0984C" Association="Self.FK__Stock__StoreId__03F0984C">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Stock" EntitySet="Stock" />
-          </AssociationSet>
-          <AssociationSet Name="ForeignKey_Name1" Association="Self.ForeignKey_Name1">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Billing" EntitySet="Billing" />
           </AssociationSet>
           <AssociationSet Name="OrderId" Association="Self.OrderId">
             <End Role="Orders" EntitySet="Orders" />
@@ -353,15 +348,14 @@
       <Schema Namespace="RscModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Billing">
           <Key>
-            <PropertyRef Name="BillingIdPk" />
+            <PropertyRef Name="BillIdPk" />
           </Key>
-          <Property Name="BillingIdPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BillingNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="OrderIdFK" Type="Int32" />
-          <Property Name="PaymentMode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BillingDate" Type="DateTime" Precision="3" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="Orders" Relationship="Self.ForeignKey_Name1" FromRole="Billing" ToRole="Orders" />
+          <Property Name="BillIdPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillNumber" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrderIdFk" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BillingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -372,7 +366,17 @@
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ContactNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CustomerCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Customer__49C3F6B7" FromRole="Customer" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerIdPk" />
+          </Key>
+          <Property Name="CustomerIdPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerCode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Customer__4F47C5E3" FromRole="Customers" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -389,7 +393,7 @@
           <Property Name="salary" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DateOfLeaving" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Stores" Relationship="Self.FK__Employee__StoreI__4222D4EF" FromRole="Employee" ToRole="Stores" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Employee__48CFD27E" FromRole="Employee" ToRole="Orders" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Employee__503BEA1C" FromRole="Employee" ToRole="Orders" />
         </EntityType>
         <EntityType Name="OrderProduct">
           <Key>
@@ -410,17 +414,16 @@
           </Key>
           <Property Name="OrderIdPk" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="StoreIdFk" Type="Int32" />
-          <Property Name="EmployeeIdFk" Type="Int32" />
-          <Property Name="CustomerIdFk" Type="Int32" />
+          <Property Name="StoreIdFk" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeIdFk" Type="Int32" Nullable="false" />
+          <Property Name="CustomerIdFk" Type="Int32" Nullable="false" />
           <Property Name="OrderCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NoOfItems" Type="Int32" />
           <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <NavigationProperty Name="Billing" Relationship="Self.ForeignKey_Name1" FromRole="Orders" ToRole="Billing" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__Customer__49C3F6B7" FromRole="Orders" ToRole="Customer" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__Orders__Employee__48CFD27E" FromRole="Orders" ToRole="Employee" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Orders__Customer__4F47C5E3" FromRole="Orders" ToRole="Customers" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Orders__Employee__503BEA1C" FromRole="Orders" ToRole="Employee" />
           <NavigationProperty Name="OrderProduct" Relationship="Self.OrderId" FromRole="Orders" ToRole="OrderProduct" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK__Orders__StoreId__47DBAE45" FromRole="Orders" ToRole="Stores" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Orders__StoreIdF__51300E55" FromRole="Orders" ToRole="Stores" />
         </EntityType>
         <EntityType Name="ProductMaster">
           <Key>
@@ -456,7 +459,7 @@
           <Property Name="ManagerName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="StoreContactNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK__Employee__StoreI__4222D4EF" FromRole="Stores" ToRole="Employee" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__StoreId__47DBAE45" FromRole="Stores" ToRole="Orders" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__StoreIdF__51300E55" FromRole="Stores" ToRole="Orders" />
           <NavigationProperty Name="Stock" Relationship="Self.FK__Stock__StoreId__03F0984C" FromRole="Stores" ToRole="Stock" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -469,23 +472,11 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="ForeignKey_Name1">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
-          <End Role="Billing" Type="Self.Billing" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="OrderIdPk" />
-            </Principal>
-            <Dependent Role="Billing">
-              <PropertyRef Name="OrderIdFK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__Customer__49C3F6B7">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+        <Association Name="FK__Orders__Customer__4F47C5E3">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Customers">
               <PropertyRef Name="CustomerIdPk" />
             </Principal>
             <Dependent Role="Orders">
@@ -505,8 +496,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__Employee__48CFD27E">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+        <Association Name="FK__Orders__Employee__503BEA1C">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
@@ -541,8 +532,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__StoreId__47DBAE45">
-          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+        <Association Name="FK__Orders__StoreIdF__51300E55">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stores">
@@ -580,6 +571,7 @@
         <EntityContainer Name="RscEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Billing" EntityType="Self.Billing" />
           <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" />
           <EntitySet Name="Employee" EntityType="Self.Employee" />
           <EntitySet Name="OrderProduct" EntityType="Self.OrderProduct" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
@@ -587,19 +579,15 @@
           <EntitySet Name="Stock" EntityType="Self.Stock" />
           <EntitySet Name="Stores" EntityType="Self.Stores" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="ForeignKey_Name1" Association="Self.ForeignKey_Name1">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Billing" EntitySet="Billing" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__Customer__49C3F6B7" Association="Self.FK__Orders__Customer__49C3F6B7">
-            <End Role="Customer" EntitySet="Customer" />
+          <AssociationSet Name="FK__Orders__Customer__4F47C5E3" Association="Self.FK__Orders__Customer__4F47C5E3">
+            <End Role="Customers" EntitySet="Customers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK__Employee__StoreI__4222D4EF" Association="Self.FK__Employee__StoreI__4222D4EF">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__Employee__48CFD27E" Association="Self.FK__Orders__Employee__48CFD27E">
+          <AssociationSet Name="FK__Orders__Employee__503BEA1C" Association="Self.FK__Orders__Employee__503BEA1C">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
@@ -611,7 +599,7 @@
             <End Role="ProductMaster" EntitySet="ProductMaster" />
             <End Role="OrderProduct" EntitySet="OrderProduct" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__StoreId__47DBAE45" Association="Self.FK__Orders__StoreId__47DBAE45">
+          <AssociationSet Name="FK__Orders__StoreIdF__51300E55" Association="Self.FK__Orders__StoreIdF__51300E55">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
@@ -754,9 +742,9 @@
           <EntitySetMapping Name="Billing">
             <EntityTypeMapping TypeName="RscModel.Billing">
               <MappingFragment StoreEntitySet="Billing">
-                <ScalarProperty Name="BillingIdPk" ColumnName="BillingIdPk" />
-                <ScalarProperty Name="BillingNumber" ColumnName="BillingNumber" />
-                <ScalarProperty Name="OrderIdFK" ColumnName="OrderIdFK" />
+                <ScalarProperty Name="BillIdPk" ColumnName="BillIdPk" />
+                <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+                <ScalarProperty Name="OrderIdFk" ColumnName="OrderIdFk" />
                 <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
                 <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
@@ -771,6 +759,17 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
                 <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="RscModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CustomerIdPk" ColumnName="CustomerIdPk" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

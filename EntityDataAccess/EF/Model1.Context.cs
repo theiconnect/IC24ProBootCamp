@@ -29,6 +29,7 @@ namespace EntityDataAccess.EF
     
         public virtual DbSet<Billing> Billing { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<OrderProduct> OrderProduct { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }

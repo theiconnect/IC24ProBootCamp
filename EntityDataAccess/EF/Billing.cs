@@ -14,13 +14,11 @@ namespace EntityDataAccess.EF
     
     public partial class Billing
     {
-        public int BillingIdPk { get; set; }
-        public string BillingNumber { get; set; }
-        public Nullable<int> OrderIdFK { get; set; }
+        public int BillIdPk { get; set; }
+        public string BillNumber { get; set; }
+        public int OrderIdFk { get; set; }
         public string PaymentMode { get; set; }
-        public Nullable<System.DateTime> BillingDate { get; set; }
-        public Nullable<decimal> Amount { get; set; }
-    
-        public virtual Orders Orders { get; set; }
+        public System.DateTime BillingDate { get; set; }
+        public decimal Amount { get; set; }
     }
 }
