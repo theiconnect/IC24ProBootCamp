@@ -23,6 +23,8 @@ namespace BusinessAccessLayer
         private string CustomerFilePath { get; set; }
         private int StoreIdFk { get; set; }
         private List<CustomerModel> customers { get; set; }
+        private CustomerOrderModel orderModel { get; set; }
+        private OrderBillingModel billingModel { get; set; }
         private bool isValidFile { get; set; }
         private string FailReason { get; set; }
         private DataSet ds { get; set; }
@@ -61,6 +63,8 @@ namespace BusinessAccessLayer
                     {
                         da.Fill(dt);
                     }
+                    RemoveEmptyRows(dt);
+
                     // Add the filled DataTable to the DataSet
                     ds.Tables.Add(dt);
                 }
@@ -70,6 +74,30 @@ namespace BusinessAccessLayer
                 con.Close();
             }
             
+        }
+        private void RemoveEmptyRows(DataTable dt)
+        {
+            // We iterate backwards to avoid issues while removing rows
+            for (int i = dt.Rows.Count - 1; i >= 0; i--)
+            {
+                bool isEmptyRow = true;
+
+                // Check if all columns in this row are DBNull or null
+                foreach (DataColumn column in dt.Columns)  // Explicitly type the column as DataColumn
+                {
+                    if (dt.Rows[i][column] != DBNull.Value && dt.Rows[i][column] != null)
+                    {
+                        isEmptyRow = false;
+                        break;
+                    }
+                }
+
+                // If this row is empty, remove it from the DataTable
+                if (isEmptyRow)
+                {
+                    dt.Rows.RemoveAt(i);
+                }
+            }
         }
         private void PrepareCustomerModel()
         {
@@ -81,82 +109,99 @@ namespace BusinessAccessLayer
             {
                 CustomerModel customerModel = new CustomerModel();
                 customerModel.IsValidCustomer = true;
-
                 customerModel.CustomerCode = Convert.ToString(customer["CustomerCode"]);
                 customerModel.Name = Convert.ToString(customer["Name"]);
-
                 customerModel.Email = Convert.ToString(customer["Email"]);
                 customerModel.ContactNumber = Convert.ToString(customer["ContactNumber"]);
                 this.customers.Add(customerModel);
-
-
-                customerModel.CustomerOrders = new List<CustomerOrderModel>();
-                foreach (DataRow orders in ordertable.Rows)
-                {
-
-                    CustomerOrderModel orderModel = new CustomerOrderModel();
-                    orderModel.IsValidOrder = true;
-                    if (orders["CustomerCode"] != DBNull.Value)
-                        orderModel.CustomerCode = Convert.ToString(orders["CustomerCode"]);
-                   
-                    orderModel.OrderCode = Convert.ToString(orders["OrderCode"]);
-                    if (orders["StoreCode"] != DBNull.Value)
-                        orderModel.StoreCode = Convert.ToString(orders["StoreCode"]);
-                    if (orders["EmployeeCode"] != DBNull.Value)
-                        orderModel.EmployeeCode = Convert.ToString(orders["EmployeeCode"]);
-                    
-                        orderModel.ProductCode = Convert.ToString(orders["ProductCode"]);
-                    if (DateTime.TryParse(Convert.ToString(orders["OrderDate"]), out DateTime orderDate))
-                        orderModel.OrderDate = orderDate;
-                    else
-                    {
-                        orderModel.IsValidOrder = false;
-                    }
-                    // orderModel.NoOfItems = Convert.ToInt32(orders["NoOfItems"]);
-                    if (decimal.TryParse(Convert.ToString(orders["Amount"]), out decimal amount))
-                        orderModel.Amount = amount;
-                    else
-                        orderModel.IsValidOrder = false;
-
-
-
-                    orderModel.OrderBilling = new List<OrderBillingModel>();
-                    foreach (DataRow billing in billingtable.Rows)
-                    {
-                        OrderBillingModel billingModel = new OrderBillingModel();
-                        billingModel.IsValidBilling = true;
-
-                        billingModel.BillingNumber = Convert.ToString(billing["BillingNumber"]);
-                        billingModel.ModeOfPayment = Convert.ToString(billing[1]);
-                        billingModel.OrderCode = Convert.ToString(billing[2]);
-                        if (billing["BillingDate"] != DBNull.Value)
-                            billingModel.BillingDate = Convert.ToDateTime(billing["BillingDate"]);
-
-                        //billingModel.BillingDate=Convert.ToDateTime(billing[3]);
-                        //billingModel.Amount=Convert.ToDecimal(billing[4]);
-                        if (billing["Amount "] != DBNull.Value)
-                            billingModel.Amount = Convert.ToDecimal(billing[4]);
-
-
-
-
-
-                        //here i am using converting type for datetime and decimal for string means tryparse taking string for input
-                        //if (DateTime.TryParse(Convert.ToString(billing[3]), out DateTime billingDate))
-                        //    billingModel.BillingDate = billingDate;
-                        //else
-                        //    billingModel.IsValidBilling = false;
-
-                        //if (decimal.TryParse(Convert.ToString(billing[4]), out decimal billingAmount))
-                        //    billingModel.Amount = billingAmount;
-                        //else
-                        //    billingModel.IsValidBilling = false;
-
-                        orderModel.OrderBilling.Add(billingModel);
-                    }
-                    customerModel.CustomerOrders.Add(orderModel);
-                }
             }
+            
+            foreach (DataRow orders in ordertable.Rows)
+            {
+                orderModel = new CustomerOrderModel();
+                orderModel.IsValidOrder = true;
+                if (orders["CustomerCode"] != DBNull.Value)
+                    orderModel.CustomerCode = Convert.ToString(orders["CustomerCode"]);
+
+                orderModel.OrderCode = Convert.ToString(orders["OrderCode"]);
+                if (orders["StoreCode"] != DBNull.Value)
+                    orderModel.StoreCode = Convert.ToString(orders["StoreCode"]);
+                if (orders["EmployeeCode"] != DBNull.Value)
+                    orderModel.EmployeeCode = Convert.ToString(orders["EmployeeCode"]);
+
+                orderModel.ProductCode = Convert.ToString(orders["ProductCode"]);
+                if (DateTime.TryParse(Convert.ToString(orders["OrderDate"]), out DateTime orderDate))
+                    orderModel.OrderDate = orderDate;
+                else
+                {
+                    orderModel.IsValidOrder = false;
+                }
+                if (orders["NoOfItems"] != DBNull.Value)
+                    orderModel.NoOfItems = Convert.ToInt32(orders["NoOfItems"]);
+                if (decimal.TryParse(Convert.ToString(orders["Amount"]), out decimal amount))
+                    orderModel.Amount = amount;
+                else
+                    orderModel.IsValidOrder = false;
+
+                var customer= customers.FirstOrDefault(x=>x.CustomerCode==orderModel.CustomerCode);
+                if(customer!= null)
+                {
+                    if (customer.CustomerOrders == null)
+                    {
+                        customer.CustomerOrders = new List<CustomerOrderModel>();
+                    }
+                    customer.CustomerOrders.Add(orderModel);
+                }
+                else
+                {
+                    orderModel.IsValidOrder = false;
+                }
+
+            }
+
+            foreach (DataRow billing in billingtable.Rows)
+            {
+                billingModel = new OrderBillingModel();
+                billingModel.IsValidBilling = true;
+
+                billingModel.BillingNumber = Convert.ToString(billing[0]);
+                billingModel.ModeOfPayment = Convert.ToString(billing[1]);
+                billingModel.OrderCode = Convert.ToString(billing[2]);
+                if (billing["BillingDate"] != DBNull.Value)
+                    billingModel.BillingDate = Convert.ToDateTime(billing[3]);
+
+
+                if (billing["Amount "] != DBNull.Value)
+                    billingModel.Amount = Convert.ToDecimal(billing[4]);
+
+                foreach (var cust in customers) 
+                {
+                    var order = cust.CustomerOrders.FirstOrDefault(x => x.OrderCode == billingModel.OrderCode);
+                    if (order != null)
+                    {
+                        if (order.OrderBilling == null)
+                        {
+                            order.OrderBilling = new List<OrderBillingModel>();
+                        }
+                        order.OrderBilling.Add(billingModel);
+                        break;
+                    }
+                    else
+                    {
+                        billingModel.IsValidBilling = false;
+
+                    }
+                    
+                  
+
+                }
+
+            }
+
+
+
+
+
         }
         private void ValidateCustomerData()
         {

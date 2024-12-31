@@ -119,7 +119,7 @@ namespace DataAccess
             }
             return true;
         }
-        public void SyncProductMasterTableData(List<ProductMasterBO> stockFileInformation)
+        public void SyncProductMasterTableData(List<ProductMasterBO> StockFileInformation)
         {
 
 
@@ -136,7 +136,7 @@ namespace DataAccess
                         command.Connection = connection;
                         command.CommandType = CommandType.StoredProcedure;
                         connection.Open();
-                        foreach (var stock in stockFileInformation)
+                        foreach (var stock in StockFileInformation)
                         {
                             command.Parameters.Clear();
                             command.Parameters.Add("@productCode", DbType.String).Value = stock.ProductCode;

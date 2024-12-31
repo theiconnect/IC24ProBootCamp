@@ -42,6 +42,7 @@ namespace BusinessAccessLayer
             ReadFileData();
             ValidateStockData();
             prepareStockObject();
+            prepareProductObject();
             PushStockDataToDB();
         }
         private void ReadFileData()
@@ -129,6 +130,27 @@ namespace BusinessAccessLayer
                 stockFileInformation.Add(stockModelObject);
             }
         }
+        private void prepareProductObject()
+        {
+            StockFileInformation = new List<ProductMasterBO>();
+            for (int i = 1; i < stockFileContent.Length; i++)
+            {
+
+                stockFileData = stockFileContent[i].Split(';');
+                ProductMasterBO productModelObject = new ProductMasterBO();
+
+                productModelObject.ProductCode = stockFileData[0];
+
+                productModelObject.ProductName = stockFileData[2];
+              
+               
+                if (decimal.TryParse(stockFileData[5], out decimal price))
+                    productModelObject.PricePerUnit = price;
+
+                StockFileInformation.Add(productModelObject);
+            }
+        }
+
         private void PushStockDataToDB()
         {
             if (!isValidFile)

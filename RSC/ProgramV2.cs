@@ -79,20 +79,20 @@ namespace RSC
                     continue;
                 }
                 //Get the storefile path from the directory
-                //string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
-                //// ////Initiate store file processing by using store processor
+                string storeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stores); 
+                //Initiate store file processing by using store processor
 
-                //objStoreBAL = new StoreProcessor(storeFilePath,objIStoreDA);
-                //objStoreBAL.Process();
+                objStoreBAL = new StoreProcessor(storeFilePath,objIStoreDA);
+                objStoreBAL.Process();
 
-                //string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
-                //objStockBAL = new StockProcess(StockFilePath, storeIdPk,objIStockDA);
-                //objStockBAL.Process();
+                string StockFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Stock);
+                objStockBAL = new StockProcess(StockFilePath, storeIdPk,objIStockDA);
+                objStockBAL.Process();
 
 
-                //string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
-                //objEmployeeBAL = new EmployeeProcessor(EmployeeFilePath, objIEmployeeDA, storeIdPk);
-                //objEmployeeBAL.Process();
+                string EmployeeFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Employee);
+                objEmployeeBAL = new EmployeeProcessor(EmployeeFilePath, objIEmployeeDA, storeIdPk);
+                objEmployeeBAL.Process();
 
                 string CustomerFilePath = FileHelper.GetFileNameByFileType(storeDirectoryPath, FileTypes.Customer);
                 var CustomerProcess = new CustomerProcess(CustomerFilePath, storeIdPk,objICustomerDA);

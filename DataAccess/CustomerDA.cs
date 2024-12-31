@@ -80,11 +80,7 @@ namespace DataAccess
                 {
                     using (SqlCommand command = new SqlCommand())
                     {
-                        //"Insert InTo Orders(OrderDate,StoreIdFk,CustomerIdFk,EmployeeIdFk,OrderCode,NoOfItems,ToTalAmount)" +
-                        //"values(@OrderDate,(select storeIdPk from stores where storeCode=@storeCode)," +
-                        //"(select CustomerIdPk from Customer where CustomerCode=@CustomerCode)," +
-                        //"(select EmployeeIdPk from Employee where EmployeeCode=@EmployeeCode),@OrderCode,@NoOfItems,@ToTalAmount)";
-                        command.CommandText = "InsertOrders";
+                        command.CommandText = "InsertOrUpdateOrders";
                         command.Connection = connetion;
                         command.CommandType = CommandType.StoredProcedure;
                         connetion.Open();
@@ -135,9 +131,7 @@ namespace DataAccess
                 {
                     using (SqlCommand command = new SqlCommand())
                     {
-                        //"Insert InTo Billing(BillingIdPk,BillingNumber,BillingDate,PaymentMode,OrderIdFk,Amount)" +
-                        //"values(@BillingIdPk,@BillingNumber,@BillingDate,@PaymentMode,(select OrderIdPk from orders where OrderCode=@OrderCode),@Amount)";
-                        command.CommandText = "InsertBilling";
+                        command.CommandText = "InsertOrUpdateBilling";
                         command.Connection = connection;
                         command.CommandType = CommandType.StoredProcedure;
                         connection.Open();
@@ -153,6 +147,7 @@ namespace DataAccess
                                     command.Parameters.Add("@BillingDate", DbType.DateTime).Value =billingRecord.BillingDate;
                                     command.Parameters.Add("@PaymentMode", DbType.Decimal).Value =billingRecord.ModeOfPayment;
                                     command.Parameters.Add("@OrderCode", DbType.String).Value =billingRecord.OrderCode;
+                                    command.Parameters.Add("@Amount", DbType.Decimal).Value = billingRecord.Amount;
                                     command.ExecuteNonQuery();
                                 }
 
