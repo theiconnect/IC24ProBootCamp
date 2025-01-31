@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+          body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+    
+    }
+
+    h1 {
+      text-align: center;
+     
+    }
+
+    .form-container {
+      padding: 30px;
+    max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      
+        display: flex;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      flex: 1;
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .form-group input, .form-group select {
+      flex: 2;
+      padding: 8px;
+      border: 1px solid black;
+      border-radius: 4px;
+    }
+
+    .form-actions {
+        display: flex;
+      justify-content: flex-end;
+      gap: 5px;
+    }
+
+    .form-actions button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .form-actions .cancel {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .form-actions .cancel:hover {
+      background-color: #c82333;
+    }
+
+    .form-actions .save {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .form-actions .save:hover {
+      background-color: #11ec41;
+    }
+    </style>
+</head>
+<body>
+    <h1>Add New Product</h1>
+
+    <div class="form-container">
+      <form>
+        <div class="form-group">
+          <label for="product-code">Product Code:</label>
+          <input type="text" id="product-code" name="product-code">
+        </div>
+  
+        <div class="form-group">
+          <label for="product-name">Product Name:</label>
+          <input type="text" id="product-name" name="product-name">
+        </div>
+  
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select id="category" name="category">
+            <option value="">Select Category</option>
+            <option value="daily-goods">Daily Goods</option>
+            <option value="electronics">Electronics</option>
+            <option value="fashion">Fashion</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="price-per-unit">Price Per Unit:</label>
+          <input type="text" id="price-per-unit" name="price-per-unit">
+        </div>
+  
+        <div class="form-group">
+          <label for="threshold-limit">Threshold Limit:</label>
+          <input type="text" id="threshold-limit" name="threshold-limit">
+        </div>
+     
+        <div class="form-group">
+          <label for="unit-of-measure">Unit of Measurement:</label>
+          <select id="unit-of-measure" name="unit-of-measure">
+            <option value="">Select Unit</option>
+            <option value="kg">Kg</option>
+            <option value="liters">Liters</option>
+            <option value="pieces">Pieces</option>
+          </select>
+        </div>
+  
+        <div class="form-actions">
+          <button type="button" onclick="" class="cancel">Cancel</button>
+          <button type="submit" class="save">Save</button>
+        </div>
+      </form>
+    </div>
+</body>
+</html>
