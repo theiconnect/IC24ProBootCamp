@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Category</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button.search {
+            background-color: #4caf50;
+            color: #ffffff;
+        }
+        button.clear {
+            background-color: #f44336;
+            color: #ffffff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .action-buttons .edit {
+            background-color: #2196f3;
+            color: #ffffff;
+        }
+        .action-buttons .view {
+            background-color: #ff9800;
+            color: #ffffff;
+        }
+        .action-buttons .delete {
+            background-color: #e54a12;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Search Category</h2>
+        <div class="form-group">
+            <label for="categoryCode">Category Code:</label>
+            <input type="text" id="categoryCode" name="categoryCode" placeholder="Enter category code">
+        </div>
+        <div class="form-group">
+            <label for="categoryName">Category Name:</label>
+            <input type="text" id="categoryName" name="categoryName" placeholder="Enter category name">
+        </div>
+        <div class="buttons">
+            <button class="search" onclick="">Search</button>
+            <button class="clear" onclick="">Clear</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>S. No</th>
+                    <th>Category Code</th>
+                    <th>Category Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="categoryTable">
+                
+                <tr>
+                    <td>1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="action-buttons">
+                        <button class="edit" onclick="myfunction()">Edit</button>
+                        <button class="view" onclick="moveTo()">View</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function myfunction(){
+            location.replace("category_edit.html")
+        }
+        function moveTo(){
+            location.replace("category_view.html")
+        }
+        
+    </script>
+</body>
+</html>
