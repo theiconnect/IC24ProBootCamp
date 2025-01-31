@@ -174,7 +174,7 @@ namespace SampleApp
                 //////////////////////////////////////////////
 
 
-
+                 
                 ///files reading
             }
 
@@ -215,7 +215,7 @@ namespace SampleApp
             }
         }
 
-        private static List<StoreModel> GetAllStoresFromDB()
+        private static List<StoreModel> GetAllStoresFromDB() 
         {
             List<StoreModel> stores = new List<StoreModel>();
             using (SqlConnection con = new SqlConnection(rSCConnectionString))
