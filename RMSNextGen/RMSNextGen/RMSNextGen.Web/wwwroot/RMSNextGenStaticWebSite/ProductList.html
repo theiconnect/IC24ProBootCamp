@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+   <style>
+     body {
+      font-family: Arial, sans-serif;
+      margin: 10px;
+      padding: 10px;
+      
+    
+    
+    }
+
+    h1 {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .form-container {
+  
+      margin-bottom: 10px;
+      padding: 10px;
+     border-radius: 8px;
+    
+     
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 5px;
+     
+    }
+
+    .form-container input, .form-container select {
+      width: 20%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid black;
+      border-radius: 4px;
+      
+    }
+
+    .form-actions {
+      display: flex;
+   width: 20%;
+   gap: 10% ;
+    }
+
+    .form-actions button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .form-actions button:hover {
+      background-color: #0056b3;
+    }
+    table, th, td {
+  border: 1px solid greenyellow;
+  
+    }
+    .add-button {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      display: block;
+      width: 30%;
+      text-align: center;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #28a745;
+     color: white;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    
+   </style>
+</head>
+
+<body>
+    <h1>Product List</h1>
+
+    <div class="form-container">
+      <form>
+        <label for="code">Code:</label>
+        <input type="text" id="code" name="code">
+  
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+          <option value="">Select Category</option>
+          <option value="daily-goods">Daily Goods</option>
+          <option value="electronics">Electronics</option>
+          <option value="fashion">Fashion</option>
+        </select>
+  
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+  
+        <div class="form-actions">
+          <button type="reset">Clear</button>
+          <button type="submit">Search</button>
+        </div>
+      </form>
+    </div>
+   <button class="add-button"  onclick="moveTo()" >Add New Product</button>
+   <table>
+    
+      <tr>
+        <th>S.No</th>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Edit</th>
+        <th>View</th>
+        <th>Delete</th>
+      </tr>
+       <tr>
+        <td>1</td>
+        <td>PR001</td>
+        <td>Soap</td>
+        <td>Daily Goods</td>
+        <td>$10.00</td>
+        <td class="actions"><a href="#" onclick="myFunction()">Edit</a></td>
+        <td class="actions"><a href="#">View</a></td>
+        <td class="actions"><a href="#">Delete</a></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>PR002</td>
+        <td>Bulb</td>
+        <td>Electronics</td>
+        <td>$20.00</td>
+        <td class="actions"><a href="#" onclick="myFunction()">Edit</a></td>
+        <td class="actions"><a href="#">View</a></td>
+        <td class="actions"><a href="#">Delete</a></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>PR003</td>
+        <td>Shirt</td>
+        <td>Fashion</td>
+        <td>$100.00</td>
+        <td class="actions"><a href="#" onclick="myFunction()">Edit</a></td>
+        <td class="actions"><a href="#">View</a></td>
+        <td class="actions"><a href="#">Delete</a></td>
+      </tr>
+  </table>
+
+ 
+</body>
+<script>
+function myFunction() {
+  location.replace("Editproduct.html")
+}
+function moveTo(){ 
+  location.href=("addnew.html")
+}
+
+
+
+
+</script>
+
+</html>

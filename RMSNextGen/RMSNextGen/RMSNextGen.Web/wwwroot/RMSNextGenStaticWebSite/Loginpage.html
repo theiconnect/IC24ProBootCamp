@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+
+        .bg-container
+{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    background-image: url("https://t4.ftcdn.net/jpg/07/87/16/69/360_F_787166948_1YEZeLZl8XTsp6OXXK78rovNTNPC6PoC.jpg");
+    background-size: cover;
+    height:96vh;
+}
+.card{
+    background-color: white;
+    width:500px;
+    height:450px;
+    padding: 25px;
+    border-radius:25px;
+
+}
+#button1
+{
+    width: 150px;
+    border-radius: 10px;
+    height: 40px;
+    text-align: center;
+    margin-left: 180px;
+    background-color: green;
+}
+
+input
+{
+    width: 150px;
+    border-radius: 10px;
+    height: 30px;
+    text-align: center;
+    padding-left: 150px;
+    padding-right: 150px;
+    
+} 
+.label
+{
+    font-size: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+   
+}
+
+#href
+{
+    margin-bottom: 20px;
+}
+h1{
+    text-align: center;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class ="bg-container">
+        <div class = "card">
+    <div>
+        <h1>Login</h1>
+    </div>
+    <div class="label">
+
+        <label for="Email">Email / Mobile</label>
+        <input type="text" value="Enter Email / Mobile">
+    </div>
+    <div class ="label">
+        <label for="Password">Password</label>
+        <input type="text" value="Enter Password">
+    </div>
+    <div id="href"> 
+        <a href="google.com" >forgot Password ?</a>
+     </div>
+    <div>
+        <button id="button1">Login</button>    
+    </div>
+    </div>
+</div>
+</body>
+</html>
