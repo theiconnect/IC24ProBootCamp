@@ -7,7 +7,12 @@ namespace RMSNextGen.Web.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            ViewData["Title"] = "Sign In";
+            ViewData["UserName"] = "Murali";
+            ViewData["Title"] = "Sign In";
+            ViewData["Title"] = "Sign In";
+            ViewData["Title"] = "Sign In";
+            return View();  
         }
 
         [HttpGet]
