@@ -17,7 +17,7 @@ namespace RMSNextGen.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult VerfyOtp()
+        public IActionResult VerifyOtp()
         {
             return View();
         }
