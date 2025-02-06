@@ -19,7 +19,8 @@ namespace Sample.API.Demo.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [Route("/api/GetWeatherForecast")]
+        public IEnumerable<WeatherForecast> GetWeatherInfo()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
