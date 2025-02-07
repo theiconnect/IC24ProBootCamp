@@ -15,6 +15,15 @@ namespace RMSNextGen.Web.Controllers
             return View();  
         }
 
+
+        [HttpPost]
+        public IActionResult Login(IFormCollection form)
+        {
+            //TODO: get username pasword and verify in the db...
+            return RedirectToAction("StoreList", "Store");
+        }
+
+
         [HttpGet]
         public IActionResult SendOtp()
         {

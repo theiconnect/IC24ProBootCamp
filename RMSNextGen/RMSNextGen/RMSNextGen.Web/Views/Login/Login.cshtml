@@ -2,23 +2,25 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = "_LoginLayout";
+	Layout = "_LoginLayout";
 }
 
 
 <div>
-    <div>
-        <label>Email/Phone:</label>
-        <input type="text" id="txtEmail" name="txtEmail" class="input-control" />
-    </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" id="txtPassword" name="txtPassword" class="input-control" />
-    </div>
-    <div>
-        <a asp-controller="login" asp-action="sendotp">Forgot Password</a>
-    </div>
-    <div>
-        <input type="submit" value="Login ->" id="btnLogin" name="btnLogin" class="btn-login"/>
-    </div>
+	<form method="post" asp-controller="Login" asp-action="Login">
+		<div>
+			<label>Email/Phone:</label>
+			<input type="text" id="txtEmail" name="txtEmail" class="input-control" />
+		</div>
+		<div>
+			<label>Password:</label>
+			<input type="password" id="txtPassword" name="txtPassword" class="input-control" />
+		</div>
+		<div>
+			<a asp-controller="login" asp-action="sendotp">Forgot Password</a>
+		</div>
+		<div>
+			<input type="submit" value="Login ->" id="btnLogin"  class="btn-login" />
+		</div>
+	</form>
 </div>

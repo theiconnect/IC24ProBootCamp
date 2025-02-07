@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         * {
+            font-family: "Segoe UI,Arial,sans-serif";
+        
             /*border:1px solid black;*/
         }
 
@@ -19,11 +21,11 @@
         }
 
         #dvPage {
-            min-height: 500px;
+            min-height: 480px;
         }
 
         #dvMenu {
-            background-color: #abb6bf;
+            background-color: #0962ab;
             color: white;
             font-size: 20px;
             font-weight: bold;
@@ -58,6 +60,31 @@
             color: white;
             font-weight:bold;
         }
+        #dvNav {
+            border:1px solid white;
+
+        }
+        .dvParentMenu {
+            padding: 5px;
+            border: 1px solid white;
+            font-weight: bold;
+        }
+        .dvParentMenu a{
+            display:block;
+        }
+            .dvParentMenu a:hover {
+                background-color: white;
+                color: #0962ab !important;
+            }
+        .dvChildMenu a{
+            padding-left: 28px;
+            border-bottom: 1px solid white;
+        }
+        .footer {
+            background-color: rgb(213 232 236) !important;
+            padding:0px;
+            text-align:center;
+        }
     </style>
 </head>
 <body>
@@ -76,19 +103,52 @@
                     </span>
             </div>
             <div id="dvNav">
-
+                <div class="row">
+                    <div class="col-12 dvParentMenu">
+                        <a onclick="toggleChildMenu(this);">Masters</a>
+                        <div class="row dvChildMenu d-none">
+                            <div class="col-12">
+                                <a>Products</a>
+                                <a>Product Categories</a>
+                                <a>Suppliers</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 dvParentMenu">
+                        <a onclick="toggleChildMenu(this);">Transactions</a>
+                        <div class="row dvChildMenu d-none">
+                            <div class="col-12">
+                                <a>Stores</a>
+                                <a>Orders</a>
+                                <a>Employees</a>
+                                <a>Customers</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 dvParentMenu">
+                        <a onclick="toggleChildMenu(this);">Reports</a>
+                        <div class="row dvChildMenu d-none">
+                            <div class="col-12">
+                                <!--TODO::-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 dvParentMenu">
+                        <a">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="dvPage" class="col-sm-10 bg-body">
-            <div class="row bg-primary">
+            <div class="row" style="background-color:#0962ab">
                 <div class="col-1"><img id="imgHamburger" onclick="toggleMenu()" src="hamburger.png" /></div>
                 <div class="col-10"></div>
                 <div class="col-1"><img id="imgProfile" src="profileicon.png" /></div>
             </div>
-            <div class="col-sm-12 bg-body" style="min-height:521px;">
+            <div class="col-sm-12 bg-body" style="min-height:510px;">
                 body
             </div>
-            <div class="footer bg-gradient">
+            <div class="footer bg-info">
                 CopyRights Reserved iConnect Tech Solutions @2025
             </div>
         </div>
@@ -106,6 +166,9 @@
                 dvPageControl.classList.remove('col-sm-12');
                 dvPageControl.classList.add('col-sm-10');
             }
+        }
+        function toggleChildMenu(aobj) {
+            aobj.parentNode.children[1].classList.toggle('d-none');
         }
     </script>
 </body>

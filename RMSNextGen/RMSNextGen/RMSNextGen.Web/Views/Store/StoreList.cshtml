@@ -1,7 +1,143 @@
-﻿
-@{
-    ViewData["Title"] = "StoreList";
+﻿@{
+	ViewData["Title"] = "StoreList";
+	Layout = "~/Views/Shared/_RMSLayout.cshtml";
 }
+<div class="container mb-3 mt-3 ">
+	<h2>Store List</h2>
+	<hr />
+	<form method="post" asp-action="SearchStores" asp-asp-controller="Store">
+		<div class="row" style="margin-left:20px;margin-bottom:10px;">
+			<div class="col-5 mb-1 mx-1 mt-1 form-group">
+				<label for="StoreCode">StoreCode:</label>
+				<input type="text" class="form-control" id="StoreCode" placeholder="Enter StoreCode" name="StoreCode">
+			</div>
+			<div class="col-5 mb-1 mx-1 mt-1 form-group">
+				<label for="Location">Location:</label>
+				<input type="text" class="form-control" id="Location" placeholder="Enter Location" name="Location">
+			</div>
+			<div class="col-5 mb-1 mx-1 mt-1 form-group">
+				<label for="City">City:</label>
+				<select class="form-control" id="City" name="City">
+					<option>Select</option>
+					<option>Hyderabad</option>
+					<option>Banglore</option>
+					<option>Warangal</option>
+					<option>Karimnagar</option>
+					<option>Vijayawada</option>
+				</select>
+			</div>
+			<div class="col-5 mb-1 mx-1 mt-1 form-group">
+				<label for="State">State:</label>
+				<select class="form-control" id="State" name="State">
+					<option>Select</option>
+					<option>TG</option>
+					<option>AP</option>
+				</select>
+			</div>
+		</div>
+		<div class="row" style="border-top:2px solid black; padding:10px 0;">
+			<div class="col-10"></div>
+			<div class="col-2 form-group">
+				<button type="reset" class="btn btn-info">Clear</button>
+				<button type="submit" class="btn btn-primary">Search</button>
+			</div>
+		</div>
+	</form>
+	<hr />
+	<div class="row" style="border-top:2px solid black; padding:10px 0;">
+		<div class="col-10"></div>
+		<div class="col-2 form-group">
+			<a class="btn btn-info" asp-action="AddNewStore" asp-asp-controller="Store">Add New Store</a>
+			
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table text-start align-middle table-bordered table-hover mb-0">
+			<thead>
+				<tr class="text-dark">
+					<th scope="col">S.NO</th>
+					<th scope="col">StoreCode</th>
+					<th scope="col">Location</th>
+					<th scope="col">City</th>
+					<th scope="col">State</th>
+					<th scope="col">Status</th>
+					<th scope="col">Actions</th>
 
-<h1>StoreList</h1>
-
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><a href="">inactivate</a></td>
+					<td><a asp-asp-controller="Store" asp-action="EditStore">Edit</a>
+						<a asp-asp-controller="Store" asp-action="ViewStore">View</a>
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><a href="">Activate</a></td>
+					<td>
+						<a asp-asp-controller="Store" asp-action="EditStore">Edit</a>
+						<a asp-asp-controller="Store" asp-action="ViewStore">View</a>
+					</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><a href="">inactivate</a></td>
+					<td>
+						<a asp-asp-controller="Store" asp-action="EditStore">Edit</a>
+						<a asp-asp-controller="Store" asp-action="ViewStore">View</a>
+					</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><a href="">Activate</a></td>
+					<td>
+						<a asp-asp-controller="Store" asp-action="EditStore">Edit</a>
+						<a asp-asp-controller="Store" asp-action="ViewStore">View</a>
+					</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><a href="">inactivate</a></td>
+					<td>
+						<a asp-asp-controller="Store" asp-action="EditStore">Edit</a>
+						<a asp-asp-controller="Store" asp-action="ViewStore">View</a>
+					</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><a href="">Activate</a></td>
+					<td>
+						<a asp-asp-controller="Store" asp-action="EditStore">Edit</a>
+						<a asp-asp-controller="Store" asp-action="ViewStore">View</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
