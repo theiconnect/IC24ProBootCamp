@@ -5,17 +5,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>RMSNextGen</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<style>
 		* {
-			font-family: "Segoe UI,Arial,sans-serif" !important
+			font-family: "Segoe UI,Arial,sans-serif" !important;
+			font-size: 16px;
 			/*border:1px solid black;*/
 		}
 
-		.row * {
+		/* .row * {
 			padding: 0;
 		}
-
+ */
 		.row {
 			--bs-gutter-x: 0 !important;
 		}
@@ -27,9 +30,13 @@
 		#dvMenu {
 			background-color: #0962ab;
 			color: white;
-			font-size: 20px;
-			font-weight: bold;
 		}
+
+		.row.dvChildMenu {
+			background-color: #005398;
+		}
+
+
 
 		#imgHamburger {
 			background-color: white;
@@ -58,21 +65,21 @@
 		#dvProfileInfo * {
 			display: block;
 			color: white;
-			font-weight: bold;
+			text-align:center;
 		}
 
 		#dvNav {
-			border: 1px solid white;
+			border-top: 1px solid white;
 		}
 
 		.dvParentMenu {
 			padding: 5px;
-			border: 1px solid white;
-			font-weight: bold;
+			/* border: 1px solid white; */
 		}
 
 			.dvParentMenu a {
 				display: block;
+				border-bottom: 1px solid white;
 			}
 
 				.dvParentMenu a:hover {
@@ -109,7 +116,7 @@
 			<div id="dvlogo" class="">
 				<img class="imgLogo" src="~/images/logormsnextgen.png" />
 			</div>
-			<hr style="margin-top:1px;" />
+			<hr class="mt-0 mb-0 p-lg-1"/>
 			<div id="dvProfileInfo">
 				<span>
 					Welcome iConnect
