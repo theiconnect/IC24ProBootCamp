@@ -20,3 +20,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.dvPageContainer {
+    min-height: 510px;
+}
+
+@media (min-width: 576px) {
+    .dvPageContainer {
+        min-height: 860px;
+    }
+}
