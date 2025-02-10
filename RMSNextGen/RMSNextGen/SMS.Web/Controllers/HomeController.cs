@@ -1,9 +1,11 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SMS.Web.Models;
 
 namespace SMS.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -13,6 +15,7 @@ namespace SMS.Web.Controllers
             _logger = logger;
         }
 
+    [Authorize]
         public IActionResult Index()
         {
             return View();

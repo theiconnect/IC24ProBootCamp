@@ -138,5 +138,12 @@ namespace SMS.Web.Controllers
             // If we got this far, something failed, redisplay the form
             return View(model);
         }
+
+        [HttpGet]
+        [AllowAnonymous] // Allow unauthenticated users to access this action
+        public IActionResult AccessDenied()
+        {
+            return View(); // Returns the AccessDenied.cshtml view
+        }
     }
 }
