@@ -23,7 +23,7 @@ namespace RMSNextGen.Web.Controllers
             return RedirectToAction("StoreList", "Store");
         }
 
-
+         
         [HttpGet]
         public IActionResult SendOtp()
         {
