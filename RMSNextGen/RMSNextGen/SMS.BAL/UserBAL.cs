@@ -1,6 +1,6 @@
 ﻿namespace SMS.BAL
 {
-    public class Class1
+    public class UserBAL
     {
 
     }
