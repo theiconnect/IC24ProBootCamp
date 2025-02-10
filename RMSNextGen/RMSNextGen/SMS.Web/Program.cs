@@ -1,8 +1,15 @@
+using SMS.DAL;
+using SMS.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+builder.Services.AddTransient<UserRepository>(provider =>
+    new UserRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<UserService>();
 
 var app = builder.Build();
 

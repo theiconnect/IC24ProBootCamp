@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SMS.BAL\SMS.BAL.csproj" />
+    <ProjectReference Include="..\SMS.BAL\SMS.Services.csproj" />
     <ProjectReference Include="..\SMS.Models\SMS.Models.csproj" />
   </ItemGroup>
 

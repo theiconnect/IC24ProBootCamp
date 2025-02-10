@@ -9,17 +9,21 @@ using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using System;
 using BCrypt.Net;
-using SMS.Web.Helpers; // Add BCrypt.Net-Next Package using NuGet
+using SMS.Models;
+using SMS.Services; // Add BCrypt.Net-Next Package using NuGet
 
 namespace SMS.Web.Controllers
 {
     public class UserController : Controller
     {
-        private readonly string _connectionString;
+        private readonly IConfiguration configuration;
+        private readonly UserService _userService; // Inject the UserService
 
-        public UserController(IConfiguration configuration)
+        public UserController(IConfiguration configuration,
+            UserService userService)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
+            this.configuration = configuration;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -33,83 +37,50 @@ namespace SMS.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
-            }
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    await connection.OpenAsync();
+                // 1. Use the UserService to authenticate the user
+                UserDTO user = await _userService.AuthenticateUser(model.Username, model.Password); // Assuming LoginViewModel.Username holds the email
 
-                    string sql = "SELECT UserId, Email, PasswordHash, RoleId FROM Users WHERE Email = @Email"; // Use Email for login
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                if (user != null)
+                {
+                    // Authentication successful
+
+                    // 2. Create claims
+                    var claims = new List<Claim>
                     {
-                        command.Parameters.AddWithValue("@Email", model.Username); // Assuming LoginViewModel.Username stores email
+                        new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                        new Claim(ClaimTypes.Name, user.Email),
+                        new Claim(ClaimTypes.Role, GetRoleName(user.RoleId))
+                    };
 
-                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                        {
-                            if (reader.HasRows)
-                            {
-                                await reader.ReadAsync();
-                                int userId = Convert.ToInt32(reader["UserId"]);
-                                string email = reader["Email"].ToString();    // Get the email
-                                string hashedPassword = reader["PasswordHash"].ToString(); // Get the BCrypt hash from the database
-                                int roleId = Convert.ToInt32(reader["RoleId"]);
+                    // 3. Create an identity
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                                // 2. Verify the password using BCrypt
-                                if (PasswordHelper.VerifyPassword(model.Password, hashedPassword))
-                                {
-                                    // Authentication successful
+                    // 4. Create authentication properties
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = model.RememberMe,
+                        ExpiresUtc = model.RememberMe ? DateTimeOffset.UtcNow.AddDays(7) : null
+                    };
 
-                                    // 3. Create claims
-                                    var claims = new List<Claim>
-                                        {
-                                            new Claim(ClaimTypes.NameIdentifier, userId.ToString()), // Use UserId for NameIdentifier
-                                            new Claim(ClaimTypes.Name, email), // User Email
-                                            new Claim(ClaimTypes.Role, GetRoleName(roleId)) // User role
-                                        };
+                    // 5. Sign in the user
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties);
 
-                                    // 4. Create an identity
-                                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                                    // 5. Create authentication properties
-                                    var authProperties = new AuthenticationProperties
-                                    {
-                                        IsPersistent = model.RememberMe,
-                                        ExpiresUtc = model.RememberMe ? DateTimeOffset.UtcNow.AddDays(7) : null
-                                    };
-
-                                    // 6. Sign in the user
-                                    await HttpContext.SignInAsync(
-                                        CookieAuthenticationDefaults.AuthenticationScheme,
-                                        new ClaimsPrincipal(claimsIdentity),
-                                        authProperties);
-
-                                    // 7. Redirect
-                                    return RedirectToAction("Index", "Home");
-                                }
-                                else
-                                {
-                                    ModelState.AddModelError("", "Invalid email or password.");
-                                }
-                            }
-                            else
-                            {
-                                ModelState.AddModelError("", "Invalid email or password.");
-                            }
-                        }
-                    }
+                    // 6. Redirect
+                    return RedirectToAction("Index", "Home");
                 }
-                catch (Exception ex)
+                else
                 {
-                    // Log the exception
-                    ModelState.AddModelError("", "An error occurred while connecting to the database.");
+                    ModelState.AddModelError("", "Invalid email or password.");
                 }
             }
-            return View(model);
+
             // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         private string GetRoleName(int roleId)
@@ -135,7 +106,6 @@ namespace SMS.Web.Controllers
             return RedirectToAction("Login", "User");
         }
 
-        // Example of a Register action (for creating new users)
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
@@ -149,36 +119,19 @@ namespace SMS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // 1. Hash the password using BCrypt
-                string hashedPassword = PasswordHelper.HashPassword(model.Password);
+                // Call the UserService to register the user
+                bool registrationSuccessful = await _userService.RegisterUser(model.Email, model.Password);
 
-                // 2. Insert the new user into the database
-                using (SqlConnection connection = new SqlConnection(_connectionString))
+                if (registrationSuccessful)
                 {
-                    try
-                    {
-                        await connection.OpenAsync();
-
-                        string sql = "INSERT INTO Users (Email, PasswordHash, RoleId) VALUES (@Email, @PasswordHash, @RoleId)"; // Adjust
-
-                        using (SqlCommand command = new SqlCommand(sql, connection))
-                        {
-                            command.Parameters.AddWithValue("@Email", model.Email);
-                            command.Parameters.AddWithValue("@PasswordHash", hashedPassword);
-                            command.Parameters.AddWithValue("@RoleId", 3); // Default role (e.g., "User" or "Student")
-
-                            await command.ExecuteNonQueryAsync();
-                        }
-
-                        // Redirect to login page after successful registration
-                        return RedirectToAction("Login", "User");
-                    }
-                    catch (Exception ex)
-                    {
-                        // Log the exception
-                        ModelState.AddModelError("", "An error occurred during registration.");
-                        return View(model); // Redisplay the registration form with error message
-                    }
+                    // Registration successful - Redirect to Login
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    // Registration failed (e.g., email already exists)
+                    ModelState.AddModelError("", "Registration failed.  Please try again.");
+                    return View(model);
                 }
             }
 
