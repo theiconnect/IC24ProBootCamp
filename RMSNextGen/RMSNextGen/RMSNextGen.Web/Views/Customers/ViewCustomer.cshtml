@@ -1,8 +1,8 @@
-﻿@{
-	ViewData["Title"] = "ViewCategory";
-	Layout = "~/Views/Shared/_RMSLayout.cshtml";
-    }
-
+﻿
+@{
+    ViewData["Title"] = "ViewCustomer";
+    Layout = "~/Views/Shared/_RMSLayout.cshtml";
+}
 <div class="container-fluid pt-4 px-4">
     <div class="row vh-100 justify-content-center mx-0">
         <div class="col-md-6 text-center">
@@ -10,45 +10,37 @@
                 <form class="form-horizontal">
                     <div class="row rounded mt-5">
                         <div class="col-12  justify-content-center mb-3">
-                            
+                            <h3>
+                                View  Details
+                            </h3>
                         </div>
                         <div class="col-6  text-end mb-3">
-                            <label for="Zip" class="">Product Code :-</label>
+                            <label for="Zip" class="">Customer Code :-</label>
                         </div>
                         <div class="col-6  text-start">
-                            <label for="Zip" class="">PR001</label>
+                            <label for="Zip" class="">C-001</label>
                         </div>
                         <div class="col-6  text-end mb-3">
-                            <label for="Zip" class="">Product Name :-</label>
+                            <label for="Zip" class="">Name :-</label>
                         </div>
                         <div class="col-6 text-start">
-                            <label for="Zip" class="">Rice</label>
+                            <label for="Zip" class="">Ravi</label>
                         </div>
                         <div class="col-6  text-end mb-3">
-                            <label for="Zip" class="">Caterory :-</label>
+                            <label for="Zip" class="">CantactNumber :-</label>
                         </div>
                         <div class="col-6  text-start">
-                            <label for="Zip" class="">Grocery</label>
+                            <label for="Zip" class="">8788637555</label>
                         </div>
                         <div class="col-6  text-end mb-3">
-                            <label for="Zip" class="">Quanity :-</label>
+                            <label for="Zip" class="">Order#:-</label>
                         </div>
                         <div class="col-6  text-start">
-                            <label for="Zip" class="">50kgs</label>
+                            <label for="Zip" class="">Soap</label>
                         </div>
-                        <div class="col-6  text-end mb-3">
-                            <label for="Zip" class="">Price Per Unit :-</label>
-                        </div>
-                        <div class="col-6  text-start">
-                            <label for="Zip" class="">50.09</label>
-                        </div>
-                        
-                        
-                        
-                        
                 </form>
                 <div class="d-grid gap-3 d-md-flex justify-content-md-end">
-                    <button class="btn btn-primary" asp-action="ViewCategory" asp-controller="ProductCategory">Back</button>
+                    <button class="btn btn-primary" asp-action="ProductList" asp-controller="Product">Back</button>
                     <!-- <button class="btn btn-primary" type="button">Save</button> -->
                 </div>
 
@@ -57,4 +49,6 @@
     </div>
 </div>
 
+
+<h1>ViewCustomer</h1>
 

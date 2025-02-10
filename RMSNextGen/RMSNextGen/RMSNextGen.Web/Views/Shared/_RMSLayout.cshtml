@@ -136,7 +136,7 @@
 						<div class="row dvChildMenu d-none">
 							<div class="col-12">
 								<a asp-controller="Product" asp-action="ProductList">Products</a>
-								<a>Product Categories</a>
+								<a asp-controller="ProductCategory" asp-action="CategoryList"> Categories</a>
 								<a asp-controller="Suppliers" asp-action="SupplierList">Suppliers</a>
 							</div>
 						</div>
@@ -146,9 +146,9 @@
 						<div class="row dvChildMenu d-none">
 							<div class="col-12">
 								<a asp-controller="Store" asp-action="StoreList">Stores</a>
-								<a>Orders</a>
-								<a asp-controller="Employee" asp-action="EmployeeList">Employees</a>
-								<a>Customers</a>
+								<a>Orders</a>						
+							<a asp-controller="Employee" asp-action="EmployeeList">Employee</a>
+								<a asp-action="CustomerList" asp-controller="Customers">Customers</a>
 							</div>
 						</div>
 					</div>
@@ -162,7 +162,7 @@
 						</div>
 					</div>
 					<div class="col-12 dvParentMenu">
-						<i class="fas fa-sign-out-alt"></i><a>Logout</a>
+						<i class="fas fa-sign-out-alt"></i><a asp-controller="Login" asp-action="Login">Logout</a>
 					</div>
 				</div>
 			</div>
