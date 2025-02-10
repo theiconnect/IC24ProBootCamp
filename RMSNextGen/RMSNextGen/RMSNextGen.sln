@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMSNextGen.Web", "RMSNextGen.Web\RMSNextGen.Web.csproj", "{EDE68E75-ECFB-4B88-BC6E-D29225E92EFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMS.Web", "SMS.Web\SMS.Web.csproj", "{4D28B1C6-71A0-4DF1-A047-6020BFBF1971}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EDE68E75-ECFB-4B88-BC6E-D29225E92EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDE68E75-ECFB-4B88-BC6E-D29225E92EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDE68E75-ECFB-4B88-BC6E-D29225E92EFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D28B1C6-71A0-4DF1-A047-6020BFBF1971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D28B1C6-71A0-4DF1-A047-6020BFBF1971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D28B1C6-71A0-4DF1-A047-6020BFBF1971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D28B1C6-71A0-4DF1-A047-6020BFBF1971}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

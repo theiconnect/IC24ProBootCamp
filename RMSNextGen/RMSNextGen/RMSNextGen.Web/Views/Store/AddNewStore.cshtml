@@ -1,8 +1,69 @@
-﻿
-@{
-    ViewData["Title"] = "AddNewStore";
-    Layout = "~/Views/Shared/_RMSLayout.cshtml";
+﻿@{
+	ViewData["Title"] = "AddNewStore";
+	Layout = "~/Views/Shared/_RMSLayout.cshtml";
 }
 
-<h1>AddNewStore</h1>
+<style>
+	form-label
+	{
+		margin-left:10px 
+	}
+</style>
 
+<div class="container">
+	<div class="justify-content-between align-items-center">
+		 @* <h3 class="text-primary">Stores - </h3> *@
+		<hr class="mt-0" />
+		<h4 class="text-secondary">Stores/AddStore</h4>
+	</div>
+
+	<form method="post" asp-action="AddNewStore" asp-controller="Store">
+		<div class="card shadow-sm p-2">
+			<div class="row g-3">
+				<div class="col-sm-5 mr-1">
+					<label for="StoreCode" class="form-label">Store Code</label>
+					<input type="text" class="form-control" id="StoreCode" name="StoreCode" placeholder="Enter Store Code">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label style="margin-left:5px" for="Location" class="form-label" > Store Location</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter  StoreLocation " style="margin-left: 12px;" />
+						   
+						   
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Location" class="form-label">NickName</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter NickName">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Location" class="form-label">Address</label>
+					<textarea class="form-control" id="Address" placeholder="Enter Address" style="margin-left:12px"></textarea>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Location" class="form-label">OfficeNo</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter OfficeNo">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Location" class="form-label">ManagerName</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter ManagerName" style="margin-left: 12px;">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Location" class="form-label">ManagerNo</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter ManagerNumber" >
+				</div>
+				<div class="col-sm-5 mr-1" >
+					<label for="Location" class="form-label">GST No</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter GST No" style="margin-left: 12px;">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Location" class="form-label">CIN No</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter CIN No" >
+				</div>
+			</div>
+		</div>
+		<div class="d-flex justify-content-end gap-2 mt-3">
+			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StoreList" asp-controller="Store">Back</a></button>
+			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+			 
+		</div>
+
+	</form>
