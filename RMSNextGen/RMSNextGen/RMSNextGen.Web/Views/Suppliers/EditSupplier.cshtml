@@ -1,0 +1,81 @@
+﻿@{
+	ViewData["Title"] = "EditSupplier";
+	Layout = "~/Views/Shared/_RMSLayout.cshtml";
+}
+<style>
+	form-label
+	{
+		margin-left:10px
+	}
+</style>
+
+<div class="container">
+	<div class="justify-content-between align-items-center">
+		@* <h3 class="text-primary">Stores - </h3> *@
+		<hr class="mt-0" />
+		<h4 class="text-secondary">Suppliers/EditSupplier</h4>
+	</div>
+
+	<form method="post" asp-action="EditSupplier" asp-controller="Suppliers">
+		<div class="card shadow-sm p-2">
+			<div class="row g-3">
+				<div class="col-sm-5 mr-1">
+					<label for="FirstName" class="form-label">First Name</label>
+					<input type="text" class="form-control" id="FirstName" name="FirstName" placeholder="Enter First Name">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label style="margin-left:5px" for="LastName" class="form-label"> Last Name</label>
+					<input type="text" class="form-control" id="LastName" name="LastName" placeholder="Enter Last Name " style="margin-left: 12px;" />
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="CompanyName" class="form-label">Company Name</label>
+					<input type="text" class="form-control" id="CompanyName" name="CompanyName" placeholder="Enter Company Name">
+				</div>
+
+				<div class="col-sm-5 mr-1">
+					<label style="margin-left:5px" for="MobileNumber" class="form-label">Mobile Number</label>
+					<input type="text" class="form-control" id="MobileNumber" name="MobileNumber" placeholder="Enter Mobile Number" style="margin-left: 12px;">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Address" class="form-label">Address</label>
+					<textarea class="form-control" id="Address" placeholder="Enter Address" style="margin-left:12px"></textarea>
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="City" class="form-label">City</label>
+					<select class="form-select" id="City" name="City" style="margin-left: 12px;">
+						<option selected>Select</option>
+						<option>Hyderabad</option>
+						<option>Bangalore</option>
+						<option>Warangal</option>
+						<option>Karimnagar</option>
+						<option>Vijayawada</option>
+					</select>
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="State" class="form-label">State</label>
+					<select class="form-select" id="State" name="State">
+						<option selected>Select</option>
+						<option>TG</option>
+						<option>AP</option>
+					</select>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="FaxNumber" class="form-label">Fax Number</label>
+					<input type="text" class="form-control" id="FaxNumber" name="FaxNumber" placeholder="Enter Fax Number" style="margin-left: 12px;">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="GSTNo" class="form-label">GST No</label>
+					<input type="text" class="form-control" id="GSTNo" name="GSTNo" placeholder="Enter GSTNo">
+				</div>
+
+				
+			</div>
+		</div>
+		<div class="d-flex justify-content-end gap-2 mt-3">
+			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="SupplierList" asp-controller="Supplier">Back</a></button>
+			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+
+		</div>
+
+	</form>
+
