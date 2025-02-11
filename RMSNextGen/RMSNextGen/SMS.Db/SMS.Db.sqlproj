@@ -69,4 +69,7 @@
     <Build Include="StoredProcedures\GetUserByEmailProcedure.sql" />
     <Build Include="StoredProcedures\CreateUserProcedure.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SMS.Db.publish.xml" />
+  </ItemGroup>
 </Project>

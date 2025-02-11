@@ -18,5 +18,6 @@ BEGIN
     VALUES (@Email, @PasswordHash, @RoleId);
 
     -- Return the new UserId (optional)
+    --SCOPE_IDENTITY() OR @@IDENTITY WILL GIVE US THE RECENTLY GENERATED IDENTITY VALUE
     SELECT @OutResponse = SCOPE_IDENTITY();
 END
