@@ -72,4 +72,10 @@
   <ItemGroup>
     <None Include="SMS.Db.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\PostDeployment\SMS.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\PreDeployment\SMS.PreDeployment.sql" />
+  </ItemGroup>
 </Project>
