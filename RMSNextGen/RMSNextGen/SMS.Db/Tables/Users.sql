@@ -3,6 +3,7 @@
     [Email]        VARCHAR (512) NOT NULL,
     [PasswordHash] VARCHAR (255) NOT NULL,
     [RoleId]       INT           NOT NULL,
+    [IsActive] BIT NOT NULL DEFAULT 1, 
     PRIMARY KEY CLUSTERED ([UserId] ASC)
 );
 

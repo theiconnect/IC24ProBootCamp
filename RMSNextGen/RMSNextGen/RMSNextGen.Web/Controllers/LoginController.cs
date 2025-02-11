@@ -30,16 +30,34 @@ namespace RMSNextGen.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult SendOtp(IFormCollection form)
+        {
+            return RedirectToAction("VerifyOtp", "Login");
+        }
+
         [HttpGet]
         public IActionResult VerifyOtp()
         {
             return View();
         }
 
+        [HttpPost]
+        public IActionResult VerifyOtp(IFormCollection form)
+        {
+            return RedirectToAction("ResetPassword", "Login");
+        }
+
         [HttpGet]
         public IActionResult ResetPassword()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(IFormCollection form)
+        {
+            return RedirectToAction("Login", "Login");
         }
     }
 }
