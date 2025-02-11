@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data;
+using Microsoft.Data.SqlClient;
 using SMS.Models;
 
 namespace SMS.DAL
@@ -12,73 +13,55 @@ namespace SMS.DAL
             _connectionString = connectionString;
         }
 
-        
-
         public async Task<UserDTO> GetUserByEmail(string email)
         {
+            UserDTO user = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                try
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("dbo.GetUserByEmail", connection))
                 {
-                    await connection.OpenAsync();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Email", email);
 
-                    string sql = "SELECT UserId, Email, PasswordHash, RoleId FROM Users WHERE Email = @Email";
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    using (SqlDataReader dr = await command.ExecuteReaderAsync())
                     {
-                        command.Parameters.AddWithValue("@Email", email);
-
-                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        if (await dr.ReadAsync())
                         {
-                            if (reader.HasRows)
+                            user = new UserDTO
                             {
-                                await reader.ReadAsync();
-                                return new UserDTO
-                                {
-                                    UserId = (int)reader["UserId"],
-                                    Email = reader["Email"].ToString(),
-                                    PasswordHash = reader["PasswordHash"].ToString(),
-                                    RoleId = (int)reader["RoleId"]
-                                };
-                            }
-                            else
-                            {
-                                //User not found with the email
-                                return null;
-                            }
+                                UserId = Convert.ToInt32(dr["UserId"]),
+                                Email = Convert.ToString(dr["Email"]),
+                                PasswordHash = Convert.ToString(dr["PasswordHash"]),
+                                RoleId = Convert.ToInt32(dr["RoleId"])
+                            };
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    return null; // Or throw the exception after logging
-                }
             }
+            return user;
         }
 
         public async Task<bool> CreateUser(UserDTO user)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                try
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand("dbo.CreateUser", connection))
                 {
-                    await connection.OpenAsync();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Email", user.Email);
+                    command.Parameters.AddWithValue("@PasswordHash", user.PasswordHash);
+                    command.Parameters.AddWithValue("@RoleId", user.RoleId);
+                    SqlParameter paramResponse = new SqlParameter("@OutResponse", SqlDbType.Int);
+                    paramResponse.Direction = ParameterDirection.Output;
+                    command.Parameters.Add(paramResponse);
 
-                    string sql = "INSERT INTO Users (Email, PasswordHash, RoleId) VALUES (@Email, @PasswordHash, @RoleId)"; // Adjust
+                    await command.ExecuteNonQueryAsync();
 
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        command.Parameters.AddWithValue("@Email", user.Email);
-                        command.Parameters.AddWithValue("@PasswordHash", user.PasswordHash);
-                        command.Parameters.AddWithValue("@RoleId", user.RoleId);
-
-                        await command.ExecuteNonQueryAsync();
-                    }
-
-                    return true; // Indicate success
-                }
-                catch
-                {
-                    return false; // Or throw the exception after logging
+                    return Convert.ToInt32(paramResponse.Value) > 0;
                 }
             }
         }

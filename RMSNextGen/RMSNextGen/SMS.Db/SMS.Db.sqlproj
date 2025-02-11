@@ -59,8 +59,14 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables\" />
+    <Folder Include="StoredProcedures" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\PostDeployment" />
+    <Folder Include="Scripts\PreDeployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Users.sql" />
+    <Build Include="StoredProcedures\GetUserByEmailProcedure.sql" />
+    <Build Include="StoredProcedures\CreateUserProcedure.sql" />
   </ItemGroup>
 </Project>
