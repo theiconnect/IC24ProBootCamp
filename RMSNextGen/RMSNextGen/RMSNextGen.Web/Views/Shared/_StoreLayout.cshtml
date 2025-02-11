@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - My Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+    <!-- Header -->
+    <header class="">
+        <div class="">
+            <h1 class="h3">My Application</h1>
+        </div>
+    </header>
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="bg-light border-right" style="width: 250px;">
+            <ul class="nav flex-column p-3">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Dashboard</a>
+                </li>
+                <!-- Dropdown Item -->
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenu1" data-toggle="collapse" data-target="#menu1" aria-expanded="false">
+                        Profile
+                    </a>
+                    <div id="menu1" class="collapse">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">View Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Edit Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Another Dropdown -->
+                <li class="nav-item">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenu2" data-toggle="collapse" data-target="#menu2" aria-expanded="false">
+                        Settings
+                    </a>
+                    <div id="menu2" class="collapse">
+                        <ul class="nav flex-column pl-3">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Account Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Privacy Settings</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!-- Logout -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="flex-grow-1 p-4">
+            @RenderBody()
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year - My Application. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
