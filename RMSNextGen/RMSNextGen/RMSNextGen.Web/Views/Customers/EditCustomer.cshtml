@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "EditCustomer";
+    Layout = "~/Views/Shared/_RMSLayout.cshtml";
+}
+<div class="container">
+	<div class="justify-content-between align-items-center">
+		@* <h3 class="text-primary">Stores - </h3> *@
+		<hr class="mt-0" />
+		<h4 class="text-secondary">Customers/EditCustomer</h4>
+	</div>
+
+	<form method="post" asp-action="CustomerList" asp-controller="Customers">
+		<div class="card shadow-sm p-2">
+			<div class="row g-3">
+				<div class="col-sm-5 mr-1">
+					<label for="CustomerCode" class="form-label">CustomerCode</label>
+					<input type="text" class="form-control" id="CustomerCode" name="CustomerCode" placeholder="Enter CustomerCode">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label style="margin-left:5px" for="Name" class="form-label">Name</label>
+					<input type="text" class="form-control" id="Name" name="Name" placeholder="Enter Name " style="margin-left: 12px;" />
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Phone" class="form-label">Phone</label>
+					<input type="text" class="form-control" id="Phone" name="Phone" placeholder="Enter Phone">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Email" class="form-label">Email</label>
+					<input class="form-control" id="Email" placeholder="Enter Email" style="margin-left:12px"></input>
+				</div>
+		</div>
+		<div class="d-flex justify-content-end gap-2 mt-3">
+			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="CustomerList" asp-controller="Customers">Back</a></button>
+			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+
+		</div>
+
+	</form>
+	@{
+		ViewData["Title"] = "EditCustomer";
+		Layout = "~/Views/Shared/_RMSLayout.cshtml";
+	}
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+﻿@model SMS.Web.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml"; 
+}
+
+<form asp-controller="User" asp-action="Login" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>  @* Show overall model validation errors *@
+
+    <div class="form-group">
+        <label asp-for="Username">Username</label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>  @* Show validation errors for the Username field *@
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>  @* Show validation errors for the Password field *@
+    </div>
+
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input asp-for="RememberMe" /> @Html.DisplayNameFor(m => m.RememberMe)
+            </label>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
