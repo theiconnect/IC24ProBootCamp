@@ -1,0 +1,91 @@
+﻿@model SMS.Web.Controllers.EmployeeViewModel
+@{
+	ViewData["Title"] = "StudentRegistration";
+	Layout = null;
+}
+
+
+<h1>StudentRegistration</h1>
+<form method="post">
+	<div>
+		<label>Student Code</label>
+		<input name="StudentCode" value="@Model.StudentCode" />
+	</div>
+	<div>
+		<label>Student Name</label>
+		<input asp-for="StudentName" value="@Model.StudentName" />
+	</div>
+	<div>
+		<label>DOB</label>
+		<input type="date" asp-for="DOB" value="@Model.DOB" />
+	</div>
+	<div>
+		<label>Gender</label>
+		<input type="radio" asp-for="Gender" value="Male" />Male
+		<input type="radio" asp-for="Gender" value="Female" />Female
+	</div>
+	<div>
+		<label>Grade</label>
+		<select asp-for="Grade">
+			<option>Select</option>
+			<option>Grade-1</option>
+			<option>Grade-2</option>
+			<option>Grade-3</option>
+			<option>Grade-4</option>
+			<option>Grade-5</option>
+			<option>Grade-6</option>
+			<option>Grade-7</option>
+		</select>
+	</div>
+
+	<div>
+		<label>Own Transport?</label>
+		<input type="checkbox" asp-for="IsOwnTransport" />
+	</div>
+	<div>
+		<label>Comments</label>
+		<textarea asp-for="Comments" value="@Model.Comments">
+		</textarea>
+	</div>
+	<div>
+		<input type="submit" value="Save"/>
+	</div>
+	<div>
+		ViewData: @ViewData["UserName"]
+	</div>
+	<div>
+		ViewBag: @ViewBag.UserName1
+	</div>
+	@* <div>
+		<table>
+			<tr>
+				<th>Code</th>
+				<th>Name</th>
+				<th>DOB</th>
+				<th>Gender</th>
+				<th>Grade</th>
+				<th>Comments</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+			 @foreach(var emp in Model)
+			{
+				<tr>
+					<td>@emp.StudentCode</td>
+					<td>@emp.StudentName</td>
+					<td>@emp.DOB</td>
+					<td>@emp.Gender</td>
+					<td>@emp.Grade</td>
+					<td>@emp.Comments</td>
+					<td><a>Edit</a></td>
+					<td><a>Delete</a></td>
+				</tr>
+			} 
+		</table>
+	</div> *@
+</form>
+<style>
+	table tr td{
+		border: 1px solid black;
+	}
+</style>
