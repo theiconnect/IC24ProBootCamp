@@ -1,0 +1,93 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+	ViewData["Title"] = "Edit Employee";
+	Layout = "~/Views/Shared/_RMSLayout.cshtml";
+}
+<div class="container">
+	<div class="justify-content-between align-items-center">
+		@* <h3 class="text-primary">Employee - </h3> *@
+		<hr class="mt-0" />
+		<h4 class="text-secondary">Employee/Edit Employee</h4>
+	</div>
+
+	<form>
+		<div class="card shadow-sm p-2">
+			<div class="row g-3">
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="EmployeeCode" class="form-label">Employee Code</label>
+					<input type="text" class="form-control" id="EmployeeCode" name="EmployeeCode" placeholder="Enter Employee Code">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="EmployeeName" class="form-label">Employee Name</label>
+					<input type="text" class="form-control" id="EmployeeName" name="EmployeeName" placeholder=" Enter Employee Name">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="StorCode" class="form-label">Store Code</label>
+					<select class="form-select" id="StorCode" name="StorCode">
+						<option selected>Select</option>
+						<option>Emp001</option>
+						<option>Emp002</option>
+						<option>Emp003</option>
+
+					</select>
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Role" class="form-label">Role</label>
+					<select class="form-select" id="Role" name="Role">
+						<option selected>Select</option>
+						<option>Manager</option>
+						<option>Sales</option>
+					</select>
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Gender" class="form-label">Gender</label>
+					<select class="form-select" id="Gender" name="Gender">
+						<option selected>Select</option>
+						<option>Female</option>
+						<option>Male</option>
+					</select>
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Salary" class="form-label">Salary</label>
+					<input type="text" class="form-control" id="Salary" name="Salary" placeholder="Enter Employee Salary">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Contact Number" class="form-label">Contact Number</label>
+					<input type="text" class="form-control" id="Contact Number" name="Contact Number" placeholder=" Enter Contact Number">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Addressline1" class="form-label">Addressline1</label>
+					<textarea type="text" class="form-control" id="Addressline1" name="Addressline1" placeholder="Enter Addressline1"></textarea>
+
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Addressline2" class="form-label">Addressline2</label>
+					<textarea type="text" class="form-control" id="Addressline2" name="Addressline2" placeholder="Enter Addressline2"></textarea>
+
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="City" class="form-label">City</label>
+					<input type="text" class="form-control" id="City" name="City" placeholder="Enter City">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="State" class="form-label">State</label>
+					<input type="text" class="form-control" id="State" name="State" placeholder="Enter State">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Pincode" class="form-label">Pincode</label>
+					<input type="text" class="form-control" id="Pincode" name="Pincode" placeholder="Enter Pincode">
+				</div>
+			</div>
+		</div>
+		<div class="d-flex justify-content-end gap-2 mt-3">
+			<a href="EmployeeList"><button type="button" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Back</button></a>
+			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+		
+		</div>
+
+	</form>
+</div>
+
