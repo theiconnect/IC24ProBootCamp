@@ -59,5 +59,33 @@
     <Folder Include="Tables" />
     <Folder Include="Scripts" />
     <Folder Include="StoredProcedures" />
+    <Folder Include="Scripts\PreDeploymentScripts" />
+    <Folder Include="Scripts\PostDeploymentScripts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\dbo.Users.sql" />
+    <Build Include="Tables\dbo.Billing.sql" />
+    <Build Include="Tables\dbo.Customer.sql" />
+    <Build Include="Tables\dbo.Employee.sql" />
+    <Build Include="Tables\dbo.Orders.sql" />
+    <Build Include="Tables\dbo.ProductCategory.sql" />
+    <Build Include="Tables\dbo.ProductMaster.sql" />
+    <Build Include="Tables\dbo.Role.sql" />
+    <Build Include="Tables\dbo.StatusMaster.sql" />
+    <Build Include="Tables\dbo.Stock.sql" />
+    <Build Include="Tables\dbo.StockProduct.sql" />
+    <Build Include="Tables\dbo.Store.sql" />
+    <Build Include="Tables\dbo.Supplier.sql" />
+    <Build Include="Tables\dbo.UOM.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\PostDeploymentScripts\RMSNextGen.Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\PreDeploymentScripts\RMSNextGenScript.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\PostDeploymentScripts\LoadStatus.sql" />
+    <None Include="Scripts\PostDeploymentScripts\LoadUOM.sql" />
   </ItemGroup>
 </Project>
