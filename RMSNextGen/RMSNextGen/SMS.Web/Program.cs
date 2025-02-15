@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Build.Framework;
 using SMS.DAL;
 using SMS.Services;
 
@@ -8,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
 
 builder.Services.AddTransient<UserRepository>(provider =>
     new UserRepository(connectionString));
