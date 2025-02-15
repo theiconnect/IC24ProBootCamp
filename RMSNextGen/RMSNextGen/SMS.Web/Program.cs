@@ -10,6 +10,8 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
 
+string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
+
 builder.Services.AddTransient<UserRepository>(provider =>
     new UserRepository(connectionString));
 builder.Services.AddTransient<UserService>();
@@ -17,6 +19,10 @@ builder.Services.AddTransient<LokeshStudentRepository>(provider =>
     new LokeshStudentRepository(connectionString));
 
 builder.Services.AddTransient<LokeshStudentService>();
+
+builder.Services.AddTransient<SaiStudentRepository>(provider =>
+	new SaiStudentRepository(connectionString));
+builder.Services.AddTransient<SaiStudentService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
