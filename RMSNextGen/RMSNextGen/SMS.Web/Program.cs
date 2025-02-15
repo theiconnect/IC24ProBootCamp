@@ -8,6 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+<<<<<<< HEAD
+string ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddTransient<UserRepository>(provider =>
+    new UserRepository(ConnectionString));
+builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<VijayStudentServices>();
+builder.Services.AddTransient<VijayStudentRepository>(provider => new VijayStudentRepository(ConnectionString));
+
+=======
 string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
 
 string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
@@ -23,6 +33,7 @@ builder.Services.AddTransient<LokeshStudentService>();
 builder.Services.AddTransient<SaiStudentRepository>(provider =>
 	new SaiStudentRepository(connectionString));
 builder.Services.AddTransient<SaiStudentService>();
+>>>>>>> main
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

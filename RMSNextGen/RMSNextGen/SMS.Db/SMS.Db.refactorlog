@@ -1,5 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+<<<<<<< HEAD
+  <Operation Name="Rename Refactor" Key="fabebf14-f04a-46d7-821c-b14c5865c8af" ChangeDateTime="02/13/2025 13:25:52">
+    <Property Name="ElementName" Value="[dbo].[VijayStudent].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VijayStudent]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="StudentCode" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d4f61edb-80ba-46f3-805f-aa830c2b53f4" ChangeDateTime="02/13/2025 13:28:24">
+    <Property Name="ElementName" Value="[dbo].[VijayStudent].[Ge]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VijayStudent]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Gender" />
+=======
   <Operation Name="Rename Refactor" Key="69a8631e-d1b2-4b7a-9abd-fafdb079d567" ChangeDateTime="02/13/2025 13:25:20">
     <Property Name="ElementName" Value="[dbo].[LokeshStudent].[Id]" />
     <Property Name="ElementType" Value="SqlSimpleColumn" />
@@ -13,5 +28,6 @@
     <Property Name="ParentElementName" Value="[dbo].[LokeshStudent]" />
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Studentcode" />
+>>>>>>> main
   </Operation>
 </Operations>
