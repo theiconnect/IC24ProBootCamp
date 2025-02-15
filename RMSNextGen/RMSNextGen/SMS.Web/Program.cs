@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Build.Framework;
 using SMS.DAL;
 using SMS.Services;
 
@@ -11,9 +12,19 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 //
 string connectionstring = builder.Configuration.GetConnectionString("YuvaSMSDB");
 
+string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
+
 builder.Services.AddTransient<UserRepository>(provider =>
-    new UserRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
+    new UserRepository(connectionString));
 builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<LokeshStudentRepository>(provider =>
+    new LokeshStudentRepository(connectionString));
+
+builder.Services.AddTransient<LokeshStudentService>();
+
+builder.Services.AddTransient<SaiStudentRepository>(provider =>
+	new SaiStudentRepository(connectionString));
+builder.Services.AddTransient<SaiStudentService>();
 
 builder.Services.AddTransient<YuvaStudentRegistrationRepiository>(provider =>
     new YuvaStudentRegistrationRepiository(connectionstring));
