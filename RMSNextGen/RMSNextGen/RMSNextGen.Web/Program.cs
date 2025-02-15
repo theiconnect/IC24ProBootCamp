@@ -1,9 +1,27 @@
+using RMSNextGen.DAL;
+using RMSNextGen.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+string connectionString = builder.Configuration.GetConnectionString("RMSNextGenDBConnectionString");
+//Product Module
+builder.Services.AddTransient<ProductRepository>(provider => new ProductRepository(connectionString));
+
+builder.Services.AddTransient<ProductServices>();
+
+//Stock Module
+
+builder.Services.AddTransient<StockRepository>(provider => new StockRepository(connectionString));
+
+builder.Services.AddTransient<StockServices>();
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

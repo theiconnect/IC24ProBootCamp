@@ -7,6 +7,7 @@ namespace RMSNextGen.Web.Controllers
 {
     public class ProductController : Controller
     {
+        string userName = "Krishnaveni";
         ProductServices _productServices;
         public ProductController(ProductServices productServices)
         {
@@ -36,10 +37,12 @@ namespace RMSNextGen.Web.Controllers
 			ProductDTO productObj=new ProductDTO();
             productObj.ProductName = model.ProductName;
             productObj.ProductCode= model.ProductCode;
-            productObj.Category= model.Category;
+            
             productObj.PricePerUnit= model.PricePerUnit;
             productObj.ThresholdLimit=model.ThresholdLimit;
-            productObj.UnitofMeasurement=model.UnitofMeasurement;
+            
+            productObj.CreatedBy = userName;
+            productObj.CreatedOn = model.CreatedOn;
 
             bool result=await _productServices.SaveProduct(productObj);
 

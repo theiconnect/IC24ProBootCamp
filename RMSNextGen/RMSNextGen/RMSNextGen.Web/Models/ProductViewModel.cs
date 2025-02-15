@@ -8,6 +8,9 @@
 		public string PricePerUnit { get; set; }
 		public string ThresholdLimit { get; set; }
 		public string UnitofMeasurement { get; set; }
-		
+		public string CreatedBy {  get; set; }
+		public DateOnly CreatedOn { get; set; }
+
+
 	}
 }
