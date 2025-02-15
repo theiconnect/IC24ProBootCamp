@@ -8,9 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
+string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
+
 builder.Services.AddTransient<UserRepository>(provider =>
     new UserRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<UserService>();
+
+builder.Services.AddTransient<SaiStudentRepository>(provider =>
+	new SaiStudentRepository(connectionString));
+builder.Services.AddTransient<SaiStudentService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
