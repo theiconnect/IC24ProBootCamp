@@ -11,14 +11,7 @@ namespace RMSNextGen.Web.Controllers
 			return View();
 		}
 
-		[HttpPost]
-		public IActionResult SearchEmployee()
-		{
-			//perform search operation
-			//filter the list
-			//
-			return RedirectToAction("EmployeeList");
-		}
+		
 
 		[HttpGet]
         public IActionResult EditEmployee()
@@ -36,8 +29,18 @@ namespace RMSNextGen.Web.Controllers
         {
             return View();
         }
+		
+		[HttpPost]
+		public IActionResult Save(IFormCollection form)
+		{
+			return RedirectToAction("EmployeeList", "Employee");
+		}
+		
+		[HttpPost]
+		public IActionResult Search(IFormCollection form)
+		{
+			return RedirectToAction("EmployeeList", "Employee");
+		}
 
-
-
-    }
+	}
 }

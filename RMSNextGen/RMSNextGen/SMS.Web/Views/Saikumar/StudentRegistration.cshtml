@@ -1,0 +1,60 @@
+﻿@model SMS.Web.Models.SaiStudentViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	ViewData["Title"] = "StudentRegistration";
+	Layout = null;
+}
+<div>
+<h1>StudentRegistration</h1>
+<form method="post">
+<div>
+<label>StudentCode</label>
+<input type="text" asp-for="StudentCode"/>
+</div>
+<div>
+<label>StudentName</label>
+			<input type="text" asp-for="StudentName" />
+</div>
+<div>
+<label>DOB</label>
+			<input type="date" asp-for="DOB" />
+</div>
+<div>
+<label>Gender</label>
+			<input type="radio" asp-for="Gender" value="Male" />Male
+			<input type="radio" asp-for="Gender" value="Female" />Female
+</div>
+<div>
+<label>Grade</label>
+<select name="Grade">
+<option>Select</option>
+<option>Grade-1</option>
+<option>Grade-2</option>
+<option>Grade-3</option>
+<option>Grade-4</option>
+<option>Grade-5</option>
+<option>Grade-6</option>
+<option>Grade-7</option>
+</select>
+</div>
+ 
+			<div>
+<label>IsOwnTransport</label>
+<input type="checkbox" name="IsOwnTransport" />
+</div>
+<div>
+<label>Comments</label>
+<textarea name="Comments">
+</textarea>
+</div>
+<div>
+<input type="submit" value="Save" />
+</div>
+<div>
+			<label style="color:green">@ViewBag.Message</label>
+</div>
+
+</form>
+</div>
