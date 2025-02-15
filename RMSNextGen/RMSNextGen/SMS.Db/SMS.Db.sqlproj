@@ -68,6 +68,7 @@
     <Build Include="Tables\Users.sql" />
     <Build Include="StoredProcedures\GetUserByEmailProcedure.sql" />
     <Build Include="StoredProcedures\CreateUserProcedure.sql" />
+    <Build Include="Tables\SathishStudent.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SMS.Db.publish.xml" />
@@ -77,5 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Scripts\PreDeployment\SMS.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SMS.Db.refactorlog" />
   </ItemGroup>
 </Project>
