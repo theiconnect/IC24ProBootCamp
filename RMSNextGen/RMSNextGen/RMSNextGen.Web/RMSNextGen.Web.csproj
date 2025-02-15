@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -30,6 +30,11 @@
     <None Include="wwwroot\images\hamburger.png" />
     <None Include="wwwroot\images\logormsnextgen.png" />
     <None Include="wwwroot\images\profileicon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RMSNextGen.DB\RMSNextGen.Models.csproj" />
+    <ProjectReference Include="..\RMSNextGen.Services\RMSNextGen.Services.csproj" />
   </ItemGroup>
 
 </Project>
