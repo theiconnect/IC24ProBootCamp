@@ -9,5 +9,3 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-r .\LoadUOM.sql	
-:r .\LoadStatus.sql	
