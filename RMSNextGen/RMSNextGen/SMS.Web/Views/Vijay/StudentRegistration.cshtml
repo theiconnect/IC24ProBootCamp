@@ -1,73 +1,59 @@
-﻿
+﻿@model SMS.Web.Models.VijayStudentViewModels
 @{
     ViewData["Title"] = "StudentRegistration";
 
 }
 
 <h1>StudentRegistration</h1>
-<form>
-	<div class="card shadow-sm p-2">
-		<div class="row g-3">
-			<div class="col-sm-5 mr-1 px-2">
-				<label for="StudentCode" class="form-label">Student Code</label>
-				<input type="text" class="form-control" id="StudentCode" name="StudentCode" placeholder="Enter Student Code">
-			</div>
-			<div class="col-sm-5 mr-1 px-2">
-				<label for="StudentName" class="form-label">Student Name</label>
-				<input type="text" class="form-control" id="StudentName" name="StudentName" placeholder=" Enter Student Name">
-			</div>
-			<div class="col-sm-5 mr-1 px-2">
-				<label for="dob" class="form-label">Date of Birth</label>
-				<input type="date" class="form-control" id="dob" name="dob" required>
-			</div>
-			<div class="col-sm-5 mr-1 px-2">
-				<label for="Gender" class="form-label">Gender</label>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="Gender" id="GenderMale" value="Male">
-					<label class="form-check-label" for="GenderMale">Male</label>
-				</div>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="Gender" id="GenderFemale" value="Female">
-					<label class="form-check-label" for="GenderFemale">Female</label>
-				</div>
-			</div>
-			<div class="col-sm-5 mr-1 px-2">
-				<label for="Comments" class="form-label">Comments</label>
-				<textarea class="form-control" id="Comments" name="Comments" rows="4" placeholder="Enter your comments here"></textarea>
-			</div>
-			<div class="col-sm-5 mr-1 px-2">
-				  <label for="SchoolGrade" class="form-label">Grade</label>
-				  <select class="form-select" id="SchoolGrade" name="SchoolGrade">
-					<option selected>Select Grade</option>
-					<option>Grade 1</option>
-					<option>Grade 2</option>
-					<option>Grade 3</option>
-					<option>Grade 4</option>
-					<option>Grade 5</option>
-					<option>Grade 6</option>
-					<option>Grade 7</option>
-					<option>Grade 8</option>
-					<option>Grade 9</option>
-					<option>Grade 10</option>
-					<option>Grade 11</option>
-					<option>Grade 12</option>
-				  </select>
-			</div>
-			<div class="col-sm-5 mr-1 px-2">
-				<label class="form-label">Own Transport</label>
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" id="OwnTransport" name="OwnTransport" value="Yes">
-					<label class="form-check-label" for="OwnTransport">I have my own transport</label>
-				</div>
-			</div
-		</div>
+
+<form method="post" asp-controller="Vijay" asp-action="StudentRegistration">
+	<div>
+		<label>Student Code</label>
+		<input Asp-for="Studentcode"  />
 	</div>
-	<div class="d-flex justify-content-end gap-2 mt-3">
-		<a href=""><button type="submit" class="btn btn-submit"><i class="bi bi-arrow-counterclockwise"></i> Save</button></a>
-		<button type="reset" class="btn btn-success"><i class="bi bi-search"></i> Clear</button>
+	<div>
+		<label>Student Name</label>
+		<input asp-for="studentName" />
+	</div>
+	<div>
+		<label>DOB</label>
+		<input type="date" asp-for="DOB" />
+	</div>
+	<div>
+		<label>Gender</label>
+		<input type="radio" asp-for="Gender" value="Male" />Male
+		<input type="radio" asp-for="Gender" value="Female" />Female
+	</div>
+	<div>
+		<label>Grade</label>
+		<select asp-for="Grade">
+			<option>Select</option>
+			<option>Grade-1</option>
+			<option>Grade-2</option>
+			<option>Grade-3</option>
+			<option>Grade-4</option>
+			<option>Grade-5</option>
+			<option>Grade-6</option>
+			<option>Grade-7</option>
+		</select>
 	</div>
 
+	<div>
+		<label>Own Transport?</label>
+		<input type="checkbox" asp-for="IsOwnTransport" />
+	</div>
+	<div>
+		<label>Comments</label>
+		<textarea asp-for="Comments">
+		</textarea>
+
+	</div>
+	<div>
+		<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+	</div>
+	<div>
+		<h4>@ViewBag.Student</h4>
+	</div>
 </form>
-
 
 

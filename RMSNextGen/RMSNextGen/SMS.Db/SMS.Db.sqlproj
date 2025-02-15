@@ -68,14 +68,19 @@
     <Build Include="Tables\Users.sql" />
     <Build Include="StoredProcedures\GetUserByEmailProcedure.sql" />
     <Build Include="StoredProcedures\CreateUserProcedure.sql" />
+    <Build Include="Tables\VijayStudent.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SMS.Db.publish.xml" />
+    <None Include="SMS.Vijay.Db.publish.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\PostDeployment\SMS.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Scripts\PreDeployment\SMS.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SMS.Db.refactorlog" />
   </ItemGroup>
 </Project>
