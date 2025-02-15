@@ -68,9 +68,11 @@
     <Build Include="Tables\Users.sql" />
     <Build Include="StoredProcedures\GetUserByEmailProcedure.sql" />
     <Build Include="StoredProcedures\CreateUserProcedure.sql" />
+    <Build Include="Tables\YuvaStudent.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SMS.Db.publish.xml" />
+    <None Include="SMS.Db.yuva.publish.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\PostDeployment\SMS.PostDeployment.sql" />

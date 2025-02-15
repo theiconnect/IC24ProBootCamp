@@ -1,0 +1,88 @@
+﻿@{
+	ViewData["Title"] = "Stock List";
+	Layout = "~/Views/Shared/_RMSLayout.cshtml";
+}
+<div class="container">
+	<div class="justify-content-between align-items-center">
+		@* <h3 class="text-primary">Stock - </h3> *@
+		<hr class="mt-0" />
+		<h4 class="text-secondary">Stock/Search Stock</h4>
+	</div>
+
+	<form method="post" asp-action="ViewStock" asp-controller="Stock">
+		<div class="card shadow-sm p-2">
+			<div class="row g-3">
+				<div class="col-sm-5 mr-1 px-2">
+
+					<form action="/action_page.php">
+						<label for="birthdaytime">Date:</label><a href="d:\iconnect\source\repos\ic24a\ic24probootcamp\rmsnextgen\rmsnextgen\rmsnextgen.web\views\stock\stocklist.cshtml">d:\iconnect\source\repos\ic24a\ic24probootcamp\rmsnextgen\rmsnextgen\rmsnextgen.web\views\stock\stocklist.cshtml</a>
+						<input type="datetime-local" id="birthdaytime" name="birthdaytime">
+					</form>
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Location" class="form-label">Order#</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter Order#">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Location" class="form-label">Invoice#</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter Invoice#">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="State" class="form-label">SupplierName</label>
+					<select class="form-select" id="State" name="State">
+						<option selected>Select</option>
+						<option>Arun</option>
+						<option>Akash</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex justify-content-end gap-2 mt-3">
+			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
+			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Search</button>
+			<a class="btn btn-info" asp-action="AddStock" asp-controller="Stock">
+				<i class="bi bi-plus-circle"></i> Add Stock
+			</a>
+		</div>
+
+	</form>
+	@* <hr class="mt-0" /> *@
+	<div class="table-responsive mt-2 p-2">
+		<table class="table table-bordered table-hover shadow-sm">
+			<thead class="table-dark">
+				<tr>
+					<th scope="col">Stock.NO</th>
+					<th scope="col">Invoice#</th>
+					<th scope="col">Order#</th>
+					<th scope="col">Date</th>
+					<th scope="col">Status</th>
+					<th scope="col">Edit/Approved</th>
+					<th scope="col">View</th>
+					<th scope="col">Remove</th>
+
+
+					
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Inv-01</td>
+					<td>O-001</td>
+					<td>11/02/2025</td>
+					<td>Status</td>
+					<td><a href="action" id="Button" class="Status">Edit/Approved</a></td>
+					<td class="text-center">
+
+						<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="ViewStock" asp-controller="Stock">View</a></button>
+					</td>
+					<td>
+						Remove
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+</div>
+

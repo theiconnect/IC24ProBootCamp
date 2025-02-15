@@ -2,15 +2,23 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using SMS.DAL;
 using SMS.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+//
+string connectionstring = builder.Configuration.GetConnectionString("YuvaSMSDB");
 
 builder.Services.AddTransient<UserRepository>(provider =>
     new UserRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<UserService>();
+
+builder.Services.AddTransient<YuvaStudentRegistrationRepiository>(provider =>
+    new YuvaStudentRegistrationRepiository(connectionstring));
+
+builder.Services.AddTransient<YuvaStudentRegistratonService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
