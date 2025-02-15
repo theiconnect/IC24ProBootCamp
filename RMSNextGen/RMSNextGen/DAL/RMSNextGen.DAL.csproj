@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RMSNextGen.DB\RMSNextGen.Models.csproj" />
+  </ItemGroup>
+
 </Project>

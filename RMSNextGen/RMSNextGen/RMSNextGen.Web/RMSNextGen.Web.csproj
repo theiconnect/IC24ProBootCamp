@@ -32,4 +32,9 @@
     <None Include="wwwroot\images\profileicon.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RMSNextGen.DB\RMSNextGen.Models.csproj" />
+    <ProjectReference Include="..\RMSNextGen.Services\RMSNextGen.Services.csproj" />
+  </ItemGroup>
+
 </Project>
