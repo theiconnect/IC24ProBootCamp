@@ -1,4 +1,4 @@
-﻿@model SMS.Web.Controllers.EmployeeViewModel
+﻿@model SMS.Web.Models.LokeshStudentViewModel
 @{
 	ViewData["Title"] = "StudentRegistration";
 	Layout = null;
@@ -9,7 +9,7 @@
 <form method="post">
 	<div>
 		<label>Student Code</label>
-		<input name="StudentCode" value="@Model.StudentCode" />
+		<input asp-for="StudentCode" value="@Model.StudentCode" />
 	</div>
 	<div>
 		<label>Student Name</label>
@@ -51,11 +51,9 @@
 		<input type="submit" value="Save"/>
 	</div>
 	<div>
-		ViewData: @ViewData["UserName"]
+		<label style="color:green">@ViewBag.Message</label>
 	</div>
-	<div>
-		ViewBag: @ViewBag.UserName1
-	</div>
+	
 	@* <div>
 		<table>
 			<tr>
