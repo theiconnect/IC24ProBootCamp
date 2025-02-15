@@ -1,4 +1,6 @@
-﻿@{
+﻿@model SMS.Web.Models.AddNewStoreViewModel
+
+@{
 	ViewData["Title"] = "AddNewStore";
 	Layout = "~/Views/Shared/_RMSLayout.cshtml";
 }
@@ -21,42 +23,40 @@
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1">
-					<label for="StoreCode" class="form-label">Store Code</label>
-					<input type="text" class="form-control" id="StoreCode" name="StoreCode" placeholder="Enter Store Code">
+					<label for="StoreCode" class="form-label">StoreCode</label>
+					<input type="text" asp-for="StoreCode" placeholder="Enter Store Code">
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label style="margin-left:5px" for="Location" class="form-label" > Store Location</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter  StoreLocation " style="margin-left: 12px;" />
-						   
-						   
+					<label style="margin-left:5px" for="Location" class="form-label" > StoreLocation</label>
+					<input type="text" asp-for="StoreLocation" placeholder="Enter  StoreLocation " style="margin-left: 12px;" />						   
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Location" class="form-label">NickName</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter NickName">
+					<input type="text" asp-for="NickName" placeholder="Enter NickName">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Location" class="form-label">Address</label>
-					<textarea class="form-control" id="Address" placeholder="Enter Address" style="margin-left:12px"></textarea>
+					<textarea type="text" asp-for="Address" placeholder="Enter Address" style="margin-left:12px"></textarea>
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Location" class="form-label">OfficeNo</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter OfficeNo">
+					<input type="text" asp-for="OfficeNo" placeholder="Enter OfficeNo">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Location" class="form-label">ManagerName</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter ManagerName" style="margin-left: 12px;">
+					<input type="text" asp-for="ManagerName" placeholder="Enter ManagerName" style="margin-left: 12px;">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Location" class="form-label">ManagerNo</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter ManagerNumber" >
+					<input type="text" asp-for="ManagerNo" placeholder="Enter ManagerNumber" >
 				</div>
 				<div class="col-sm-5 mr-1" >
 					<label for="Location" class="form-label">GST No</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter GST No" style="margin-left: 12px;">
+					<input type="text" asp-for="GSTNo" placeholder="Enter GST No" style="margin-left: 12px;">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Location" class="form-label">CIN No</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter CIN No" >
+					<input type="text" asp-for="CINNo" placeholder="Enter CIN No" >
 				</div>
 			</div>
 		</div>

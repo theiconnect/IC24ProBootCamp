@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RMSNextGen.Models;
+using RMSNextGen.Web.Models;
+using System.Reflection;
 
 namespace RMSNextGen.Web.Controllers
 {
@@ -32,6 +35,27 @@ namespace RMSNextGen.Web.Controllers
         {
 			return RedirectToAction("StoreList", "Store");
 		}
+
+		[HttpPost]
+		public IActionResult AddNewStore(AddNewStoreViewModel model)
+		{
+			AddNewStoreDTO objectdto = new AddNewStoreDTO();
+
+			objectdto.StoreCode = model.StoreCode;
+			objectdto.StoreLocation = model.StoreLocation;
+			objectdto.NickName = model.NickName;
+			objectdto.Address = model.Address;
+			objectdto.OfficeNo = model.OfficeNo;
+			objectdto.ManagerName = model.ManagerName;
+			objectdto.ManagerNo = model.ManagerNo;
+			objectdto.GSTNo = model.GSTNo;
+			objectdto.CINNo = model.CINNo;
+			objectdto.StoreLocation = model.StoreLocation;
+
+			return View(model);
+		}
+
+		
 		[HttpGet]
 		public IActionResult EditStore()
 		{
