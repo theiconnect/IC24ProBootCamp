@@ -1,0 +1,58 @@
+﻿ @model SMS.Web.Models.kiranStudentViewModel
+ @{
+    ViewData["Title"] = "StudentRegistration";
+}
+<h1>StudentRegistration</h1>
+<form method="post" asp-controller="kiran" asp-action="StudentRegistration">
+	<div>
+		<label>Student Code</label>
+		<input Asp-for="StudentCode" />
+	</div>
+	<div>
+		<label>Student Name</label>
+		<input asp-for="StudentName" />
+	</div>
+	<div>
+		<label>DOB</label>
+		<input type="date" asp-for="DOB" />
+	</div>
+	<div>
+		<label>Gender</label>
+		<input type="radio" asp-for="Gender" value="Male" />Male
+		<input type="radio" asp-for="Gender" value="Female" />Female
+	</div>
+	<div>
+		<label>Grade</label>
+		<select asp-for="Grade">
+			<option>Select</option>
+			<option>Grade-1</option>
+			<option>Grade-2</option>
+			<option>Grade-3</option>
+			<option>Grade-4</option>
+			<option>Grade-5</option>
+			<option>Grade-6</option>
+			<option>Grade-7</option>
+		</select>
+	</div>
+
+	<div>
+		<label>Own Transport?</label>
+		<input type="checkbox" asp-for="IsOwnTransport" />
+	</div>
+	<div>
+		<label>Comments</label>
+		<textarea asp-for="Comments">
+		</textarea>
+	</div>
+	<div>
+		<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+	</div>
+	<div>
+		<label style="color:green">@ViewBag.Message</label>
+	</div>
+	@* <div>
+		<h4>@ViewBag.Student</h4>
+	</div> *@
+</form>
+
+

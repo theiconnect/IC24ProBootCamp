@@ -7,10 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddTransient<UserRepository>(provider =>
-    new UserRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
+    new UserRepository(connectionString));
 builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<kiranStudentService>();
+builder.Services.AddTransient<kiranStudentRepository>(provider =>
+	new kiranStudentRepository(connectionString));
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
