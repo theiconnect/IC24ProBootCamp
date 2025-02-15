@@ -10,14 +10,14 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
+string SMSconnectionString  = builder.Configuration.GetConnectionString("SMSDBConnectionString");
 
 builder.Services.AddTransient<UserRepository>(provider =>
-    new UserRepository(connectionString));
+    new UserRepository(SMSconnectionString));
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<kiranStudentService>();
 builder.Services.AddTransient<kiranStudentRepository>(provider =>
-	new kiranStudentRepository(connectionString));
+	new kiranStudentRepository(SMSconnectionString));
 
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
