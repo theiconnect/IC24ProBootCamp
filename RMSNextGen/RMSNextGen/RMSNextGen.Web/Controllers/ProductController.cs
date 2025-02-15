@@ -1,10 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RMSNextGen.Web.Models;
+using RMSNextGen.Models;
+using RMSNextGen.Services;
 
 namespace RMSNextGen.Web.Controllers
 {
     public class ProductController : Controller
     {
-        [HttpGet]
+        ProductServices _productServices;
+        public ProductController(ProductServices productServices)
+        {
+			_productServices = productServices;
+        }
+
+		[HttpGet]
         public IActionResult ProductList()
         {
             return View();
@@ -21,9 +30,23 @@ namespace RMSNextGen.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddNewProduct(IFormCollection form)
+        public async Task<IActionResult> AddNewProduct(ProductViewModel model)
         {
-            return RedirectToAction("ProductList", "Product");
+			//return RedirectToAction("ProductList", "Product");
+			ProductDTO productObj=new ProductDTO();
+            productObj.ProductName = model.ProductName;
+            productObj.ProductCode= model.ProductCode;
+            productObj.Category= model.Category;
+            productObj.PricePerUnit= model.PricePerUnit;
+            productObj.ThresholdLimit=model.ThresholdLimit;
+            productObj.UnitofMeasurement=model.UnitofMeasurement;
+
+            bool result=await _productServices.SaveProduct(productObj);
+
+            ViewBag.Message = result ? "Product Added Successfully" : "Unable to Add Product";
+
+
+			return View(model);
 
             
         }

@@ -23,8 +23,8 @@ namespace SMS.DAL
             {
                 string query= "Insert Into KrishnaveniStudent(StudentCode,StudentName,DOB,Gender,Grade,IsOwnTransport,Comments)" +
 					"values(@StudentCode,@StudentName,@DOB,@Gender,@Grade,@IsOwnTransport,@Comments)";
-				con.Open();
-                using (SqlCommand command = new SqlCommand(query, con))
+				await con.OpenAsync();
+				using (SqlCommand command = new SqlCommand(query, con))
                 {
                     try
                     {
