@@ -1,7 +1,14 @@
+using RMSNextGen.DAL;
+using RMSNextGen.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+String ConnectionString = builder.Configuration.GetConnectionString("RMSNextGenDBConnection");
+builder.Services.AddTransient<ProductCategoryRepository>(provider => new ProductCategoryRepository(ConnectionString));  
+builder.Services.AddTransient<ProductCategoryServices>();   
 
 var app = builder.Build();
 
