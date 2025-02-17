@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\RMSNextGen.DAL.csproj" />
+    <ProjectReference Include="..\RMSNextGen.DB\RMSNextGen.Models.csproj" />
+  </ItemGroup>
+
+</Project>
