@@ -12,6 +12,8 @@ namespace RMSNextGen.DAL
     public class ProductCategoryRepository
     {
         public readonly string _connectionString;
+         public List<ProductCategoryListDTO> listDTOs {  get; set; }    
+
         public ProductCategoryRepository(string connectionString)
         {
             _connectionString=connectionString;
@@ -42,6 +44,39 @@ namespace RMSNextGen.DAL
             {
                 return false;
             }
+        }
+        public List<ProductCategoryListDTO> GetProductCategoryList()
+        {
+            listDTOs = new List<ProductCategoryListDTO>();  
+                using (SqlConnection connection = new SqlConnection(_connectionString))
+                {
+                    string query = "select ProductCategoryIdPk,ProductCategoryCode,ProductCategoryName,[Description] from ProductCategory";
+                     
+                        connection.Open();
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                    try
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader()) 
+                        {
+                            while (reader.Read()) 
+                            {
+                                ProductCategoryListDTO category = new ProductCategoryListDTO();
+                                category.CategoryIdPK = Convert.ToInt32(reader["ProductCategoryIdPk"]);
+                                category.CategoryCode = Convert.ToString(reader["ProductCategoryCode"]);
+                                category.CategoryName = Convert.ToString(reader["ProductCategoryName"]); 
+                                category.Description = Convert.ToString(reader["Description"]);
+                                listDTOs.Add(category);
+                            }
+                        }
+                    }
+                    catch (Exception ex) 
+                        {
+                            throw ex;
+                        }
+                    }
+                }
+                return listDTOs;    
         }
     }
 }

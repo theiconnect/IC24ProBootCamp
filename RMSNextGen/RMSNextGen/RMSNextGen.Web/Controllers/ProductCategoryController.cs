@@ -13,9 +13,11 @@ namespace RMSNextGen.Web.Controllers
         {
             _ProductCategoryServices= ProductCategoryServices;
         }
+        [HttpGet]
         public IActionResult CategoryList()
         {
-            return View();
+           List<ProductCategoryListDTO> listDTOs = _ProductCategoryServices.GetProductCategoryList();
+            return View(listDTOs);
         }
         public IActionResult EditCategory()
         {
@@ -43,7 +45,6 @@ namespace RMSNextGen.Web.Controllers
         {
             return View();
         }
-
 
     }
 }

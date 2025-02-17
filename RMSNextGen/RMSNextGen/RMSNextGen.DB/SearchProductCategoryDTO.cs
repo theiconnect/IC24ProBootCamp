@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace RMSNextGen.Models
 {
-    public class ProductCategoryDTO
+    public class SearchProductCategoryDTO
     {
-        public int CategoryIdPK { get; set; }
         public string CategoryCode { get; set; }
         public string CategoryName { get; set; }
-        public string Description { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
     }
 }

@@ -14,11 +14,16 @@ namespace RMSNextGen.Services
         public ProductCategoryServices(ProductCategoryRepository ProductCategoryRepository)
         {
             _categoryRepository = ProductCategoryRepository;
+
         }
         public async Task<bool> AddCategory(ProductCategoryDTO category)
         {
             return await _categoryRepository.AddCategory(category);
 
+        }
+        public  List<ProductCategoryListDTO> GetProductCategoryList()
+        {
+            return  _categoryRepository.GetProductCategoryList();
         }
     }
 }
