@@ -4,24 +4,40 @@ namespace RMSNextGen.Web.Controllers
 {
     public class ProductCategoryController : Controller
     {
-        public IActionResult Index()
+     
+        [HttpGet]
+        public IActionResult CategoryList()
+
         {
+
             return View();
         }
 
-        public IActionResult CategoryList()
-        {
-            return View();
-        }
+        [HttpGet]
         public IActionResult EditCategory()
         {
             return View();
         }
-        public IActionResult AddCategory()
+
+        
+        [HttpPost]
+        public IActionResult UpdateProductCategory(IFormCollection form)
+        {
+            return RedirectToAction("CategoryList", "ProductCategory");
+        }
+
+		[HttpGet]
+		public IActionResult AddCategory()
         {
             return View();
         }
-        public IActionResult ViewCategory()
+		[HttpPost]
+		public IActionResult AddCategory(IFormCollection form)
+		{
+			return RedirectToAction("CategoryList", "ProductCategory");
+		}
+
+		public IActionResult ViewCategory()
         {
             return View();
         }

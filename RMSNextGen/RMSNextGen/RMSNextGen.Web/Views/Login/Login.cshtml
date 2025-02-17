@@ -17,10 +17,10 @@
 			<input type="password" id="txtPassword" name="txtPassword" class="input-control" />
 		</div>
 		<div>
-			<a asp-controller="login" asp-action="sendotp">Forgot Password</a>
+			<a asp-controller="Login" asp-action="SendOtp">Forgot Password</a>
 		</div>
 		<div>
-			<input type="submit" value="Login ->" id="btnLogin"  class="btn-login" />
+			<button type="submit"  id="btnLogin"  class="btn-login" asp-action="StoreList" asp-controller="Store"/><i class="bg-info bi-search"></i>Login -></button>
 		</div>
 	</form>
 </div>

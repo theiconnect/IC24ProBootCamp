@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 using SMS.DAL;
 using SMS.Services;
 
@@ -9,7 +11,14 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 builder.Services.AddTransient<UserRepository>(provider =>
-    new UserRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
+    new UserRepository(builder.Configuration.GetConnectionString("SMSDBConnectionString")));
+
+
+builder.Services.AddTransient<GVijayStudentRepository>(provider =>
+	new GVijayStudentRepository(builder.Configuration.GetConnectionString("SMSDBConnectionString")));
+
+builder.Services.AddTransient<GVijayStudentService>();
+
 builder.Services.AddTransient<UserService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
