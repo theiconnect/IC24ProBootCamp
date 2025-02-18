@@ -1,9 +1,9 @@
-﻿
+﻿@model RMSNextGen.Web.Models.ProductViewModel
 @{
-    ViewData["Title"] = "AddNewProduct";
+    ViewData["Title"] = "Add New Product";
     Layout = "~/Views/Shared/_RMSLayout.cshtml";
 
-}
+} 
 
 <style>
 	form-label {
@@ -18,22 +18,22 @@
 		<h4 class="text-secondary">Products/AddProduct</h4>
 	</div>
 
-	<form method="post" asp-action="AddNewStore" asp-controller="Store">
+	<form method="post" asp-action="AddNewProduct" asp-controller="Product">
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1">
-					<label for="ProductCode" class="form-label">Product Code</label>
-					<input type="text" class="form-control" id="ProductCode" name="ProductCode" placeholder="Enter Product Code">
+					<label for="ProductCode" class="form-label">ProductCode</label>
+					<input type="text" class="form-control" id="ProductCode" asp-for="ProductCode" placeholder="Enter Product Code">
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label style="margin-left:5px" for="ProductName" class="form-label">Product Name</label>
-					<input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="Enter  ProductName " style="margin-left: 12px;" />
+					<label style="margin-left:5px" for="ProductName" class="form-label">ProductName</label>
+					<input type="text" class="form-control" id="ProductName" asp-for="ProductName" placeholder="Enter  ProductName " style="margin-left: 12px;" />
 
 
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Category" class="form-label">Category</label>
-					<select class="form-select" id="Category" name="Category">
+					<select class="form-select" id="Category" asp-for="Category">
 						<option selected>Select Category</option>
 						<option>Dairy Products</option>
 						<option>Vegatables</option>
@@ -42,16 +42,16 @@
 					</select>
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label for="PricePerUnit" class="form-label">Price Per Unit</label>
-					<input type="text" class="form-control" id="PricePerUnit" placeholder="PricePerUnit" style="margin-left:12px"></input>
+					<label for="PricePerUnit" class="form-label">PricePerUnit</label>
+					<input type="text" class="form-control" id="PricePerUnit" asp-for="PricePerUnit" placeholder="PricePerUnit" style="margin-left:12px"></input>
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label for="ThresholdLimit" class="form-label">Threshold Limit</label>
-					<input type="text" class="form-control" id="ThresholdLimit" name="ThresholdLimit" placeholder="Enter ThresholdLimit">
+					<label for="ThresholdLimit" class="form-label">ThresholdLimit</label>
+					<input type="text" class="form-control" id="ThresholdLimit" asp-for="ThresholdLimit" placeholder="Enter ThresholdLimit">
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label for="UnitofMeasurement" class="form-label">Unit of Measurement</label>
-					<select class="form-select" id="UnitofMeasurement" name="UnitofMeasurement">
+					<label for="UnitofMeasurement" class="form-label">UnitofMeasurement</label>
+					<select class="form-select" id="UnitofMeasurement" asp-for="UnitofMeasurement">
 						<option selected>Select Unit</option>
 						<option>Kgs</option>
 						<option>Liters</option>
@@ -62,11 +62,37 @@
 			</div>
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
-			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="ProductList" asp-controller="Product">Back</a></button>
+			<button type="reset" class="btn btn-reset" id="btnback"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="ProductList" asp-controller="Product">Back</a></button>
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
 
 		</div>
+		@* @if (ViewBag.Response == false)
+		{
+		<div>
+			<label style="color:red">@ViewBag.Message</label>
+		</div>
+		} *@
 
 	</form>
+</div>
 
+@if (ViewBag.Response == true)
+{
+	<script>
+		alert("Product Saved Successfully");
+		window.location.href = "/Product/ProductList";
+		//document.getElementById('btnback').click();
+	</script>
+}
+else if (ViewBag.Response == false)
+{
+	<script>
+		alert(" Unable to Save Product details");
 
+	</script>
+
+}
+else
+{
+	//do nothing 
+}

@@ -10,7 +10,11 @@ String ConnectionString = builder.Configuration.GetConnectionString("RMSNextGenD
 builder.Services.AddTransient<ProductCategoryRepository>(provider => new ProductCategoryRepository(ConnectionString));  
 builder.Services.AddTransient<ProductCategoryServices>();   
 
+builder.Services.AddTransient<StockServices>();
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
