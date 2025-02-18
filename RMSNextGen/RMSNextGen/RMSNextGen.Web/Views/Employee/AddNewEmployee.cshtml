@@ -2,9 +2,6 @@
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
-
 
 @{
 	ViewData["Title"] = "AddNew Employee";
@@ -17,81 +14,125 @@
 		<h4 class="text-secondary">Employee/Add New Employee</h4>
 	</div>
 
-	<form asp-action="Save" asp-controller="Employee" method="post">
+	<form method="post" >
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="EmployeeCode" class="form-label">Employee Code</label>
-					<input type="text" class="form-control" id="EmployeeCode" asp-for="EmployeeCode" placeholder="Enter Employee Code">
+					<input type="text" class="form-control"  asp-for="EmployeeCode">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="EmployeeName" class="form-label">Employee Name</label>
-					<input type="text" class="form-control" id="EmployeeName" asp-for="EmployeeName" placeholder=" Enter Employee Name">
+					<label for="FirstName" class="form-label">First Name</label>
+					<input type="text" class="form-control"  asp-for="EmployeeFirstName">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="StorCode" class="form-label">Store Code</label>
-					<select class="form-select" id="StorCode" asp-for="StoreCode">
-						<option selected>Select</option>
-						<option>Emp001</option>
-						<option>Emp002</option>
-						<option>Emp003</option>
-
-					</select>
+					<label for="LastName" class="form-label">Last Name</label>
+					<input type="text" class="form-control" asp-for="EmployeeLastName">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="Role" class="form-label">Role</label>
-					<select class="form-select" id="Role" asp-for="Role">
+					<label for="Email" class="form-label">Email</label>
+					<input type="text" class="form-control" asp-for="Email">
+				</div>
+				
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="MobileNumber" class="form-label">Mobile Number</label>
+					<input type="text" class="form-control" asp-for="MobileNumber">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Department" class="form-label">Department</label>
+					<input type="text" class="form-control" asp-for="Department">
+				</div>
+			
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Designation" class="form-label">Designation</label>
+					<select class="form-select" asp-for="Designation">
 						<option selected>Select</option>
 						<option>Manager</option>
 						<option>Sales</option>
 					</select>
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
+					<label for="PersonalEmail" class="form-label">PersonalEmail</label>
+					<input type="text" class="form-control" asp-for="PersonalEmail">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
 					<label for="Gender" class="form-label">Gender</label>
-					<select class="form-select" id="Gender" asp-for="Gender">
+					<select class="form-select" asp-for="Gender">
 						<option selected>Select</option>
 						<option>Female</option>
 						<option>Male</option>
 					</select>
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="Salary" class="form-label">Salary</label>
-					<input type="text" class="form-control" id="Salary" asp-for="Salary" placeholder="Enter Employee Salary">
+					<label for="SalaryCTC" class="form-label">SalaryCTC</label>
+					<input type="text" class="form-control"  asp-for="SalaryCTC">
 				</div>
+				<div><h2>Permanent Address</h2></div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="Contact Number" class="form-label">Contact Number</label>
-					<input type="text" class="form-control" id="Contact Number" asp-for="ContactNumber" placeholder=" Enter Contact Number">
-				</div>
-				<div class="col-sm-5 mr-1 px-2">
-					<label for="Addressline1" class="form-label">Addressline1</label>
-					<textarea type="text" class="form-control" id="Addressline1" asp-for="Addressline1" placeholder="Enter Addressline1"></textarea>
+					<label for="PermanentAddressline1" class="form-label">Addressline1</label>
+					<textarea type="text" class="form-control" asp-for="PermanentAddressline1"></textarea>
 				
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="Addressline2" class="form-label">Addressline2</label>
-					<textarea type="text" class="form-control" id="Addressline2" asp-for="Addressline2" placeholder="Enter Addressline2"></textarea>
+					<label for="PermanentAddressline2" class="form-label">Addressline2</label>
+					<textarea type="text" class="form-control" asp-for="PermanentAddressline2"></textarea>
 
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="City" class="form-label">City</label>
-					<input type="text" class="form-control" id="City" asp-for="City" placeholder="Enter City">
+					<label for="PermanentCity" class="form-label">City</label>
+					<input type="text" class="form-control" asp-for="PermanentCity">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="State" class="form-label">State</label>
-					<input type="text" class="form-control" id="State" asp-for="State" placeholder="Enter State">
+					<label for="PermanentState" class="form-label">State</label>
+					<input type="text" class="form-control" asp-for="PermanentState">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="Pincode" class="form-label">Pincode</label>
-					<input type="text" class="form-control" id="Pincode" asp-for="Pincode" placeholder="Enter Pincode">
+					<label for="PermanentPincode" class="form-label">Pincode</label>
+					<input type="text" class="form-control" asp-for="PermanentPincode">
+				</div>
+				<div><h2>Current Address</h2></div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="CurrentAddressline1" class="form-label">Addressline1</label>
+					<textarea type="text" class="form-control"  asp-for="CurrentAddressline1"></textarea>
+
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="CurrentAddressline2" class="form-label">Addressline2</label>
+					<textarea type="text" class="form-control"  asp-for="CurrentAddressline2"></textarea>
+
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="CurrentCity" class="form-label">City</label>
+					<input type="text" class="form-control"  asp-for="CurrentCity">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="CurrentState" class="form-label">State</label>
+					<input type="text" class="form-control" asp-for="CurrentState">
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="CurrentPincode" class="form-label">Pincode</label>
+					<input type="text" class="form-control"  asp-for="CurrentPincode">
 				</div>
 			</div>
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
-			<a href="EmployeeList"><button type="button" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Back</button></a>
+			<button type="button" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Back</button>
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>	
 		</div>
 
 	</form>
 </div>
-	
+@if (ViewBag.result == true)
+{
+	<script>
+		alert("Employee Added Successfully");
+		window.location.href = "/Employee/EmployeeList";
+	</script>
+}
+else if (ViewBag.result == false)
+{
+<select>
+   alert("Unable to save Employee Details");
+</select>
 
+}

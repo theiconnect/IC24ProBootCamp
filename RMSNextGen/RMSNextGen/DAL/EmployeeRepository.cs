@@ -21,29 +21,43 @@ namespace RMSNextGen.DAL
 			{
 				using (SqlConnection connection = new SqlConnection(_connectionString))
 				{
+					string query = "INSERT INTO Employee (EmployeeCode, EmployeeFirstName, EmployeeLastName, Email, MobileNumber,  Department, Designation, PersonalEmail, Gender, SalaryCTC, PermanentAddressLine1, PermanentAddressLine2, PermanentCity, PermanentState, PermanentPincode, CurrentAddressLine1, CurrentAddressLine2, CurrentCity, CurrentState, CurrentPincode, CreatedBy, CreatedOn, LastUpdatedBy, LastUpdatedOn) " +
+								   "VALUES (@EmployeeCode, @EmployeeFirstName, @EmployeeLastName,@Email, @MobileNumber, @Department, @Designation, @PersonalEmail, @Gender, @Salary, @PermanentAddressLine1, @PermanentAddressLine2, @PermanentCity, @PermanentState, @PermanentPincode, @AddressLine1, @AddressLine2, @City, @State, @Pincode, @CreatedBy, @CreatedOn, @LastUpdatedBy, @LastUpdatedOn);";
 
-					string query = "INSERT INTO EmployeeList(EmployeeCode, EmployeeName, StoreCode, Role, Gender, Salary, ContactNumber,Addressline1,Addressline2,City,State,Pincode) " +
-								   "VALUES (@EmployeeCode, @EmployeeName, @StoreCode, @Role, @Gender, @Salary, @ContactNumber ,@Addressline1,@Addressline2,@City,@State,@Pincode)";
-					connection.Open();
+				
 					using (SqlCommand cmd = new SqlCommand(query, connection))
 					{
+						await connection.OpenAsync();
 						cmd.Parameters.AddWithValue("@EmployeeCode", EmpDTO.EmployeeCode);
-						cmd.Parameters.AddWithValue("@EmployeeName", EmpDTO.EmployeeName);
-						cmd.Parameters.AddWithValue("@StoreCode", EmpDTO.StoreCode);
-						cmd.Parameters.AddWithValue("@Role", EmpDTO.Role);
+						cmd.Parameters.AddWithValue("@EmployeeFirstName", EmpDTO.EmployeeFirstName);
+						cmd.Parameters.AddWithValue("@EmployeeLastName", EmpDTO.EmployeeLastName);
+						cmd.Parameters.AddWithValue("@Email", EmpDTO.Email);
+						cmd.Parameters.AddWithValue("@MobileNumber", (object)EmpDTO.MobileNumber ?? DBNull.Value);
+						cmd.Parameters.AddWithValue("@Department", EmpDTO.Department);
+						cmd.Parameters.AddWithValue("@Designation", EmpDTO.Designation);
+						cmd.Parameters.AddWithValue("@PersonalEmail", (object)EmpDTO.PersonalEmail ?? DBNull.Value);
 						cmd.Parameters.AddWithValue("@Gender", EmpDTO.Gender);
-						cmd.Parameters.AddWithValue("@Salary", EmpDTO.Salary);
-						cmd.Parameters.AddWithValue("@ContactNumber", EmpDTO.ContactNumber);
-						cmd.Parameters.AddWithValue("@Addressline1", EmpDTO.Addressline1);
-						cmd.Parameters.AddWithValue("@Addressline2", EmpDTO.Addressline2);
-						cmd.Parameters.AddWithValue("@City", EmpDTO.City);
-						cmd.Parameters.AddWithValue("@State", EmpDTO.State);
-						cmd.Parameters.AddWithValue("@Pincode", EmpDTO.Pincode);
+						cmd.Parameters.AddWithValue("@Salary", EmpDTO.SalaryCTC);
+						cmd.Parameters.AddWithValue("@PermanentAddressLine1", EmpDTO.PermanentAddressline1);
+						cmd.Parameters.AddWithValue("@PermanentAddressLine2", EmpDTO.PermanentAddressline2);
+						cmd.Parameters.AddWithValue("@PermanentCity", EmpDTO.PermanentCity);
+						cmd.Parameters.AddWithValue("@PermanentState", EmpDTO.PermanentState);
+						cmd.Parameters.AddWithValue("@PermanentPincode", EmpDTO.PermanentPincode);
+						cmd.Parameters.AddWithValue("@AddressLine1", EmpDTO.CurrentAddressline1);
+						cmd.Parameters.AddWithValue("@AddressLine2", (object)EmpDTO.CurrentAddressline2 ?? DBNull.Value);
+						cmd.Parameters.AddWithValue("@City", EmpDTO.CurrentCity);
+						cmd.Parameters.AddWithValue("@State", EmpDTO.CurrentState);
+						cmd.Parameters.AddWithValue("@Pincode", EmpDTO.CurrentPincode);
+						cmd.Parameters.AddWithValue("@CreatedBy", (object)EmpDTO.CreatedBy ?? DBNull.Value);
+						cmd.Parameters.AddWithValue("@CreatedOn", DateTime.Today);
+						cmd.Parameters.AddWithValue("@LastUpdatedBy", (object)EmpDTO.LastUpdatedBy ?? DBNull.Value);
+						cmd.Parameters.AddWithValue("@LastUpdatedOn", DateTime.Today);
 
-						cmd.ExecuteNonQuery();
-						return true;
+						await cmd.ExecuteNonQueryAsync();
+						 return true;	
 					}
 				}
+
 			}
 			catch (Exception ex)
 			{
