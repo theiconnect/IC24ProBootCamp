@@ -57,7 +57,7 @@
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Supplier Name" class="form-label">SupplierName</label>
-					<select class="form-select" id="Supplier Name" asp-for="SupplierName">
+					<select class="form-select" id="Supplier Name" style="margin-left: 12px;" asp-for="SupplierName">
 						<option selected>Select</option>
 						<option>Sai</option>
 						<option>Venkatesh</option>
@@ -66,15 +66,36 @@
 					</select>
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label for="Store Name" class="form-label">StoreName</label>
-					<select class="form-select" id="Store Name" asp-for="StoreName">
-						<option selected>Select</option>
-						<option>Store 1</option>
-						<option>Store 2</option>
-						<option>Store 3</option>
-						<option>Store 4</option>
+					<label for="storeDropdown" class="form-label">StoreName</label>
+					<select class="form-select" id="storeDropdown" onchange="loadStoreDetails()" asp-for="StoreName">
+						<option value="">-- Select a Store --</option>
+						<option value="AddNewStore.cshtml">Store 1</option>
+						<option value="store2.html">Store 2</option>
+						<option value="store3.html">Store 3</option>
+						<option value="store4.html">Store 4</option>
 					</select>
+					
 
+
+				</div>
+				<div>
+					<script>
+						function loadStoreDetails() {
+							const dropdown = document.getElementById("storeDropdown");
+							const selectedStore = dropdown.value;
+
+							if (selectedStore) {
+								fetch(selectedStore)
+									.then(response => response.text())
+									.then(data => {
+										document.getElementById("storeDetails").innerHTML = data;
+									})
+									.catch(error => console.error('Error loading store details:', error));
+							} else {
+								document.getElementById("storeDetails").innerHTML = "";
+							}
+						}
+					</script>
 				</div>
 				<div>
 					<h2 style="font-size=20px;">Products/Items</h2>
@@ -90,20 +111,15 @@
 					</select>
 
 				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Remarks" class="form-label">Remarks</label>
-					<textarea class="form-control" id="Remarks" asp-for="Remarks" placeholder="Enter Remarks" style="margin-left:12px"></textarea>
-				</div>
-				<div>
-					<label style="color:green">@ViewBag.Message</label>
-				</div>
-				@* <div class="col-sm-5 mr-1">
+				
+				
+				 <div class="col-sm-5 mr-1">
 					<label for="Quantity" class="form-label">Quantity</label>
-					<input type="text" class="form-control" id="Quantity" asp-for="Quantity" placeholder="Quantity" style="margin-left: 12px;">
+					<input type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Quantity" style="margin-left: 12px;">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="UnitOfMeasurement" class="form-label">Unit Of Measurement</label>
-					<select class="form-select" id="UnitOfMeasurement" asp-for="UnitOfMeasurement">
+					<select class="form-select" id="UnitOfMeasurement" name="UnitOfMeasurement">
 						<option selected>Select</option>
 						<option>Kg</option>
 						<option>liters</option>
@@ -114,8 +130,66 @@
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="PricePerUnit" class="form-label">Price Per Unit</label>
-					<input type="text" class="form-control" id="PricePerUnit" asp-for="PricePerUnit" placeholder="Enter PricePerUnit">
-				</div> *@
+					<input type="text" class="form-control" id="PricePerUnit" name="PricePerUnit" placeholder="Enter PricePerUnit">
+				</div> 
+				<div class="d-flex justify-content-end gap-2 mt-3">
+					<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StoreList" asp-controller="Store">Clear</a></button>
+					<button type="submit" class="btn btn-success"><i class="bi bi-search"></i>Add</button>
+
+				</div>
+				<div class="table-responsive mt-2 p-2">
+					<table class="table table-bordered table-hover shadow-sm">
+						<thead class="table-dark">
+							<tr>
+								<th scope="col">S.NO</th>
+								<th scope="col">ProductName</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">UnitOfMeasurements</th>
+								<th scope="col">PricePerUnit</th>
+								<th scope="col">Edit</th>
+								<th scope="col">Delete</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>sugar</td>
+								<td>2</td>
+								<td>kgs</td>
+								<td>80</td>
+								
+								<td class="text-center">
+									<a  class="btn btn-sm btn-warning">Edit</a>
+									
+								</td>
+								<td><a class="btn btn-sm btn-info">Delete</a></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>oil</td>
+								<td>2</td>
+								<td>kgs</td>
+								<td>250</td>
+								
+								<td class="text-center">
+									<a class="btn btn-sm btn-warning">Edit</a>
+									
+								</td>
+								<td><a class="btn btn-sm btn-info">Delete</a></td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Remarks" class="form-label">Remarks</label>
+					<textarea class="form-control" id="Remarks" asp-for="Remarks" placeholder="Enter Remarks" style="margin-left:12px"></textarea>
+				</div>
+				<div>
+					<label style="color:green">@ViewBag.Message</label>
+				</div>
+
 			</div>
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">

@@ -5,11 +5,11 @@
 		public string StockCode { get; set; }
 		public string PurchaseOrderNumber { get; set; }
 		public string InvoiceNumber { get; set; }
-		public string StockInTime { get; set; }
+		public DateTime StockInTime { get; set; }
 		public string Remarks { get; set; }
 		public string VehicleNumber { get; set; }
 		public string ApprovedBy { get; set; }
-		public string ApprovedOn { get; set; }
+		public DateOnly ApprovedOn { get; set; }
 		public string ApprovedComments { get; set; }
 		public string CreatedBy { get; set; }
 		public DateOnly CreatedOn { get; set; }

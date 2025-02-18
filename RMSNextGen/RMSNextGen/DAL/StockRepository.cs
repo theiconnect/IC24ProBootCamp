@@ -24,7 +24,7 @@ namespace RMSNextGen.DAL
 				using (SqlCommand command = new SqlCommand())
 				{
 					command.CommandText = "Insert Into Stock(StockCode,PurchaseOrderNumber,InvoiceNumber,StockInTime,Remarks,VehicleNumber,ApprovedBy,ApprovedOn,ApprovedComments,CreatedBy,CreatedOn)" +
-						"values(@StockCode,@PurchaseOrderNumber,@InvoiceNumber,@StockInTime,@Remarks,@VehicleNumber,@ApprovedBy,@ApprovedOn,@ApprovedComments,@CreatedBy,GetDate())";
+						"values(@StockCode,@PurchaseOrderNumber,@InvoiceNumber,@StockInTime,@Remarks,@VehicleNumber,@ApprovedBy,GetDate(),@ApprovedComments,@CreatedBy,GetDate())";
 					command.Connection = connection;
 					try
 					{
@@ -35,7 +35,6 @@ namespace RMSNextGen.DAL
 						command.Parameters.AddWithValue("@Remarks", stockObj.Remarks);
 						command.Parameters.AddWithValue("@VehicleNumber", stockObj.VehicleNumber);
 						command.Parameters.AddWithValue("@ApprovedBy", stockObj.ApprovedBy);
-						command.Parameters.AddWithValue("@ApprovedOn", stockObj.ApprovedOn);
 						command.Parameters.AddWithValue("@ApprovedComments", stockObj.ApprovedComments);
 						command.Parameters.AddWithValue("@CreatedBy", stockObj.CreatedBy);
 

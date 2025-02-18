@@ -1,6 +1,6 @@
 ﻿@model RMSNextGen.Web.Models.ProductViewModel
 @{
-    ViewData["Title"] = "AddNewProduct";
+    ViewData["Title"] = "Add New Product";
     Layout = "~/Views/Shared/_RMSLayout.cshtml";
 
 } 
@@ -62,14 +62,37 @@
 			</div>
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
-			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="ProductList" asp-controller="Product">Back</a></button>
+			<button type="reset" class="btn btn-reset" id="btnback"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="ProductList" asp-controller="Product">Back</a></button>
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
 
 		</div>
+		@* @if (ViewBag.Response == false)
+		{
 		<div>
-			<label style="color:green">@ViewBag.Message</label>
+			<label style="color:red">@ViewBag.Message</label>
 		</div>
+		} *@
 
 	</form>
+</div>
 
+@if (ViewBag.Response == true)
+{
+	<script>
+		alert("Product Saved Successfully");
+		window.location.href = "/Product/ProductList";
+		//document.getElementById('btnback').click();
+	</script>
+}
+else if (ViewBag.Response == false)
+{
+	<script>
+		alert(" Unable to Save Product details");
 
+	</script>
+
+}
+else
+{
+	//do nothing 
+}

@@ -1,6 +1,7 @@
-﻿
+﻿@* @model List<RMSNextGen.Models.ProductListDTO> *@
+@model RMSNextGen.Web.Models.ProductSearchViewModel
 @{
-    ViewData["Title"] = "ProductList";
+    ViewData["Title"] = "Product List";
     Layout = "~/Views/Shared/_RMSLayout.cshtml";
 
 }
@@ -16,16 +17,16 @@
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="ProductCode" class="form-label">Product Code</label>
-					<input type="text" class="form-control" id="ProductCode" name="ProductCode" placeholder="Enter Product Code">
+					<label for="ProductCode" class="form-label">ProductCode</label>
+					<input type="text" class="form-control" id="ProductCode" asp-for="ProductCode" placeholder="Enter Product Code">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="ProductName" class="form-label">Product Name</label>
-					<input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="Enter Product Name">
+					<label for="ProductName" class="form-label">ProductName</label>
+					<input type="text" class="form-control" id="ProductName" asp-for="ProductName" placeholder="Enter Product Name">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="Category" class="form-label">Category</label>
-					<select class="form-select" id="Category" name="Category">
+					<select class="form-select" id="Category" asp-for="Category">
 						<option selected>Select Category</option>
 						<option>Dairy Products</option>
 						<option>Vegatables</option>
@@ -36,8 +37,11 @@
 			</div>
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
-			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
+			<a class="btn btn-reset" asp-controller="Product" asp-action="ProductList">
+				<i class="bi bi-arrow-counterclockwise"></i>Clear
+			</a>
 			<button type="submit" class="btn btn-success" asp-action="ProductList" asp-controller="Product"><i class="bi bi-search"></i> Search</button>
+			
 			<a class="btn btn-info" asp-action="AddNewProduct" asp-controller="Product">
 				<i class="bi bi-plus-circle"></i> Add New Product
 			</a>
@@ -52,25 +56,30 @@
 					<th scope="col">S.NO</th>
 					<th scope="col">Product Code</th>
 					<th scope="col">Product Name</th>
-					<th scope="col">Category</th>
+					
 					<th scope="col">Qantity</th>
 					<th scope="col">Price Per Unit</th>
 					<th scope="col" class="text-center">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Pr001</td>
-					<td>Rice</td>
-					<td>Grocery</td>
-					<td>50.09</td>
-					<td>50kgs</td>
-					<td class="text-center">
-						<a asp-controller="Product" asp-action="EditProduct" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Product" asp-action="ViewProduct" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
+				@foreach (var item in ViewBag.Product)
+				{
+					
+					<tr>
+						<td>@item.ProductID</td>
+						<td>@item.ProductCode</td>
+						<td>@item.ProductName</td>
+						<td>@item.Quantity</td>
+						<td>@item.PricePerUnit</td>
+						<td class="text-center">
+							<a asp-controller="Product" asp-action="EditProduct" class="btn btn-sm btn-warning">Edit</a>
+							<a asp-controller="Product" asp-action="ViewProduct" class="btn btn-sm btn-info">View</a>
+						</td>
+					</tr>
+
+				}
+				
 			</tbody>
 		</table>
 	</div>

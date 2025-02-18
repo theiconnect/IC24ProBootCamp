@@ -15,17 +15,32 @@ namespace RMSNextGen.Web.Controllers
         }
 
 		[HttpGet]
-        public IActionResult ProductList()
+        public  IActionResult ProductList()
         {
-            return View();
+			ProductSearchDTO searchObj = new ProductSearchDTO();
+			ViewBag.Product = _productServices.GetProducts(searchObj);
+			return View();
         }
-        [HttpPost]
-        public IActionResult ProductList(IFormCollection form)
-        {
+		[HttpPost]
+		public async Task<IActionResult> ProductList(ProductSearchViewModel productSearchObj)
+		{
+
             
-            return RedirectToAction("ProductList","Product");
-        }
-        [HttpGet]
+			ProductSearchDTO searchObj = new ProductSearchDTO();
+			searchObj.ProductCode = productSearchObj.ProductCode;
+			searchObj.ProductName = productSearchObj.ProductName;
+
+
+			ViewBag.Product =  _productServices.GetProducts(searchObj);
+
+            return View();
+
+
+
+		}
+		
+		
+		[HttpGet]
         public IActionResult AddNewProduct()
         {
             return View();
@@ -46,7 +61,8 @@ namespace RMSNextGen.Web.Controllers
 
             bool result=await _productServices.SaveProduct(productObj);
 
-            ViewBag.Message = result ? "Product Added Successfully" : "Unable to Add Product";
+            //ViewBag.Message = result ? "Product Added Successfully" : "Unable to Add Product";
+            ViewBag.Response = result;
 
 
 			return View(model);
@@ -77,12 +93,6 @@ namespace RMSNextGen.Web.Controllers
 
 
         }
-        [HttpPost]
-        public IActionResult Search(IFormCollection form)
-        {
-            return RedirectToAction("ProductList", "Product");
-
-
-        }
-    }
+        
+	}
 }

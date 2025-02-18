@@ -30,7 +30,7 @@ namespace RMSNextGen.Web.Controllers
 			stockObj.VehicleNumber = model.VehicleNumber;
 			stockObj.StockInTime = model.StockInTime;
 			stockObj.Remarks = model.Remarks;
-			stockObj.ApprovedBy = model.ApprovedBy;
+			stockObj.ApprovedBy = userName;
 			stockObj.ApprovedOn = model.ApprovedOn;
 			stockObj.ApprovedComments = model.ApprovedComments;
 			stockObj.CreatedBy = userName;
