@@ -48,26 +48,26 @@ namespace RMSNextGen.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewProduct(ProductViewModel model)
         {
-			//return RedirectToAction("ProductList", "Product");
-			ProductDTO productObj=new ProductDTO();
+            //return RedirectToAction("ProductList", "Product");
+            ProductDTO productObj = new ProductDTO();
             productObj.ProductName = model.ProductName;
-            productObj.ProductCode= model.ProductCode;
-            
-            productObj.PricePerUnit= model.PricePerUnit;
-            productObj.ThresholdLimit=model.ThresholdLimit;
-            
+            productObj.ProductCode = model.ProductCode;
+
+            productObj.PricePerUnit = model.PricePerUnit;
+            productObj.ThresholdLimit = model.ThresholdLimit;
+
             productObj.CreatedBy = userName;
             productObj.CreatedOn = model.CreatedOn;
 
-            bool result=await _productServices.SaveProduct(productObj);
+            bool result = await _productServices.SaveProduct(productObj);
 
             //ViewBag.Message = result ? "Product Added Successfully" : "Unable to Add Product";
             ViewBag.Response = result;
 
 
-			return View(model);
+            return View(model);
 
-            
+
         }
         [HttpGet]
         public IActionResult EditProduct()

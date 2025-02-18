@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace RMSNextGen.Services
 {
-    public class StockServices
-    {
+	public class StockServices
+	{
 		StockRepository _stockRepository;
 		public StockServices(StockRepository stockRepository)
 		{

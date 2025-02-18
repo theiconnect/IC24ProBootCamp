@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RMSNextGen.Models
 {
-    public class StockDTO
-    {
+	public class StockDTO
+	{
 		public string StockCode { get; set; }
 		public string PurchaseOrderNumber { get; set; }
 		public string InvoiceNumber { get; set; }

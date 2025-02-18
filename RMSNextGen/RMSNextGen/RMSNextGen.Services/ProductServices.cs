@@ -26,5 +26,10 @@ namespace RMSNextGen.Services
 			return _productRepository.GetProducts(searchObj);
 
 		}
-	}
+
+        public async Task<bool> SaveProduct(ProductDTO productObj)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

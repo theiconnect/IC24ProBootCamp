@@ -5,14 +5,14 @@ using RMSNextGen.Web.Models;
 
 namespace RMSNextGen.Web.Controllers
 {
-	
+
 	public class StockController : Controller
 	{
 		string userName = "krishnaveni";
 
 		StockServices _stockServices;
-		public StockController(StockServices stockServices) 
-		{ 
+		public StockController(StockServices stockServices)
+		{
 			_stockServices = stockServices;
 		}
 		[HttpGet]
@@ -23,7 +23,7 @@ namespace RMSNextGen.Web.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddNewStock(StockViewModel model)
 		{
-			StockDTO stockObj= new StockDTO();
+			StockDTO stockObj = new StockDTO();
 			stockObj.StockCode = model.StockCode;
 			stockObj.InvoiceNumber = model.InvoiceNumber;
 			stockObj.PurchaseOrderNumber = model.PurchaseOrderNumber;
@@ -36,7 +36,7 @@ namespace RMSNextGen.Web.Controllers
 			stockObj.CreatedBy = userName;
 			stockObj.CreatedOn = model.CreatedOn;
 
-			bool result=await _stockServices.SaveStock(stockObj);
+			bool result = await _stockServices.SaveStock(stockObj);
 
 			ViewBag.Message = result ? "Stock Added Successfully" : "Unable to Add Stock";
 

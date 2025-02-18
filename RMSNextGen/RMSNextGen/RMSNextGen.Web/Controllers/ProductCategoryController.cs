@@ -9,15 +9,21 @@ namespace RMSNextGen.Web.Controllers
     {
         string UserName = "Sathish";
         ProductCategoryServices _ProductCategoryServices;
+
+        public SearchProductCategoryDTO ProductCategoryListObj { get; private set; }
+
         public ProductCategoryController(ProductCategoryServices ProductCategoryServices)
         {
             _ProductCategoryServices= ProductCategoryServices;
         }
         [HttpGet]
-        public IActionResult CategoryList()
+        public IActionResult CategoryList(SearchProductCategory obj)
         {
-           ViewBag.Category = _ProductCategoryServices.GetProductCategoryList();
-            return View();
+            SearchProductCategoryDTO obj1 = new SearchProductCategoryDTO();
+            obj1.CategoryCode = obj.CategoryCode;
+            obj1.CategoryName = obj.CategoryName;
+            ViewBag.Category = _ProductCategoryServices.SearchProductCategory(obj1);
+			return View();
         }
         public IActionResult EditCategory()
         {

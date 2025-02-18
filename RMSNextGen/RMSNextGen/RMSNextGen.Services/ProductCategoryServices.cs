@@ -25,5 +25,10 @@ namespace RMSNextGen.Services
         {
             return  _categoryRepository.GetProductCategoryList();
         }
+        public List<ProductCategoryListDTO> SearchProductCategory(SearchProductCategoryDTO ProductCategoryListObj)
+        {
+            return _categoryRepository.SearchProductCategory(ProductCategoryListObj);
+
+        }
     }
 }

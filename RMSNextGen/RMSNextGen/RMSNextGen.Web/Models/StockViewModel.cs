@@ -1,7 +1,7 @@
 ﻿namespace RMSNextGen.Web.Models
 {
-    public class StockViewModel
-    {
+	public class StockViewModel
+	{
 		public string StockCode { get; set; }
 		public string PurchaseOrderNumber { get; set; }
 		public string InvoiceNumber { get; set; }
@@ -18,7 +18,7 @@
 		public string StoreName { get; set; }
 		public string ProductName { get; set; }
 
-		public string StoreLocation {  get; set; }
+		public string StoreLocation { get; set; }
 
 	}
 }
