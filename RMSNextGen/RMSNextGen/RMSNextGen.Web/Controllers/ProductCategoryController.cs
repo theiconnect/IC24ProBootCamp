@@ -16,8 +16,8 @@ namespace RMSNextGen.Web.Controllers
         [HttpGet]
         public IActionResult CategoryList()
         {
-           List<ProductCategoryListDTO> listDTOs = _ProductCategoryServices.GetProductCategoryList();
-            return View(listDTOs);
+           ViewBag.Category = _ProductCategoryServices.GetProductCategoryList();
+            return View();
         }
         public IActionResult EditCategory()
         {

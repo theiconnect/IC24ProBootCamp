@@ -10,7 +10,7 @@ using RMSNextGen.Models;
 namespace RMSNextGen.DAL
 {
     public class ProductCategoryRepository
-    {
+    {    
         public readonly string _connectionString;
          public List<ProductCategoryListDTO> listDTOs {  get; set; }    
 
