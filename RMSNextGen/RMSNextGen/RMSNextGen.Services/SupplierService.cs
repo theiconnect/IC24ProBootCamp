@@ -15,10 +15,16 @@ namespace RMSNextGen.Services
 		{
 			_supplierRepository = supplierRepository;
 		}
-		public async Task<bool> SaveStudent(SupplierDTO DTO)
+		public async Task<bool> AddSupplier(SupplierDTO DTO)
 		{
-			return await _supplierRepository.SaveSupplier(DTO);
+			return await _supplierRepository.AddSupplier(DTO);
 
 		}
+		public  List<SupplierListDTO> GetSupplierList()
+		{
+			return  _supplierRepository.GetSupplierList();
+
+		}
+
 	}
 }

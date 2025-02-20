@@ -1,4 +1,5 @@
-﻿@model RMSNextGen.Web.Models.SupplierViewModels
+﻿@model RMSNextGen.Web.Models.SupplierViewModel
+
 @{
     ViewData["Title"] = "AddNewSupplier";
     Layout = "~/Views/Shared/_RMSLayout.cshtml";
@@ -21,12 +22,12 @@
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1">
-					<label for="FirstName" class="form-label">FirstName</label>
-					<input type="text" class="form-control" id="FirstName" asp-for="FirstName" placeholder="Enter First Name">
+					<label for="FirstName" class="form-label">SupplierCode</label>
+					<input type="text" class="form-control" id="FirstName" asp-for="SupplierCode" placeholder="Enter Supplier Code">
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label style="margin-left:5px" for="LastName" class="form-label"> LastName</label>
-					<input type="text" class="form-control" id="LastName" asp-for="LastName" placeholder="Enter Last Name " style="margin-left: 12px;" />
+					<label for="SupplierName" class="form-label">SupplierName</label>
+					<input type="text" class="form-control" id="SupplierName" asp-for="SupplierName" placeholder="Enter Supplier Name">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="CompanyName" class="form-label">CompanyName</label>
@@ -34,14 +35,22 @@
 				</div>
 				
 				<div class="col-sm-5 mr-1">
-					<label style="margin-left:5px" for="MobileNumber" class="form-label">MobileNumber</label>
-					<input type="text" class="form-control" id="MobileNumber" asp-for="MobileNumber" placeholder="Enter Mobile Number" style="margin-left: 12px;">
+					<label style="margin-left:5px" for="MobileNumber" class="form-label">ContactNumber1</label>
+					<input type="text" class="form-control" id="MobileNumber" asp-for="ContactNumber1" placeholder="Enter Contact Number" style="margin-left: 12px;">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label style="margin-left:5px" for="MobileNumber" class="form-label">ContactNumber2</label>
+					<input type="text" class="form-control" id="MobileNumber" asp-for="ContactNumber2" placeholder="Enter Contact Number" style="margin-left: 12px;">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Address" class="form-label">Email</label>
+					<textarea class="form-control" id="Address" asp-for="Email" placeholder="Enter Email" style="margin-left:12px"></textarea>
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Address" class="form-label">Address</label>
 					<textarea class="form-control" id="Address" asp-for="Address" placeholder="Enter Address" style="margin-left:12px"></textarea>
 				</div>
-				<div class="col-sm-5 mr-1 px-2">
+				@* <div class="col-sm-5 mr-1 px-2">
 					<label for="City" class="form-label">City</label>
 					<select class="form-select" id="City" asp-for="City" style="margin-left: 12px;">
 						<option selected>Select</option>
@@ -51,24 +60,32 @@
 						<option>Karimnagar</option>
 						<option>Vijayawada</option>
 					</select>
-				</div>
-				<div class="col-sm-5 mr-1 px-2">
+				</div> *@
+				@* <div class="col-sm-5 mr-1 px-2">
 					<label for="State" class="form-label">State</label>
 					<select class="form-select" id="State" asp-for="State">
 						<option selected>Select</option>
 						<option>TG</option>
 						<option>AP</option>
 					</select>
-				</div>
-				<div class="col-sm-5 mr-1">
+				</div> *@
+				@* <div class="col-sm-5 mr-1">
 					<label for="FaxNumber" class="form-label">FaxNumber</label>
 					<input type="text" class="form-control" id="FaxNumber" asp-for="FaxNumber" placeholder="Enter Fax Number" style="margin-left: 12px;">
+				</div> *@
+				<div class="col-sm-5 mr-1">
+					<label for="GSTNo" class="form-label">GSTNumber</label>
+					<input type="text" class="form-control" id="GSTNo" asp-for="GSTNumber" placeholder="Enter GSTNumber">
+				</div>
+				@* <div class="col-sm-5 mr-1">
+					<label for="createdBy" class="form-label">CreatedBy</label>
+					<input type="text" class="form-control" id="createdBy" asp-for="CreatedBy" placeholder="Enter CreatedBy">
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label for="GSTNo" class="form-label">GSTNo</label>
-					<input type="text" class="form-control" id="GSTNo" asp-for="GSTNo" placeholder="Enter GSTNo">
+					<label for="Createdon" class="form-label">CreatedOn</label>
+					<input type="text" class="form-control" id="Createdon" asp-for="CreatedOn" placeholder="Enter CreatedOn">
 				</div>
-				
+				 *@
 			</div>
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
@@ -76,6 +93,23 @@
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
 
 		</div>
-
+		@* <div>
+			<label style="color:green">@ViewBag.Message</label>
+		</div> *@
 	</form>
+
+	@if (ViewBag.Response == true)
+	{
+		<script>
+			alert("Supplier Saved Successfully")
+			window.location.href = "/Suppliers/SupplierList"
+		</script>
+	}
+	else if (ViewBag.Response == false)
+	{
+		<script>
+			alert("Unable To Save SupplierDetails")
+		</script>
+
+	}
 

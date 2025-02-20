@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace RMSNextGen.Models
 {
-	public class SupplierDTO
-	{
+    public class SupplierEditDTO
+    {
+
 		public string SupplierCode { get; set; }
 		public string SupplierName { get; set; }
 		public string CompanyName { get; set; }

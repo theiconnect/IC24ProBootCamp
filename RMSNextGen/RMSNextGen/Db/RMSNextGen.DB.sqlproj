@@ -87,5 +87,6 @@
   <ItemGroup>
     <None Include="Scripts\PostDeploymentScripts\LoadStatus.sql" />
     <None Include="Scripts\PostDeploymentScripts\LoadUOM.sql" />
+    <None Include="RMSNextGen.DB.publish.xml" />
   </ItemGroup>
 </Project>

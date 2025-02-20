@@ -2,15 +2,16 @@
 {
 	public class SupplierViewModel
 	{
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
+		public string SupplierCode { get; set; }
+		public string SupplierName { get; set; }
 		public string CompanyName{ get; set; }
-		public string MobileNumber { get; set; }
+		public string ContactNumber1 { get; set; }
+		public string ContactNumber2 { get; set; }
+		public string Email { get; set; }
 		public string Address { get; set; }
-		public string City { get; set; }
-		public string State { get; set; }
-		public string FaxNumber { get; set; }
-		public string GstNo { get; set; }
+		public string GSTNumber { get; set; }
+		public string CreatedBy { get; set; }
+		public string CreatedOn { get; set; }
 
 	}
 }

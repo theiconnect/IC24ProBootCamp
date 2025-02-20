@@ -1,4 +1,7 @@
-﻿
+﻿@model List<RMSNextGen.Models.SupplierListDTO>
+	
+
+
 @{
 
 	ViewData["Title"] = "SupplierList";
@@ -24,10 +27,14 @@
 				<label for="CompanyName" class="form-label">CompanyName</label>
 				<input type="text" class="form-control" id="CompanyName" name="CompanyName" placeholder="Enter CompanyName">
 			</div>
-			<div class="col-sm-5 mr-1 px-2">
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="Address" class="form-label">Address</label>
+					<input type="text" class="form-control" id="Address" name="Address" placeholder="Enter Address">
+				</div>
+			@* <div class="col-sm-5 mr-1 px-2">
 				<label for="PhoneNumber" class="form-label">PhoneNumber</label>
 				<input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" placeholder="Enter PhoneNumber">
-			</div>
+			</di *@v>
 			
 			
 		</div>
@@ -50,34 +57,39 @@
 				<th scope="col">SupplierName</th>
 				<th scope="col">CompanyName</th>
 				<th scope="col">Address</th>
-				<th scope="col">City</th>
+				@* <th scope="col">City</th>
 				<th scope="col">State</th>
-				<th scope="col">Status</th>
+				<th scope="col">Status</th> *@
 				<th scope="col" class="text-center">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>YuvaKumar</td>
-				<td>BharatTransports</td>
-				<td>Kanipuram</td>
-				<td>Chennai</td>
-				<td>TamilNadu</td>
-				<td><a href="#" class="text-danger">Inactivate</a></td>
-				<td class="text-center">
-						<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
-				</td>
-			</tr>
+			@foreach(var  item in Model )
+			{
+					<tr>
+						<td>@item.SupplierIdPk</td>
+						<td>@item.SupplierName</td>
+						<td>@item.CompanyName</td>
+						<td>@item.Address</td>
+						@* <td>Chennai</td>
+					<td>TamilNadu</td> *@
+						@* <td><a href="#" class="text-danger">Inactivate</a></td> *@
+						<td class="text-center">
+							<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
+							<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
+						</td>
+					</tr>
+					
+			}
+			
 			<tr>
 				<td>2</td>
 				<td>Sai</td>
 				<td>Patel Pippes</td>
 				<td>SrNagar</td>
-				<td>Hyderabad</td>
-				<td>Telangana</td>
-				<td><a href="#" class="text-success">Activate</a></td>
+				@* <td>Hyderabad</td>
+				<td>Telangana</td> *@
+				@* <td><a href="#" class="text-success">Activate</a></td> *@
 				<td class="text-center">
 						<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
 						<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
@@ -88,9 +100,9 @@
 				<td>kiran</td>
 				<td>Kiran Imports and Exports</td>
 				<td>Ammerpet</td>
-				<td>Hyderabad</td>
-				<td>Telangana</td>
-				<td><a href="#" class="text-danger">Inactivate</a></td>
+				@* <td>Hyderabad</td>
+				<td>Telangana</td> *@
+				@* <td><a href="#" class="text-danger">Inactivate</a></td> *@
 				<td class="text-center">
 						<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
 						<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
@@ -101,9 +113,9 @@
 				<td>Vijay</td>
 				<td>Palem Naturals</td>
 				<td>Kondapur</td>
-				<td>Hyderabad</td>
-				<td>Telangana</td>
-				<td><a href="#" class="text-danger">Inactivate</a></td>
+				@* <td>Hyderabad</td>
+				<td>Telangana</td> *@
+				@* <td><a href="#" class="text-danger">Inactivate</a></td> *@
 				<td class="text-center">
 						<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
 						<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
@@ -114,9 +126,9 @@
 				<td>Venkatesh</td>
 				<td>Venkat Computers</td>
 				<td>Kesamudram</td>
-				<td>Warangal</td>
-				<td>Telangana</td>
-				<td><a href="#" class="text-danger">Inactivate</a></td>
+				@* <td>Warangal</td>
+				<td>Telangana</td> *@
+				@* <td><a href="#" class="text-danger">Inactivate</a></td> *@
 				<td class="text-center">
 						<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
 						<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
