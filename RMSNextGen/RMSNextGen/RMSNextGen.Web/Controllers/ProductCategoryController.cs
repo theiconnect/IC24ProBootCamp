@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RMSNextGen.Web.Models;
 
 namespace RMSNextGen.Web.Controllers
 {
@@ -17,11 +18,17 @@ namespace RMSNextGen.Web.Controllers
         {
             return View();
         }
+        [HttpGet]
         public IActionResult AddCategory()
         {
             return View();
         }
-        public IActionResult ViewCategory()
+		[HttpPost]
+		public IActionResult AddCategory( AddCategoryViewModel model)
+		{
+			return View( model);
+		}
+		public IActionResult ViewCategory()
         {
             return View();
         }
