@@ -8,6 +8,6 @@ namespace RMSNextGen.DAL
 {
     class ProductCategoryRepository
     {
-        \\
+        
     }
 }
