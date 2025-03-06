@@ -24,7 +24,7 @@
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1">
 					<label asp-for="ProductCode" class="form-label">ProductCode</label>
-					<input type="text" asp-for="ProductCode" class="form-control" id="ProductCode" placeholder="Enter Product Code">
+					<input type="text" asp-for="ProductCode" class="form-control" id="ProductCode" value="@ViewBag.ProductCode" placeholder="Enter Product Code">
 					<span asp-validation-for="ProductCode" class="text-danger"></span>
 				</div>
 				<div class="col-sm-5 mr-1">
@@ -71,6 +71,9 @@
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
 
 		</div>
+		<div>
+			<label style="color:red">@ViewBag.Message</label>
+		</div>
 		@* @if (ViewBag.Response == false)
 		{
 		<div>
@@ -81,7 +84,7 @@
 	</form>
 </div>
 
-@if (ViewBag.Response == true)
+ @if (ViewBag.Response == true)
 {
 	<script>
 		alert("Product Saved Successfully");
@@ -100,4 +103,4 @@ else if (ViewBag.Response == false)
 else
 {
 	//do nothing 
-}
+} 

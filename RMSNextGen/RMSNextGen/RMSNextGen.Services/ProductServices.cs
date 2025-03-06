@@ -26,5 +26,9 @@ namespace RMSNextGen.Services
 			return _productRepository.GetProducts(searchObj);
 
 		}
+		public async Task<bool> GetProductCode()
+		{
+			return await _productRepository.GetProductCode();
+		}
 	}
 }
