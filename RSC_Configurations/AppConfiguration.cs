@@ -7,7 +7,7 @@ using System.Configuration;
 
 namespace RSC_Configurations
 {
-    public class AppConfiguration
+    public static class AppConfiguration
     {
         public static string mainFolderPath { get; set; }
         public static string dbConnectionstring { get; set; }
