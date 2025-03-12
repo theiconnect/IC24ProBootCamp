@@ -50,7 +50,7 @@ namespace RMSNextGen.DAL
             listDTOs = new List<ProductCategoryListDTO>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "select ProductCategoryIdPk,ProductCategoryCode,ProductCategoryName,[Description] from ProductCategory";
+                string query = "select ProductCategoryIdPk,ProductCategoryCode,ProductCategoryName,Description from ProductCategory";
 
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -86,10 +86,11 @@ namespace RMSNextGen.DAL
                 connection.Open();
                 using (SqlCommand command = new SqlCommand())
                 {
-                    command.CommandText = "select  ProductCategoryCode, ProductCategoryName from ProductCategory where (@ProductCategoryCode IS NULL or ProductCategoryCode=@ProductCategoryCode) and (@ProductCategoryName IS NULL or ProductCategoryName=@ProductCategoryName);";
+                    command.CommandText = "select  ProductCategoryCode, ProductCategoryName,Description from ProductCategory where (@ProductCategoryCode IS NULL or ProductCategoryCode=@ProductCategoryCode) and (@ProductCategoryName IS NULL or ProductCategoryName=@ProductCategoryName)";
 
                     command.Parameters.AddWithValue("@ProductCategoryCode", searchObj.CategoryCode == null ? DBNull.Value : searchObj.CategoryCode);
                     command.Parameters.AddWithValue("@ProductCategoryName", searchObj.CategoryName == null ? DBNull.Value : searchObj.CategoryName);
+
                     command.Connection = connection;
                     try
                     {
@@ -101,8 +102,8 @@ namespace RMSNextGen.DAL
                                 ProductCategoryListDTO ProductCategoryObj = new ProductCategoryListDTO();
                                 ProductCategoryObj.CategoryCode = Convert.ToString(reader["ProductCategoryCode"]);
                                 ProductCategoryObj.CategoryName = Convert.ToString(reader["ProductCategoryName"]);
+                                ProductCategoryObj.Description = Convert.ToString(reader["Description"]);
                                 ProductCategoryListObj.Add(ProductCategoryObj);
-
                             }
                         }
                     }

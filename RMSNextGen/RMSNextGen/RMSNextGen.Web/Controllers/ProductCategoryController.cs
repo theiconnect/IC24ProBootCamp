@@ -43,7 +43,6 @@ namespace RMSNextGen.Web.Controllers
             obj.Description = model.Description;
             obj.CreatedBy=UserName;
             bool result= await _ProductCategoryServices.AddCategory(obj);
-
             ViewBag.Response=result;
             return View(model);
         }
