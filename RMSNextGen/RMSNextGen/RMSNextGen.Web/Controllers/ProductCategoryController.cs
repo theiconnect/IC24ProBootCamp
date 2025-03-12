@@ -4,10 +4,7 @@ namespace RMSNextGen.Web.Controllers
 {
     public class ProductCategoryController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
 
         public IActionResult CategoryList()
         {
