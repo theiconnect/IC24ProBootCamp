@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="71f21d8d64d941c1bd4066d3d3b8c6ac" Name="Diagram1">
+        <EntityTypeShape EntityType="RscModel.Billing" Width="1.5" PointX="5.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RscModel.Customer" Width="1.5" PointX="7.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RscModel.Customers" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RscModel.Employee" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RscModel.OrderProduct" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RscModel.Orders" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RscModel.ProductMaster" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RscModel.Stock" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RscModel.Stores" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RscModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="RscModel.FK__Orders__Customer__4F47C5E3" ManuallyRouted="false" />
+        <AssociationConnector Association="RscModel.FK__Employee__StoreI__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="RscModel.FK__Orders__Employee__503BEA1C" ManuallyRouted="false" />
+        <AssociationConnector Association="RscModel.OrderId" ManuallyRouted="false" />
+        <AssociationConnector Association="RscModel.ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="RscModel.FK__Orders__StoreIdF__51300E55" ManuallyRouted="false" />
+        <AssociationConnector Association="RscModel.ProductIdFK" ManuallyRouted="false" />
+        <AssociationConnector Association="RscModel.FK__Stock__StoreId__03F0984C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
