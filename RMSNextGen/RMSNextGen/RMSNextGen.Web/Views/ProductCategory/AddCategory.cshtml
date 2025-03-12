@@ -13,7 +13,7 @@
 		<h4 class="text-secondary">Category/AddCategory</h4>
 	</div>
 
-	<form method="post" asp-action="AddCategory" asp-controller="ProductCategory">
+	<form method="post">
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
 				
@@ -30,8 +30,8 @@
 					<textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" style="margin-left:12px"></textarea>
 				</div>
 				<div class="d-flex justify-content-end gap-2 mt-3">
-					<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="CategoryList" asp-controller="ProductCategory">Back</a></button>
-					<button type="submit" class="btn btn-success"><i class="bi bi-search"></i><a asp-action="CategoryList" asp-controller="ProductCategory">Save</a>
+					<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="CategoryList" asp-controller="ProductCategory">Back</a></button> 
+					<button type="submit" class="btn btn-success"><i class="bi bi-search"></i><a>Save</a>
 						</button>
 				</div>
 			</div>

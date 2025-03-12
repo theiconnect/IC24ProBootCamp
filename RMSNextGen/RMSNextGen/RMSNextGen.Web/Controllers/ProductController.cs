@@ -16,9 +16,13 @@ namespace RMSNextGen.Web.Controllers
             //
             return RedirectToAction("ProductList");
         }
+        [HttpGet]
         public IActionResult AddNewProduct()
         {
-            return View();
+            
+
+
+			return View();
         }
         public IActionResult EditProduct()
         {

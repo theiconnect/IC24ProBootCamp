@@ -20,5 +20,13 @@ namespace RMSNextGen.Services
             return await _categoryRepository.AddCategory(category);
 
         }
-    }
+        public  List<ProductCategoryListDTO> ProductCategoryList(ProductCategoryListDTO obj1)
+		{
+           return _categoryRepository.ProductCategoryList();
+
+		}
+
+        
+	}
+
 }
