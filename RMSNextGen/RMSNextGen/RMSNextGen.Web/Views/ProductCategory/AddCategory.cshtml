@@ -1,7 +1,4 @@
-﻿
-@{
-    ViewData["Title"] = "AddCategory";
-}
+﻿@model ProductCategoryViewModel
 @{
 	ViewData["Title"] = "Add Category";
 	Layout = "~/Views/Shared/_RMSLayout.cshtml";
@@ -26,11 +23,11 @@
 
 				<div class="col-sm-5 mr-1">
 					<label for="CatagoryName" class="form-label">Category Name</label>
-					<input type="text" class="form-control" id="CatagoryName" name="CatagoryName" placeholder="CatagoryName">
+					<input type="text" class="form-control" id="CatagoryName" asp-for="CategoryName" placeholder="CatagoryName">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Description" class="form-label">Description</label>
-					<textarea class="form-control" id="Description" placeholder="Description" style="margin-left:12px"></textarea>
+					<textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" style="margin-left:12px"></textarea>
 				</div>
 				<div class="d-flex justify-content-end gap-2 mt-3">
 					<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="CategoryList" asp-controller="ProductCategory">Back</a></button>
@@ -39,3 +36,18 @@
 				</div>
 			</div>
 	</form>
+</div>
+	@if(ViewBag.Response==true)
+	{
+	<script>
+		alert("ProductCategory Details Saved Sccessfully");
+		window.location.href="/ProductCategory/CategoryList";
+	</script>
+	}
+	else if (ViewBag.Response == false)
+	{
+		<script>
+		alert("Unable to save ProductCategory Details");
+		</script>
+	}
+
