@@ -23,6 +23,7 @@ builder.Services.AddTransient<KrishnaveniStudentRepository>(provider => new Kris
 
 builder.Services.AddTransient<KrishnaveniStudentService>();
 
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
