@@ -1,0 +1,225 @@
+﻿@model RMSNextGen.Web.Models.StockViewModel
+@{
+	ViewData["Title"] = "AddNewStock";
+
+	Layout = "~/Views/Shared/_RMSLayout.cshtml";
+}
+
+<style>
+	form-label
+	{
+		margin-left:10px
+	}
+</style>
+
+<div class="container">
+	<div class="justify-content-between align-items-center">
+		@* <h3 class="text-primary">Stores - </h3> *@
+		<hr class="mt-0" />
+		<h4 class="text-secondary">Stock/AddStock</h4>
+	</div>
+
+	<form method="post" asp-action="AddNewStock" asp-controller="Stock">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="card shadow-sm p-2">
+			<div class="row g-3">
+				<div class="col-sm-5 mr-1">
+					<label asp-for="StockCode" class="form-label">StockCode</label>
+					<input type="text" class="form-control" id="StockCode" asp-for="StockCode" placeholder="Enter StockCode">
+					<span asp-validation-for="StockCode" class="text-danger"></span>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label asp-for="StockInTime" class="form-label">StockInTime</label>
+					<input type="datetime" class="form-control" id="StockInTime" asp-for="StockInTime" style="margin-left: 12px;"> 
+					
+					<span asp-validation-for="StockInTime" class="text-danger"></span>
+				</div> 
+
+				
+				<div class="col-sm-5 mr-1">
+					<label asp-for="PurchaseOrderNumber" class="form-label">PurchaseOrderNumber</label>
+					<input type="text" class="form-control" id="PurchaseOrderNumber" asp-for="PurchaseOrderNumber" placeholder="Enter PurchaseOrderNo">
+					<span asp-validation-for="PurchaseOrderNumber" class="text-danger"></span>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label asp-for="InvoiceNumber" class="form-label">InvoiceNumber</label>
+					<input type="text" class="form-control" id="InvoiceNumber" asp-for="InvoiceNumber" placeholder="Enter Invoice Number" style="margin-left:12px"/>
+					<span asp-validation-for="InvoiceNumber" class="text-danger"></span>
+
+				</div>
+				
+				<div class="col-sm-5 mr-1">
+					<label asp-for="VehicleNumber" class="form-label">VehicleNumber</label>
+					<input type="text" class="form-control" id="VehicleNumber" asp-for="VehicleNumber"/>
+					<span asp-validation-for="VehicleNumber" class="text-danger"></span>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label asp-for="ApprovedComments" class="form-label">ApprovedComments</label>
+					<textarea class="form-control" id="ApprovedComments" asp-for="ApprovedComments" placeholder="Enter ApprovedComments" style="margin-left:12px"></textarea>
+					<span asp-validation-for="ApprovedComments" class="text-danger"></span>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Supplier Name" class="form-label">SupplierName</label>
+					<select class="form-select" id="Supplier Name"  asp-for="SupplierName">
+						<option selected>Select</option>
+						<option>Sai</option>
+						<option>Venkatesh</option>
+						<option>Kiran</option>
+						<option>Vijay</option>
+					</select>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="storeDropdown" class="form-label">StoreName</label>
+					<select class="form-select" id="storeDropdown" onchange="loadStoreDetails()" asp-for="StoreName" style="margin-left:12px">
+						<option value="">-- Select a Store --</option>
+						<option value="AddNewStore.cshtml">Store 1</option>
+						<option value="store2.html">Store 2</option>
+						<option value="store3.html">Store 3</option>
+						<option value="store4.html">Store 4</option>
+					</select>
+					
+
+
+				</div>
+				@* <div>
+					<script>
+						function loadStoreDetails() {
+							const dropdown = document.getElementById("storeDropdown");
+							const selectedStore = dropdown.value;
+
+							if (selectedStore) {
+								fetch(selectedStore)
+									.then(response => response.text())
+									.then(data => {
+										document.getElementById("storeDetails").innerHTML = data;
+									})
+									.catch(error => console.error('Error loading store details:', error));
+							} else {
+								document.getElementById("storeDetails").innerHTML = "";
+							}
+						}
+					</script>
+				</div> *@
+				<div>
+					<h2 style="font-size=20px;">Products/Items</h2>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="ProductName" class="form-label">productName</label>
+					<select class="form-select" id="ProductName" asp-for="ProductName">
+						<option selected>Select</option>
+						<option>Sugar</option>
+						<option>Oil</option>
+						<option>Dal</option>
+						<option>Soap</option>
+					</select>
+
+				</div>
+				
+				
+				 <div class="col-sm-5 mr-1">
+					<label for="Quantity" class="form-label">Quantity</label>
+					<input type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Quantity" style="margin-left: 12px;">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="UnitOfMeasurement" class="form-label">Unit Of Measurement</label>
+					<select class="form-select" id="UnitOfMeasurement" name="UnitOfMeasurement">
+						<option selected>Select</option>
+						<option>Kg</option>
+						<option>liters</option>
+						<option>Units</option>
+
+					</select>
+
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="PricePerUnit" class="form-label">Price Per Unit</label>
+					<input type="text" class="form-control" id="PricePerUnit" name="PricePerUnit" placeholder="Enter PricePerUnit">
+				</div> 
+				<div class="d-flex justify-content-end gap-2 mt-3">
+					<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StoreList" asp-controller="Store">Clear</a></button>
+					<button type="submit" class="btn btn-success"><i class="bi bi-search"></i>Add</button>
+
+				</div>
+				<div class="table-responsive mt-2 p-2">
+					<table class="table table-bordered table-hover shadow-sm">
+						<thead class="table-dark">
+							<tr>
+								<th scope="col">S.NO</th>
+								<th scope="col">ProductName</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">UnitOfMeasurements</th>
+								<th scope="col">PricePerUnit</th>
+								<th scope="col">Edit</th>
+								<th scope="col">Delete</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>sugar</td>
+								<td>2</td>
+								<td>kgs</td>
+								<td>80</td>
+								
+								<td class="text-center">
+									<a  class="btn btn-sm btn-warning">Edit</a>
+									
+								</td>
+								<td><a class="btn btn-sm btn-info">Delete</a></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>oil</td>
+								<td>2</td>
+								<td>kgs</td>
+								<td>250</td>
+								
+								<td class="text-center">
+									<a class="btn btn-sm btn-warning">Edit</a>
+									
+								</td>
+								<td><a class="btn btn-sm btn-info">Delete</a></td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Remarks" class="form-label">Remarks</label>
+					<textarea class="form-control" id="Remarks" asp-for="Remarks" placeholder="Enter Remarks" style="margin-left:12px"></textarea>
+				</div>
+				@*  <div>
+					<label style="color:green">@ViewBag.Message</label>
+				</div>
+ *@ 
+			</div>
+		</div>
+		<div class="d-flex justify-content-end gap-2 mt-3">
+			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StockList" asp-controller="Store">Cancel</a></button>
+			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i>Save</button>
+
+		</div>
+
+	</form>
+</div>
+ @if (ViewBag.Response == true)
+{
+	<script>
+		alert("Stock Saved Successfully");
+		window.location.href = "/Stock/StockList";
+		//document.getElementById('btnback').click();
+	</script>
+}
+else if (ViewBag.Response == false)
+{
+	<script>
+		alert(" Unable to Save Stock details");
+
+	</script>
+
+}
+else
+{
+	//do nothing
+} 

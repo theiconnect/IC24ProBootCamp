@@ -2,23 +2,29 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = "_LoginLayout";
+    ViewData["Title"] = "VerifyOtp";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 <div>
-    <p>Please Enter the code which is sent to the Mobile Number(XXXXXXXXXX) or Email Id(XXXXXXXXXXX)</p>
+    <form method="post" asp-controller="Login" asp-action="VerifyOtp">
+        <p>Please Enter the code which is sent to the Mobile Number(XXXXXXXXXX) or Email Id(XXXXXXXXXXX)</p>
    
-    <div>
-        <label>Enter Code:</label>
-        <input type="text" id="txtEmail" name="txtEmail" class="input-control" />
-    </div>
-    <div style="margin-top: 15px;">
-        <button type="button" class="btn btn-secondary">Resend</button>
-        <button type="button" class="btn btn
--primary">Verify</button>
-        <button type="button" class="btn btn-danger">Cancel</button>
+        <div>
+            <label>Enter Code:</label>
+            <input type="text" id="txtEmail" name="txtEmail" class="input-control" />
+        </div>
+        <div style="margin-top: 15px;">
+            <button type="button" class="btn btn-secondary">Resend</button>
+            <button type="button" class="btn btn
+    -primary">
+                <a asp-controller="login" asp-action="ResetPassword">Verify</a>
+                
+            </button>
+            <button type="button" class="btn btn-danger"><a asp-controller="login" asp-action="login">Cancel</a></button>
 
-    </div>
-    <div style="margin-top: 15px;">
-        <a asp-controller="login" asp-action="login">Back To Login</a>
-    </div>
+        </div>
+        <div style="margin-top: 15px;">
+            <a asp-controller="login" asp-action="login">Back To Login</a>
+        </div>
+    </form>
 </div>
