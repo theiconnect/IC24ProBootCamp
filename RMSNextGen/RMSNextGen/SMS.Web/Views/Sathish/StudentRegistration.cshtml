@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "StudentRegistration";
+        Layout= null;
+}
+
+<form>
+    <h1>StudentRegistration</h1>
+    <div class=" row">
+        <label for="code">
+            StudentCode:
+        </label>
+        <input type="text" name="code" value="" placeholder="Enter Code" />
+    </div>
+    <div class=" row">
+        <label for="code">
+            StudentName:
+        </label>
+        <input type="text" name="name" value="" placeholder="EnterStudentName" />
+    </div>
+    <div class=" row">
+        <label for="code">
+            DOB:
+        </label>
+        <input type="date" name="date" value="" placeholder="" />
+    </div>
+        <label for="Gender" class="form-label">Gender</label>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="Gender" id="GenderMale" value="Male">
+        <label class="form-check-label" for="GenderMale">Male</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="Gender" id="GenderFemale" value="Female">
+        <label class="form-check-label" for="GenderFemale">Female</label>
+    </div>
+    <div class=" row">
+        <label for="Comments">
+            Comments:
+        </label>
+            <textarea>
+
+            </textarea>
+    </div>
+    <div class=" row">
+        <label for="Grade">
+            Grade:
+        </label>
+        <select>
+            <option> select</option>
+            <option> Grade-1</option>
+            <option> Grade-2</option>
+            <option> Grade-2</option>
+        </select>
+    </div>
+    <div class=" row">
+        <label for="transport">
+              Own Transport
+        </label>
+        <input type="checkbox" name="date" value="" placeholder="" />
+    </div>
+
+
+    <button type="reset">Clear</button>
+    <button type="submit">Save</button>
+</form>
