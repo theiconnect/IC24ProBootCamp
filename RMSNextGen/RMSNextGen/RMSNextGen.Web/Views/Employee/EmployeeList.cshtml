@@ -1,4 +1,4 @@
-﻿
+﻿@model RMSNextGen.Web.Models.EmployeeSearchViewModel
 @{
 	ViewData["Title"] = "Employee List";
 	Layout = "~/Views/Shared/_RMSLayout.cshtml";
@@ -16,25 +16,25 @@
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="EmployeeCode" class="form-label">Employee Code</label>
-					<input type="text" class="form-control" id="EmployeeCode" name="EmployeeCode" placeholder="Enter Employee Code">
+					<input type="text" class="form-control" asp-for="EmployeeCode">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="ContactNumber" class="form-label">Contact Number</label>
-					<input type="text" class="form-control" id="ContactNumber" name="ContactNumber" placeholder="Contact Number">
+					<label for="MobileNumber" class="form-label">MobileNumber</label>
+					<input type="text" class="form-control" asp-for="MobileNumber">
 				</div>
-				<div class="col-sm-5 mr-1 px-2">
+			@* 	<div class="col-sm-5 mr-1 px-2">
 					<label for="StoreCode" class="form-label">Store Code</label>
-					<select class="form-select" id="StoreCode" name="StoreCode">
+					<select class="form-select"  asp-for="StoreCode">
 						<option selected>Select</option>
 						<option>Emp001</option>
 						<option>Emp002</option>
 						<option>Emp003</option>
-						
+		
 					</select>
-				</div>
+				</div> *@
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="Role" class="form-label">Role</label>
-					<select class="form-select" id="Role" name="Role">
+					<label for="Designation" class="form-label">Designation</label>
+					<select class="form-select" asp-for=" Designation">
 						<option selected>Select</option>
 						<option>Manager</option>
 						<option>Sales</option>
@@ -44,7 +44,7 @@
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
 			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
-			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Search</button>
+			<button type="submit" class="btn btn-success" asp-action="EmployeeList" asp-controller="Employee"><i class="bi bi-search"></i> Search</button>
 			<a class="btn btn-info" asp-action="AddNewEmployee" asp-controller="Employee">
 				<i class="bi bi-plus-circle"></i> Add New Employee
 			</a>
@@ -57,63 +57,36 @@
 			<thead class="table-dark">
 				<tr>
 					<th scope="col">S.NO</th>
-					<th scope="col">Emp Code</th>
-					<th scope="col">Emp Name</th>
+					<th scope="col">EmployeeCode</th>
+					<th scope="col">EmployeeName</th>
 					<th scope="col">Gender</th>
-					<th scope="col">Salary</th>
-					<th scope="col">Role</th>
-					<th scope="col">StoreCode</th>
-					<th scope="col">ContactNumber</th>
-					<th scope="col">Status</th>
+					<th scope="col">Designation</th>
+					<th scope="col">MobileNumber</th>
+					<th scope="col">StoreCode</th>					
 					<th scope="col" class="text-center">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Emp001</td>
-					<td>Raju</td>
-					<td>Male</td>
-					<td>$5.00</td>
-					<td>Manager</td>
-					<td>ST001</td>
-					<td>78952</td>
-					<td><a href="#" class="text-danger">Inactivate</a></td>
-					<td class="text-center">
-						<a asp-controller="Employee" asp-action="EditEmployee" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Employee" asp-action="ViewEmployee" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Emp002</td>
-					<td>Ravi</td>
-					<td>Male</td>
-					<td>$3.00</td>
-					<td>Sales</td>
-					<td>ST002</td>
-					<td>85524</td>
-					<td><a href="#" class="text-success">Activate</a></td>
-					<td class="text-center">
-						<a asp-controller="Employee" asp-action="EditEmployee" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Employee" asp-action="ViewEmployee" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Emp003</td>
-					<td>Suresh</td>
-					<td>Male</td>
-					<td>$3.00</td>
-					<td>Sales</td>
-					<td>ST001</td>
-					<td>954724</td>
-					<td><a href="#" class="text-danger">Inactivate</a></td>
-					<td class="text-center">
-						<a asp-controller="Employee" asp-action="EditEmployee" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Employee" asp-action="ViewEmployee" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
+				@{int i=1;}
+				@foreach (var item in ViewBag.Employee)
+				{
+
+					<tr>
+						<td>@(i++)</td>
+						<td>@item.EmployeeCode</td>
+						<td>@item.EmployeeName</td>
+						<td>@item.Gender</td>
+						<td>@item.Designation</td>
+						<td>@item.MobileNumber</td>
+						<td>@item.StoreIdFk</td>
+						<td class="text-center">
+							<a asp-controller="Employee" asp-action="EditEmployee" asp-route-EmployeeID="@(item.EmployeeID)" class="btn btn-sm btn-warning">Edit</a>
+							<a asp-controller="Employee" asp-action="ViewEmployee" class="btn btn-sm btn-info">View</a>
+						</td>
+					</tr>
+
+				}
+				
 				
 			</tbody>
 		</table>

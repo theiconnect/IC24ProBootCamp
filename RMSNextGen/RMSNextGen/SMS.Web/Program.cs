@@ -13,15 +13,15 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 //
 string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
 
+
+
 builder.Services.AddTransient<UserRepository>(provider =>
     new UserRepository(connectionString));
+
 builder.Services.AddTransient<UserService>();
-//KrishnaveniStudentRegistration 
-//builder.Services.AddTransient<KrishnaveniStudentRepository>(provider=>new KrishnaveniStudentRepository(builder.Configuration.GetConnectionString("SMSDBConnectionString")));
-builder.Services.AddTransient<KrishnaveniStudentRepository>(provider => new KrishnaveniStudentRepository(connectionString));
-
-
-builder.Services.AddTransient<KrishnaveniStudentService>();
+builder.Services.AddTransient<SaiStudentRepository>(provider =>
+	new SaiStudentRepository(connectionString));
+builder.Services.AddTransient<SaiStudentService>();
 
 builder.Services.AddTransient<YuvaStudentRegistrationRepiository>(provider =>
     new YuvaStudentRegistrationRepiository(connectionstring));
