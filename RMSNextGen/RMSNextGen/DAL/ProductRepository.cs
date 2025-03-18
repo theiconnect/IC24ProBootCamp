@@ -154,7 +154,44 @@ namespace RMSNextGen.DAL
 			}
 			return productListObj;
 		}
+
+		public async Task<bool> GetProductCode()
+		{
+			using (SqlConnection connection = new SqlConnection(_connectionString))
+			{
+				await connection.OpenAsync();
+				using (SqlCommand command = new SqlCommand()) 
+				{
+					command.Connection = connection;
+					command.CommandText = "select max(productCode) from productMaster";
+					try
+					{
+							string productCodeFromDB = (string)command.ExecuteScalar();
+
+						productCodeFromDB = Convert.ToString("productCode");
+						return true;
+							
+
+					}
+					catch (Exception ex) 
+					{
+						return false;
+
+					}
+					finally
+					{
+						connection.Close();
+					}
+						
+					
+				}
+
+			}
+			
+		}
+		
 	}
+
 }
 
 

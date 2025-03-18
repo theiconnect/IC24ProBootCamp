@@ -15,16 +15,20 @@ namespace RMSNextGen.Services
 		{
 			_productRepository = productRepository;
 		}
-		//public async Task<bool> SaveProduct(ProductDTO productObj)
-		//{
-		//	return await _productRepository.SaveProduct(productObj);
+		public async Task<bool> SaveProduct(ProductDTO productObj)
+		{
+			return await _productRepository.SaveProduct(productObj);
 
-		//}
+		}
 		
 		public List<ProductListDTO> GetProducts(ProductSearchDTO searchObj)
 		{
 			return _productRepository.GetProducts(searchObj);
 
+		}
+		public async Task<bool> GetProductCode()
+		{
+			return await _productRepository.GetProductCode();
 		}
 	}
 }

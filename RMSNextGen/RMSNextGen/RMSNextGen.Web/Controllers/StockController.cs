@@ -16,6 +16,11 @@ namespace RMSNextGen.Web.Controllers
 			_stockServices = stockServices;
 		}
 		[HttpGet]
+		public IActionResult StockList()
+		{
+			return View();
+		}
+		[HttpGet]
 		public IActionResult AddNewStock()
 		{
 			return View();
@@ -38,7 +43,8 @@ namespace RMSNextGen.Web.Controllers
 
 			bool result=await _stockServices.SaveStock(stockObj);
 
-			ViewBag.Message = result ? "Stock Added Successfully" : "Unable to Add Stock";
+			//ViewBag.Message = result ? "Stock Added Successfully" : "Unable to Add Stock";
+			ViewBag.Response = result;
 
 			return View(model);
 		}

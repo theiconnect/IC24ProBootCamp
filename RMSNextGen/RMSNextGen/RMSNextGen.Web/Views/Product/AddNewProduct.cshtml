@@ -19,20 +19,23 @@
 	</div>
 
 	<form method="post" asp-action="AddNewProduct" asp-controller="Product">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1">
-					<label for="ProductCode" class="form-label">ProductCode</label>
-					<input type="text" class="form-control" id="ProductCode" asp-for="ProductCode" placeholder="Enter Product Code">
+					<label asp-for="ProductCode" class="form-label">ProductCode</label>
+					<input type="text" asp-for="ProductCode" class="form-control" id="ProductCode" value="@ViewBag.ProductCode" placeholder="Enter Product Code">
+					<span asp-validation-for="ProductCode" class="text-danger"></span>
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label style="margin-left:5px" for="ProductName" class="form-label">ProductName</label>
-					<input type="text" class="form-control" id="ProductName" asp-for="ProductName" placeholder="Enter  ProductName " style="margin-left: 12px;" />
+					<label style="margin-left:5px" asp-for="ProductName" class="form-label">ProductName</label>
+					<input type="text" asp-for="ProductName" class="form-control" id="ProductName" placeholder="Enter  ProductName " style="margin-left: 12px;" />
+					<span asp-validation-for="ProductName" class="text-danger"></span>
 
 
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label for="Category" class="form-label">Category</label>
+					<label asp-for="Category" class="form-label">Category</label>
 					<select class="form-select" id="Category" asp-for="Category">
 						<option selected>Select Category</option>
 						<option>Dairy Products</option>
@@ -42,16 +45,18 @@
 					</select>
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label for="PricePerUnit" class="form-label">PricePerUnit</label>
-					<input type="text" class="form-control" id="PricePerUnit" asp-for="PricePerUnit" placeholder="PricePerUnit" style="margin-left:12px"></input>
+					<label asp-for="PricePerUnit" class="form-label">PricePerUnit</label>
+					<input type="text" asp-for="PricePerUnit" class="form-control" id="PricePerUnit" placeholder="PricePerUnit" style="margin-left:12px"></input>
+					<span asp-validation-for="PricePerUnit" class="text-danger"></span>
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label for="ThresholdLimit" class="form-label">ThresholdLimit</label>
-					<input type="text" class="form-control" id="ThresholdLimit" asp-for="ThresholdLimit" placeholder="Enter ThresholdLimit">
+					<label asp-for="ThresholdLimit" class="form-label">ThresholdLimit</label>
+					<input type="text" asp-for="ThresholdLimit" class="form-control" id="ThresholdLimit" placeholder="Enter ThresholdLimit" style="margin-left: 12px;">
+					<span asp-validation-for="ThresholdLimit" class="text-danger"></span>
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label for="UnitofMeasurement" class="form-label">UnitofMeasurement</label>
-					<select class="form-select" id="UnitofMeasurement" asp-for="UnitofMeasurement">
+					<label asp-for="UnitofMeasurement" class="form-label">UnitofMeasurement</label>
+					<select class="form-select" asp-for="UnitofMeasurement" id="UnitofMeasurement">
 						<option selected>Select Unit</option>
 						<option>Kgs</option>
 						<option>Liters</option>
@@ -66,7 +71,10 @@
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
 
 		</div>
-		@* @if (ViewBag.Response == false)
+		@* <div>
+			<label style="color:red">@ViewBag.Message</label>
+		</div>
+ *@		@* @if (ViewBag.Response == false)
 		{
 		<div>
 			<label style="color:red">@ViewBag.Message</label>
@@ -76,7 +84,7 @@
 	</form>
 </div>
 
-@if (ViewBag.Response == true)
+ @if (ViewBag.Response == true)
 {
 	<script>
 		alert("Product Saved Successfully");
@@ -95,4 +103,4 @@ else if (ViewBag.Response == false)
 else
 {
 	//do nothing 
-}
+} 

@@ -19,6 +19,9 @@ namespace RMSNextGen.Web.Controllers
         {
 			ProductSearchDTO searchObj = new ProductSearchDTO();
 			ViewBag.Product = _productServices.GetProducts(searchObj);
+			
+
+            
 			return View();
         }
 		[HttpPost]
@@ -45,6 +48,23 @@ namespace RMSNextGen.Web.Controllers
 		[HttpGet]
         public IActionResult AddNewProduct()
         {
+            //ViewBag.ProductCode = _productServices.GetProductCode();
+            //string productCode = Convert.ToString(ViewBag.ProductCode);
+
+            //if (String.IsNullOrEmpty(productCode))
+            //{
+            //    ViewBag.ProductCode = "P-001";
+
+            //}
+            //else
+            //{
+            //    string[] productCodeArray = productCode.Split('-');
+
+            //    productCodeArray[1] = (productCodeArray[1]) + 1;
+
+            //    productCode = productCodeArray[0] + productCodeArray[1];
+
+            //}
             return View();
         }
         [HttpPost]
@@ -60,17 +80,49 @@ namespace RMSNextGen.Web.Controllers
             
             productObj.CreatedBy = userName;
             productObj.CreatedOn = model.CreatedOn;
+			bool result = await _productServices.SaveProduct(productObj);
 
-            bool result=await _productServices.SaveProduct(productObj);
 
-            //ViewBag.Message = result ? "Product Added Successfully" : "Unable to Add Product";
             ViewBag.Response = result;
 
+			//ViewBag.Message = result ? "Product Added Successfully" : "Unable to Add Product";
+
+   //         try
+   //         {
+   //             if (ModelState.IsValid)
+   //             {
+   //                 bool result = await _productServices.SaveProduct(productObj);
+
+   //                 ViewBag.Response = result;
+   //                 if (result)
+   //                 {
+   //                     return RedirectToAction("AddNewProduct", "Product");
+
+   //                 }
+   //                 else
+   //                 {
+   //                     ModelState.AddModelError("", "Invalid Product Details.");
+   //                     return View(model);
+   //                 }
+
+
+
+   //             }
+                
+
+
+   //         }
+   //         catch (Exception ex) 
+   //         {
+   //             throw;
+   //         }
+			//ViewBag.Message = "Product Details Not Saved Successfully";
 
 			return View(model);
 
-            
-        }
+
+
+		}
         [HttpGet]
         public IActionResult EditProduct()
         {
