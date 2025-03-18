@@ -13,6 +13,11 @@ builder.Services.AddTransient<ProductRepository>(provider => new ProductReposito
 
 builder.Services.AddTransient<ProductServices>();
 
+//Product Category Module
+builder.Services.AddTransient<ProductCategoryRepository>(provider => new ProductCategoryRepository(connectionString));
+
+builder.Services.AddTransient<ProductCategoryServices>();
+
 //Stock Module
 
 builder.Services.AddTransient<StockRepository>(provider => new StockRepository(connectionString));
