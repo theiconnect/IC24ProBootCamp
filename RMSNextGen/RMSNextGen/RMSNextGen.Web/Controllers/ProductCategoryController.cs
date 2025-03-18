@@ -50,7 +50,6 @@ namespace RMSNextGen.Web.Controllers
             ViewBag.Response = result;
             return View(model);
         }
-
         [HttpGet]
         public IActionResult AddCategory()
         {
