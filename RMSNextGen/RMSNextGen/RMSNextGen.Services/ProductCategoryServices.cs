@@ -30,5 +30,13 @@ namespace RMSNextGen.Services
             return _categoryRepository.SearchProductCategory(ProductCategoryListObj);
 
         }
+        public async Task<bool>  EditCategoryId(CategoryEditDTO editProductCategory)
+        {
+          return await  _categoryRepository.EditCategoryId(editProductCategory);
+        }
+        public async Task<bool> UpdateEditCategory(CategoryEditDTO editProductCategory)
+        {
+            return await _categoryRepository.UpdateEditCategory(editProductCategory);
+        }
     }
 }

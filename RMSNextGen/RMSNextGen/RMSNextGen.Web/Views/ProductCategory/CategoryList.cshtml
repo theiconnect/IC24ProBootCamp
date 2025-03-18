@@ -52,8 +52,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach(var item in ViewBag.Category) {
-
+					@foreach(var item in ViewBag.Category) 
+					{
 						<tr>
 							<td>@(i++)</td>
 							<td>@item.CategoryCode</td>
@@ -61,7 +61,7 @@
 							<td>@item.Description</td>
 							<td><a href="#" class="text-danger">Inactivate</a></td>
 							<td class="text-center">
-								<a asp-controller="ProductCategory" asp-action="EditCategory" class="btn btn-sm btn-warning">Edit</a>
+								<a asp-controller="ProductCategory" asp-action="EditCategory" asp-route-CategoryId="@item.CategoryId" class="btn btn-sm btn-warning">Edit</a>
 								<a asp-controller="ProductCategory" asp-action="ViewCategory" class="btn btn-sm btn-info">View</a>
 							</td>
 						</tr>
@@ -71,8 +71,3 @@
 		</div>
 	</form>
 </div>
-
-
-
-
-   

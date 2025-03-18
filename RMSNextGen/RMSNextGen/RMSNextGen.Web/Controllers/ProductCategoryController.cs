@@ -25,10 +25,32 @@ namespace RMSNextGen.Web.Controllers
             ViewBag.Category = _ProductCategoryServices.SearchProductCategory(obj1);
 			return View();
         }
-        public IActionResult EditCategory()
+        [HttpGet]
+        public async Task<IActionResult> EditCategory(int CategoryID)
         {
-            return View();
+            CategoryEditDTO CategoryEditObj = new CategoryEditDTO();
+            CategoryEditObj.ProductCategoryIdPk = CategoryID;
+            ViewBag.ProductDetails = await _ProductCategoryServices.EditCategoryId(CategoryEditObj);
+            EditProductCategoryModel CategoryEditViewModelObj = new EditProductCategoryModel();
+            CategoryEditViewModelObj.ProductCategoryIdPk = CategoryEditObj.ProductCategoryIdPk;
+            CategoryEditViewModelObj.CategoryCode = CategoryEditObj.CategoryCode;
+            CategoryEditViewModelObj.CategoryName = CategoryEditObj.CategoryName;
+            CategoryEditViewModelObj.Description = CategoryEditObj.Description;
+            return View(CategoryEditViewModelObj);
         }
+        [HttpPost]
+        public async Task<IActionResult> EditCategory(EditProductCategoryModel model)
+        {
+            CategoryEditDTO CategoryEditObj = new CategoryEditDTO();
+            CategoryEditObj.ProductCategoryIdPk = model.ProductCategoryIdPk;
+            CategoryEditObj.CategoryCode = model.CategoryCode;
+            CategoryEditObj.CategoryName = model.CategoryName;
+            CategoryEditObj.Description = model.Description;
+            bool result = await _ProductCategoryServices.UpdateEditCategory(CategoryEditObj);
+            ViewBag.Response = result;
+            return View(model);
+        }
+
         [HttpGet]
         public IActionResult AddCategory()
         {
