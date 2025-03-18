@@ -122,14 +122,14 @@
 
 	</form>
 </div>
-@if (ViewBag.result == true)
+@if (ViewBag.Response == true)
 {
 	<script>
 		alert("Employee Added Successfully");
 		window.location.href = "/Employee/EmployeeList";
 	</script>
 }
-else if (ViewBag.result == false)
+else if (ViewBag.Response == false)
 {
 <select>
    alert("Unable to save Employee Details");

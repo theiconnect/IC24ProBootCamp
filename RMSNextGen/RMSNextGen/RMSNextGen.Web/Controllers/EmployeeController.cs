@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RMSNextGen.DAL;
 using RMSNextGen.Models;
 using RMSNextGen.Services;
 
 using RMSNextGen.Web.Models;
+using System.Reflection;
 
 namespace RMSNextGen.Web.Controllers
 {
@@ -13,19 +15,63 @@ namespace RMSNextGen.Web.Controllers
 		{
 			_employeeservice = employeeservice;
 		}
+		
 		[HttpGet]
 		public IActionResult EmployeeList()
 		{
-			//get all stores data and put it in a viewbag/viewdata/model
+			EmployeeSearchDTO searchObj = new EmployeeSearchDTO();
+			ViewBag.Employee = _employeeservice.GetEmployee(searchObj);
 			return View();
 		}
+		[HttpPost]
+		public async Task<IActionResult> EmployeeList(EmployeeSearchViewModel employeeSearchObj)
+		{
+			EmployeeSearchDTO searchObj = new EmployeeSearchDTO();
+			searchObj.MobileNumber = employeeSearchObj.MobileNumber;
+			//searchObj.StoreCode = employeeSearchObj.StoreCode;
+			searchObj.EmployeeCode= employeeSearchObj.EmployeeCode;
+			searchObj.Designation= employeeSearchObj.Designation;
 
-		
+			ViewBag.Employee = _employeeservice.GetEmployee(searchObj);
+			return View();
+
+		}
+
+
+
 
 		[HttpGet]
-        public IActionResult EditEmployee()
+        public async Task<IActionResult> EditEmployee(int EmployeeID)
         {
-            return View();
+			EmployeeEditDTO employeeEditDTO = new EmployeeEditDTO();
+			employeeEditDTO.EmployeeidPK = EmployeeID;
+			ViewBag.EmployeeDetails= await _employeeservice.EditEmployee(employeeEditDTO);
+			EmployeeEditViewModel employeeEditViewModel = new EmployeeEditViewModel();
+
+		 employeeEditViewModel.EmployeeCode= employeeEditDTO.EmployeeCode;
+		employeeEditViewModel.EmployeeFirstName = employeeEditDTO.EmployeeFirstName;
+		employeeEditViewModel.EmployeeLastName = employeeEditDTO.EmployeeLastName;
+		employeeEditViewModel.Email = employeeEditDTO.Email;
+		employeeEditViewModel.MobileNumber = employeeEditDTO.MobileNumber;
+		employeeEditViewModel.Department = employeeEditDTO.Department;
+		employeeEditViewModel.Designation = employeeEditDTO.Designation;
+		employeeEditViewModel.PersonalEmail = employeeEditDTO.PersonalEmail;
+		employeeEditViewModel.Gender = employeeEditDTO.Gender;
+		employeeEditViewModel.Salary= employeeEditDTO.Salary;
+		employeeEditViewModel.PermanentAddressline1 = employeeEditDTO.PermanentAddressLine1;
+		employeeEditViewModel.PermanentAddressline2 = employeeEditDTO.PermanentAddressline2;
+		employeeEditViewModel.PermanentCity = employeeEditDTO.PermanentCity;
+		employeeEditViewModel.PermanentState = employeeEditDTO.PermanentState;
+		employeeEditViewModel.PermanentPincode = employeeEditDTO.PermanentPincode;
+		employeeEditViewModel.CurrentAddressline1 = employeeEditDTO.CurrentAddressline1;
+		employeeEditViewModel.CurrentAddressline2 = employeeEditDTO.CurrentAddressline2;
+		employeeEditViewModel.CurrentCity = employeeEditDTO.CurrentCity;
+		employeeEditViewModel.CurrentState = employeeEditDTO.CurrentState;
+			employeeEditViewModel.CurrentPincode = employeeEditDTO.CurrentPincode;
+			
+			
+			
+			return View(employeeEditViewModel);
         }
 
         [HttpGet]
@@ -65,7 +111,7 @@ namespace RMSNextGen.Web.Controllers
 			EmpDTO.LastUpdatedOn = model.LastUpdatedOn;
 
 			bool result = await _employeeservice.SaveEmployee(EmpDTO);
-			//ViewBag.Message = result ? "Student Registered Successfully" : "Unable to register the Student";
+			ViewBag.Message = result ? "Student Registered Successfully" : "Unable to register the Student";
 			ViewBag.Response = result;
 			return View(model);
 		}

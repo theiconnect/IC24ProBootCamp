@@ -11,7 +11,7 @@ string connectionString = builder.Configuration.GetConnectionString("RMSNextGenC
 builder.Services.AddTransient<EmployeeRepository>(provider => new EmployeeRepository(connectionString));
 builder.Services.AddTransient<EmployeeService>();
 
-builder.Services.AddTransient<StockServices>();
+
 
 var app = builder.Build();
 

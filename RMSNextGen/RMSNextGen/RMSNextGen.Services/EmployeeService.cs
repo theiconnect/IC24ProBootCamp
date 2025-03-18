@@ -19,5 +19,15 @@ namespace RMSNextGen.Services
 		{
 			return await _employeeRepository.SaveEmployee(EmpDTO);
 		}
+		public List<EmployeeListDTO> GetEmployee(EmployeeSearchDTO searchObj)
+		{
+			return _employeeRepository.GetEmployee(searchObj);
+
+		}
+		public async Task<bool> EditEmployee(EmployeeEditDTO employeeEditDTO)
+		{
+			return await _employeeRepository.EditEmployee( employeeEditDTO);
+		}
+
 	}
 }
