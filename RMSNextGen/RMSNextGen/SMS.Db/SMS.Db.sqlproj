@@ -68,9 +68,13 @@
     <Build Include="Tables\Users.sql" />
     <Build Include="StoredProcedures\GetUserByEmailProcedure.sql" />
     <Build Include="StoredProcedures\CreateUserProcedure.sql" />
+    <Build Include="Tables\VijayStudent.sql" />
+
     <Build Include="Tables\SaiStudent.sql" />
+    <Build Include="Tables\KrishnaveniStudent.sql" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SMS.Db.KV.publish.xml" />
     <None Include="SMS.Db.publish.xml" />
   </ItemGroup>
   <ItemGroup>

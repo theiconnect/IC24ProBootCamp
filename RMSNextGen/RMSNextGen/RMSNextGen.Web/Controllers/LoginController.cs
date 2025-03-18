@@ -9,9 +9,6 @@ namespace RMSNextGen.Web.Controllers
         {
             ViewData["Title"] = "Sign In";
             ViewData["UserName"] = "Murali";
-            ViewData["Title"] = "Sign In";
-            ViewData["Title"] = "Sign In";
-            ViewData["Title"] = "Sign In";
             return View();  
         }
 
@@ -35,7 +32,6 @@ namespace RMSNextGen.Web.Controllers
         {
             return RedirectToAction("VerifyOtp", "Login");
         }
-
         [HttpGet]
         public IActionResult VerifyOtp()
         {
