@@ -1,4 +1,6 @@
-﻿@model RMSNextGen.Web.Models.SearchViewModel
+﻿@* @model List<RMSNextGen.Models.ProductCategoryListDTO>*@
+ 
+@model RMSNextGen.Web.Models.SearchViewModel
 @{
 	ViewData["Title"] = "Category List";
 	Layout = "~/Views/Shared/_RMSLayout.cshtml";
@@ -10,23 +12,24 @@
 		<h4 class="text-secondary">Category/Search Category</h4>
 	</div>
 
-	<form method="post" asp-action="Search" asp-controller="ProductCategory">
+	<form method="post" asp-action="CategoryList" asp-controller="ProductCategory">
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="CategoryCode" class="form-label">Category Code</label>
-					<input type="text" class="form-control" id="CategoryCode" name="CategoryCode" placeholder="Enter Store Code">
+					<input type="text" class="form-control" id="CategoryCode" asp-for="CategoryCode" placeholder="Enter Store Code">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="CategoryName" class="form-label">Category Name</label>
-					<input type="text" class="form-control" id="CategoryName" name="CategoryName" placeholder="CategoryName">
+					<input type="text" class="form-control" id="CategoryName" asp-for="CategoryName" placeholder="CategoryName">
 				</div>
 			
 			
 			</div>
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
-			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
+	        <a class="btn btn-reset" asp-controller="ProductCategory" asp-action="CategoryList"><i class="bi bi-arrow-counterclockwise"></i>Clear
+				</a>
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Search</button>
 			<a class="btn btn-info" asp-action="AddCategory" asp-controller="ProductCategory">
 				<i class="bi bi-plus-circle"></i> Add New Category
@@ -48,10 +51,14 @@
 				</tr>
 			</thead>
 			<tbody>
+				@{
+					int i = 1;
+				}
+				@if(ViewBag.Category.Count>0)
 				@foreach (var item in ViewBag.Category)
 				{
 					<tr>
-						<td>@item.CategoryIdPK</td>
+						<td>@(i++)</td>
 						<td>@item.CategoryCode</td>
 						<td>@item.CategoryName</td>
 						<td>@item.Description</td>
@@ -59,61 +66,13 @@
 				
 						
 						<td class="text-center">
-							<a asp-controller="ProductCategory" asp-action="EditCategory" class="btn btn-sm btn-warning">Edit</a>
+							<a asp-controller="ProductCategory" asp-action="EditCategory" asp-route-categoryId="@(item.CategoryIdPK)" class="btn btn-sm btn-warning">Edit</a>
 							<a asp-controller="ProductCategory" asp-action="ViewCategory" class="btn btn-sm btn-info">View</a>
 						</td>
 					</tr>
-					
-				}
+ 				}
 			
-				@* <tr>
-					<td>2</td>
-					<td>SC002</td>
-					<td>Some Location</td>
-					<td>Bangalore</td>
-					<td>KA</td>
-					<td><a href="#" class="text-success">Activate</a></td>
-					<td class="text-center">
-						<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>SC003</td>
-					<td>Some Location</td>
-					<td>Warangal</td>
-					<td>TG</td>
-					<td><a href="#" class="text-danger">Inactivate</a></td>
-					<td class="text-center">
-						<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>SC004</td>
-					<td>Some Location</td>
-					<td>Warangal</td>
-					<td>TG</td>
-					<td><a href="#" class="text-danger">Inactivate</a></td>
-					<td class="text-center">
-						<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>SC005</td>
-					<td>Some Location</td>
-					<td>Warangal</td>
-					<td>TG</td>
-					<td><a href="#" class="text-danger">Inactivate</a></td>
-					<td class="text-center">
-						<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr> *@
+				
 			</tbody>
 		</table>
 	</div>

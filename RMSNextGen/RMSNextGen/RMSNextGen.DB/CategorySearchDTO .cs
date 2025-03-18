@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RMSNextGen.Models
 {
-public class CategorySearchDTO
+    public class CategorySearchDTO
 	{
 		public string CategoryCode { get; set; }
 
