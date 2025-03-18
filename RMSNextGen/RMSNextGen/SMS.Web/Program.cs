@@ -3,6 +3,7 @@ using Microsoft.Build.Framework;
 using SMS.DAL;
 using SMS.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,6 +22,10 @@ builder.Services.AddTransient<KrishnaveniStudentRepository>(provider => new Kris
 
 builder.Services.AddTransient<KrishnaveniStudentService>();
 
+builder.Services.AddTransient<YuvaStudentRegistrationRepiository>(provider =>
+    new YuvaStudentRegistrationRepiository(connectionstring));
+
+builder.Services.AddTransient<YuvaStudentRegistratonService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
