@@ -30,5 +30,22 @@ namespace RMSNextGen.Services
 		{
 			return await _productRepository.GetProductCode();
 		}
+		public List<ProductCategoryDTO> GetProductCategory()
+		{
+			return _productRepository.GetProductCategory();
+		}
+		public List<ProductUTMDTO> GetUTM()
+		{
+			return _productRepository.GetUTM();
+		}
+		public async Task<bool> GetProductBasedOnId(ProductEditDTO productEditObj)
+		{
+			return await _productRepository.GetProductBasedOnId(productEditObj);
+
+		}
+		public async Task<bool> UpdateProducts(ProductEditDTO productEditObj)
+		{
+			return await _productRepository.UpdateProducts(productEditObj);
+		}
 	}
 }

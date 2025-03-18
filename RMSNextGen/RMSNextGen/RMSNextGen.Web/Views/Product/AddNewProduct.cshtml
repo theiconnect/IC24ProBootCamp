@@ -34,16 +34,7 @@
 
 
 				</div>
-				<div class="col-sm-5 mr-1">
-					<label asp-for="Category" class="form-label">Category</label>
-					<select class="form-select" id="Category" asp-for="Category">
-						<option selected>Select Category</option>
-						<option>Dairy Products</option>
-						<option>Vegatables</option>
-						<option>Electroincs</option>
-						<option>Grocerys</option>
-					</select>
-				</div>
+				
 				<div class="col-sm-5 mr-1">
 					<label asp-for="PricePerUnit" class="form-label">PricePerUnit</label>
 					<input type="text" asp-for="PricePerUnit" class="form-control" id="PricePerUnit" placeholder="PricePerUnit" style="margin-left:12px"></input>
@@ -55,14 +46,25 @@
 					<span asp-validation-for="ThresholdLimit" class="text-danger"></span>
 				</div>
 				<div class="col-sm-5 mr-1">
-					<label asp-for="UnitofMeasurement" class="form-label">UnitofMeasurement</label>
-					<select class="form-select" asp-for="UnitofMeasurement" id="UnitofMeasurement">
-						<option selected>Select Unit</option>
-						<option>Kgs</option>
-						<option>Liters</option>
-						<option>Pieces</option>
+					<label asp-for="Category" class="form-label">Category</label>
+					<select class="form-select" id="Category" asp-for="Category" asp-items="ViewBag.ProductCategory">
+						 <option value="">Select</option>
+						@*<option value="1">Groceries</option>
+						<option value="2">Books</option>
+						<option value="3">Home Appliances</option> *@
+
 					</select>
 				</div>
+				<div class="col-sm-5 mr-1">
+					<label asp-for="UnitofMeasurement" class="form-label">UnitofMeasurement</label>
+					<select class="form-select" asp-for="UnitofMeasurement" id="UnitofMeasurement" asp-items="ViewBag.ProductUOM">
+						<option value="">Select</option>
+						@* <option>Kgs</option>
+						<option>Liters</option>
+						<option>Pieces</option> *@
+					</select>
+				</div>
+				
 				
 			</div>
 		</div>

@@ -65,7 +65,7 @@ namespace RMSNextGen.DAL
 		//		using (SqlCommand command = new SqlCommand())
 		//		{
 		//			command.CommandText = "select  ProductIDPk, ProductCode,ProductName,PricePerUnit from ProductMaster;";
-					
+
 		//			command.Connection = connection;
 		//			try
 		//			{
@@ -84,7 +84,7 @@ namespace RMSNextGen.DAL
 
 
 
-							
+
 		//					}
 
 		//				}
@@ -97,7 +97,7 @@ namespace RMSNextGen.DAL
 		//			{
 		//				connection.Close();
 		//			}
-					
+
 
 
 		//		}
@@ -113,9 +113,10 @@ namespace RMSNextGen.DAL
 				using (SqlCommand command = new SqlCommand())
 				{
 					command.CommandText = "select  ProductIDPk, ProductCode,ProductName,PricePerUnit from ProductMaster where (@ProductCode IS NULL or ProductCode=@ProductCode) and (@ProductName IS NULL or ProductName=@ProductName);";
-					
-					command.Parameters.AddWithValue("@ProductCode", searchObj.ProductCode==null? DBNull.Value : searchObj.ProductCode);
-					command.Parameters.AddWithValue("@ProductName", searchObj.ProductName==null? DBNull.Value : searchObj.ProductName);
+
+					command.Parameters.AddWithValue("@ProductCode", searchObj.ProductCode == null ? DBNull.Value : searchObj.ProductCode);
+					command.Parameters.AddWithValue("@ProductName", searchObj.ProductName == null ? DBNull.Value : searchObj.ProductName);
+
 					command.Connection = connection;
 					try
 					{
@@ -125,7 +126,7 @@ namespace RMSNextGen.DAL
 							{
 
 								ProductListDTO productListDTOObj = new ProductListDTO();
-								productListDTOObj.ProductID = Convert.ToInt32(reader["ProductIDPk"]);
+								productListDTOObj.ProductId = Convert.ToInt32(reader["ProductIDPk"]);
 								productListDTOObj.ProductCode = Convert.ToString(reader["ProductCode"]);
 								productListDTOObj.ProductName = Convert.ToString(reader["ProductName"]);
 								productListDTOObj.PricePerUnit = Convert.ToString(reader["PricePerUnit"]);
@@ -160,20 +161,20 @@ namespace RMSNextGen.DAL
 			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				await connection.OpenAsync();
-				using (SqlCommand command = new SqlCommand()) 
+				using (SqlCommand command = new SqlCommand())
 				{
 					command.Connection = connection;
 					command.CommandText = "select max(productCode) from productMaster";
 					try
 					{
-							string productCodeFromDB = (string)command.ExecuteScalar();
+						string productCodeFromDB = (string)command.ExecuteScalar();
 
 						productCodeFromDB = Convert.ToString("productCode");
 						return true;
-							
+
 
 					}
-					catch (Exception ex) 
+					catch (Exception ex)
 					{
 						return false;
 
@@ -182,14 +183,192 @@ namespace RMSNextGen.DAL
 					{
 						connection.Close();
 					}
-						
-					
+
+
 				}
 
 			}
-			
+
 		}
-		
+
+		public List<ProductCategoryDTO> GetProductCategory()
+		{
+			List<ProductCategoryDTO> productCategoryList = new List<ProductCategoryDTO>();
+			using (SqlConnection connection = new SqlConnection(_connectionString))
+			{
+				connection.Open();
+				using (SqlCommand command = new SqlCommand())
+				{
+					command.CommandText = "select  ProductCategoryIDPk, ProductCategoryCode,ProductCategoryName from ProductCategory";
+
+					command.Connection = connection;
+					try
+					{
+						using (SqlDataReader reader = command.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+
+								ProductCategoryDTO ProductCategoryDTOObj = new ProductCategoryDTO();
+								ProductCategoryDTOObj.ProductCategoryId = Convert.ToInt32(reader["ProductCategoryIDPk"]);
+								ProductCategoryDTOObj.ProductCategoryCode = Convert.ToString(reader["ProductCategoryCode"]);
+								ProductCategoryDTOObj.ProductCategoryName = Convert.ToString(reader["ProductCategoryName"]);
+
+								productCategoryList.Add(ProductCategoryDTOObj);
+
+
+
+
+							}
+
+						}
+					}
+					catch (Exception ex)
+					{
+						throw ex;
+					}
+					finally
+					{
+						connection.Close();
+					}
+
+
+
+				}
+			}
+			return productCategoryList;
+		}
+		public List<ProductUTMDTO> GetUTM()
+		{
+			List<ProductUTMDTO> ProductUTMList = new List<ProductUTMDTO>();
+			using (SqlConnection connection = new SqlConnection(_connectionString))
+			{
+				connection.Open();
+				using (SqlCommand command = new SqlCommand())
+				{
+					command.CommandText = "select  UOMIdPk, UOMCode,UOM from UOM";
+
+					command.Connection = connection;
+					try
+					{
+						using (SqlDataReader reader = command.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+
+								ProductUTMDTO ProductUTMObj = new ProductUTMDTO();
+								ProductUTMObj.UOMIdPk = Convert.ToInt32(reader["UOMIdPk"]);
+								ProductUTMObj.UOMCode = Convert.ToString(reader["UOMCode"]);
+								ProductUTMObj.UOMName = Convert.ToString(reader["UOM"]);
+
+								ProductUTMList.Add(ProductUTMObj);
+
+
+
+
+							}
+
+						}
+					}
+					catch (Exception ex)
+					{
+						throw ex;
+					}
+					finally
+					{
+						connection.Close();
+					}
+
+
+
+				}
+			}
+			return ProductUTMList;
+		}
+
+		public async Task<bool> GetProductBasedOnId(ProductEditDTO productEditObj)
+		{
+			using (SqlConnection conn = new SqlConnection(_connectionString))
+			{
+				await conn.OpenAsync();
+				using (SqlCommand command = new SqlCommand())
+				{
+					command.CommandText = "select ProductIDPk, ProductCode,ProductName,PricePerUnit,ThresholdLimit from ProductMaster where ProductIDPk=@ProductIDPk ";
+					command.Connection = conn;
+					command.Parameters.AddWithValue("@productIdPk", productEditObj.ProductIdPk);
+					try
+					{
+						using (SqlDataReader reader = command.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								productEditObj.ProductCode = Convert.ToString(reader["ProductCode"]);
+								productEditObj.ProductName = Convert.ToString(reader["ProductName"]);
+								productEditObj.PricePerUnit = Convert.ToDecimal(reader["pricePerUnit"]);
+								productEditObj.ThresholdLimit = Convert.ToDecimal(reader["ThresholdLimit"]);
+
+
+							}
+
+						}
+					}
+
+
+
+					catch (Exception ex)
+					{
+						throw ex;
+					}
+					finally
+					{
+						conn.Close();
+					}
+
+				}
+				return true;
+			}
+
+		}
+
+		public async Task<bool> UpdateProducts(ProductEditDTO productEditObj)
+		{
+			using (SqlConnection conn = new SqlConnection(_connectionString))
+			{
+				await conn.OpenAsync();
+				using (SqlCommand command = new SqlCommand())
+				{
+					command.CommandText = "Update ProductMaster set ProductCode=@ProductCode,ProductName=@ProductName,PricePerUnit=@PricePerUnit,ThresholdLimit=@ThresholdLimit where ProductIDPk=@ProductIDPk ";
+					command.Connection = conn;
+					try
+					{
+						command.Parameters.AddWithValue("@productIdPk", productEditObj.ProductIdPk );
+						command.Parameters.AddWithValue("@ProductCode", productEditObj.ProductCode);
+						command.Parameters.AddWithValue("@ProductName", productEditObj.ProductName);
+
+						command.Parameters.AddWithValue("@PricePerUnit", productEditObj.PricePerUnit);
+						command.Parameters.AddWithValue("@ThresholdLimit", productEditObj.ThresholdLimit);
+
+						
+
+
+						await command.ExecuteNonQueryAsync();
+						return true;
+
+					}
+					catch (Exception ex)
+					{
+						return false;
+					}
+					finally
+					{
+						conn.Close();
+					}
+
+
+				}
+
+			}
+		}
 	}
 
 }
