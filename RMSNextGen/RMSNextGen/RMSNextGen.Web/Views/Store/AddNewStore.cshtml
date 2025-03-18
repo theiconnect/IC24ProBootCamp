@@ -1,4 +1,4 @@
-﻿@model SMS.Web.Models.AddNewStoreViewModel
+﻿@model RMSNextGen.Web.Models.AddStoreViewModel
 
 @{
 	ViewData["Title"] = "AddNewStore";
@@ -6,64 +6,164 @@
 }
 
 <style>
-	form-label
-	{
-		margin-left:10px 
-	}
+    .form-label {
+        margin-left: 0px;
+        margin-top:3px
+    }
+
+    .col-sm-5,
+    .col-sm-3 
+    {
+
+      margin-left:10px ;
+      margin-top:-7px
+      
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+         margin-top:10px;
+    }
+
+    .form-control {
+        margin-left: 12px;
+    }
+    .check
+    {
+        margin-top:10px;
+    }
+
 </style>
 
 <div class="container">
-	<div class="justify-content-between align-items-center">
-		 @* <h3 class="text-primary">Stores - </h3> *@
-		<hr class="mt-0" />
-		<h4 class="text-secondary">Stores/AddStore</h4>
-	</div>
+    <div class="justify-content-between align-items-center">
+        <h4 class="text-secondary">Stores/AddStore</h4>
+    </div>
 
-	<form method="post" asp-action="AddNewStore" asp-controller="Store">
-		<div class="card shadow-sm p-2">
-			<div class="row g-3">
-				<div class="col-sm-5 mr-1">
-					<label for="StoreCode" class="form-label">StoreCode</label>
-					<input type="text" asp-for="StoreCode" placeholder="Enter Store Code">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label style="margin-left:5px" for="Location" class="form-label" > StoreLocation</label>
-					<input type="text" asp-for="StoreLocation" placeholder="Enter  StoreLocation " style="margin-left: 12px;" />						   
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">NickName</label>
-					<input type="text" asp-for="NickName" placeholder="Enter NickName">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">Address</label>
-					<textarea type="text" asp-for="Address" placeholder="Enter Address" style="margin-left:12px"></textarea>
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">OfficeNo</label>
-					<input type="text" asp-for="OfficeNo" placeholder="Enter OfficeNo">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">ManagerName</label>
-					<input type="text" asp-for="ManagerName" placeholder="Enter ManagerName" style="margin-left: 12px;">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">ManagerNo</label>
-					<input type="text" asp-for="ManagerNo" placeholder="Enter ManagerNumber" >
-				</div>
-				<div class="col-sm-5 mr-1" >
-					<label for="Location" class="form-label">GST No</label>
-					<input type="text" asp-for="GSTNo" placeholder="Enter GST No" style="margin-left: 12px;">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">CIN No</label>
-					<input type="text" asp-for="CINNo" placeholder="Enter CIN No" >
-				</div>
-			</div>
-		</div>
-		<div class="d-flex justify-content-end gap-2 mt-3">
-			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StoreList" asp-controller="Store">Back</a></button>
-			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
-			 
-		</div>
+    <form method="post" asp-action="AddNewStore" asp-controller="Store">
+        <div class="card shadow-sm p-2">
+            <div class="row g-3">
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="StoreCode" class="form-label">StoreCode</label>
+                        <input type="text" class="form-control" asp-for="StoreCode" placeholder="Enter Store Code">
+                    </div>
+                </div>
 
-	</form>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="StoreLocation" class="form-label">StoreLocation</label>
+                        <input type="text" class="form-control" asp-for="StoreLocation" placeholder="Enter Store Location">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="StoreName" class="form-label">StoreName</label>
+                        <input type="text" class="form-control" asp-for="StoreName" placeholder="Enter Store Name">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="ContactNumber" class="form-label">ContactNumber</label>
+                        <input type="text" class="form-control" asp-for="ContactNumber" placeholder="Enter Contact Number">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="NickName" class="form-label">NickName</label>
+                        <input type="text" class="form-control" asp-for="NickName" placeholder="Enter NickName">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="Address" class="form-label">Address</label>
+                        <textarea class="form-control" asp-for="Address" placeholder="Enter Address"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-sm-5 mr-1 px-2">
+                    <label for="State" class="form-label">State</label>
+                    <select class="form-select" id="State" asp-for="State" asp-items="ViewBag.States">
+                        <option value="">Select</option>
+                    </select>
+                   
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="City" class="form-label">City</label>
+                        <select class="form-select" id="City" name="City">
+                            <option value=" ">Select City</option>
+                            <option value="Vijayawada"> Vijayawada</option>
+                            <option value="Vijayawada"> Nellore</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+
+
+                    <div class="form-group">
+                        <label for="OfficeNo" class="form-label">OfficeNo</label>
+                        <input type="text" class="form-control" asp-for="OfficeNo" placeholder="Enter Office No">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="ManagerName" class="form-label">ManagerName</label>
+                        <input type="text" class="form-control" asp-for="ManagerName" placeholder="Enter Manager Name">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="ManagerNo" class="form-label">ManagerNo</label>
+                        <input type="text" class="form-control" asp-for="ManagerNo" placeholder="Enter Manager No">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="IsCorporateOffice" class="form-label">IsCorporateOffice:</label>
+                        <input type="checkbox" class="check" asp-for="IsCorporateOffice" />
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="GSTNo" class="form-label">GST No</label>
+                        <input type="text" class="form-control" asp-for="GSTNo" placeholder="Enter GST No">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="CINNo" class="form-label">CIN No</label>
+                        <input type="text" class="form-control" asp-for="CINNo" placeholder="Enter CIN No">
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label for="FAX" class="form-label">Fax</label>
+                        <input type="text" class="form-control" asp-for="FAX" placeholder="Enter FAX No">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-3">
+            <button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StoreList" asp-controller="Store">Back</a></button>
+            <button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+        </div>
+    </form>
+</div>
+
+

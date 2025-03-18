@@ -20,11 +20,11 @@ builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<LokeshStudentRepository>(provider =>
     new LokeshStudentRepository(connectionString));
 
-builder.Services.AddTransient<LokeshStudentService>();
+//builder.Services.AddTransient<LokeshStudentService>();
 
-builder.Services.AddTransient<SaiStudentRepository>(provider =>
-	new SaiStudentRepository(connectionString));
-builder.Services.AddTransient<SaiStudentService>();
+//builder.Services.AddTransient<SaiStudentRepository>(provider =>
+//	new SaiStudentRepository(connectionString));
+//builder.Services.AddTransient<SaiStudentService>();
 
 builder.Services.AddTransient<YuvaStudentRegistrationRepiository>(provider =>
     new YuvaStudentRegistrationRepiository(connectionstring));

@@ -1,6 +1,6 @@
 ﻿namespace RMSNextGen.Web.Models
 {
-	public class AddNewStoreViewModel
+	public class AddStoreViewModel
 	{
 		public string StoreCode {  get; set; }
 
@@ -19,5 +19,23 @@
 		public string GSTNo { get; set; }
 
 		public string CINNo { get; set; }
+
+		public string FAX { get; set; }
+
+		public string IsCorporateOffice { get; set; }
+
+		public string CreatedBy { get; set; }	
+
+		public DateTime CreatedOn { get; set; }
+
+		public string ContactNumber {  get; set; }
+
+		public string StoreName { get; set; }
+
+		public string State { get; set; }
+
+		public string City { get; set; }
+
+
 	}
 }
