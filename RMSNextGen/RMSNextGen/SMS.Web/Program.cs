@@ -6,7 +6,7 @@ using SMS.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 //
 //string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
@@ -20,6 +20,7 @@ builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<SaiStudentRepository>(provider =>
 	new SaiStudentRepository(connectionString));
 builder.Services.AddTransient<SaiStudentService>();
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

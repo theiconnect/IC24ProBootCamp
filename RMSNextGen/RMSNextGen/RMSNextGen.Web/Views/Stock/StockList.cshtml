@@ -1,5 +1,96 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model RMSNextGen.Web.Models.StockViewModel
 @{
+	ViewData["Title"] = "StockList";
+
+	Layout = "~/Views/Shared/_RMSLayout.cshtml";
 }
+<div class="container">
+	<div class="justify-content-between align-items-center">
+		@* <h3 class="text-primary">Stock - </h3> *@
+		<hr class="mt-0" />
+		<h4 class="text-secondary">Stock/Search Stock</h4>
+	</div>
+
+	<form method="post" asp-action="ViewStock" asp-controller="Stock">
+		<div class="card shadow-sm p-2">
+			<div class="row g-3">
+				<div class="col-sm-5 mr-1">
+
+					<form action="/action_page.php">
+						<label asp-for="Date">DateTime</label>
+						<input type="datetime-local" id="DateTime" asp-for="Date">
+					</form>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label asp-for="PurchaseOrderNumber" class="form-label">PurchaseOrderNumber</label>
+					<input type="text" class="form-control" id="PurchaseOrderNumber" asp-for="PurchaseOrderNumber" placeholder="Enter PurchaseOrderNo">
+					<span asp-validation-for="PurchaseOrderNumber" class="text-danger"></span>
+				</div>
+				
+				<div class="col-sm-5 mr-1">
+					<label asp-for="InvoiceNumber" class="form-label">InvoiceNumber</label>
+					<input type="text" class="form-control" id="InvoiceNumber" asp-for="InvoiceNumber" placeholder="Enter Invoice Number" style="margin-left:12px" />
+					<span asp-validation-for="InvoiceNumber" class="text-danger"></span>
+
+				</div>
+				
+				<div class="col-sm-5 mr-1">
+					<label for="Supplier Name" class="form-label">SupplierName</label>
+					<select class="form-select" id="Supplier Name" style="margin-left: 12px;" asp-for="SupplierName">
+						<option selected>Select</option>
+						<option>Sai</option>
+						<option>Venkatesh</option>
+						<option>Kiran</option>
+						<option>Vijay</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex justify-content-end gap-2 mt-3">
+			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
+			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Search</button>
+			<a class="btn btn-info" asp-action="AddNewStock" asp-controller="Stock">
+				<i class="bi bi-plus-circle"></i> Add Stock
+			</a>
+		</div>
+
+	</form>
+	@* <hr class="mt-0" /> *@
+	<div class="table-responsive mt-2 p-2">
+		<table class="table table-bordered table-hover shadow-sm">
+			<thead class="table-dark">
+				<tr>
+					<th scope="col">Stock.NO</th>
+					<th scope="col">InvoiceNumber</th>
+					<th scope="col">PurchaseOrderNumber</th>
+					<th scope="col">Date</th>
+					<th scope="col">Status</th>
+					<th scope="col">Edit/Approved</th>
+					<th scope="col">View</th>
+					<th scope="col">Remove</th>
+
+
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Inv-01</td>
+					<td>O-001</td>
+					<td>11/02/2025</td>
+					<td>Status</td>
+					<td><a href="action" id="Button" class="Status">Edit/Approved</a></td>
+					<td class="text-center">
+
+						<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="ViewStock" asp-controller="Stock">View</a></button>
+					</td>
+					<td>
+						Remove
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+</div>
