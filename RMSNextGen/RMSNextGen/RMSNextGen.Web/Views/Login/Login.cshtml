@@ -2,7 +2,10 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-	Layout = "_LoginLayout";
+
+	ViewData["Title"] = "Login";
+	Layout = "~/Views/Shared/_LoginLayout.cshtml";
+
 }
 
 
@@ -20,7 +23,8 @@
 			<a asp-controller="Login" asp-action="SendOtp">Forgot Password</a>
 		</div>
 		<div>
-			<button type="submit"  id="btnLogin"  class="btn-login" asp-action="StoreList" asp-controller="Store"/><i class="bg-info bi-search"></i>Login -></button>
+			@* <input type="submit" value="" id="btnLogin"  class="btn-login" /> *@
+			<button type="submit"  class="btn btn-info" asp-action="StoreList" asp-controller="Store" style="margin-left:150px;text-align:center"><i class="bi bi-search"></i>Login -></button>
 		</div>
 	</form>
 </div>

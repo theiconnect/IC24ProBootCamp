@@ -2,18 +2,26 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = "_LoginLayout";
+    ViewData["Title"] = "SendOtp";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+
 }
 <div>
-    <form method="post" asp-controller="Login"  asp-action="SendOtp">
-    <div>
-        <label>Enter your Email/Phone to recieve the code:</label>
-        <input type="text" id="txtEmail" name="txtEmail" class="input-control"/>
-    </div>
+    <form method="post" asp-controller="Login" asp-action="SendOtp">
+        <div>
+            <label>Enter your Email/Phone to recieve the code:</label>
+            <input type="text" id="txtEmail" name="txtEmail" class="input-control" />
+        </div>
 
-    <div style="margin-left:-123px;">
-        <a href="Login"> <input type="submit" value="Back" id="btnLogin" name="btnLogin" class="btn-login"/></a>
-        <input type="submit" value="Send OTP ->" id="btnLogin" name="btnLogin" class="btn-login"/>
-    </div>
+        <div style="margin-left:-123px;">
+            <button type="reset" class="btn btn-info">
+                <i class="bi bi-search" style="text-align:center;"></i>
+                <a asp-controller="Login" asp-action="Login"> Back</a>
+            </button>
+            <button type="submit" class="btn btn-info"><i class="bi bi-search"></i><a asp-controller="Login" asp-action="VerifyOtp">Send -></a></button>
+
+            
+
+        </div>
     </form>
 </div>
