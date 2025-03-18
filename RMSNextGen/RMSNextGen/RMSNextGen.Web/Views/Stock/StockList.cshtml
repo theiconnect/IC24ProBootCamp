@@ -1,5 +1,7 @@
-﻿@{
-	ViewData["Title"] = "Stock List";
+﻿@model RMSNextGen.Web.Models.StockViewModel
+@{
+	ViewData["Title"] = "StockList";
+
 	Layout = "~/Views/Shared/_RMSLayout.cshtml";
 }
 <div class="container">
@@ -12,27 +14,34 @@
 	<form method="post" asp-action="ViewStock" asp-controller="Stock">
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
-				<div class="col-sm-5 mr-1 px-2">
+				<div class="col-sm-5 mr-1">
 
 					<form action="/action_page.php">
-						<label for="birthdaytime">Date:</label><a href="d:\iconnect\source\repos\ic24a\ic24probootcamp\rmsnextgen\rmsnextgen\rmsnextgen.web\views\stock\stocklist.cshtml">d:\iconnect\source\repos\ic24a\ic24probootcamp\rmsnextgen\rmsnextgen\rmsnextgen.web\views\stock\stocklist.cshtml</a>
-						<input type="datetime-local" id="birthdaytime" name="birthdaytime">
+						<label asp-for="Date">DateTime</label>
+						<input type="datetime-local" id="DateTime" asp-for="Date">
 					</form>
 				</div>
-				<div class="col-sm-5 mr-1 px-2">
-					<label for="Location" class="form-label">Order#</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter Order#">
+				<div class="col-sm-5 mr-1">
+					<label asp-for="PurchaseOrderNumber" class="form-label">PurchaseOrderNumber</label>
+					<input type="text" class="form-control" id="PurchaseOrderNumber" asp-for="PurchaseOrderNumber" placeholder="Enter PurchaseOrderNo">
+					<span asp-validation-for="PurchaseOrderNumber" class="text-danger"></span>
 				</div>
-				<div class="col-sm-5 mr-1 px-2">
-					<label for="Location" class="form-label">Invoice#</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter Invoice#">
+				
+				<div class="col-sm-5 mr-1">
+					<label asp-for="InvoiceNumber" class="form-label">InvoiceNumber</label>
+					<input type="text" class="form-control" id="InvoiceNumber" asp-for="InvoiceNumber" placeholder="Enter Invoice Number" style="margin-left:12px" />
+					<span asp-validation-for="InvoiceNumber" class="text-danger"></span>
+
 				</div>
-				<div class="col-sm-5 mr-1 px-2">
-					<label for="State" class="form-label">SupplierName</label>
-					<select class="form-select" id="State" name="State">
+				
+				<div class="col-sm-5 mr-1">
+					<label for="Supplier Name" class="form-label">SupplierName</label>
+					<select class="form-select" id="Supplier Name" style="margin-left: 12px;" asp-for="SupplierName">
 						<option selected>Select</option>
-						<option>Arun</option>
-						<option>Akash</option>
+						<option>Sai</option>
+						<option>Venkatesh</option>
+						<option>Kiran</option>
+						<option>Vijay</option>
 					</select>
 				</div>
 			</div>
@@ -40,7 +49,7 @@
 		<div class="d-flex justify-content-end gap-2 mt-3">
 			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Search</button>
-			<a class="btn btn-info" asp-action="AddStock" asp-controller="Stock">
+			<a class="btn btn-info" asp-action="AddNewStock" asp-controller="Stock">
 				<i class="bi bi-plus-circle"></i> Add Stock
 			</a>
 		</div>
@@ -52,8 +61,8 @@
 			<thead class="table-dark">
 				<tr>
 					<th scope="col">Stock.NO</th>
-					<th scope="col">Invoice#</th>
-					<th scope="col">Order#</th>
+					<th scope="col">InvoiceNumber</th>
+					<th scope="col">PurchaseOrderNumber</th>
 					<th scope="col">Date</th>
 					<th scope="col">Status</th>
 					<th scope="col">Edit/Approved</th>
@@ -61,7 +70,7 @@
 					<th scope="col">Remove</th>
 
 
-					
+
 				</tr>
 			</thead>
 			<tbody>
@@ -85,4 +94,3 @@
 		</table>
 	</div>
 </div>
-

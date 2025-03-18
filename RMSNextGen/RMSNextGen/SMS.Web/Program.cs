@@ -7,24 +7,20 @@ using SMS.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 //
-string connectionstring = builder.Configuration.GetConnectionString("YuvaSMSDB");
-
 string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
 
 builder.Services.AddTransient<UserRepository>(provider =>
     new UserRepository(connectionString));
 builder.Services.AddTransient<UserService>();
-builder.Services.AddTransient<LokeshStudentRepository>(provider =>
-    new LokeshStudentRepository(connectionString));
+//KrishnaveniStudentRegistration 
+//builder.Services.AddTransient<KrishnaveniStudentRepository>(provider=>new KrishnaveniStudentRepository(builder.Configuration.GetConnectionString("SMSDBConnectionString")));
+builder.Services.AddTransient<KrishnaveniStudentRepository>(provider => new KrishnaveniStudentRepository(connectionString));
 
-//builder.Services.AddTransient<LokeshStudentService>();
 
-//builder.Services.AddTransient<SaiStudentRepository>(provider =>
-//	new SaiStudentRepository(connectionString));
-//builder.Services.AddTransient<SaiStudentService>();
+builder.Services.AddTransient<KrishnaveniStudentService>();
 
 builder.Services.AddTransient<YuvaStudentRegistrationRepiository>(provider =>
     new YuvaStudentRegistrationRepiository(connectionstring));
