@@ -87,10 +87,7 @@
   <ItemGroup>
     <None Include="Scripts\PostDeploymentScripts\LoadStatus.sql" />
     <None Include="Scripts\PostDeploymentScripts\LoadUOM.sql" />
+    <None Include="Sathish.RMSNextGen.DB.publish.publish.xml" />
     <None Include="RMSNextGen.DB.publish.xml" />
-    <None Include="Yuva.RMSNextGen.DB.publish.publish.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="RMSNextGen.DB.refactorlog" />
   </ItemGroup>
 </Project>

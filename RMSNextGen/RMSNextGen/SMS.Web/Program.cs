@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Build.Framework;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 using SMS.DAL;
 using SMS.Services;
 
