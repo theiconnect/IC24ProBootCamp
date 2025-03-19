@@ -13,3 +13,4 @@ Post-Deployment Script Template
 :r .\LoadCities.sql	
 :r .\LoadStatus.sql	
 :r .\LoadUOM.sql	
+:r .\LoadDepartments.sql	
