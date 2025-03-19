@@ -8,7 +8,9 @@ namespace SMS.Web.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+		
+
+			private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -16,12 +18,11 @@ namespace SMS.Web.Controllers
         }
 
     [Authorize]
-        public IActionResult Index()
+        public IActionResult index()
         {
             return View();
         }
-
-        public IActionResult Privacy()
+		public IActionResult Privacy()
         {
             return View();
         }

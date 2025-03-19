@@ -20,11 +20,20 @@ namespace RMSNextGen.Services
 			return await _supplierRepository.AddSupplier(DTO);
 
 		}
-		public  List<SupplierListDTO> GetSupplierList()
+		public  List<SupplierListDTO> GetSupplierList(SearchSupplierDTO searchDTO)
 		{
-			return  _supplierRepository.GetSupplierList();
+			return  _supplierRepository.GetSupplierList(searchDTO);
 
 		}
+		public async Task<bool> EditSupplierDetails(SupplierEditDTO DTO)
+		{
+			return await _supplierRepository.EditSupplierDetails(DTO);
 
+		}
+		public async Task<bool> UpdateSupplierDetails(SupplierEditDTO DTO)
+		{
+			return await _supplierRepository.UpdateSupplierDetails(DTO);
+
+		}
 	}
 }

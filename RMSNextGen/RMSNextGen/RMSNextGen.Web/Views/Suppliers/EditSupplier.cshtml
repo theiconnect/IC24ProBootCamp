@@ -1,5 +1,5 @@
 ﻿@model RMSNextGen.Web.Models.SupplierEditViewModel
-{
+
 
 @{
 	ViewData["Title"] = "EditSupplier";
@@ -19,12 +19,12 @@
 		<h4 class="text-secondary">Suppliers/EditSupplier</h4>
 	</div>
 
-	<form method="post" asp-action="AddNewSupplier" asp-controller="Suppliers">
+	<form method="post" asp-action="EditSupplier" asp-controller="Suppliers">
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
-				<div class="col-sm-5 mr-1">
-					<label for="FirstName" class="form-label">SupplierCode</label>
-					<input type="text" class="form-control" id="FirstName" asp-for="SupplierCode" placeholder="Enter Supplier Code">
+				<div>
+					
+					<input type="hidden" asp-for="SupplierIdPk" >
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="SupplierName" class="form-label">SupplierName</label>
@@ -34,8 +34,12 @@
 					<label for="CompanyName" class="form-label">CompanyName</label>
 					<input type="text" class="form-control" id="CompanyName" asp-for="CompanyName" placeholder="Enter Company Name">
 				</div>
-
 				<div class="col-sm-5 mr-1">
+					<label for="Address" class="form-label">Address</label>
+					<textarea class="form-control" id="Address" asp-for="Address" placeholder="Enter Address" style="margin-left:12px"></textarea>
+				</div> 
+
+				@* <div class="col-sm-5 mr-1">
 					<label style="margin-left:5px" for="MobileNumber" class="form-label">ContactNumber1</label>
 					<input type="text" class="form-control" id="MobileNumber" asp-for="ContactNumber1" placeholder="Enter Contact Number" style="margin-left: 12px;">
 				</div>
@@ -47,11 +51,8 @@
 					<label for="Address" class="form-label">Email</label>
 					<textarea class="form-control" id="Address" asp-for="Email" placeholder="Enter Email" style="margin-left:12px"></textarea>
 				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Address" class="form-label">Address</label>
-					<textarea class="form-control" id="Address" asp-for="Address" placeholder="Enter Address" style="margin-left:12px"></textarea>
-				</div>
-				@* <div class="col-sm-5 mr-1 px-2">
+				
+				 @* <div class="col-sm-5 mr-1 px-2">
 				<label for="City" class="form-label">City</label>
 				<select class="form-select" id="City" asp-for="City" style="margin-left: 12px;">
 				<option selected>Select</option>
@@ -74,10 +75,10 @@
 				<label for="FaxNumber" class="form-label">FaxNumber</label>
 				<input type="text" class="form-control" id="FaxNumber" asp-for="FaxNumber" placeholder="Enter Fax Number" style="margin-left: 12px;">
 				</div> *@
-				<div class="col-sm-5 mr-1">
+				@* <div class="col-sm-5 mr-1">
 					<label for="GSTNo" class="form-label">GSTNumber</label>
 					<input type="text" class="form-control" id="GSTNo" asp-for="GSTNumber" placeholder="Enter GSTNumber">
-				</div>
+				</div> *@
 				@* <div class="col-sm-5 mr-1">
 				<label for="createdBy" class="form-label">CreatedBy</label>
 				<input type="text" class="form-control" id="createdBy" asp-for="CreatedBy" placeholder="Enter CreatedBy">
@@ -88,10 +89,25 @@
 			</div>
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
-			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StoreList" asp-controller="Store">Back</a></button>
+			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="SupplierList" asp-controller="Suppliers">Back</a></button>
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
 
 		</div>
 
 	</form>
 
+</div>
+@if (ViewBag.Response == true)
+{
+	<script>
+		alert("Supplier Details Updated Successfully")
+		window.location.href = "/Suppliers/SupplierList"
+	</script>
+}
+else if (ViewBag.Response == false)
+{
+	<script>
+		alert("Unable To Update Supplier details ")
+	</script>
+
+}

@@ -51,15 +51,21 @@ namespace RMSNextGen.DAL
 
 
 		}
-		public  List<SupplierListDTO> GetSupplierList()
+		public  List<SupplierListDTO> GetSupplierList(SearchSupplierDTO searchDTO)
 		{
 			List<SupplierListDTO> SupplierListDTO = new List<SupplierListDTO>();
 			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				connection.Open();
-				string query = "select SupplierIdPk,SupplierName,CompanyName,Address from Supplier";
+				string query = "select SupplierIdpk,SupplierName,CompanyName,Address from Supplier" +
+					" where (@SupplierName is null or SupplierName=@SupplierName)and (@CompanyName is null or CompanyName=@CompanyName) and (@Address is null or Address=@Address)";
+
 				using (SqlCommand command = new SqlCommand(query,connection))
 				{
+					command.Parameters.AddWithValue("@SupplierName", searchDTO.SupplierName == null ? DBNull.Value : searchDTO.SupplierName);
+					command.Parameters.AddWithValue("@CompanyName", searchDTO.CompanyName == null ? DBNull.Value : searchDTO.CompanyName);
+					command.Parameters.AddWithValue("@Address", searchDTO.Address == null ? DBNull.Value : searchDTO.Address);
+
 					//command.Connection = connection;
 					//command.CommandText = query;
 					try
@@ -77,9 +83,7 @@ namespace RMSNextGen.DAL
 								supplierListDTO.SupplierName = Convert.ToString(reader["SupplierName"]);
 								supplierListDTO.CompanyName = Convert.ToString(reader["CompanyName"]);
 								supplierListDTO.Address = Convert.ToString(reader["Address"]);
-								//supplierListDTO.City = Convert.ToString(reader["City"]);
-								//supplierListDTO.State = Convert.ToString(reader["State"]);
-								//model.ContactNumber = Convert.ToString(reader["StoreContactNumber"]);
+								
 								SupplierListDTO.Add(supplierListDTO);
 							}
 						}
@@ -100,10 +104,80 @@ namespace RMSNextGen.DAL
 			}
 			return SupplierListDTO;
 		}
+		public async Task<bool> EditSupplierDetails(SupplierEditDTO DTO)
+		{
+
+			using (SqlConnection connection = new SqlConnection(_connectionString))
+			{
+				await connection.OpenAsync();
+				using (SqlCommand command = new SqlCommand())
+				{
+					command.CommandText = "select SupplierIDpk,SupplierName,CompanyName,Address from Supplier where SupplierIDpk=@SupplierIDpk";
+					command.Connection = connection;
+
+					command.Parameters.AddWithValue("@SupplierIDpk", DTO.SupplierIdPk);
 
 
+					try
+					{
+						//command.CommandType = CommandType.StoredProcedure;
+						using (SqlDataReader reader = command.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								DTO.SupplierName = Convert.ToString(reader["SupplierName"]);
+								DTO.CompanyName = Convert.ToString(reader["CompanyName"]);
+								DTO.Address = Convert.ToString(reader["Address"]);
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine("Error:" + ex.Message);
+
+					}
+					finally
+					{
+						connection.Close();
+						//command.Dispose();
+
+					}
+				}
+
+			}
+			return true;
+		}
+		public async Task<bool> UpdateSupplierDetails(SupplierEditDTO DTO)
+		{
+			try
+			{
+				using (SqlConnection connection = new SqlConnection(_connectionString))
+				{
+					await connection.OpenAsync();
+					string query = "update supplier set SupplierName=@SupplierName,CompanyName=@CompanyName,Address=@Address where SupplierIdpk=@SupplierIdpk";
+					using (SqlCommand command = new SqlCommand(query, connection))
+					{
+						command.Parameters.AddWithValue("@SupplierIdpk", DTO.SupplierIdPk);
+						command.Parameters.AddWithValue("@SupplierName", DTO.SupplierName);
+						command.Parameters.AddWithValue("@CompanyName", DTO.CompanyName);
+						command.Parameters.AddWithValue("@Address", DTO.Address);
+
+						await command.ExecuteNonQueryAsync();
+						return true;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+
+		}
 	}
 
+
 }
+
+
 	
 

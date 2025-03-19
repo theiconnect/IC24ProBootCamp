@@ -1,4 +1,5 @@
-﻿@model List<RMSNextGen.Models.SupplierListDTO>
+﻿@* @model List<RMSNextGen.Models.SupplierListDTO> *@
+@model RMSNextGen.Web.Models.SearchSupplierViewModel
 	
 
 
@@ -16,31 +17,33 @@
 	<h4 class="text-secondary">Suppliers/Search Suppliers</h4>
 </div>
 
-<form>
+<form method="post" asp-action="SupplierList" asp-controller="Suppliers">
 	<div class="card shadow-sm p-2">
 		<div class="row g-3">
 			<div class="col-sm-5 mr-1 px-2">
 				<label for="SupplierName" class="form-label">SupplierName</label>
-				<input type="text" class="form-control" id="SupplierName" name="SupplierName" placeholder="Enter SupplierName">
+				<input type="text" class="form-control" id="SupplierName" asp-for="SupplierName" placeholder="Enter SupplierName">
 			</div>
 			<div class="col-sm-5 mr-1 px-2">
 				<label for="CompanyName" class="form-label">CompanyName</label>
-				<input type="text" class="form-control" id="CompanyName" name="CompanyName" placeholder="Enter CompanyName">
+				<input type="text" class="form-control" id="CompanyName" asp-for="CompanyName" placeholder="Enter CompanyName">
 			</div>
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="Address" class="form-label">Address</label>
-					<input type="text" class="form-control" id="Address" name="Address" placeholder="Enter Address">
+					<input type="text" class="form-control" id="Address" asp-for="Address" placeholder="Enter Address">
 				</div>
 			@* <div class="col-sm-5 mr-1 px-2">
 				<label for="PhoneNumber" class="form-label">PhoneNumber</label>
 				<input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" placeholder="Enter PhoneNumber">
-			</di *@v>
+			</div>*@
 			
 			
 		</div>
 	</div>
 	<div class="d-flex justify-content-end gap-2 mt-3">
 		<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
+
+
 		<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Search</button>
 		<a class="btn btn-info" asp-action="AddNewSupplier" asp-controller="Suppliers">
 			<i class="bi bi-plus-circle"></i> Add New Supplier
@@ -64,76 +67,28 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach(var  item in Model )
-			{
-					<tr>
-						<td>@item.SupplierIdPk</td>
-						<td>@item.SupplierName</td>
-						<td>@item.CompanyName</td>
-						<td>@item.Address</td>
-						@* <td>Chennai</td>
-					<td>TamilNadu</td> *@
-						@* <td><a href="#" class="text-danger">Inactivate</a></td> *@
-						<td class="text-center">
-							<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
-							<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
-						</td>
-					</tr>
-					
-			}
+				@{
+					int i = 1;
+				}
+				@if (ViewBag.supplier != null && ViewBag.supplier.Count > 0)
+				{
+					@foreach (var item in ViewBag.supplier)
+					{
+						<tr>
+							<td>@(i++)</td> <!-- Serial Number -->
+							<td>@item.SupplierName</td>
+							<td>@item.CompanyName</td>
+							<td>@item.Address</td>
+							<td class="text-center">
+								<a asp-controller="Suppliers" asp-action="EditSupplier" asp-route-SupplierID="@(item.SupplierID)" class="btn btn-sm btn-warning">Edit</a>
+								<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
+							</td>
+						</tr>
+					}
+				}
+				
+				
 			
-			<tr>
-				<td>2</td>
-				<td>Sai</td>
-				<td>Patel Pippes</td>
-				<td>SrNagar</td>
-				@* <td>Hyderabad</td>
-				<td>Telangana</td> *@
-				@* <td><a href="#" class="text-success">Activate</a></td> *@
-				<td class="text-center">
-						<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
-				</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td>kiran</td>
-				<td>Kiran Imports and Exports</td>
-				<td>Ammerpet</td>
-				@* <td>Hyderabad</td>
-				<td>Telangana</td> *@
-				@* <td><a href="#" class="text-danger">Inactivate</a></td> *@
-				<td class="text-center">
-						<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
-				</td>
-			</tr>
-			<tr>
-				<td>4</td>
-				<td>Vijay</td>
-				<td>Palem Naturals</td>
-				<td>Kondapur</td>
-				@* <td>Hyderabad</td>
-				<td>Telangana</td> *@
-				@* <td><a href="#" class="text-danger">Inactivate</a></td> *@
-				<td class="text-center">
-						<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
-				</td>
-			</tr>
-			<tr>
-				<td>5</td>
-				<td>Venkatesh</td>
-				<td>Venkat Computers</td>
-				<td>Kesamudram</td>
-				@* <td>Warangal</td>
-				<td>Telangana</td> *@
-				@* <td><a href="#" class="text-danger">Inactivate</a></td> *@
-				<td class="text-center">
-						<a asp-controller="Suppliers" asp-action="EditSupplier" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Suppliers" asp-action="ViewSupplier" class="btn btn-sm btn-info">View</a>
-				</td>
-			</tr>
 		</tbody>
 	</table>
 </div>
