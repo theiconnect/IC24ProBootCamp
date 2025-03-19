@@ -7,6 +7,9 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 // Add services to the container.
 string connectionString = builder.Configuration.GetConnectionString("RMSNextGenConnectionString");
+//Lookup
+builder.Services.AddTransient<LookupRepository>(provider => new LookupRepository(connectionString));
+builder.Services.AddTransient<LookupService>();
 //Store
 builder.Services.AddTransient<StoreRepository>(provider => new StoreRepository(connectionString));
 builder.Services.AddTransient<StoreService>();

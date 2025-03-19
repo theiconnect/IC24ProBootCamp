@@ -83,6 +83,9 @@
     <None Include="Scripts\PostDeploymentScripts\LoadCities.sql" />
     <Build Include="Tables\DepartmentMaster.sql" />
     <None Include="Scripts\PostDeploymentScripts\LoadDepartments.sql" />
+    <Build Include="StoredProcedures\usp_GetDepartments.sql" />
+    <Build Include="StoredProcedures\usp_SearchEmployee.sql" />
+    <Build Include="StoredProcedures\usp_UpsertEmployee.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\PostDeploymentScripts\RMSNextGen.Script.PostDeployment.sql" />

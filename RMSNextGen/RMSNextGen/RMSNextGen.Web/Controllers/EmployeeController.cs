@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RMSNextGen.DAL;
 using RMSNextGen.Models;
 using RMSNextGen.Services;
@@ -11,33 +12,35 @@ namespace RMSNextGen.Web.Controllers
     public class EmployeeController : Controller
 	{
 		EmployeeService _employeeservice;
-		public EmployeeController(EmployeeService employeeservice) 
+        LookupService _lookupService;
+		public EmployeeController(EmployeeService employeeservice, LookupService lookupService) 
 		{
 			_employeeservice = employeeservice;
-		}
+            _lookupService = lookupService;
+
+        }
 		
 		[HttpGet]
-		public IActionResult EmployeeList()
+		public async Task<IActionResult> EmployeeList()
 		{
-			EmployeeSearchDTO searchObj = new EmployeeSearchDTO();
-			ViewBag.Employee = _employeeservice.GetEmployee(searchObj);
+            ViewBag.Departments = new SelectList(await _lookupService.GetDepartments(), "DepartmentId", "Department");
+            ViewBag.Employees = _employeeservice.GetEmployees(null);
+
 			return View();
 		}
-		[HttpPost]
-		public async Task<IActionResult> EmployeeList(EmployeeSearchViewModel employeeSearchObj)
-		{
-			EmployeeSearchDTO searchObj = new EmployeeSearchDTO();
-			searchObj.MobileNumber = employeeSearchObj.MobileNumber;
-			//searchObj.StoreCode = employeeSearchObj.StoreCode;
-			searchObj.EmployeeCode= employeeSearchObj.EmployeeCode;
-			searchObj.Designation= employeeSearchObj.Designation;
 
-			ViewBag.Employee = _employeeservice.GetEmployee(searchObj);
-			return View();
+        [HttpPost]
+        [Route("SearchEmployee")]
+        public async Task<IActionResult> SearchEmployee(EmployeeSearchViewModel model)
+        {
+            var searchObj = new EmployeeSearchDTO(model.EmployeeName, model.EmployeeCode, model.MobileNumber, model.DepartmentId);
 
-		}
+            ViewBag.Departments = new SelectList(await _lookupService.GetDepartments(), "DepartmentId", "Department");
+            
+			ViewBag.Employees = _employeeservice.GetEmployees(searchObj);
 
-
+            return View("EmployeeList");
+        }
 
 
 		[HttpGet]
@@ -75,10 +78,11 @@ namespace RMSNextGen.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddNewEmployee()
+        public async Task<IActionResult> AddNewEmployee()
         {
-		
-			return View();
+            ViewBag.Departments = new SelectList(await _lookupService.GetDepartments(), "DepartmentId", "Department");
+            ViewBag.Employees = _employeeservice.GetEmployees(null);
+            return View();
 			
         }
 		[HttpPost]
@@ -127,11 +131,6 @@ namespace RMSNextGen.Web.Controllers
 			return RedirectToAction("EmployeeList", "Employee");
 		}
 		
-		[HttpPost]
-		public IActionResult Search(IFormCollection form)
-		{
-			return RedirectToAction("EmployeeList", "Employee");
-		}
-
-	}
+		
+    }
 }

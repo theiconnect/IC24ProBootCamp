@@ -40,7 +40,9 @@
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="Department" class="form-label">Department</label>
-					<input type="text" class="form-control" asp-for="Department">
+					<select class="form-select" asp-for="Department" asp-items="ViewBag.Departments">
+						<option value="">Select</option>
+					</select>
 				</div>
 			
 				<div class="col-sm-5 mr-1 px-2">
