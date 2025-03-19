@@ -24,7 +24,7 @@ builder.Services.AddTransient<SaiStudentRepository>(provider =>
 builder.Services.AddTransient<SaiStudentService>();
 
 builder.Services.AddTransient<YuvaStudentRegistrationRepiository>(provider =>
-    new YuvaStudentRegistrationRepiository(connectionstring));
+    new YuvaStudentRegistrationRepiository(connectionString));
 
 builder.Services.AddTransient<YuvaStudentRegistratonService>();
 
