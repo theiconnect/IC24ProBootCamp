@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace RMSNextGen.Models
 {
-	public class ProductCategoryDTO
-	{
+    public class ProductCategoryDTO
+    {
 		public int ProductCategoryId { get; set; }
 		public string ProductCategoryCode { get; set; }
 		public string ProductCategoryName { get; set; }
-	}
+    }
 }

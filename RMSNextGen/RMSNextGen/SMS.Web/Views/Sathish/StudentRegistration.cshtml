@@ -1,0 +1,57 @@
+﻿@model SMS.Web.Controllers.SathishStudentDetalisModel
+@{
+    ViewData["Title"] = "StudentRegistration";
+        Layout= null;
+}
+
+<form method="post">
+    <h1>StudentRegistration</h1>
+    <div class=" row">
+        <label for="code">
+            StudentCode:
+        </label>
+        <input type="text" asp-for="StudentCode" placeholder="Enter Code" />
+    </div>
+    <div class=" row">
+        <label for="code">
+            StudentName:
+        </label>
+        <input type="text" asp-for="StudentName" value="" placeholder="EnterStudentName" />
+    </div>
+    <div class=" row">
+        <label for="code">
+            DOB:
+        </label>
+        <input type="date" asp-for="DOB" value="" placeholder="" />
+    </div>
+        <label for="Gender" class="form-label">Gender</label>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" asp-for="Gender" id="GenderMale" value="Male">
+        <label class="form-check-label" for="GenderMale">Male</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" asp-for="Gender" id="GenderFemale" value="Female">
+        <label class="form-check-label" for="GenderFemale">Female</label>
+    </div>
+    <div class=" row">
+        <label for="Grade">
+            Grade:
+        </label>
+        <select
+            asp-for="Grade">
+            <option> select</option>
+            <option> Grade-1</option>
+            <option> Grade-2</option>
+            <option> Grade-3</option>
+        </select>
+    </div>
+    <button type="reset">Clear</button>
+    <button type="submit">Save</button>
+    <div>
+        ViewData: @ViewData["USERNAME"]
+    </div>
+    <div>
+        ViewBag: @ViewBag.PASS
+        <label style="color:green">@ViewBag.Message</label>
+    </div>
+</form>
