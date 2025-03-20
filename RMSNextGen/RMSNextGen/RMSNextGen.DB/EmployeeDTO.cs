@@ -8,12 +8,13 @@ namespace RMSNextGen.Models
 {
 	public class EmployeeDTO
 	{
+		public int EmployeeId { get; set; }
 		public string EmployeeCode { get; set; }
 		public string EmployeeFirstName { get; set; }
 		public string EmployeeLastName { get; set; }
 		public string Email { get; set; }
 		public string MobileNumber { get; set; }
-		public string Department { get; set; }
+		public int DepartmentId { get; set; }
 		public string Designation { get; set; }
 		public int StoreIdFk { get; set; }
 		public int StatusIdFk { get; set; }
@@ -30,11 +31,7 @@ namespace RMSNextGen.Models
 		public string CurrentCity { get; set; }
 		public string CurrentState { get; set; }
 		public string CurrentPincode { get; set; }
-		public string CreatedBy { get; set; }
-		public DateTime CreatedOn { get; set; }
-		public string LastUpdatedBy { get; set; }
-		public DateTime LastUpdatedOn { get; set; }
-
-		
+		public string UserId { get; set; }	
+		public ResponseDto Response {  get; set; } = new ResponseDto();
 	}
 }

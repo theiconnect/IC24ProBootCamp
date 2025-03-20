@@ -5,6 +5,10 @@ USING (
     SELECT 2, 'COMPLETED', 'Completed'
     UNION ALL
     SELECT 3, 'APPROVED', 'Approved'
+    UNION ALL
+    SELECT 4, 'ACTIVE', 'Active'
+    UNION ALL
+    SELECT 5, 'INACTIVE', 'In-Active'
 ) AS Source
 ON Target.StatusIDPk = Source.StatusIDPk
 WHEN MATCHED AND 

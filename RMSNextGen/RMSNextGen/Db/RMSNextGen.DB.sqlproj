@@ -77,6 +77,15 @@
     <Build Include="Tables\dbo.Store.sql" />
     <Build Include="Tables\dbo.Supplier.sql" />
     <Build Include="Tables\dbo.UOM.sql" />
+    <Build Include="Tables\StateMaster.sql" />
+    <Build Include="Tables\CityMaster.sql" />
+    <None Include="Scripts\PostDeploymentScripts\LoadStates.sql" />
+    <None Include="Scripts\PostDeploymentScripts\LoadCities.sql" />
+    <Build Include="Tables\DepartmentMaster.sql" />
+    <None Include="Scripts\PostDeploymentScripts\LoadDepartments.sql" />
+    <Build Include="StoredProcedures\usp_GetDepartments.sql" />
+    <Build Include="StoredProcedures\usp_SearchEmployee.sql" />
+    <Build Include="StoredProcedures\usp_UpsertEmployee.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\PostDeploymentScripts\RMSNextGen.Script.PostDeployment.sql" />

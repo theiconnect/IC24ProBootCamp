@@ -9,3 +9,8 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+:r .\LoadStates.sql	
+:r .\LoadCities.sql	
+:r .\LoadStatus.sql	
+:r .\LoadUOM.sql	
+:r .\LoadDepartments.sql	

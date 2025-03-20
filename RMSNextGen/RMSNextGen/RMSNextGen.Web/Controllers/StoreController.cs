@@ -11,11 +11,8 @@ using RMSNextGen.Web.Models;
 
 namespace RMSNextGen.Web.Controllers
 {
-	public class StoreController : Controller
-	{
-
-		string UserName = "Yuvakumar";
-
+	public class StoreController : RMSBaseController
+    {
 		StoreService _storeService;
 
 		public StoreController(StoreService storeService)

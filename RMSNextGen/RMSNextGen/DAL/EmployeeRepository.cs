@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -16,109 +17,128 @@ namespace RMSNextGen.DAL
 		{
 			_connectionString = connectionString;
 		}
-		public async Task<bool> SaveEmployee(EmployeeDTO EmpDTO)
+		public async Task<EmployeeDTO> SaveEmployee(EmployeeDTO EmpDTO)
 		{
 			try
 			{
 				using (SqlConnection connection = new SqlConnection(_connectionString))
 				{
-					string query = "INSERT INTO Employee (EmployeeCode, EmployeeFirstName, EmployeeLastName, Email, MobileNumber,  Department, Designation, PersonalEmail, Gender, SalaryCTC, PermanentAddressLine1, PermanentAddressLine2, PermanentCity, PermanentState, PermanentPincode, CurrentAddressLine1, CurrentAddressLine2, CurrentCity, CurrentState, CurrentPincode, CreatedBy, CreatedOn, LastUpdatedBy, LastUpdatedOn) " +
-								   "VALUES (@EmployeeCode, @EmployeeFirstName, @EmployeeLastName,@Email, @MobileNumber, @Department, @Designation, @PersonalEmail, @Gender, @Salary, @PermanentAddressLine1, @PermanentAddressLine2, @PermanentCity, @PermanentState, @PermanentPincode, @AddressLine1, @AddressLine2, @City, @State, @Pincode, @CreatedBy, @CreatedOn, @LastUpdatedBy, @LastUpdatedOn);";
-
-				
-					using (SqlCommand cmd = new SqlCommand(query, connection))
+                    
+					using (SqlCommand cmd = new SqlCommand())
 					{
-						await connection.OpenAsync();
-						cmd.Parameters.AddWithValue("@EmployeeCode", EmpDTO.EmployeeCode);
-						cmd.Parameters.AddWithValue("@EmployeeFirstName", EmpDTO.EmployeeFirstName);
-						cmd.Parameters.AddWithValue("@EmployeeLastName", EmpDTO.EmployeeLastName);
-						cmd.Parameters.AddWithValue("@Email", EmpDTO.Email);
-						cmd.Parameters.AddWithValue("@MobileNumber", (object)EmpDTO.MobileNumber ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@Department", EmpDTO.Department);
-						cmd.Parameters.AddWithValue("@Designation", EmpDTO.Designation);
-						cmd.Parameters.AddWithValue("@PersonalEmail", (object)EmpDTO.PersonalEmail ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@Gender", EmpDTO.Gender);
-						cmd.Parameters.AddWithValue("@Salary", EmpDTO.SalaryCTC);
-						cmd.Parameters.AddWithValue("@PermanentAddressLine1", EmpDTO.PermanentAddressline1);
-						cmd.Parameters.AddWithValue("@PermanentAddressLine2", EmpDTO.PermanentAddressline2);
-						cmd.Parameters.AddWithValue("@PermanentCity", EmpDTO.PermanentCity);
-						cmd.Parameters.AddWithValue("@PermanentState", EmpDTO.PermanentState);
-						cmd.Parameters.AddWithValue("@PermanentPincode", EmpDTO.PermanentPincode);
-						cmd.Parameters.AddWithValue("@AddressLine1", EmpDTO.CurrentAddressline1);
-						cmd.Parameters.AddWithValue("@AddressLine2", (object)EmpDTO.CurrentAddressline2 ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@City", EmpDTO.CurrentCity);
-						cmd.Parameters.AddWithValue("@State", EmpDTO.CurrentState);
-						cmd.Parameters.AddWithValue("@Pincode", EmpDTO.CurrentPincode);
-						cmd.Parameters.AddWithValue("@CreatedBy", (object)EmpDTO.CreatedBy ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@CreatedOn", DateTime.Today);
-						cmd.Parameters.AddWithValue("@LastUpdatedBy", (object)EmpDTO.LastUpdatedBy ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@LastUpdatedOn", DateTime.Today);
+                        cmd.CommandText = "usp_UpsertEmployee";
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Connection = connection;
 
-						await cmd.ExecuteNonQueryAsync();
-						 return true;	
+                        cmd.Parameters.AddWithValue("@EmployeeId", EmpDTO.EmployeeId);
+                        cmd.Parameters.AddWithValue("@EmployeeFirstName", EmpDTO.EmployeeFirstName);
+
+						if (!string.IsNullOrEmpty(EmpDTO.EmployeeLastName))
+							cmd.Parameters.AddWithValue("@EmployeeLastName", EmpDTO.EmployeeLastName);
+
+                        cmd.Parameters.AddWithValue("@Email", (object)EmpDTO.Email ?? DBNull.Value);
+
+                        cmd.Parameters.AddWithValue("@MobileNumber", (object)EmpDTO.MobileNumber ?? DBNull.Value);
+						if (EmpDTO.DepartmentId > 0)
+							cmd.Parameters.AddWithValue("@DepartmentIdFk", EmpDTO.DepartmentId);
+
+                        cmd.Parameters.AddWithValue("@Designation", (object)EmpDTO.Designation ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@PersonalEmail", (object)EmpDTO.PersonalEmail ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Gender", EmpDTO.Gender);
+                        cmd.Parameters.AddWithValue("@Salary", (object)EmpDTO.SalaryCTC ?? DBNull.Value); 
+
+                        cmd.Parameters.AddWithValue("@PermanentAddressLine1", (object)EmpDTO.PermanentAddressline1 ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@PermanentAddressLine2", (object)EmpDTO.PermanentAddressline2 ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@PermanentCity", (object)EmpDTO.PermanentCity ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@PermanentState", (object)EmpDTO.PermanentState ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@PermanentPincode", (object)EmpDTO.PermanentPincode ?? DBNull.Value);
+
+                        cmd.Parameters.AddWithValue("@AddressLine1", (object)EmpDTO.CurrentAddressline1 ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@AddressLine2", (object)EmpDTO.CurrentAddressline2 ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@City", (object)EmpDTO.CurrentCity ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@State", (object)EmpDTO.CurrentState ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@Pincode", (object)EmpDTO.CurrentPincode ?? DBNull.Value); 
+
+                        cmd.Parameters.AddWithValue("@UserId", EmpDTO.UserId);
+						
+						await connection.OpenAsync();
+						//await cmd.ExecuteNonQueryAsync();
+						using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+						{
+							if (dr.Read())
+							{
+								EmpDTO.EmployeeCode = Convert.ToString(dr["EmployeeCode"]);
+								EmpDTO.EmployeeId = Convert.ToInt32(dr["EmployeeId"]);
+								EmpDTO.Response.IsSuccess = true;
+								EmpDTO.Response.ResponseMessage = $"New Employee - {EmpDTO.EmployeeFirstName} {EmpDTO.EmployeeLastName} ({EmpDTO.EmployeeCode}) - \n Registration Successful. ";
+							}
+							return EmpDTO;
+						}
 					}
 				}
 
 			}
 			catch (Exception ex)
 			{
-				return false;
+				EmpDTO.Response.ResponseMessage = $"Employee registration Failed. \n Technical Details: " + ex.Message;
+				return EmpDTO;
 			}
 
 		}
-		public List<EmployeeListDTO> GetEmployee(EmployeeSearchDTO searchObj)
+		public List<EmployeeListDTO> GetEmployees(EmployeeSearchDTO searchObj)
 		{
-			List<EmployeeListDTO> ElDTO = new List<EmployeeListDTO>();
+			var employees = new List<EmployeeListDTO>();
 			using (SqlConnection connection = new SqlConnection(_connectionString))
-			{ 
-				connection.Open();
-				using (SqlCommand command = new SqlCommand()) 
+			{
+				using (SqlCommand command = new SqlCommand())
 				{
-					command.CommandText = "select  EmployeeIdPk,Employeecode,EmployeeFirstName,EmployeeLastName,Gender,Designation,MobileNumber,StoreIdFk from Employee where(@EmployeeCode IS NULL or EmployeeCode = @EmployeeCode) " +
-						"and (@MobileNumber IS NULL or MobileNumber=@MobileNumber)" +/* "and (@StoreCode IS NULL or StoreCode = @StoreCode)" +*/ "and (@Designation IS NULL or Designation = @Designation)";
-
+					command.CommandText = "usp_SearchEmployee";
+					command.CommandType = System.Data.CommandType.StoredProcedure;
 					command.Connection = connection;
-					command.Parameters.AddWithValue("@EmployeeCode", searchObj.EmployeeCode == null ? DBNull.Value : searchObj.EmployeeCode);
-					command.Parameters.AddWithValue("@MobileNumber", searchObj.MobileNumber == null ? DBNull.Value : searchObj.MobileNumber);
-					//command.Parameters.AddWithValue("@StoreCode", searchObj.StoreCode == null ? DBNull.Value : searchObj.StoreCode);
-					command.Parameters.AddWithValue("@Designation", searchObj.Designation == null ? DBNull.Value : searchObj.Designation);
-
+					if (searchObj != null)
+					{
+						if (!string.IsNullOrWhiteSpace(searchObj.EmployeeCode))
+							command.Parameters.AddWithValue("@EmployeeCode", searchObj.EmployeeCode);
+						if (!string.IsNullOrWhiteSpace(searchObj.EmployeeName))
+							command.Parameters.AddWithValue("@EmployeeName", searchObj.EmployeeName);
+						if (!string.IsNullOrWhiteSpace(searchObj.MobileNumber))
+							command.Parameters.AddWithValue("@Mobile", searchObj.MobileNumber);
+						command.Parameters.AddWithValue("@EmployeeCode", searchObj.DepartmentId);
+					}
 
 					try
 					{
+						connection.Open();
 						using (SqlDataReader reader = command.ExecuteReader())
 						{
 							while (reader.Read())
 							{
-
-								EmployeeListDTO EmpListDTO = new EmployeeListDTO();
-								EmpListDTO.EmployeeID = Convert.ToInt32(reader["EmployeeIdPk"]);
-								EmpListDTO.EmployeeCode = Convert.ToString(reader["EmployeeCode"]);
-								EmpListDTO.EmployeeName = Convert.ToString(reader["EmployeeFirstName"]) + " " + Convert.ToString(reader["EmployeeLastName"]);
-								EmpListDTO.Gender = Convert.ToString(reader["Gender"]);
-								EmpListDTO.Designation = Convert.ToString(reader["Designation"]);
-								EmpListDTO.MobileNumber = Convert.ToString(reader["MobileNumber"]);
-								EmpListDTO.StoreIdFk = Convert.ToString(reader["StoreIdFk"]);
-								ElDTO.Add(EmpListDTO);
-
-
-
+								var emp = new EmployeeListDTO();
+								emp.EmployeeID = Convert.ToInt32(reader["EmployeeIdPk"]);
+								emp.EmployeeCode = Convert.ToString(reader["EmployeeCode"]);
+								emp.EmployeeName = Convert.ToString(reader["EmployeeName"]);
+								emp.Department = Convert.ToString(reader["DepartmentName"]);
+								emp.Designation = Convert.ToString(reader["Designation"]);
+								emp.MobileNumber = Convert.ToString(reader["MobileNumber"]);
+								emp.StoreCode = Convert.ToString(reader["StoreCode"]);
+								employees.Add(emp);
 							}
-
 						}
 					}
 					catch (Exception ex)
 					{
-						throw ex;
+						throw;
 					}
 					finally
 					{
-						connection.Close();
+						if (connection.State == System.Data.ConnectionState.Open)
+							connection.Close();
 					}
 				}
 			}
-			return ElDTO;
+			return employees;
 		}
+
 		public async Task<bool> EditEmployee(EmployeeEditDTO employeeEditDTO)
 		{
 			using (SqlConnection connection = new SqlConnection(_connectionString))

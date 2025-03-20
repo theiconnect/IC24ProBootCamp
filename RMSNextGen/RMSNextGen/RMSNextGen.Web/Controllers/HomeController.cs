@@ -4,7 +4,7 @@ using RMSNextGen.Web.Models;
 
 namespace RMSNextGen.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : RMSBaseController
     {
         private readonly ILogger<HomeController> _logger;
 

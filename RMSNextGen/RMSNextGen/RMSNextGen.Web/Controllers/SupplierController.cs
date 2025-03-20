@@ -2,7 +2,7 @@
 
 namespace RMSNextGen.Web.Controllers
 {
-    public class SupplierController : Controller
+    public class SupplierController : RMSBaseController
     {
         [HttpGet]
         public IActionResult SupplierList()
