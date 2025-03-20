@@ -5,15 +5,19 @@
 }
 <div class="container">
 	<div class="justify-content-between align-items-center">
-		@* <h3 class="text-primary">Employee - </h3> *@
 		<hr class="mt-0" />
 		<h4 class="text-secondary">Employee/Search Employee</h4>
-	</div>
-
-
-	<form asp-action="Search" asp-controller="Employee" method="post">
+	</div>Search
+	<form asp-action="SearchEmployee" asp-controller="Employee" method="post">
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
+				<div class="row g-3">
+					<i><b>Note:</b> Please select any of the serach criteria</i>
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="EmployeeCode" class="form-label">Employee Name</label>
+					<input type="text" class="form-control" asp-for="EmployeeName">
+				</div>
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="EmployeeCode" class="form-label">Employee Code</label>
 					<input type="text" class="form-control" asp-for="EmployeeCode">
@@ -22,29 +26,17 @@
 					<label for="MobileNumber" class="form-label">MobileNumber</label>
 					<input type="text" class="form-control" asp-for="MobileNumber">
 				</div>
-			@* 	<div class="col-sm-5 mr-1 px-2">
-					<label for="StoreCode" class="form-label">Store Code</label>
-					<select class="form-select"  asp-for="StoreCode">
-						<option selected>Select</option>
-						<option>Emp001</option>
-						<option>Emp002</option>
-						<option>Emp003</option>
-		
-					</select>
-				</div> *@
 				<div class="col-sm-5 mr-1 px-2">
-					<label for="Designation" class="form-label">Designation</label>
-					<select class="form-select" asp-for=" Designation">
-						<option selected>Select</option>
-						<option>Manager</option>
-						<option>Sales</option>
+					<label for="Designation" class="form-label">Department</label>
+					<select class="form-select" asp-for="DepartmentId" asp-items="ViewBag.Departments">
+						<option value="">Select</option>
 					</select>
 				</div>
 			</div>
 		</div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
 			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
-			<button type="submit" class="btn btn-success" asp-action="EmployeeList" asp-controller="Employee"><i class="bi bi-search"></i> Search</button>
+			<button type="submit" class="btn btn-success" onclick="return validateEmployeeSearch();"><i class="bi bi-search"></i> Search</button>
 			<a class="btn btn-info" asp-action="AddNewEmployee" asp-controller="Employee">
 				<i class="bi bi-plus-circle"></i> Add New Employee
 			</a>
@@ -57,41 +49,59 @@
 			<thead class="table-dark">
 				<tr>
 					<th scope="col">S.NO</th>
-					<th scope="col">EmployeeCode</th>
-					<th scope="col">EmployeeName</th>
-					<th scope="col">Gender</th>
+					<th scope="col">Code</th>
+					<th scope="col">Name</th>
+					<th scope="col">Department</th>
 					<th scope="col">Designation</th>
-					<th scope="col">MobileNumber</th>
-					<th scope="col">StoreCode</th>					
+					<th scope="col">Mobile#</th>
+					<th scope="col">Store#</th>
 					<th scope="col" class="text-center">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				@{int i=1;}
-				@foreach (var item in ViewBag.Employee)
+				@{
+					int i = 1;
+				}
+				@foreach (var item in ViewBag.Employees)
 				{
-
 					<tr>
 						<td>@(i++)</td>
 						<td>@item.EmployeeCode</td>
 						<td>@item.EmployeeName</td>
-						<td>@item.Gender</td>
+						<td>@item.Department</td>
 						<td>@item.Designation</td>
 						<td>@item.MobileNumber</td>
-						<td>@item.StoreIdFk</td>
+						<td>@item.StoreCode</td>
 						<td class="text-center">
 							<a asp-controller="Employee" asp-action="EditEmployee" asp-route-EmployeeID="@(item.EmployeeID)" class="btn btn-sm btn-warning">Edit</a>
-							<a asp-controller="Employee" asp-action="ViewEmployee" class="btn btn-sm btn-info">View</a>
+							<a asp-controller="Employee" asp-action="ViewEmployee" asp-route-EmployeeID="@(item.EmployeeID)" class="btn btn-sm btn-info">View</a>
 						</td>
 					</tr>
-
 				}
-				
-				
+				@if (i == 1)
+				{
+					<tr>
+						<td colspan="8" align="center">No Employees available</td>
+					</tr>
+				}
 			</tbody>
 		</table>
-
-	   </div>
-
+	</div>
 </div>
 
+<script>
+	function validateEmployeeSearch(){
+		var employeeName = document.getElementById('EmployeeName').value;
+		var employeeCode = document.getElementById('EmployeeCode').value;
+		var mobileNumber = document.getElementById('MobileNumber').value;
+		var departmentId = document.getElementById('DepartmentId').value;
+
+		if(employeeName == '' && employeeCode == '' && mobileNumber == '' && departmentId == '')
+		{
+			alert('Please provide atleast one search criteria.');
+			return false;
+		}
+
+		return true;
+	}
+</script>

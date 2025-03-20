@@ -5,34 +5,27 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
-string connectionstring = builder.Configuration.GetConnectionString("RMSNextGenDB");
-builder.Services.AddTransient<StoreRepository>(provider =>
-	new StoreRepository(connectionstring));
-
-builder.Services.AddTransient<StoreService>();
-
-
-
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 string connectionString = builder.Configuration.GetConnectionString("RMSNextGenConnectionString");
-
+//Lookup
+builder.Services.AddTransient<LookupRepository>(provider => new LookupRepository(connectionString));
+builder.Services.AddTransient<LookupService>();
+//Store
+builder.Services.AddTransient<StoreRepository>(provider => new StoreRepository(connectionString));
+builder.Services.AddTransient<StoreService>();
+//Employee
 builder.Services.AddTransient<EmployeeRepository>(provider => new EmployeeRepository(connectionString));
 builder.Services.AddTransient<EmployeeService>();
-
+//Product
+builder.Services.AddTransient<ProductRepository>(provider => new ProductRepository(connectionString));
 builder.Services.AddTransient<ProductServices>();
-
-//Product Category Module
+//Product Category
 builder.Services.AddTransient<ProductCategoryRepository>(provider => new ProductCategoryRepository(connectionString));
-
 builder.Services.AddTransient<ProductCategoryServices>();
 
-//Stock Module
 
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
