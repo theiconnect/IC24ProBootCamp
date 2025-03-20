@@ -15,7 +15,7 @@ namespace RMSNextGen.Services
 		{
 			_employeeRepository = employeeRepository;
 		}
-		public async Task<bool> SaveEmployee(EmployeeDTO EmpDTO)
+		public async Task<EmployeeDTO> SaveEmployee(EmployeeDTO EmpDTO)
 		{
 			return await _employeeRepository.SaveEmployee(EmpDTO);
 		}

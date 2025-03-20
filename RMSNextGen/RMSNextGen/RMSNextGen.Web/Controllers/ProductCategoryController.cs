@@ -5,8 +5,8 @@ using RMSNextGen.Web.Models;
 
 namespace RMSNextGen.Web.Controllers
 {
-	public class ProductCategoryController : Controller
-	{
+	public class ProductCategoryController : RMSBaseController
+    {
 
 
 		ProductCategoryServices _ProductCategoryServices;

@@ -7,10 +7,9 @@
 		public string EmployeeLastName { get; set; }
 		public string Email { get; set; }
 		public string MobileNumber { get; set; }
-		public string Department { get; set; }
+		public int DepartmentId { get; set; }
 		public string Designation { get; set; }
 		public int StoreIdFk { get; set; }
-		public int StatusIdFk { get; set; }
 		public string PersonalEmail { get; set; }
 		public string Gender { get; set; }
 		public string SalaryCTC { get; set; }

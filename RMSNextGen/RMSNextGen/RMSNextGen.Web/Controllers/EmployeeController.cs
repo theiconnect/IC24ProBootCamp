@@ -9,8 +9,8 @@ using System.Reflection;
 
 namespace RMSNextGen.Web.Controllers
 {
-    public class EmployeeController : Controller
-	{
+    public class EmployeeController : RMSBaseController
+    {
 		EmployeeService _employeeservice;
         LookupService _lookupService;
 		public EmployeeController(EmployeeService employeeservice, LookupService lookupService) 
@@ -81,7 +81,6 @@ namespace RMSNextGen.Web.Controllers
         public async Task<IActionResult> AddNewEmployee()
         {
             ViewBag.Departments = new SelectList(await _lookupService.GetDepartments(), "DepartmentId", "Department");
-            ViewBag.Employees = _employeeservice.GetEmployees(null);
             return View();
 			
         }
@@ -94,7 +93,7 @@ namespace RMSNextGen.Web.Controllers
 			EmpDTO.EmployeeLastName = model.EmployeeLastName;
 			EmpDTO.Email = model.Email;
 			EmpDTO.MobileNumber = model.MobileNumber;
-			EmpDTO.Department = model.Department;
+			EmpDTO.DepartmentId = model.DepartmentId;
 			EmpDTO.Designation = model.Designation;
 			EmpDTO.PersonalEmail = model.PersonalEmail;
 			EmpDTO.Gender = model.Gender;
@@ -109,16 +108,14 @@ namespace RMSNextGen.Web.Controllers
 			EmpDTO.CurrentCity = model.CurrentCity;
 			EmpDTO.CurrentState = model.CurrentState;
 			EmpDTO.CurrentPincode = model.CurrentPincode;
-			EmpDTO.CreatedBy = model.CreatedBy;
-			EmpDTO.CreatedOn = model.CreatedOn;
-			EmpDTO.LastUpdatedBy = model.LastUpdatedBy;
-			EmpDTO.LastUpdatedOn = model.LastUpdatedOn;
+			EmpDTO.UserId = UserName;
 
-			bool result = await _employeeservice.SaveEmployee(EmpDTO);
-			ViewBag.Message = result ? "Student Registered Successfully" : "Unable to register the Student";
-			ViewBag.Response = result;
+			var result = await _employeeservice.SaveEmployee(EmpDTO);
+			ViewBag.Message = result.Response.ResponseMessage;
+			ViewBag.Response = result.Response.IsSuccess;
 			return View(model);
 		}
+
 		[HttpGet]
         public IActionResult ViewEmployee()
         {

@@ -5,7 +5,7 @@ using RMSNextGen.Services;
 
 namespace RMSNextGen.Web.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : RMSBaseController
     {
         string userName = "Krishnaveni";
         ProductServices _productServices;

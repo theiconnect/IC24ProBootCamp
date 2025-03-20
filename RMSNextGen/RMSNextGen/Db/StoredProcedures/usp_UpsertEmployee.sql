@@ -1,7 +1,7 @@
-﻿CREATE PROC dbo.usp_UpsertEmployee
+﻿CREATE PROC usp_UpsertEmployee
 	@EmployeeId	INT = NULL,
 	@EmployeeFirstName VARCHAR(512) ,
-	@EmployeeLastName VARCHAR(512) = NULL,
+	@EmployeeLastName VARCHAR(512) = null,
 	@Email VARCHAR(512),
 	@MobileNumber VARCHAR(20),
 	@DepartmentIdFk INT = NULL,
@@ -19,25 +19,11 @@
 	@City VARCHAR(512) = NULL,
 	@State VARCHAR(512) = NULL,
 	@Pincode VARCHAR(512) = NULL,
-	@UserId	 VARCHAR(512)
+	@UserId	 VARCHAR(512) = 'iConnect'
 AS
 BEGIN
 	IF ISNULL(@EmployeeId , 0) = 0
 	BEGIN
-		INSERT INTO Employee(
-			EmployeeFirstName, EmployeeLastName, Email,
-			MobileNumber,  DepartmentIdFk, Designation, PersonalEmail, Gender, SalaryCTC, 
-			PermanentAddressLine1, PermanentAddressLine2, PermanentCity, PermanentState, 
-			PermanentPincode, CurrentAddressLine1, CurrentAddressLine2, CurrentCity, CurrentState, CurrentPincode, 
-			CreatedBy, CreatedOn)  
-		SELECT @EmployeeFirstName, @EmployeeLastName,@Email,
-			@MobileNumber, @DepartmentIdFk, @Designation, @PersonalEmail, @Gender, @Salary,
-			@PermanentAddressLine1, @PermanentAddressLine2, @PermanentCity, @PermanentState,
-			@PermanentPincode, @AddressLine1, @AddressLine2, @City, @State, @Pincode, 
-			@UserId,GETDATE()
-
-		SET @EmployeeId = SCOPE_IDENTITY();
-
 		DECLARE @EmployeeCode VARCHAR(50)
 		DECLARE @MaxEmpCode varchar(50)
 
@@ -45,17 +31,32 @@ BEGIN
 		IF ISNULL(@MaxEmpCode , '') = ''	
 		BEGIN
 			-- First emp
-			SET @EmployeeCode = 'EMP-001'
+			SET @EmployeeCode = 'EMP-0001'
 		END
 		ELSE
 		BEGIN	
 			--Not first emp
 			DECLARE @MAXID INT
 			SET @MAXID = CAST(REPLACE(@MaxEmpCode, 'EMP-', '') AS INT) + 1
-			SET @EmployeeCode = 'EMP-' + RIGHT('00' + CAST(@MAXID AS VARCHAR), 3)			
+			SET @EmployeeCode = 'EMP-' + RIGHT('000' + CAST(@MAXID AS VARCHAR), 4)			
 		END
 
-		UPDATE Employee SET EmployeeCode = @EmployeeCode WHERE EmployeeIdPk = @EmployeeId
+		DECLARE @ActiveStatusId INT
+		select @ActiveStatusId = StatusIdPk from StatusMaster where StatusCode = 'ACTIVE'
+
+		INSERT INTO Employee(
+			EmployeeCode, EmployeeFirstName, EmployeeLastName, Email,
+			MobileNumber,  DepartmentIdFk, Designation, PersonalEmail, Gender, SalaryCTC, 
+			PermanentAddressLine1, PermanentAddressLine2, PermanentCity, PermanentState, 
+			PermanentPincode, CurrentAddressLine1, CurrentAddressLine2, CurrentCity, CurrentState, CurrentPincode, 
+			CreatedBy, CreatedOn, StatusIdFk)  
+		SELECT @EmployeeCode, @EmployeeFirstName, @EmployeeLastName,@Email,
+			@MobileNumber, @DepartmentIdFk, @Designation, @PersonalEmail, @Gender, @Salary,
+			@PermanentAddressLine1, @PermanentAddressLine2, @PermanentCity, @PermanentState,
+			@PermanentPincode, @AddressLine1, @AddressLine2, @City, @State, @Pincode, 
+			@UserId, GETDATE(), @ActiveStatusId
+
+		SET @EmployeeId = SCOPE_IDENTITY();
 	END
 	ELSE
 	BEGIN

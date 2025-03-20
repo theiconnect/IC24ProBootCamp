@@ -6,8 +6,8 @@ using RMSNextGen.Web.Models;
 namespace RMSNextGen.Web.Controllers
 {
 	
-	public class StockController : Controller
-	{
+	public class StockController : RMSBaseController
+    {
 		string userName = "krishnaveni";
 
 		StockServices _stockServices;

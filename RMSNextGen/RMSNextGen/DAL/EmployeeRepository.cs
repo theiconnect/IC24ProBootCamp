@@ -17,7 +17,7 @@ namespace RMSNextGen.DAL
 		{
 			_connectionString = connectionString;
 		}
-		public async Task<bool> SaveEmployee(EmployeeDTO EmpDTO)
+		public async Task<EmployeeDTO> SaveEmployee(EmployeeDTO EmpDTO)
 		{
 			try
 			{
@@ -25,45 +25,63 @@ namespace RMSNextGen.DAL
 				{
                     
 					using (SqlCommand cmd = new SqlCommand())
-
 					{
                         cmd.CommandText = "usp_UpsertEmployee";
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Connection = connection;
-                        cmd.Parameters.AddWithValue("@EmployeeFirstName", EmpDTO.EmployeeFirstName);
-						cmd.Parameters.AddWithValue("@EmployeeLastName",(object) EmpDTO.EmployeeLastName  ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@Email", EmpDTO.Email);
-						cmd.Parameters.AddWithValue("@MobileNumber", EmpDTO.MobileNumber);
-						cmd.Parameters.AddWithValue("@Department",(object) EmpDTO.Department ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@Designation", (object)EmpDTO.Designation ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@PersonalEmail", (object)EmpDTO.PersonalEmail ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@Gender", EmpDTO.Gender);
-						cmd.Parameters.AddWithValue("@Salary", (object)EmpDTO.SalaryCTC ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@PermanentAddressLine1", (object)EmpDTO.PermanentAddressline1 ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@PermanentAddressLine2", (object)EmpDTO.PermanentAddressline2 ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@PermanentCity", (object)EmpDTO.PermanentCity ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@PermanentState", (object)EmpDTO.PermanentState ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@PermanentPincode", (object)EmpDTO.PermanentPincode ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@AddressLine1", (object)EmpDTO.CurrentAddressline1 ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@AddressLine2", (object)EmpDTO.CurrentAddressline2 ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@City", (object)EmpDTO.CurrentCity ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@State", (object)EmpDTO.CurrentState ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@Pincode", (object)EmpDTO.CurrentPincode ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@CreatedBy", EmpDTO.CreatedBy);
-						cmd.Parameters.AddWithValue("@CreatedOn", DateTime.Today);
-						cmd.Parameters.AddWithValue("@LastUpdatedBy", (object)EmpDTO.LastUpdatedBy ?? DBNull.Value);
-						cmd.Parameters.AddWithValue("@LastUpdatedOn", DateTime.Today);
 
+                        cmd.Parameters.AddWithValue("@EmployeeId", EmpDTO.EmployeeId);
+                        cmd.Parameters.AddWithValue("@EmployeeFirstName", EmpDTO.EmployeeFirstName);
+
+						if (!string.IsNullOrEmpty(EmpDTO.EmployeeLastName))
+							cmd.Parameters.AddWithValue("@EmployeeLastName", EmpDTO.EmployeeLastName);
+
+                        cmd.Parameters.AddWithValue("@Email", (object)EmpDTO.Email ?? DBNull.Value);
+
+                        cmd.Parameters.AddWithValue("@MobileNumber", (object)EmpDTO.MobileNumber ?? DBNull.Value);
+						if (EmpDTO.DepartmentId > 0)
+							cmd.Parameters.AddWithValue("@DepartmentIdFk", EmpDTO.DepartmentId);
+
+                        cmd.Parameters.AddWithValue("@Designation", (object)EmpDTO.Designation ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@PersonalEmail", (object)EmpDTO.PersonalEmail ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Gender", EmpDTO.Gender);
+                        cmd.Parameters.AddWithValue("@Salary", (object)EmpDTO.SalaryCTC ?? DBNull.Value); 
+
+                        cmd.Parameters.AddWithValue("@PermanentAddressLine1", (object)EmpDTO.PermanentAddressline1 ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@PermanentAddressLine2", (object)EmpDTO.PermanentAddressline2 ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@PermanentCity", (object)EmpDTO.PermanentCity ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@PermanentState", (object)EmpDTO.PermanentState ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@PermanentPincode", (object)EmpDTO.PermanentPincode ?? DBNull.Value);
+
+                        cmd.Parameters.AddWithValue("@AddressLine1", (object)EmpDTO.CurrentAddressline1 ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@AddressLine2", (object)EmpDTO.CurrentAddressline2 ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@City", (object)EmpDTO.CurrentCity ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@State", (object)EmpDTO.CurrentState ?? DBNull.Value); 
+                        cmd.Parameters.AddWithValue("@Pincode", (object)EmpDTO.CurrentPincode ?? DBNull.Value); 
+
+                        cmd.Parameters.AddWithValue("@UserId", EmpDTO.UserId);
+						
 						await connection.OpenAsync();
-						await cmd.ExecuteNonQueryAsync();
-						 return true;	
+						//await cmd.ExecuteNonQueryAsync();
+						using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+						{
+							if (dr.Read())
+							{
+								EmpDTO.EmployeeCode = Convert.ToString(dr["EmployeeCode"]);
+								EmpDTO.EmployeeId = Convert.ToInt32(dr["EmployeeId"]);
+								EmpDTO.Response.IsSuccess = true;
+								EmpDTO.Response.ResponseMessage = $"New Employee - {EmpDTO.EmployeeFirstName} {EmpDTO.EmployeeLastName} ({EmpDTO.EmployeeCode}) - \n Registration Successful. ";
+							}
+							return EmpDTO;
+						}
 					}
 				}
 
 			}
 			catch (Exception ex)
 			{
-				return false;
+				EmpDTO.Response.ResponseMessage = $"Employee registration Failed. \n Technical Details: " + ex.Message;
+				return EmpDTO;
 			}
 
 		}

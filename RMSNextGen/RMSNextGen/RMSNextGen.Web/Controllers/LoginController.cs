@@ -2,7 +2,7 @@
 
 namespace RMSNextGen.Web.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : RMSBaseController
     {
         [HttpGet]
         public IActionResult Login()
