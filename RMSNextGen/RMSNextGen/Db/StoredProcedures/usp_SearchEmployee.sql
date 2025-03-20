@@ -1,5 +1,5 @@
 ﻿
-CREATE PROC usp_SearchEmployee
+CREATE PROC [dbo].[usp_SearchEmployee]
 	@EmployeeName VARCHAR(512) = NULL,
 	@EmployeeCode VARCHAR(50) = NULL,
 	@Mobile		VARCHAR(20) = NULL,
@@ -16,11 +16,12 @@ BEGIN
 		S.StoreCode 
 	FROM Employee E
 	LEFT JOIN DepartmentMaster D on E.DepartmentIdFk = D.DepartmentIDPk
-	INNER JOIN Store S on E.StoreIDfk = S.StoreIdPk
+	LEFT JOIN Store S on E.StoreIDfk = S.StoreIdPk
 	WHERE 1=1
 		AND (@EmployeeCode IS NULL OR EmployeeCode = @EmployeeCode) 
 		AND (@EmployeeName IS NULL OR EmployeeFirstName + EmployeeLastName LIKE '%' + @EmployeeName + '%') 
 		AND (@Mobile IS NULL OR MobileNumber=@Mobile)
 		AND (@DepartmentId IS NULL OR E.DepartmentIdFk = @DepartmentId)
+	ORDER BY E.CreatedOn DESC
 END
 

@@ -88,4 +88,6 @@ BEGIN
 			  EmployeeIdPk = @EmployeeId
 
 	END
+
+	SELECT @EmployeeId AS EmployeeId, @EmployeeCode As EmployeeCode
 END
