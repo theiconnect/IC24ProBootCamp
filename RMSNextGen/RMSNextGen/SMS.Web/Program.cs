@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Build.Framework;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 using SMS.DAL;
 using SMS.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,16 +13,20 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 //
 string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
 
+
+
 builder.Services.AddTransient<UserRepository>(provider =>
     new UserRepository(connectionString));
+
 builder.Services.AddTransient<UserService>();
-//KrishnaveniStudentRegistration 
-//builder.Services.AddTransient<KrishnaveniStudentRepository>(provider=>new KrishnaveniStudentRepository(builder.Configuration.GetConnectionString("SMSDBConnectionString")));
-builder.Services.AddTransient<KrishnaveniStudentRepository>(provider => new KrishnaveniStudentRepository(connectionString));
+builder.Services.AddTransient<SaiStudentRepository>(provider =>
+	new SaiStudentRepository(connectionString));
+builder.Services.AddTransient<SaiStudentService>();
 
+builder.Services.AddTransient<YuvaStudentRegistrationRepiository>(provider =>
+    new YuvaStudentRegistrationRepiository(connectionString));
 
-builder.Services.AddTransient<KrishnaveniStudentService>();
-
+builder.Services.AddTransient<YuvaStudentRegistratonService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

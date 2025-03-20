@@ -1,4 +1,5 @@
-﻿@{
+﻿@model RMSNextGen.Web.Models.EditCategoryViewModel
+@{
 	ViewData["Title"] = "Edit Category";
 	Layout = "~/Views/Shared/_RMSLayout.cshtml";
 }
@@ -7,26 +8,29 @@
 	<div class="justify-content-between align-items-center">
 		@* <h3 class="text-primary">Stores - </h3> *@
 		<hr class="mt-0" />
-		<h4 class="text-secondary">Category/AddCategory</h4>
+		<h4 class="text-secondary">Category/Edit Category</h4>
 	</div>
 
-	<form method="post" asp-action="AddCategory" asp-controller="ProductCategory">
+	<form method="post" asp-action="EditCategory" asp-controller="ProductCategory">
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
+				<div>
+					<input type="hidden" asp-for="ProductCategoryIdPk" />
+				</div>
 
 				<div class="col-sm-5 mr-1">
-					<label style="margin-left:5px" for="ategory Code" class="form-label">Category Code</label>
-					<input type="text" class="form-control" id="CategoryCode" name="CategoryCode" placeholder="CategoryCode " style="margin-left: 12px;" />
+					<label style="margin-left:5px" for="Category Code" class="form-label">Category Code</label>
+					<input type="text" class="form-control" id="CategoryCode" asp-for="CategoryCode" placeholder="CategoryCode " style="margin-left: 12px;" />
 
 
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="CatagoryName" class="form-label">Category Name</label>
-					<input type="text" class="form-control" id="CatagoryName" name="CatagoryName" placeholder="CatagoryName">
+					<input type="text" class="form-control" id="CatagoryName" asp-for="CategoryName" placeholder="CatagoryName">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Description" class="form-label">Description</label>
-					<textarea class="form-control" id="Description" placeholder="Description" style="margin-left:12px"></textarea>
+					<textarea class="form-control" id="Description" asp-for="Description" placeholder="Description" style="margin-left:12px"></textarea>
 				</div>
 				<div class="d-flex justify-content-end gap-2 mt-3">
 					<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="CategoryList" asp-controller="ProductCategory">Back</a></button>
@@ -39,3 +43,17 @@
 
 
 	</form>
+</div>
+@if (ViewBag.Response == true)
+{
+	<script>
+		alert("ProductCategory Details updated Sccessfully");
+		window.location.href="/ProductCategory/CategoryList";
+	</script>
+}
+else if (ViewBag.Response == false)
+{
+	<script>
+		alert("Unable to save ProductCategory Details");
+	</script>
+}

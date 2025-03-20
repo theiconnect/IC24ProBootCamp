@@ -1,4 +1,4 @@
-﻿
+﻿@model RMSNextGen.Web.Models.ProductEditViewModel
 @{
     ViewData["Title"] = "EditProduct";
     Layout = "~/Views/Shared/_RMSLayout.cshtml";
@@ -38,10 +38,10 @@
 					<label for="Category" class="form-label">Category</label>
 					<select class="form-select" asp-for="CategoryId" asp-items="ViewBag.ProductCategory">
 						<option selected>Select Category</option>
-						<option>Dairy Products</option>
+						@* <option>Dairy Products</option>
 						<option>Vegatables</option>
 						<option>Electroincs</option>
-						<option>Grocerys</option>
+						<option>Grocerys</option> *@
 					</select>
 				</div>
 				<div class="col-sm-5 mr-1">
@@ -56,9 +56,9 @@
 					<label for="UnitofMeasurement" class="form-label">Unit of Measurement</label>
 					<select class="form-select" asp-for="UnitofMeasurementId" asp-items="ViewBag.ProductUOM">
 						<option selected>Select Unit</option>
-						<option>Kgs</option>
+						@* <option>Kgs</option>
 						<option>Liters</option>
-						<option>Pieces</option>
+						<option>Pieces</option> *@
 					</select>
 				</div>
 
@@ -72,3 +72,24 @@
 
 	</form>
 
+</div>
+@if (ViewBag.Response == true)
+{
+	<script>
+		alert("Product Updated Successfully");
+		window.location.href = "/Product/ProductList";
+		//document.getElementById('btnback').click();
+	</script>
+}
+else if (ViewBag.Response == false)
+{
+	<script>
+		alert(" Unable to Update Product details");
+
+	</script>
+
+}
+else
+{
+	//do nothing
+}

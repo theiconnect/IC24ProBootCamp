@@ -63,23 +63,32 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach (var item in ViewBag.Product)
+				@{int i=1;}
+				@if (ViewBag.Product.Count>0)
 				{
-					
-					<tr>
-						<td>@item.ProductID</td>
-						<td>@item.ProductCode</td>
-						<td>@item.ProductName</td>
-						<td>@item.Quantity</td>
-						<td>@item.PricePerUnit</td>
-						<td class="text-center">
-							<a asp-controller="Product" asp-action="EditProduct" class="btn btn-sm btn-warning">Edit</a>
-							<a asp-controller="Product" asp-action="ViewProduct" class="btn btn-sm btn-info">View</a>
-						</td>
-					</tr>
+					@foreach (var item in ViewBag.Product)
+					{
 
+						<tr>
+							<td>@(i++)</td>
+							<td>@item.ProductCode</td>
+							<td>@item.ProductName</td>
+							<td>@item.Quantity</td>
+							<td>@item.PricePerUnit</td>
+							<td class="text-center">
+								<a asp-controller="Product" asp-action="EditProduct" asp-route-ProductId="@(item.ProductId)" class="btn btn-sm btn-warning">Edit</a>
+								<a asp-controller="Product" asp-action="ViewProduct" class="btn btn-sm btn-info">View</a>
+							</td>
+						</tr>
+
+					}
 				}
-				
+				else
+				{
+					<tr>
+				   <td colspan="6" class="text-center"><h1>No Products Available</h1></td>
+					</tr>
+				}
 			</tbody>
 		</table>
 	</div>

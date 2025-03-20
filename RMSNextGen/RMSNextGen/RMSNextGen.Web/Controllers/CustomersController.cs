@@ -2,7 +2,7 @@
 
 namespace RMSNextGen.Web.Controllers
 {
-    public class CustomersController : Controller
+    public class CustomersController : RMSBaseController
     {
         public IActionResult CustomerList()
         {

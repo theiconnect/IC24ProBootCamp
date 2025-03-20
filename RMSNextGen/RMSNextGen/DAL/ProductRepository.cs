@@ -65,7 +65,7 @@ namespace RMSNextGen.DAL
 		//		using (SqlCommand command = new SqlCommand())
 		//		{
 		//			command.CommandText = "select  ProductIDPk, ProductCode,ProductName,PricePerUnit from ProductMaster;";
-					
+
 		//			command.Connection = connection;
 		//			try
 		//			{
@@ -84,7 +84,7 @@ namespace RMSNextGen.DAL
 
 
 
-							
+
 		//					}
 
 		//				}
@@ -97,7 +97,7 @@ namespace RMSNextGen.DAL
 		//			{
 		//				connection.Close();
 		//			}
-					
+
 
 
 		//		}
@@ -113,9 +113,10 @@ namespace RMSNextGen.DAL
 				using (SqlCommand command = new SqlCommand())
 				{
 					command.CommandText = "select  ProductIDPk, ProductCode,ProductName,PricePerUnit from ProductMaster where (@ProductCode IS NULL or ProductCode=@ProductCode) and (@ProductName IS NULL or ProductName=@ProductName);";
-					
-					command.Parameters.AddWithValue("@ProductCode", searchObj.ProductCode==null? DBNull.Value : searchObj.ProductCode);
-					command.Parameters.AddWithValue("@ProductName", searchObj.ProductName==null? DBNull.Value : searchObj.ProductName);
+
+					command.Parameters.AddWithValue("@ProductCode", searchObj.ProductCode == null ? DBNull.Value : searchObj.ProductCode);
+					command.Parameters.AddWithValue("@ProductName", searchObj.ProductName == null ? DBNull.Value : searchObj.ProductName);
+
 					command.Connection = connection;
 					try
 					{
@@ -125,7 +126,7 @@ namespace RMSNextGen.DAL
 							{
 
 								ProductListDTO productListDTOObj = new ProductListDTO();
-								productListDTOObj.ProductID = Convert.ToInt32(reader["ProductIDPk"]);
+								productListDTOObj.ProductId = Convert.ToInt32(reader["ProductIDPk"]);
 								productListDTOObj.ProductCode = Convert.ToString(reader["ProductCode"]);
 								productListDTOObj.ProductName = Convert.ToString(reader["ProductName"]);
 								productListDTOObj.PricePerUnit = Convert.ToString(reader["PricePerUnit"]);
@@ -160,20 +161,20 @@ namespace RMSNextGen.DAL
 			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				await connection.OpenAsync();
-				using (SqlCommand command = new SqlCommand()) 
+				using (SqlCommand command = new SqlCommand())
 				{
 					command.Connection = connection;
 					command.CommandText = "select max(productCode) from productMaster";
 					try
 					{
-							string productCodeFromDB = (string)command.ExecuteScalar();
+						string productCodeFromDB = (string)command.ExecuteScalar();
 
 						productCodeFromDB = Convert.ToString("productCode");
 						return true;
-							
+
 
 					}
-					catch (Exception ex) 
+					catch (Exception ex)
 					{
 						throw;
 
