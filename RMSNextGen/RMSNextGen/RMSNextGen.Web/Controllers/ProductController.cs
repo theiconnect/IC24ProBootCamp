@@ -19,9 +19,13 @@ namespace RMSNextGen.Web.Controllers
         {
 			ProductSearchDTO searchObj = new ProductSearchDTO();
 			ViewBag.Product = _productServices.GetProducts(searchObj);
-			
 
-            
+			var productCategories = _productServices.GetProductCategory();
+			ViewBag.ProductCategory = new SelectList(productCategories, "ProductCategoryId", "ProductCategoryName");
+
+
+
+
 			return View();
         }
 		[HttpPost]
@@ -124,12 +128,45 @@ namespace RMSNextGen.Web.Controllers
         [HttpGet]
         public IActionResult EditProduct()
         {
-            return View();
+			ProductEditDTO productEditObj = new ProductEditDTO();
+			productEditObj.ProductIdPk = ProductId;
+			ViewBag.ProductDetails = await _productServices.GetProductBasedOnId(productEditObj);
+			ProductEditViewModel productEditViewModelObj=new ProductEditViewModel();
+			productEditViewModelObj.ProductIdPk= productEditObj.ProductIdPk;
+			productEditViewModelObj.ProductName= productEditObj.ProductName;
+			productEditViewModelObj.ProductCode = productEditObj.ProductCode;
+			productEditViewModelObj.ThresholdLimit= productEditObj.ThresholdLimit;
+			productEditViewModelObj.PricePerUnit= productEditObj.PricePerUnit;
+			productEditViewModelObj.CategoryId = productEditObj.CategoryId;
+			productEditViewModelObj.UnitofMeasurementId= productEditObj.UnitofMeasurementID;
+			var productCategories = _productServices.GetProductCategory();
+			var productUOM = _productServices.GetUTM();
+			ViewBag.ProductCategory = new SelectList(productCategories, "ProductCategoryId", "ProductCategoryName", "CategoryId");
+			ViewBag.ProductUOM = new SelectList(productUOM, "UOMIdPk", "UOMName", "UnitofMeasurementId");
+
+			return View(productEditViewModelObj);
         }
-        [HttpPost]
-        public IActionResult EditProduct(IFormCollection form)
-        {
-            return RedirectToAction("ProductList", "Product");
+		[HttpPost]
+		public async Task<IActionResult> EditProduct(ProductEditViewModel productEditViewModelObj)
+		{
+			ProductEditDTO productEditObj = new ProductEditDTO();
+			productEditObj.ProductIdPk = productEditViewModelObj.ProductIdPk;
+			productEditObj.ProductName = productEditViewModelObj.ProductName;
+			productEditObj.ProductCode = productEditViewModelObj.ProductCode;
+
+			productEditObj.PricePerUnit = productEditViewModelObj.PricePerUnit;
+			productEditObj.ThresholdLimit = productEditViewModelObj.ThresholdLimit;
+			productEditObj.CategoryId= productEditViewModelObj.CategoryId;
+			productEditObj.UnitofMeasurementID = productEditViewModelObj.UnitofMeasurementId;
+
+
+
+
+			bool result = await _productServices.UpdateProducts(productEditObj);
+
+
+			ViewBag.Response = result;
+			return View(productEditViewModelObj);
 
 
         }

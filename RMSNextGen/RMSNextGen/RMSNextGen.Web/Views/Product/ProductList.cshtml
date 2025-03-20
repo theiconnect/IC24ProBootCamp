@@ -18,20 +18,20 @@
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="ProductCode" class="form-label">ProductCode</label>
-					<input type="text" class="form-control" id="ProductCode" asp-for="ProductCode" placeholder="Enter Product Code">
+					<input type="text" class="form-control"  asp-for="ProductCode" placeholder="Enter Product Code">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="ProductName" class="form-label">ProductName</label>
-					<input type="text" class="form-control" id="ProductName" asp-for="ProductName" placeholder="Enter Product Name">
+					<input type="text" class="form-control"  asp-for="ProductName" placeholder="Enter Product Name">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="Category" class="form-label">Category</label>
-					<select class="form-select" id="Category" asp-for="Category">
-						<option selected>Select Category</option>
-						<option>Dairy Products</option>
+					<select class="form-select" asp-for="Category" asp-items="ViewBag.ProductCategory">
+						<option value="">Select</option>
+						@* <option>Dairy Products</option>
 						<option>Vegatables</option>
 						<option>Electroincs</option>
-						<option>Grocerys</option>
+						<option>Grocerys</option> *@
 					</select>
 				</div>
 			</div>

@@ -24,12 +24,12 @@
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1">
 					<label asp-for="ProductCode" class="form-label">ProductCode</label>
-					<input type="text" asp-for="ProductCode" class="form-control" id="ProductCode" value="@ViewBag.ProductCode" placeholder="Enter Product Code">
+					<input type="text" asp-for="ProductCode" class="form-control" value="@ViewBag.ProductCode" placeholder="Enter Product Code">
 					<span asp-validation-for="ProductCode" class="text-danger"></span>
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label style="margin-left:5px" asp-for="ProductName" class="form-label">ProductName</label>
-					<input type="text" asp-for="ProductName" class="form-control" id="ProductName" placeholder="Enter  ProductName " style="margin-left: 12px;" />
+					<input type="text" asp-for="ProductName" class="form-control" placeholder="Enter  ProductName " style="margin-left: 12px;" />
 					<span asp-validation-for="ProductName" class="text-danger"></span>
 
 
@@ -46,19 +46,29 @@
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label asp-for="PricePerUnit" class="form-label">PricePerUnit</label>
-					<input type="text" asp-for="PricePerUnit" class="form-control" id="PricePerUnit" placeholder="PricePerUnit" style="margin-left:12px"></input>
+					<input type="text" asp-for="PricePerUnit" class="form-control" placeholder="PricePerUnit" style="margin-left:12px"></input>
 					<span asp-validation-for="PricePerUnit" class="text-danger"></span>
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label asp-for="ThresholdLimit" class="form-label">ThresholdLimit</label>
-					<input type="text" asp-for="ThresholdLimit" class="form-control" id="ThresholdLimit" placeholder="Enter ThresholdLimit" style="margin-left: 12px;">
+					<input type="text" asp-for="ThresholdLimit" class="form-control" placeholder="Enter ThresholdLimit" style="margin-left: 12px;">
 					<span asp-validation-for="ThresholdLimit" class="text-danger"></span>
 				</div>
 				<div class="col-sm-5 mr-1">
+					<label asp-for="Category" class="form-label">Category</label>
+					<select class="form-select" asp-for="Category" asp-items="ViewBag.ProductCategory">
+						 <option value="">Select</option>
+						@*<option value="1">Groceries</option>
+						<option value="2">Books</option>
+						<option value="3">Home Appliances</option> *@
+
+					</select>
+				</div>
+				<div class="col-sm-5 mr-1">
 					<label asp-for="UnitofMeasurement" class="form-label">UnitofMeasurement</label>
-					<select class="form-select" asp-for="UnitofMeasurement" id="UnitofMeasurement">
-						<option selected>Select Unit</option>
-						<option>Kgs</option>
+					<select class="form-select" asp-for="UnitofMeasurement"  asp-items="ViewBag.ProductUOM">
+						<option value="">Select</option>
+						@* <option>Kgs</option>
 						<option>Liters</option>
 						<option>Pieces</option>
 					</select>

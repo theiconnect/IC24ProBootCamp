@@ -20,19 +20,23 @@
 	<form method="post" asp-action="EditProduct" asp-controller="Product">
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
+				<div>
+					
+					<input type="hidden" asp-for="ProductIdPk">
+				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="ProductCode" class="form-label">Product Code</label>
-					<input type="text" class="form-control" id="ProductCode" name="ProductCode" placeholder="Enter Product Code">
+					<input type="text" class="form-control"  asp-for="ProductCode" placeholder="Enter Product Code">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label style="margin-left:5px" for="ProductName" class="form-label">Product Name</label>
-					<input type="text" class="form-control" id="ProductName" name="ProductName" placeholder="Enter  ProductName " style="margin-left: 12px;" />
+					<input type="text" class="form-control"  asp-for="ProductName" placeholder="Enter  ProductName " style="margin-left: 12px;" />
 
 
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="Category" class="form-label">Category</label>
-					<select class="form-select" id="Category" name="Category">
+					<select class="form-select" asp-for="CategoryId" asp-items="ViewBag.ProductCategory">
 						<option selected>Select Category</option>
 						<option>Dairy Products</option>
 						<option>Vegatables</option>
@@ -42,15 +46,15 @@
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="PricePerUnit" class="form-label">Price Per Unit</label>
-					<input type="text" class="form-control" id="PricePerUnit" placeholder="PricePerUnit" style="margin-left:12px"></input>
+					<input type="text" class="form-control" placeholder="PricePerUnit" asp-for="PricePerUnit" style="margin-left:12px"></input>
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="ThresholdLimit" class="form-label">Threshold Limit</label>
-					<input type="text" class="form-control" id="ThresholdLimit" name="ThresholdLimit" placeholder="Enter ThresholdLimit">
+					<input type="text" class="form-control"  asp-for="ThresholdLimit" placeholder="Enter ThresholdLimit">
 				</div>
 				<div class="col-sm-5 mr-1">
 					<label for="UnitofMeasurement" class="form-label">Unit of Measurement</label>
-					<select class="form-select" id="UnitofMeasurement" name="UnitofMeasurement">
+					<select class="form-select" asp-for="UnitofMeasurementId" asp-items="ViewBag.ProductUOM">
 						<option selected>Select Unit</option>
 						<option>Kgs</option>
 						<option>Liters</option>
