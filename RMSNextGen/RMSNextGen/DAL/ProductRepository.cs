@@ -44,7 +44,7 @@ namespace RMSNextGen.DAL
 					}
 					catch (Exception ex)
 					{
-						return false;
+						throw;
 					}
 					finally
 					{
@@ -175,7 +175,7 @@ namespace RMSNextGen.DAL
 					}
 					catch (Exception ex) 
 					{
-						return false;
+						throw;
 
 					}
 					finally
@@ -361,7 +361,7 @@ namespace RMSNextGen.DAL
 					}
 					catch (Exception ex)
 					{
-						return false;
+						throw;
 					}
 					finally
 					{
