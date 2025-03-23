@@ -31,8 +31,8 @@ namespace RMSNextGen.DAL
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
 						
-                        command.Parameters.AddWithValue("@ProductCategoryCode", obj.CategoryCode);
-                        command.Parameters.AddWithValue("@ProductCategoryName", obj.CategoryName);
+                        command.Parameters.AddWithValue("@ProductCategoryCode", obj.ProductCategoryCode);
+                        command.Parameters.AddWithValue("@ProductCategoryName", obj.ProductCategoryName);
                         command.Parameters.AddWithValue("@Description", obj.Description);
                         command.Parameters.AddWithValue("@CreatedBy", obj.CreatedBy); 
                         command.Parameters.AddWithValue("@CreatedOn",DateTime.Today);

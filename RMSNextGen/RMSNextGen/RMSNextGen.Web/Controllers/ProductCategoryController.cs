@@ -105,9 +105,9 @@ namespace RMSNextGen.Web.Controllers
 		public async Task<IActionResult> AddCategory(ProductCategoryViewModel model)
 		{
 			ProductCategoryDTO obj = new ProductCategoryDTO();
-			obj.CategoryIdPK = model.CategoryIdPK;
-			obj.CategoryCode = model.CategoryCode;
-			obj.CategoryName = model.CategoryName;
+			obj.ProductCategoryId = model.CategoryIdPK;
+			obj.ProductCategoryCode = model.CategoryCode;
+			obj.ProductCategoryName = model.CategoryName;
 			obj.Description = model.Description;
 			obj.CreatedBy = CreatedBy;
 			

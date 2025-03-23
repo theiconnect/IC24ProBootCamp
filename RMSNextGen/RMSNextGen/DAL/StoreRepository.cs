@@ -8,19 +8,19 @@ namespace RMSNextGen.DAL
 {
 	public class StoreRepository
 	{
-		public string connectionstring;
+		public string _connectionString;
 
 
 		public StoreRepository(string connectionstring)
 		{
-			this.connectionstring = connectionstring;
+			_connectionString = connectionstring;
 		}
 
 		public async Task<bool> AddStore(AddStoreDTO objectdto)
 		{
 			try
 			{
-				using (SqlConnection conn = new SqlConnection(connectionstring))
+				using (SqlConnection conn = new SqlConnection(_connectionString))
 				{
 					await conn.OpenAsync();
 
@@ -65,7 +65,7 @@ namespace RMSNextGen.DAL
 		{
 			List<StoreListDTO> storelistobj = new List<StoreListDTO>();
 
-			using (SqlConnection connection = new SqlConnection(connectionstring))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				connection.Open();
 
@@ -113,7 +113,7 @@ namespace RMSNextGen.DAL
 		{
 			List<StateDTO> stateDTOobj = new List<StateDTO>();
 
-			using SqlConnection connection = new SqlConnection(connectionstring);
+			using SqlConnection connection = new SqlConnection(_connectionString);
 			{
 				connection.Open();
 
@@ -154,7 +154,7 @@ namespace RMSNextGen.DAL
 		{
 			List<CityDTO> cityDTOobj = new List<CityDTO>();
 
-			using SqlConnection connection = new SqlConnection(connectionstring);
+			using SqlConnection connection = new SqlConnection(_connectionString);
 			{
 				connection.Open();
 
