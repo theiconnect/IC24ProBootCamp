@@ -29,20 +29,8 @@ namespace RMSNextGen.Web.Controllers
 
 			return View();
         }
-		[HttpPost]
-		public async Task<IActionResult> ProductList(ProductSearchViewModel productSearchObj)
-		{
-
-            
-			ProductSearchDTO searchObj = new ProductSearchDTO();
-			searchObj.ProductCode = productSearchObj.ProductCode;
-			searchObj.ProductName = productSearchObj.ProductName;
-
-			ViewBag.Product =  _productServices.GetProducts(searchObj);
-            return View();
-        }
 		//[HttpPost]
-		//public async Task<IActionResult> SearchProduct(ProductSearchViewModel productSearchObj)
+		//public async Task<IActionResult> ProductList(ProductSearchViewModel productSearchObj)
 		//{
 
 
@@ -50,9 +38,22 @@ namespace RMSNextGen.Web.Controllers
 		//	searchObj.ProductCode = productSearchObj.ProductCode;
 		//	searchObj.ProductName = productSearchObj.ProductName;
 
-		//	ViewBag.Product = _productServices.GetProducts(searchObj);
-		//	return View("ProductList");
-		//}
+		//	ViewBag.Product =  _productServices.GetProducts(searchObj);
+		//          return View();
+		//      }
+		[HttpPost]
+        [Route("SearchProduct")]
+        public async Task<IActionResult> SearchProduct(ProductSearchViewModel productSearchObj)
+		{
+
+
+			ProductSearchDTO searchObj = new ProductSearchDTO();
+			searchObj.ProductCode = productSearchObj.ProductCode;
+			searchObj.ProductName = productSearchObj.ProductName;
+
+			ViewBag.Product = _productServices.GetProducts(searchObj);
+			return View("ProductList");
+		}
 
 
 		[HttpGet]

@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\KrishnaveniCR.Model\KrishnaveniCR.Model.csproj" />
-    <ProjectReference Include="..\KrishnaveniCR.Repositry\KrishnaveniCR.Repositry.csproj" />
-  </ItemGroup>
-
 </Project>

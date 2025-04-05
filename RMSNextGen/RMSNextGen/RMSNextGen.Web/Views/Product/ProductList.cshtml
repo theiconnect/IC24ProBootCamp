@@ -40,7 +40,9 @@
 			<a class="btn btn-reset" asp-controller="Product" asp-action="ProductList">
 				<i class="bi bi-arrow-counterclockwise"></i>Clear
 			</a>
-			<button type="submit" class="btn btn-success" asp-action="ProductList" asp-controller="Product"><i class="bi bi-search"></i> Search</button>
+			<button type="submit" class="btn btn-success" onclick="return validateProductSearch();"><i class="bi bi-search"></i> Search</button>
+
+			
 			
 			<a class="btn btn-info" asp-action="AddNewProduct" asp-controller="Product">
 				<i class="bi bi-plus-circle"></i> Add New Product
@@ -77,10 +79,11 @@
 							<td>@item.PricePerUnit</td>
 							<td class="text-center">
 								<a asp-controller="Product" asp-action="EditProduct" asp-route-ProductId="@(item.ProductId)" class="btn btn-sm btn-warning">Edit</a>
-								<a asp-controller="Product" asp-action="ViewProduct" class="btn btn-sm btn-info">View</a>
+								<a asp-controller="Product" asp-action="ViewProduct" asp-route-ProductId="@(item.ProductId)" class="btn btn-sm btn-info">View</a>
 							</td>
 						</tr>
 
+						
 					}
 				}
 				else
@@ -93,4 +96,19 @@
 		</table>
 	</div>
 </div>
+<script>
+	function validateProductSearch() {
+		var productCode = document.getElementById('ProductCode').value;
+		var productName = document.getElementById('ProductName').value;
+		
+		var category = document.getElementById('Category').value;
+
+		if (productCode == '' && productName == '' && category == '') {
+			alert('Please provide atleast one search criteria.');
+			return false;
+		}
+
+		return true;
+	}
+</script>
 

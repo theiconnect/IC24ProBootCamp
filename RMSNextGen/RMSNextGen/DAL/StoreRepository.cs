@@ -13,7 +13,7 @@ namespace RMSNextGen.DAL
 
 		public StoreRepository(string connectionstring)
 		{
-			_connectionString = connectionstring;
+            _connectionString = connectionstring;
 		}
 
 		public async Task<bool> AddStore(AddStoreDTO objectdto)
@@ -24,13 +24,13 @@ namespace RMSNextGen.DAL
 				{
 					await conn.OpenAsync();
 
-					string query = "Insert into Store(StoreCode,StoreLocation,NickName,Address,OfficeNo,ManagerName,ManagerNo,GSTNo,CINNo,FAX,IsCorporateOffice,CreatedBy,StoreName,ContactNumber)" +
-					"Values(@StoreCode,@StoreLocation,@NickName,@Address,@OfficeNo,@ManagerName,@ManagerNo,@GSTNo,@CINNo,@FAX,@IsCorporateOffice,@CreatedBy,@StoreName,@ContactNumber)";
+					string query = "Insert into Store(StoreCode,Location,NickName,Address,OfficeNo,ManagerName,ManagerNo,GSTNo,CINNo,FAX,IsCorporateOffice,CreatedBy,StoreName,ContactNumber)" +
+					"Values(@StoreCode,@Location,@NickName,@Address,@OfficeNo,@ManagerName,@ManagerNo,@GSTNo,@CINNo,@FAX,@IsCorporateOffice,@CreatedBy,@StoreName,@ContactNumber)";
 
 					using (SqlCommand cmd = new SqlCommand(query, conn))
 					{
 						cmd.Parameters.AddWithValue("@StoreCode", objectdto.StoreCode);
-						cmd.Parameters.AddWithValue("@StoreLocation", objectdto.StoreLocation);
+						cmd.Parameters.AddWithValue("@Location", objectdto.StoreLocation);
 						cmd.Parameters.AddWithValue("@NickName", objectdto.NickName);
 						cmd.Parameters.AddWithValue("@StoreName", objectdto.StoreName);
 						cmd.Parameters.AddWithValue("@ContactNumber", objectdto.ContactNumber);
@@ -69,7 +69,7 @@ namespace RMSNextGen.DAL
 			{
 				connection.Open();
 
-				string query1 = "Select StoreIdPk,StoreCode,StoreLocation,City,State from Store";
+				string query1 = "Select StoreIdPk,StoreCode,Location,City,State from Store";
 
 				using SqlCommand command = new SqlCommand(query1, connection);
 				try
@@ -83,7 +83,7 @@ namespace RMSNextGen.DAL
 
 							obj.StoreCode = Convert.ToString(reader["StoreCode"]);
 
-							obj.Location = Convert.ToString(reader["StoreLocation"]);
+							obj.Location = Convert.ToString(reader["Location"]);
 
 							obj.City = Convert.ToString(reader["City"]);
 
@@ -113,17 +113,17 @@ namespace RMSNextGen.DAL
 		{
 			List<StateDTO> stateDTOobj = new List<StateDTO>();
 
-			using SqlConnection connection = new SqlConnection(_connectionString);
+			using (SqlConnection connection = new SqlConnection(_connectionString)) 
 			{
 				connection.Open();
 
 				string query1 = "Select StateId,Name from StateMaster";
 
-				using SqlCommand command = new SqlCommand(query1, connection);
+				using (SqlCommand command = new SqlCommand(query1, connection)) 
 
 				try
 				{
-					using SqlDataReader reader = command.ExecuteReader();
+					using (SqlDataReader reader = command.ExecuteReader()) 
 					{
 						while (reader.Read())
 						{

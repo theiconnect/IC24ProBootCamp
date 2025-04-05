@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KrishnaveniCR.Model\KrishnaveniCR.Model.csproj" />
+    <ProjectReference Include="..\KrishnaveniCR.Services\KrishnaveniCR.Services.csproj" />
+  </ItemGroup>
+
 </Project>

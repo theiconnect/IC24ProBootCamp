@@ -1,7 +1,26 @@
+using KrishnaveniCR.Repositry;
+using KrishnaveniCR.Services;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+
+
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);  // Example: Scoped
+string connectionString = builder.Configuration.GetConnectionString("CompanyDB");
+
+
+
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<CompanyRepositry>
+	(Provider=>new CompanyRepositry(connectionString));
+builder.Services.AddTransient<CompanyServices>();
+
 
 var app = builder.Build();
 
@@ -22,6 +41,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+	pattern: "{controller=Company}/{action=Registration}/{id?}");
 
 app.Run();
