@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RMSNextGen.Models;
 using RMSNextGen.Services;
 using RMSNextGen.Web.Models;
 
 namespace RMSNextGen.Web.Controllers
 {
+	
+
 	public class ProductCategoryController : RMSBaseController
     {
 
@@ -39,7 +42,7 @@ namespace RMSNextGen.Web.Controllers
 			ViewBag.Category = _ProductCategoryServices.ProductCategoryList(searchobj);
 			return View();
 		}
-
+		[Authorize]
 		[HttpGet]
 		public IActionResult EditCategory(int categoryId)
 		{
@@ -58,6 +61,7 @@ namespace RMSNextGen.Web.Controllers
 
 			return View(Editviewobj);
 		}
+		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> EditCategory(EditCategoryViewModel Editviewobj)
 		{
@@ -73,7 +77,7 @@ namespace RMSNextGen.Web.Controllers
 
 
 		}
-
+		[Authorize]
 		[HttpGet]
 		public IActionResult ViewCategory(int categoryId)
 		{
@@ -85,10 +89,10 @@ namespace RMSNextGen.Web.Controllers
         public IActionResult UpdateProductCategory(IFormCollection form)
         {
             return RedirectToAction("CategoryList", "ProductCategory");
-        } 
-		
+        }
 
-			[HttpGet]
+		[Authorize]
+		[HttpGet]
 		public IActionResult AddCategory()
         {
             return View();
@@ -99,7 +103,8 @@ namespace RMSNextGen.Web.Controllers
 		{
 			return View();
 		}
-		
+
+		[Authorize]
 		[HttpPost]
 
 		public async Task<IActionResult> AddCategory(ProductCategoryViewModel model)

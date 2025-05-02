@@ -10,7 +10,7 @@
 		<h4 class="text-secondary">Stores/SearchStores</h4>
 	</div>
 
-	<form method="post" asp-action="SearchStores" asp-controller="Store">
+	<form method="post" asp-action="SearchStore" asp-controller="Store">
 		<div class="card shadow-sm p-2">
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1 px-2">
@@ -24,8 +24,10 @@
 
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="State" class="form-label">State</label>
-					<select class="form-select" id="State" asp-for="State" asp-items="ViewBag.States" onchange="LoadCities()">
-						<option value="">Select</option>
+					<select class="form-select" id="State" asp-for="State">
+
+					@* <select class="form-select" id="State" asp-for="State" asp-items="ViewBag.States" onchange="LoadCities()">
+ *@						<option value="">Select</option>
 					</select>
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
@@ -39,7 +41,9 @@
 
 		 </div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
-			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
+			
+			<a class="btn btn-reset" asp-controller="Store" asp-action="StoreList">
+				<i class="bi bi-arrow-counterclockwise"></i> Clear</a>
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Search</button>
 			<a class="btn btn-info" asp-action="AddNewStore" asp-controller="Store">
 				<i class="bi bi-plus-circle"></i> Add New Store
@@ -68,12 +72,13 @@
 				<td scope="col">@item.StoreId</td>
 				<td scope="col">@item.StoreCode</td>
 				<td scope="col">@item.Location</td>
-				<td scope="col">@item.City</td>
 				<td scope="col">@item.State</td>
+				<td scope="col">@item.City</td>
 				<td scope="col">Status</td>
 				<td scope="col">
-					<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-warning">View</a>
-							<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-Info">Edit</a>
+							<a asp-controller="Store" asp-action="EditStore" asp-route-StoreId="@(item.StoreId)" class="btn btn-sm btn-warning">Edit</a>
+							<a asp-controller="Store" asp-action="ViewStore" asp-route-StoreId="@(item.StoreId)" class="btn btn-sm btn-info">View</a>
+					
 						</td>
 				</tr>
 
@@ -85,7 +90,7 @@
 </div>
 
 
-   <script>
+   @* <script>
 
 	   // $(function ()
 	   // {
@@ -150,4 +155,4 @@
 
 	   }
    </script>
-   
+    *@

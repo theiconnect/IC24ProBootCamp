@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model RMSNextGen.Web.Models.LoginViewModel
 @{
 
 	ViewData["Title"] = "Login";
@@ -13,18 +14,33 @@
 	<form method="post" asp-controller="Login" asp-action="Login">
 		<div>
 			<label>Email/Phone:</label>
-			<input type="text" id="txtEmail" name="txtEmail" class="input-control" />
+			<input type="text" id="txtEmail" asp-for="Email" class="input-control" />
 		</div>
 		<div>
 			<label>Password:</label>
-			<input type="password" id="txtPassword" name="txtPassword" class="input-control" />
+			<input type="password" id="txtPassword" asp-for="Password" class="input-control" />
 		</div>
+		
 		<div>
 			<a asp-controller="Login" asp-action="SendOtp">Forgot Password</a>
 		</div>
 		<div>
 			@* <input type="submit" value="" id="btnLogin"  class="btn-login" /> *@
-			<button type="submit"  class="btn btn-info" asp-action="StoreList" asp-controller="Store" style="margin-left:150px;text-align:center"><i class="bi bi-search"></i>Login -></button>
+			<button type="submit"  class="btn btn-info" style="margin-left:150px;text-align:center"><i class="bi bi-search"></i>Login -></button>
 		</div>
 	</form>
 </div>
+@if (ViewBag.Error != null)
+{
+	<div style="color:red; font-weight:bold;">
+		@ViewBag.Error
+	</div>
+}
+@if (ViewBag.UserRole != null)
+{
+	<div style="color:green; font-weight:bold;">
+		<p>Welcome, you are logged in as: @ViewBag.UserRole</p>
+	</div>
+}
+
+

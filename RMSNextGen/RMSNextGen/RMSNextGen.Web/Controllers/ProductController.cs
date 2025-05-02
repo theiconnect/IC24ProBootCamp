@@ -3,17 +3,25 @@ using RMSNextGen.Web.Models;
 using RMSNextGen.Models;
 using RMSNextGen.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace RMSNextGen.Web.Controllers
 {
-    public class ProductController : RMSBaseController
+	
+
+	public class ProductController : RMSBaseController
     {
         string userName = "Krishnaveni";
         ProductServices _productServices;
-        public ProductController(ProductServices productServices)
+		
+		public ProductController(ProductServices productServices)
         {
 			_productServices = productServices;
-        }
+			
+
+		}
+		
 
 		[HttpGet]
         public  IActionResult ProductList()
@@ -55,7 +63,7 @@ namespace RMSNextGen.Web.Controllers
 			return View("ProductList");
 		}
 
-
+		[Authorize]
 		[HttpGet]
         public IActionResult AddNewProduct()
         {
@@ -84,7 +92,8 @@ namespace RMSNextGen.Web.Controllers
 
 			return View();
         }
-        [HttpPost]
+		[Authorize]
+		[HttpPost]
         public async Task<IActionResult> AddNewProduct(ProductViewModel model)
         {
 			//return RedirectToAction("ProductList", "Product");
@@ -104,11 +113,11 @@ namespace RMSNextGen.Web.Controllers
             ViewBag.Response = result;
 			return View(model);
 		}
-  //      public List<ProductUTMDTO> GetUTMByProductCategory(int selectedCategoryId)
-  //      {
-  //          var UTM = _productServices.GetProductCategory(selectedCategoryId);
+		//      public List<ProductUTMDTO> GetUTMByProductCategory(int selectedCategoryId)
+		//      {
+		//          var UTM = _productServices.GetProductCategory(selectedCategoryId);
 
-  //          return UTM;
+		//          return UTM;
 
 
 		//}
@@ -150,7 +159,7 @@ namespace RMSNextGen.Web.Controllers
 
 
 
-
+		[Authorize]
 		[HttpGet]
         public async Task<IActionResult> EditProduct(int ProductId)
         {
@@ -172,6 +181,7 @@ namespace RMSNextGen.Web.Controllers
 
 			return View(productEditViewModelObj);
         }
+		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> EditProduct(ProductEditViewModel productEditViewModelObj)
 		{
@@ -196,6 +206,7 @@ namespace RMSNextGen.Web.Controllers
 
 
 		}
+		[Authorize]
 		[HttpGet]
         public IActionResult ViewProduct()
         {

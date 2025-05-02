@@ -184,37 +184,79 @@ namespace RMSNextGen.DAL
 			return cityDTOobj;
 
 		}
-		//public List<SearchStoresDTO> SearchStores()
+        //public List<SearchStoresDTO> SearchStores()
 
-		//{
-		//	List<SearchStoresDTO> searchStoresDTOs = new List<SearchStoresDTO>();
-		//	return searchStoresDTOs;
-		//	using (SqlConnection connection = new SqlConnection(connectionstring))
-		//	{
-		//		connection.Open();
+        //{
+        //	List<SearchStoresDTO> searchStoresDTOs = new List<SearchStoresDTO>();
+        //	return searchStoresDTOs;
+        //	using (SqlConnection connection = new SqlConnection(connectionstring))
+        //	{
+        //		connection.Open();
 
-		//		string query = "Select StoreCode,StoreLocation,City,State from Store" +
-		//			"where (@StoreCode is null or StoreCode=@StoreCode) and (@StoreLocation is null or StoreLocation=@StoreLocation) and(@City is null or City=@City)" +
-		//			"and(@State is null or State=@State)";
+        //		string query = "Select StoreCode,StoreLocation,City,State from Store" +
+        //			"where (@StoreCode is null or StoreCode=@StoreCode) and (@StoreLocation is null or StoreLocation=@StoreLocation) and(@City is null or City=@City)" +
+        //			"and(@State is null or State=@State)";
 
-		//		using (SqlCommand command = new SqlCommand(query, connection))
-		//		{
+        //		using (SqlCommand command = new SqlCommand(query, connection))
+        //		{
 
-		//			command.Parameters.Add("@StoreCode", searchStores.StoreCode);
+        //			command.Parameters.Add("@StoreCode", searchStores.StoreCode);
 
-		//			command.Parameters.Add("@StoreName", searchStores.StoreCode);
-
-
-		//			command.Parameters.Add("@State", searchStores.StoreCode);
+        //			command.Parameters.Add("@StoreName", searchStores.StoreCode);
 
 
-		//			command.Parameters.Add("@City", searchStores.StoreCode);
-
-		//		}
+        //			command.Parameters.Add("@State", searchStores.StoreCode);
 
 
-		//	}
-	}
+        //			command.Parameters.Add("@City", searchStores.StoreCode);
+
+        //		}
+
+
+        //	}
+        //public List<SearchStoresDTO> SearchStores(SearchStoresDTO searchStores)
+        //{
+        //    List<SearchStoresDTO> searchStoresDTOs = new List<SearchStoresDTO>();
+
+        //    using (SqlConnection connection = new SqlConnection(connectionstring))
+        //    {
+        //        connection.Open();
+
+        //        string query = @"
+        //    SELECT StoreCode, StoreLocation, City, State
+        //    FROM Store
+        //    WHERE (@StoreCode IS NULL OR StoreCode = @StoreCode)
+        //      AND (@StoreLocation IS NULL OR StoreLocation = @StoreLocation)
+        //      AND (@City IS NULL OR City = @City)
+        //      AND (@State IS NULL OR State = @State)";
+
+        //        using (SqlCommand command = new SqlCommand(query, connection))
+        //        {
+        //            command.Parameters.AddWithValue("@StoreCode", string.IsNullOrEmpty(searchStores.StoreCode) ? (object)DBNull.Value : searchStores.StoreCode);
+        //            command.Parameters.AddWithValue("@StoreLocation", string.IsNullOrEmpty(searchStores.StoreLocation) ? (object)DBNull.Value : searchStores.StoreLocation);
+        //            command.Parameters.AddWithValue("@City", string.IsNullOrEmpty(searchStores.City) ? (object)DBNull.Value : searchStores.City);
+        //            command.Parameters.AddWithValue("@State", string.IsNullOrEmpty(searchStores.State) ? (object)DBNull.Value : searchStores.State);
+
+        //            using (SqlDataReader reader = command.ExecuteReader())
+        //            {
+        //                while (reader.Read())
+        //                {
+        //                    searchStoresDTOs.Add(new SearchStoresDTO
+        //                    {
+        //                        StoreCode = reader["StoreCode"].ToString(),
+        //                        StoreLocation = reader["StoreLocation"].ToString(),
+        //                        City = reader["City"].ToString(),
+        //                        State = reader["State"].ToString()
+        //                    });
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return searchStoresDTOs;
+        //}
+
+    }
 }
 
 

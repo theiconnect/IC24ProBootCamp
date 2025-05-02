@@ -1,0 +1,6 @@
+@RMSAppUsingWebAPI_HostAddress = http://localhost:5046
+
+GET {{RMSAppUsingWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

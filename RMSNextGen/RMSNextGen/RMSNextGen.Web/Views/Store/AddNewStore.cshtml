@@ -43,12 +43,18 @@
     </div>
 
     <form method="post" asp-action="AddNewStore" asp-controller="Store">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
         <div class="card shadow-sm p-2">
             <div class="row g-3">
                 <div class="col-sm-5">
                     <div class="form-group">
                         <label for="StoreCode" class="form-label">StoreCode</label>
                         <input type="text" class="form-control" asp-for="StoreCode" placeholder="Enter Store Code">
+                        <span asp-validation-for="StoreCode" class="text-danger"></span>
+
                     </div>
                 </div>
 
@@ -56,6 +62,8 @@
                     <div class="form-group">
                         <label for="StoreLocation" class="form-label">StoreLocation</label>
                         <input type="text" class="form-control" asp-for="StoreLocation" placeholder="Enter Store Location">
+                        <span asp-validation-for="StoreLocation" class="text-danger"></span>
+
                     </div>
                 </div>
 
@@ -63,6 +71,8 @@
                     <div class="form-group">
                         <label for="StoreName" class="form-label">StoreName</label>
                         <input type="text" class="form-control" asp-for="StoreName" placeholder="Enter Store Name">
+                        <span asp-validation-for="StoreName" class="text-danger"></span>
+
                     </div>
                 </div>
 
@@ -70,6 +80,8 @@
                     <div class="form-group">
                         <label for="ContactNumber" class="form-label">ContactNumber</label>
                         <input type="text" class="form-control" asp-for="ContactNumber" placeholder="Enter Contact Number">
+                        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+
                     </div>
                 </div>
 
@@ -77,6 +89,8 @@
                     <div class="form-group">
                         <label for="NickName" class="form-label">NickName</label>
                         <input type="text" class="form-control" asp-for="NickName" placeholder="Enter NickName">
+                        <span asp-validation-for="NickName" class="text-danger"></span>
+
                     </div>
                 </div>
 
@@ -84,25 +98,42 @@
                     <div class="form-group">
                         <label for="Address" class="form-label">Address</label>
                         <textarea class="form-control" asp-for="Address" placeholder="Enter Address"></textarea>
+                        <span asp-validation-for="Address" class="text-danger"></span>
+
                     </div>
                 </div>
 
-                <div class="col-sm-5 mr-1 px-2">
-                    <label for="State" class="form-label">State</label>
-                    <select class="form-select" id="State" asp-for="State" asp-items="ViewBag.States">
+                
+                    @* <select class="form-select" id="State" asp-for="State" asp-items="ViewBag.States">
                         <option value="">Select</option>
-                    </select>
-                   
+                </select> *@
+
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label asp-for="State" class="form-label">State</label>
+
+                        <select class="form-select" id="State" asp-for="State">
+                            <option value="">Select</option>
+                            <option value="Ap">AP</option>
+                            <option value="Telangana">Telangana</option>
+
+                        </select>
+                        <span asp-validation-for="State" class="text-danger"></span>
+
+                    </<div>
                 </div>
 
-                <div class="col-sm-3">
+
+                <div class="col-sm-5">
                     <div class="form-group">
-                        <label for="City" class="form-label">City</label>
-                        <select class="form-select" id="City" name="City">
-                            <option value=" ">Select City</option>
+                        <label asp-for="City" class="form-label">City</label>
+                        <select class="form-select" id="City" asp-for="City">
+                            <option value="">Select City</option>
                             <option value="Vijayawada"> Vijayawada</option>
-                            <option value="Vijayawada"> Nellore</option>
+                            <option value="Hyderabad"> Hyderabad</option>
                         </select>
+                        <span asp-validation-for="City" class="text-danger"></span>
+
                     </div>
                 </div>
 
@@ -156,6 +187,13 @@
                         <input type="text" class="form-control" asp-for="FAX" placeholder="Enter FAX No">
                     </div>
                 </div>
+                <div>
+                            <input type="hidden" id="CreatedBy" asp-for="CreatedBy" />
+
+
+                </div>
+
+                
             </div>
         </div>
 
@@ -165,5 +203,34 @@
         </div>
     </form>
 </div>
+
+<!-- ✅ Success Message -->
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- ❌ Error Message -->
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @ViewBag.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<script>
+    document.getElementById("CreatedBy").value = "Krishnaveni"; // Or fetch from a JS variable
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
 
 

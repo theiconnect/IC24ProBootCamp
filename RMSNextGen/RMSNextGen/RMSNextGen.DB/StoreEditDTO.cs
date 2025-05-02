@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace RMSNextGen.Models
 {
-	public  class AddStoreDTO
-	{
+    public class StoreEditDTO
+    {
+        public int StoreId { get; set; } // For editing existing stores
+
         public string StoreCode { get; set; }
 
         public string StoreLocation { get; set; }
@@ -25,23 +27,5 @@ namespace RMSNextGen.Models
         public string GSTNo { get; set; }
 
         public string CINNo { get; set; }
-
-        public string FAX { get; set; }
-
-        public bool IsCorporateOffice { get; set; }
-
-        public string CreatedBy { get; set; }
-
-        public DateTime CreatedOn { get; set; }
-
-        public string ContactNumber { get; set; }
-
-        public string StoreName { get; set; }
-
-        public string State { get; set; }
-
-        public string City { get; set; }
-
-
     }
 }

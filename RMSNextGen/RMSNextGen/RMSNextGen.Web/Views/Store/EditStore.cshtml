@@ -1,77 +1,96 @@
-﻿@{
-	ViewData["Title"] = "EditStore";
-	Layout = "~/Views/Shared/_RMSLayout.cshtml";
-}
-
-<style>
-	form-label
-	{
-		margin-left:10px
-	}
-</style>
-
-<div class="container">
-	<div class="justify-content-between align-items-center">
-		@* <h3 class="text-primary">Stores - </h3> *@
-		<hr class="mt-0" />
-		<h4 class="text-secondary">Stores/EditStore</h4>
-	</div>
-
-	<form method="post" asp-action="AddNewStore" asp-controller="Store">
-		<div class="card shadow-sm p-2">
-			<div class="row g-3">
-				<div class="col-sm-5 mr-1">
-					<label for="StoreCode" class="form-label">Store Code</label>
-					<input type="text" class="form-control" id="StoreCode" name="StoreCode" placeholder="Enter Store Code">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label style="margin-left:5px" for="Location" class="form-label"> Store Location</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter  StoreLocation " style="margin-left: 12px;" />
+﻿@model RMSNextGen.Web.Models.StoreEditViewModel
 
 
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">NickName</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter NickName">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">Address</label>
-					<textarea class="form-control" id="Address" placeholder="Enter Address" style="margin-left:12px"></textarea>
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">OfficeNo</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter OfficeNo">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<a href="d:\iconnect\source\repos\ic24a\ic24probootcamp\rmsnextgen\rmsnextgen\rmsnextgen.web\views\store\editstore.cshtml">d:\iconnect\source\repos\ic24a\ic24probootcamp\rmsnextgen\rmsnextgen\rmsnextgen.web\views\store\editstore.cshtml</a>
-					<label for="Location" class="form-label">ManagerName</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter ManagerName" style="margin-left: 12px;">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">ManagerNo</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter ManagerNumber">
-				</div>
-				<div class="col-sm-5 mr-1">
-					<label for="Location" class="form-label">GST No</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter GST No" style="margin-left: 12px;">
-				</div>
-			</div>
-			<div class="col-sm-5 mr-1">
-				<label for="Location" class="form-label">CIN No</label>
-				<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter CIN No">
-			</div>
-		</div>
-		<div class="d-flex justify-content-end gap-2 mt-3">
-			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StoreList" asp-controller="Store">Back</a></button>
-			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
-
-		</div>
-
-	</form>
-	@{
-    ViewData["Title"] = "EditStore";
+@{
+    ViewData["Title"] = "Edit Store";
     Layout = "~/Views/Shared/_RMSLayout.cshtml";
 }
 
+<div class="container">
+    <div class="justify-content-between align-items-center">
+        <hr class="mt-0" />
+        <h4 class="text-secondary">Stores / Edit Store</h4>
+    </div>
 
+    <form method="post" asp-action="EditStore" asp-controller="Store">
+        <div class="card shadow-sm p-3">
+            <div class="row g-3">
+                <div>
 
+                    <input type="hidden" asp-for="StoreId">
+                </div>
+                <div class="col-sm-5 mr-1">
+                    <label asp-for="StoreCode" class="form-label">Store Code</label>
+                    <input asp-for="StoreCode" class="form-control" placeholder="Enter Store Code" />
+                </div>
+
+                <div class="col-sm-5 mr-1">
+                    <label asp-for="StoreLocation" class="form-label">Store Location</label>
+                    <input asp-for="StoreLocation" class="form-control" placeholder="Enter Store Location" />
+                </div>
+
+                <div class="col-sm-5 mr-1">
+                    <label asp-for="NickName" class="form-label">Nick Name</label>
+                    <input asp-for="NickName" class="form-control" placeholder="Enter Nick Name" />
+                </div>
+
+                <div class="col-sm-5 mr-1">
+                    <label asp-for="Address" class="form-label">Address</label>
+                    <textarea asp-for="Address" class="form-control" placeholder="Enter Address"></textarea>
+                </div>
+
+                <div class="col-sm-5 mr-1">
+                    <label asp-for="OfficeNo" class="form-label">Office No</label>
+                    <input asp-for="OfficeNo" class="form-control" placeholder="Enter Office No" />
+                </div>
+
+                <div class="col-sm-5 mr-1">
+                    <label asp-for="ManagerName" class="form-label">Manager Name</label>
+                    <input asp-for="ManagerName" class="form-control" placeholder="Enter Manager Name" />
+                </div>
+
+                <div class="col-sm-5 mr-1">
+                    <label asp-for="ManagerNo" class="form-label">Manager No</label>
+                    <input asp-for="ManagerNo" class="form-control" placeholder="Enter Manager Number" />
+                </div>
+
+                <div class="col-sm-5 mr-1">
+                    <label asp-for="GSTNo" class="form-label">GST No</label>
+                    <input asp-for="GSTNo" class="form-control" placeholder="Enter GST No" />
+                </div>
+
+                <div class="col-sm-5 mr-1">
+                    <label asp-for="CINNo" class="form-label">CIN No</label>
+                    <input asp-for="CINNo" class="form-control" placeholder="Enter CIN No" />
+                </div>
+            </div>
+        </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-3">
+                <button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StoreList" asp-controller="Store">Back</a></button>
+                <button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+
+            </div>
+       
+    </form>
+</div>
+@if (ViewBag.Response == true)
+{
+<script>
+    alert("Store Updated Successfully");
+    window.location.href = "/Store/StoreList";
+    
+</script>
+}
+else if (ViewBag.Response == false)
+{
+<script>
+    alert(" Unable to Update Store details");
+
+</script>
+
+}
+else
+{
+    //do nothing
+}

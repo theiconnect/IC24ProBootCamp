@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RMSNextGen.Models;
 using RMSNextGen.Services;
 using RMSNextGen.Web.Models;
@@ -6,6 +7,8 @@ using RMSNextGen.Web.Models;
 namespace RMSNextGen.Web.Controllers
 {
 	
+
+
 	public class StockController : RMSBaseController
     {
 		string userName = "krishnaveni";
@@ -20,11 +23,13 @@ namespace RMSNextGen.Web.Controllers
 		{
 			return View();
 		}
+		[Authorize]
 		[HttpGet]
 		public IActionResult AddNewStock()
 		{
 			return View();
 		}
+		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> AddNewStock(StockViewModel model)
 		{

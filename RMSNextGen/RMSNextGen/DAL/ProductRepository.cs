@@ -1,21 +1,20 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Data.SqlClient;
 using RMSNextGen.Models;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RMSNextGen.DAL
 {
 	public class ProductRepository
 	{
-		public readonly string _connectionString;
+		private readonly string _connectionString;
+		//Inject memoryCache
+		private readonly IMemoryCache _memoryCache;
 
-		public ProductRepository(string connectionString)
+		public ProductRepository(string connectionString, IMemoryCache memoryCache)
 		{
 			_connectionString = connectionString;
+			_memoryCache = memoryCache;
 		}
 		public async Task<bool> SaveProduct(ProductDTO ProductObj)
 		{
@@ -193,6 +192,15 @@ namespace RMSNextGen.DAL
 
 		public List<ProductCategoryDTO> GetProductCategory()
 		{
+			const string cacheKey = "productCategoryListCacheKey"; // Step 1: Define cache key
+			// Step 2: Try to get data from cache
+			if (_memoryCache.TryGetValue(cacheKey, out List<ProductCategoryDTO> cachedCategoryList))
+			{
+				return cachedCategoryList; // If found in cache, return directly
+			}
+			// Step 3: If not in cache, create a list to hold the data
+
+
 			List<ProductCategoryDTO> productCategoryList = new List<ProductCategoryDTO>();
 			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
@@ -236,6 +244,12 @@ namespace RMSNextGen.DAL
 
 				}
 			}
+			// Add the data to memory cache
+			var cacheOptions = new MemoryCacheEntryOptions()
+				.SetAbsoluteExpiration(TimeSpan.FromMinutes(30)); // Cache expiry time
+
+			_memoryCache.Set(cacheKey, productCategoryList, cacheOptions); // Store in cache
+
 			return productCategoryList;
 		}
 		public List<ProductUTMDTO> GetUTM()

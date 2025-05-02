@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RMSNextGen.DAL;
 using RMSNextGen.Models;
@@ -9,7 +10,9 @@ using System.Reflection;
 
 namespace RMSNextGen.Web.Controllers
 {
-    public class EmployeeController : RMSBaseController
+	
+
+	public class EmployeeController : RMSBaseController
     {
 		EmployeeService _employeeservice;
         LookupService _lookupService;
@@ -42,7 +45,7 @@ namespace RMSNextGen.Web.Controllers
             return View("EmployeeList");
         }
 
-
+		[Authorize]
 		[HttpGet]
         public async Task<IActionResult> EditEmployee(int EmployeeID)
         {
@@ -76,14 +79,15 @@ namespace RMSNextGen.Web.Controllers
 			
 			return View(employeeEditViewModel);
         }
-
-        [HttpGet]
+		[Authorize]
+		[HttpGet]
         public async Task<IActionResult> AddNewEmployee()
         {
             ViewBag.Departments = new SelectList(await _lookupService.GetDepartments(), "DepartmentId", "Department");
             return View();
 			
         }
+		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> AddNewEmployee(EmployeeViewModel model)
 		{
@@ -115,7 +119,7 @@ namespace RMSNextGen.Web.Controllers
 			ViewBag.Response = result.Response.IsSuccess;
 			return View(model);
 		}
-
+		[Authorize]
 		[HttpGet]
         public IActionResult ViewEmployee()
         {

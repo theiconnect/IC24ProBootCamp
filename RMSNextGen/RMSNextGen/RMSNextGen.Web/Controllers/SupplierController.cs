@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RMSNextGen.Web.Controllers
 {
-    public class SupplierController : RMSBaseController
+	
+
+	public class SupplierController : RMSBaseController
     {
         [HttpGet]
         public IActionResult SupplierList()
@@ -14,27 +17,32 @@ namespace RMSNextGen.Web.Controllers
         {
             return RedirectToAction("SupplierList", "Supplier");
         }
-        [HttpPost]
+		[Authorize]
+		[HttpPost]
         public IActionResult AddNewSupplier(IFormCollection Form)
         {
             return RedirectToAction("SupplierList", "Supplier");
         }
-        [HttpPost]
+		[Authorize]
+		[HttpPost]
         public IActionResult EditSupplier(IFormCollection Form) 
         {
             return RedirectToAction("SupplierList", "Supplier");
         }
-        [HttpGet]
+		[Authorize]
+		[HttpGet]
         public IActionResult AddNewSupplier()
         {
             return View();
         }
-        [HttpGet]
+		[Authorize]
+		[HttpGet]
         public IActionResult ViewSupplier()
         {
             return View();
         }
-        [HttpGet]
+		[Authorize]
+		[HttpGet]
         public IActionResult EditSupplier()
         {
             return View();

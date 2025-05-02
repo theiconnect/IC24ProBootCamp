@@ -52,7 +52,7 @@ namespace SMS.Web.Controllers
                         new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                         new Claim(ClaimTypes.Name, user.Email),
                         new Claim(ClaimTypes.Role, GetRoleName(user.RoleId))
-                    };
+                                        };
 
                     // 3. Create an identity
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

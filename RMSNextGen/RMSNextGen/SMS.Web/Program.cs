@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 //
-string connectionString = builder.Configuration.GetConnectionString("SMSDBConnectionString");
+string connectionString = builder.Configuration.GetConnectionString("RMSNextGenConnectionString");
 
 
 
