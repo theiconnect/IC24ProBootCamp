@@ -5,13 +5,23 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Caching.Memory;
+using Serilog;
+using Microsoft.EntityFrameworkCore;
 
+using RMSNextGen.Models.ModelsUsingEFCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 //Add in memory Cache
 builder.Services.AddMemoryCache();
+//Scaffold-DbContext "Server=LAPTOP-V6JO2I48\VENIMSSQLSERVER;Database=RMSNextGen;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir ModelsUsingEFCore
+//this is scaffold command run in package Manager Console for connecting database
+//Configure DbContext for using Ef Core
+//RmsNextGenDbContext this is name i used database name in Db Context 
+builder.Services.AddDbContext<RmsnextGenContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("RMSNextGenConnectionString")));
+builder.Services.AddScoped<ProductRepositoryUsingEfCore>();
+
 // Add services to the container.
 string connectionString = builder.Configuration.GetConnectionString("RMSNextGenConnectionString");
 //Lookup
@@ -86,7 +96,20 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddHttpContextAccessor();
 
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+	.WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Day)
+	.CreateLogger();
 
+//WriteTo.File: Tells Serilog to write logs to a file.
+
+//rollingInterval: Day: Creates a new log file each day.
+
+//UseSerilog(): Tells ASP.NET Core to use Serilog for logging.
+
+
+// Add Serilog to the application
+builder.Host.UseSerilog();
 
 
 

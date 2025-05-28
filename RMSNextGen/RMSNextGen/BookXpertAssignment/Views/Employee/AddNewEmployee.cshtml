@@ -1,0 +1,127 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model BookXpertAssignment.Models.EmployeeViewModel
+@{
+	ViewData["Title"] = "Add New Employee";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<style>
+	form-label {
+		margin-left: 10px
+	}
+</style>
+
+<div class="container">
+	<div class="justify-content-between align-items-center">
+		@* <h3 class="text-primary">Stores - </h3> *@
+		<hr class="mt-0" />
+		<h4 class="text-secondary">Employee/AddEmployee</h4>
+	</div>
+
+	<form method="post" asp-action="AddNewEmployee" asp-controller="Employee">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="card shadow-sm p-2">
+			<div class="row g-3">
+				
+				<div class="col-sm-5 mr-1">
+					<label style="margin-left:5px" asp-for="Name" class="form-label">Name</label>
+					<input type="text" asp-for="Name" class="form-control" placeholder="Enter  Name " style="margin-left: 12px;" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label style="margin-left:5px" asp-for="Designation" class="form-label">Designation</label>
+					<input type="text" asp-for="Designation" class="form-control" placeholder="Enter  Designation " style="margin-left: 12px;" />
+					<span asp-validation-for="Designation" class="text-danger"></span>
+				</div>
+
+				<div class="col-sm-5 mr-1">
+					<label asp-for="DateOfJoin" class="form-label">DateOfJoin</label>
+					<input type="date" asp-for="DateOfJoin" class="form-control" style="margin-left:12px"></input>
+					<span asp-validation-for="DateOfJoin" class="text-danger"></span>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label asp-for="Salary" class="form-label">Salary</label>
+					<input type="text" asp-for="Salary" class="form-control" placeholder="Enter Salary" style="margin-left: 12px;">
+					<span asp-validation-for="Salary" class="text-danger"></span>
+				</div>
+				<div class="col-sm-5 mr-1 px-2">
+					<label asp-for="Gender" class="form-label">Gender<span class="text-danger">*</span></label>
+					<input type="radio" asp-for="Gender" value="Male" />Male
+					<input type="radio" asp-for="Gender" value="Female" />Female
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label asp-for="StateId" class="form-label">State</label>
+					<select class="form-select" asp-for="StateId" asp-items="ViewBag.States">
+						<option value="">Select</option>
+						
+					</select>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label asp-for="DateOfBirth" class="form-label">Date Of Birth</label>
+					<input type="date" asp-for="DateOfBirth" class="form-control" id="DateOfBirth" style="margin-left: 12px;" />
+					<span asp-validation-for="DateOfBirth" class="text-danger"></span>
+
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label asp-for="Age" class="form-label">Age</label>
+					<input type="text" asp-for="Age" class="form-control" id="Age" style="margin-left: 12px;" readonly />
+
+				</div>
+				
+
+			</div>
+		</div>
+		<div class="d-flex justify-content-end gap-2 mt-3">
+			<button type="reset" class="btn btn-reset" id="btnback"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="EmployeeList" asp-controller="Employee">Back</a></button>
+			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+
+		</div>
+		
+
+	</form>
+</div>
+<script>
+	document.getElementById('DateOfBirth').addEventListener('change', function () {
+		var dob = new Date(this.value);
+		var today = new Date();
+		var age = today.getFullYear() - dob.getFullYear();
+		var monthDiff = today.getMonth() - dob.getMonth();
+
+		if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+			age--;
+		}
+
+		if (!isNaN(age)) {
+			document.getElementById('Age').value = age;
+		} else {
+			document.getElementById('Age').value = '';
+		}
+	});
+</script>
+
+
+@if (ViewBag.Response == true)
+{
+	<script>
+		alert("Employee Saved Successfully");
+		window.location.href = "/Employee/EmployeeList";
+		
+	</script>
+}
+else if (ViewBag.Response == false)
+{
+	<script>
+		alert(" Unable to Save Employee details");
+
+	</script>
+
+}
+else
+{
+	//do nothing
+}

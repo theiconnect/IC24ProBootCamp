@@ -31,7 +31,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMSAppUsingWebAPI", "RMSApp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewFolder1", "NewFolder1", "{654B4E8B-DEB1-462E-9496-D97742070DF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMSAppUsingWebAPI.DAL", "RMSAppUsingWebAPI.DAL\RMSAppUsingWebAPI.DAL.csproj", "{D5CD06AF-4096-4BFB-AB36-BD5848665C3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMSAppUsingWebAPI.DAL", "RMSAppUsingWebAPI.DAL\RMSAppUsingWebAPI.DAL.csproj", "{D5CD06AF-4096-4BFB-AB36-BD5848665C3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookXpertAssignment", "BookXpertAssignment\BookXpertAssignment.csproj", "{135CE776-5DC5-448E-8DE2-596D00E4ABC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookXpertAssignment.Models", "BookXpertAssignment.Models\BookXpertAssignment.Models.csproj", "{F9D6E1F9-233F-4A75-A109-C3BC0FA7A20B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookXpertAssignment.DAL", "BookXpertAssignment.DAL\BookXpertAssignment.DAL.csproj", "{01D2731B-FE59-4B44-9A62-D26DE8C624A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookXpertAssignment.Services", "BookXpertAssignment.Services\BookXpertAssignment.Services.csproj", "{1A896A81-0BA1-47D3-85DB-54226F3ACFB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +99,22 @@ Global
 		{D5CD06AF-4096-4BFB-AB36-BD5848665C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5CD06AF-4096-4BFB-AB36-BD5848665C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5CD06AF-4096-4BFB-AB36-BD5848665C3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{135CE776-5DC5-448E-8DE2-596D00E4ABC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{135CE776-5DC5-448E-8DE2-596D00E4ABC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{135CE776-5DC5-448E-8DE2-596D00E4ABC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{135CE776-5DC5-448E-8DE2-596D00E4ABC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9D6E1F9-233F-4A75-A109-C3BC0FA7A20B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9D6E1F9-233F-4A75-A109-C3BC0FA7A20B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9D6E1F9-233F-4A75-A109-C3BC0FA7A20B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9D6E1F9-233F-4A75-A109-C3BC0FA7A20B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01D2731B-FE59-4B44-9A62-D26DE8C624A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01D2731B-FE59-4B44-9A62-D26DE8C624A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01D2731B-FE59-4B44-9A62-D26DE8C624A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01D2731B-FE59-4B44-9A62-D26DE8C624A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A896A81-0BA1-47D3-85DB-54226F3ACFB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A896A81-0BA1-47D3-85DB-54226F3ACFB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A896A81-0BA1-47D3-85DB-54226F3ACFB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A896A81-0BA1-47D3-85DB-54226F3ACFB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

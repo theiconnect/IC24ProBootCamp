@@ -75,11 +75,14 @@
 							<td>@(i++)</td>
 							<td>@item.ProductCode</td>
 							<td>@item.ProductName</td>
-							<td>@item.Quantity</td>
+							@* 							<td>@item.Quantity</td> *@
+							<td>0</td>
 							<td>@item.PricePerUnit</td>
 							<td class="text-center">
-								<a asp-controller="Product" asp-action="EditProduct" asp-route-ProductId="@(item.ProductId)" class="btn btn-sm btn-warning">Edit</a>
-								<a asp-controller="Product" asp-action="ViewProduct" asp-route-ProductId="@(item.ProductId)" class="btn btn-sm btn-info">View</a>
+								@* <a asp-controller="Product" asp-action="EditProduct" asp-route-ProductId="@(item.ProductId)" class="btn btn-sm btn-warning">Edit</a>
+								<a asp-controller="Product" asp-action="ViewProduct" asp-route-ProductId="@(item.ProductId)" class="btn btn-sm btn-info">View</a> *@
+								<a asp-controller="Product" asp-action="EditProduct" asp-route-ProductId="@(item.ProductIdPk)" class="btn btn-sm btn-warning">Edit</a>
+								<a asp-controller="Product" asp-action="ViewProduct" asp-route-ProductId="@(item.ProductIdPk)" class="btn btn-sm btn-info">View</a>
 							</td>
 						</tr>
 

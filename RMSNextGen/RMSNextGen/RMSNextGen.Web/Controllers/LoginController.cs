@@ -62,7 +62,7 @@ namespace RMSNextGen.Web.Controllers
 
 			//var user = await _loginServices.LoginAsync(userDto);
 			var user =  _loginServices.AuthenticateUser(model.Email, model.Password);
-			ViewBag.UserRole = user.RoleName;
+			//ViewBag.UserRole = user.RoleName;
 			if (user == null)
 			{
 				ViewBag.Error = "Invalid credentials";
@@ -73,7 +73,7 @@ namespace RMSNextGen.Web.Controllers
 			{
 				new Claim(ClaimTypes.Name, model.Email),
 				new Claim(ClaimTypes.Email, model.Email),
-				new Claim(ClaimTypes.Role,user.RoleName)
+				//new Claim(ClaimTypes.Role,user.RoleName)
 		    };
 				//ClaimsIdentity = Who the user is + which method was used (cookies).
 				//ClaimsPrincipal = Final object that holds the user's identity + roles.

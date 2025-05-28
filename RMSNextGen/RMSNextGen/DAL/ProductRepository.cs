@@ -388,6 +388,39 @@ namespace RMSNextGen.DAL
 
 			}
 		}
+
+
+		public async Task<bool> DeleteProductById(int productIdPk)
+		{
+			using (SqlConnection conn = new SqlConnection(_connectionString))
+			{
+				await conn.OpenAsync();
+				using (SqlCommand command = new SqlCommand())
+				{
+					command.CommandText = "DELETE FROM ProductMaster WHERE ProductIDPk = @ProductIDPk";
+					command.Connection = conn;
+					command.Parameters.AddWithValue("@ProductIDPk", productIdPk);
+
+					try
+					{
+						int rowsAffected = await command.ExecuteNonQueryAsync();
+
+						// Return true if at least one row is deleted
+						return rowsAffected > 0;
+					}
+					catch (Exception ex)
+					{
+						// Log the exception or rethrow
+						throw ex;
+					}
+					finally
+					{
+						await conn.CloseAsync();
+					}
+				}
+			}
+		}
+
 	}
 
 }

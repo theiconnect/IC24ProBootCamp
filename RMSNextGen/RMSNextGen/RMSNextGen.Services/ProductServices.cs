@@ -1,5 +1,6 @@
 ﻿using RMSNextGen.DAL;
 using RMSNextGen.Models;
+using RMSNextGen.Models.ModelsUsingEFCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace RMSNextGen.Services
 	public class ProductServices
 	{
 		ProductRepository _productRepository;
-		public ProductServices(ProductRepository productRepository) 
+		ProductRepositoryUsingEfCore _productRepositoryUsingEfCore;
+		public ProductServices(ProductRepository productRepository, ProductRepositoryUsingEfCore productRepositoryUsingEfCore) 
 		{
 			_productRepository = productRepository;
+			_productRepositoryUsingEfCore = productRepositoryUsingEfCore;
 		}
 		public async Task<bool> SaveProduct(ProductDTO productObj)
 		{
@@ -21,10 +24,14 @@ namespace RMSNextGen.Services
 
 		}
 		
-		public List<ProductListDTO> GetProducts(ProductSearchDTO searchObj)
-		{
-			return _productRepository.GetProducts(searchObj);
+		//public List<ProductListDTO> GetProducts(ProductSearchDTO searchObj)
+		//{
+		//	return _productRepository.GetProducts(searchObj);
 
+		//}
+		public List<ProductMaster> GetProductsUsingEFCore()
+		{
+			return _productRepositoryUsingEfCore.GetProducts();
 		}
 		public async Task<bool> GetProductCode()
 		{

@@ -24,7 +24,7 @@ namespace RMSNextGen.Web.Controllers
 		{
 			_storeService = storeService;
 		}
-		[Authorize(Roles = "Admin,Manager")]
+		//[Authorize(Roles = "Admin,Manager")]
 		[HttpGet]
 		public async Task<IActionResult> StoreList()
 		{
@@ -34,7 +34,7 @@ namespace RMSNextGen.Web.Controllers
 			return View();
 		}
 		//[Authorize(Roles = "user")]
-		[Authorize(Roles = "Admin,Manager")]
+		//[Authorize(Roles = "Admin,Manager")]
 
 		[HttpPost]
         [Route("SearchStore")]
