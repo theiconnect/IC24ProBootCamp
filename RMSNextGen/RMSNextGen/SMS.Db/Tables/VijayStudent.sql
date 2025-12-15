@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[VijayStudent]
+(
+	[StudentCode] VARCHAR(100) NOT NULL PRIMARY KEY,
+	[StudentName] VARCHAR(100) NOT NULL ,
+	[DOB] VARCHAR(100) NOT NULL ,
+	[Gender] VARCHAR(100) NOT NULL ,
+	[Grade] VARCHAR(100) NOT NULL, 
+    [IsOwnTransport] VARCHAR(100) NOT NULL, 
+    [Comments] VARCHAR(100) NOT NULL 
+)

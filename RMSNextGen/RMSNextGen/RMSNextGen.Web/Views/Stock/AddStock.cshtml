@@ -1,0 +1,103 @@
+﻿{
+	ViewData["Title"] = "AddNewStock";
+	Layout = "~/Views/Shared/_RMSLayout.cshtml";
+}
+
+<style>
+	form-label
+	{
+		margin-left:10px
+	}
+</style>
+
+<div class="container">
+	<div class="justify-content-between align-items-center">
+		@* <h3 class="text-primary">Stores - </h3> *@
+		<hr class="mt-0" />
+		<h4 class="text-secondary">Stock/AddStock</h4>
+	</div>
+
+	<form method="post" asp-action="AddStock" asp-controller="Stock">
+		<div class="card shadow-sm p-2">
+			<div class="row g-3">
+				<div class="col-sm-5 mr-1 px-2">
+
+					<form action="/action_page.php">
+						<label for="birthdaytime">Date&Time:</label><a href="d:\iconnect\source\repos\ic24a\ic24probootcamp\rmsnextgen\rmsnextgen\rmsnextgen.web\views\stock\stocklist.cshtml">d:\iconnect\source\repos\ic24a\ic24probootcamp\rmsnextgen\rmsnextgen\rmsnextgen.web\views\stock\stocklist.cshtml</a>
+						<input type="datetime-local" id="birthdaytime" name="birthdaytime">
+					</form>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label style="margin-left:5px" for="Location" class="form-label"> Store Location</label>
+					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter  StoreLocation " style="margin-left: 12px;" />
+
+
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="PurchaseOrderNo" class="form-label">PurchaseOrderNo</label>
+					<input type="text" class="form-control" id="PurchaseOrderNo" name="PurchaseOrderNo" placeholder="Enter PurchaseOrderNo">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="InvoiceNumber" class="form-label">Invoice Number</label>
+					<textarea class="form-control" id="InvoiceNumber" name="InvoiceNumber" placeholder="Enter Invoice Number" style="margin-left:12px"></textarea>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Supplier Name" class="form-label">Supplier Name</label>
+					<select class="form-select" id="Supplier Name" name="Supplier Name">
+						<option selected>Select</option>
+						<option>Sai</option>
+						<option>Venkatesh</option>
+						<option>Kiran</option>
+						<option>Vijay</option>
+					</select>
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Store Name" class="form-label">Store Name</label>
+					<select class="form-select" id="Store Name" name="Store Name">
+						<option selected>Select</option>
+						<option>Store 1</option>
+						<option>Store 2</option>
+						<option>Store 3</option>
+						<option>Store 4</option>
+					</select>
+
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="product Name" class="form-label">product Name</label>
+					<select class="form-select" id="product Name" name="product Name">
+						<option selected>Select</option>
+						<option>Sugar</option>
+						<option>Oil</option>
+						<option>Dal</option>
+						<option>Soap</option>
+					</select>
+
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="Quantity" class="form-label">Quantity</label>
+					<input type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Quantity" style="margin-left: 12px;">
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="UnitOfMeasurement" class="form-label">Unit Of Measurement</label>
+					<select class="form-select" id="UnitOfMeasurement" name="UnitOfMeasurement">
+						<option selected>Select</option>
+						<option>Kg</option>
+						<option>liters</option>
+						<option>Units</option>
+
+					</select>
+
+				</div>
+				<div class="col-sm-5 mr-1">
+					<label for="PricePerUnit" class="form-label">Price Per Unit</label>
+					<input type="text" class="form-control" id="PricePerUnit" name="PricePerUnit" placeholder="Enter PricePerUnit">
+				</div>
+			</div>
+		</div>
+		<div class="d-flex justify-content-end gap-2 mt-3">
+			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> <a asp-action="StockList" asp-controller="Stock">Back</a></button>
+			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Save</button>
+
+		</div>
+
+	</form>

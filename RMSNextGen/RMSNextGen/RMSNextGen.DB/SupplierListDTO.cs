@@ -12,7 +12,6 @@ namespace RMSNextGen.Models
 		public string SupplierName { get; set; }
 		public string CompanyName { get; set; }
 		public string Address { get; set; }
-		//public string City { get; set; }
-		//public string State { get; set; }
+		
 	}
 }

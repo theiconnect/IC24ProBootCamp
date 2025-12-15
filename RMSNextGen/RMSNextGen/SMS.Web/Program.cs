@@ -1,16 +1,19 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Build.Framework;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 using SMS.DAL;
 using SMS.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); ;
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 string SMSconnectionString  = builder.Configuration.GetConnectionString("SMSDBConnectionString");
+
 
 builder.Services.AddTransient<UserRepository>(provider =>
     new UserRepository(SMSconnectionString));
@@ -19,6 +22,11 @@ builder.Services.AddTransient<kiranStudentService>();
 builder.Services.AddTransient<kiranStudentRepository>(provider =>
 	new kiranStudentRepository(SMSconnectionString));
 
+
+builder.Services.AddTransient<YuvaStudentRegistrationRepiository>(provider =>
+    new YuvaStudentRegistrationRepiository(connectionString));
+
+builder.Services.AddTransient<YuvaStudentRegistratonService>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

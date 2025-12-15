@@ -1,4 +1,5 @@
-﻿@{
+﻿@model RMSNextGen.Web.Models.StoreSearchViewModel
+@{
 	ViewData["Title"] = "Store List";
 	Layout = "~/Views/Shared/_RMSLayout.cshtml";
 }
@@ -6,7 +7,7 @@
 	<div class="justify-content-between align-items-center">
 		@* <h3 class="text-primary">Stores - </h3> *@
 		<hr class="mt-0" />
-		<h4 class="text-secondary">Stores/Search Stores</h4>
+		<h4 class="text-secondary">Stores/SearchStores</h4>
 	</div>
 
 	<form method="post" asp-action="SearchStores" asp-controller="Store">
@@ -14,33 +15,29 @@
 			<div class="row g-3">
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="StoreCode" class="form-label">Store Code</label>
-					<input type="text" class="form-control" id="StoreCode" name="StoreCode" placeholder="Enter Store Code">
+					<input type="text" class="form-control" id="StoreCode" asp-for="StoreCode" placeholder="Enter Store Code">
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="Location" class="form-label">Location</label>
-					<input type="text" class="form-control" id="Location" name="Location" placeholder="Enter Location">
+					<input type="text" class="form-control" id="Location" asp-for="Location" placeholder="Enter Location">
+				</div>
+
+				<div class="col-sm-5 mr-1 px-2">
+					<label for="State" class="form-label">State</label>
+					<select class="form-select" id="State" asp-for="State" asp-items="ViewBag.States" onchange="LoadCities()">
+						<option value="">Select</option>
+					</select>
 				</div>
 				<div class="col-sm-5 mr-1 px-2">
 					<label for="City" class="form-label">City</label>
-					<select class="form-select" id="City" name="City">
-						<option selected>Select</option>
-						<option>Hyderabad</option>
-						<option>Bangalore</option>
-						<option>Warangal</option>
-						<option>Karimnagar</option>
-						<option>Vijayawada</option>
+					<select class="form-select" id="City" asp-for="City">
+						<option value="">Select</option>
 					</select>
 				</div>
-				<div class="col-sm-5 mr-1 px-2">
-					<label for="State" class="form-label">State</label>
-					<select class="form-select" id="State" name="State">
-						<option selected>Select</option>
-						<option>TG</option>
-						<option>AP</option>
-					</select>
-				</div>
-			</div>
-		</div>
+				
+			 </div>
+
+		 </div>
 		<div class="d-flex justify-content-end gap-2 mt-3">
 			<button type="reset" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Clear</button>
 			<button type="submit" class="btn btn-success"><i class="bi bi-search"></i> Search</button>
@@ -58,75 +55,99 @@
 					<th scope="col">S.NO</th>
 					<th scope="col">Store Code</th>
 					<th scope="col">Location</th>
-					<th scope="col">City</th>
 					<th scope="col">State</th>
+					<th scope="col">City</th>
 					<th scope="col">Status</th>
 					<th scope="col" class="text-center">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
+				@foreach (var item in ViewBag.StoreListData)
+				{
 				<tr>
-					<td>1</td>
-					<td>SC001</td>
-					<td>Some Location</td>
-					<td>Hyderabad</td>
-					<td>TG</td>
-					<td><a href="#" class="text-danger">Inactivate</a></td>
-					<td class="text-center">
-						<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-info">View</a>
-					</td>
+				<td scope="col">@item.StoreId</td>
+				<td scope="col">@item.StoreCode</td>
+				<td scope="col">@item.Location</td>
+				<td scope="col">@item.City</td>
+				<td scope="col">@item.State</td>
+				<td scope="col">Status</td>
+				<td scope="col">
+					<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-warning">View</a>
+							<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-Info">Edit</a>
+						</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>SC002</td>
-					<td>Some Location</td>
-					<td>Bangalore</td>
-					<td>KA</td>
-					<td><a href="#" class="text-success">Activate</a></td>
-					<td class="text-center">
-						<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>SC003</td>
-					<td>Some Location</td>
-					<td>Warangal</td>
-					<td>TG</td>
-					<td><a href="#" class="text-danger">Inactivate</a></td>
-					<td class="text-center">
-						<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>SC004</td>
-					<td>Some Location</td>
-					<td>Warangal</td>
-					<td>TG</td>
-					<td><a href="#" class="text-danger">Inactivate</a></td>
-					<td class="text-center">
-						<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>SC005</td>
-					<td>Some Location</td>
-					<td>Warangal</td>
-					<td>TG</td>
-					<td><a href="#" class="text-danger">Inactivate</a></td>
-					<td class="text-center">
-						<a asp-controller="Store" asp-action="EditStore" class="btn btn-sm btn-warning">Edit</a>
-						<a asp-controller="Store" asp-action="ViewStore" class="btn btn-sm btn-info">View</a>
-					</td>
-				</tr>
+
+				}
+
 			</tbody>
 		</table>
 	</div>
 </div>
 
+
+   <script>
+
+	   // $(function ()
+	   // {
+		  //  $("#State").change(function () 
+		  //  {
+			 //   $.getJSON("/Store/GetCities", {StateId:$("#State").val()},function (d)
+			 //   var Row = "";
+			 //   $("#City").empty();
+		  //  })
+	   // })
+
+
+	   function LoadCities()
+	   { 
+		   debugger;
+
+		   var selectedStateId = document.getElementById('State').value;
+
+		   var CityControl = document.getElementById('City');
+
+		if (selectedStateId == "") { 
+			   CityControl.innerHTML='<option Value=" ">Select</option>'
+			   return;
+		   }
+
+		   //call controller an action method to get all cities of that stateid by passing the selected state
+		   //plain javascript - FetchAPI
+		   //Jquery ajax
+		   fetch('GetCitiesByStateId?SelectedStateId=' + selectedStateId)
+			   .then(function (response) {
+				   debugger;
+				   return response.json();
+			   })
+			   .then(function (data) {
+				   debugger;
+				   var options = '<option Value=" ">Select</option>';
+				for (var i = 0; i < data.length; i++) { 
+					options += '<option value="' + data[i].cityID + '">' + data[i].name + '</option>'					
+				}
+				   console.log(options);
+				   CityControl.innerHTML = options;
+			   });
+
+		   /*
+		   else if (SelectedState == 1) {
+			CityControl.innerHTML = '<option Value=" "> Select</option>'
+
+			'<option Value=1> Nellore</option>'
+			'<option Value=" "> Udayagiri</option>'
+			'<option Value=" "> Vijayawda</option>'
+  
+			return;
+		   }
+
+		  else if (SelectedState == 2) {
+			CityControl.innerHTML = '<option Value=" "> Select</option>'
+			'<option Value=" "> Warangal</option>'
+			'<option Value=" "> RangaReddy</option>'
+			'<option Value=" "> Karimnagr</option>'
+			return;
+		   }*/
+
+	   }
+   </script>
+   

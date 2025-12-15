@@ -1,0 +1,73 @@
+﻿@model SMS.Web.Models.YuvaStudentRegistrationViewModel
+
+<form method="post">
+   
+    <h1>StudentRegistration</h1>
+    <div>
+        <label >
+            StudentCode:
+        </label>
+        <input  type="text" asp-for="StudentCode" />
+    </div>
+    <div>
+        <label>
+            StudentName:
+        </label>
+        <input type="text" asp-for="StudentName" />
+    </div>
+    <div>
+        <label>
+            Date:
+        </label>
+        <input type="text" asp-for="DOB" />
+    </div>
+    <div >
+        <label >
+            Gender:
+            
+        </label>
+        
+     <input type="radio" asp-for="Gender"  value="Male" />
+        <input type="radio" asp-for="Gender" value="Female" />
+        
+    </div>
+
+    <div>
+        <label for="Grade">
+            Grade:
+        </label>
+        <select asp-for="Grade">
+            <option> select</option>
+            <option> Grade-1</option>
+            <option> Grade-2</option>
+            <option> Grade-2</option>
+            <option> Grade-4</option>
+            <option> Grade-5</option>
+            <option> Grade-6</option>
+        </select>
+    </div>
+    
+    
+    <div>
+        <label >
+           OwnTransport:
+        </label>
+        <input type="checkbox" asp-for="IsOwnTransport" />
+    </div>
+    <div>
+        <label>
+            Comments:
+        </label>
+        <textarea asp-for="Comments">
+
+           </textarea>
+    </div>
+     <div>
+        <button type="submit">Save</button>
+     </div> 
+     <div>
+         <label style="color:forestgreen">@ViewBag.Message</label>
+     </div>
+   
+    
+</form>
